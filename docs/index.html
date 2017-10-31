@@ -3,156 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <title>Reform APIs</title>
-    <script type="text/javascript">
-        var microservices = [
-            {
-                "name": "Draft Store",
-                "spec": "https://hmcts.github.io/reform-api-docs/specs/draft-store.json"
-            },
-            {
-                "name": "CCD Definition Store",
-                "description": "",
-                "repository": "",
-                "spec": "",
-                "dependencies": [
-                    {
-                        "name": "IdAM",
-                        "hard": true,
-                        "apis": []
-                    }
-                ],
-                "apis": [],
-                "version": ""
-            },
-            {
-                "name": "CCD Data Store",
-                "description": "",
-                "repository": "",
-                "spec": "",
-                "dependencies": [
-                    {
-                        "name": "CCD Definition Store",
-                        "hard": true,
-                        "apis": []
-                    },
-                    {
-                        "name": "IdAM",
-                        "hard": true,
-                        "apis": []
-                    }
-                ],
-                "apis": [],
-                "version": ""
-            },
-            {
-                "name": "Fees",
-                "description": "",
-                "repository": "",
-                "spec": "",
-                "dependencies": [],
-                "apis": [],
-                "version": ""
-            },
-            {
-                "name": "Payments",
-                "description": "",
-                "repository": "",
-                "spec": "",
-                "dependencies": [
-                    {
-                        "name": "IdAM",
-                        "hard": true,
-                        "apis": []
-                    }
-                ],
-                "apis": [],
-                "version": ""
-            },
-            {
-                "name": "IdAM",
-                "description": "",
-                "repository": "",
-                "spec": "",
-                "dependencies": [],
-                "apis": [],
-                "version": ""
-            },
-            {
-                "name": "Probate Frontend",
-                "description": "",
-                "repository": "",
-                "spec": "",
-                "dependencies": [
-                    {
-                        "name": "IdAM",
-                        "hard": true,
-                        "apis": []
-                    },
-                    {
-                        "name": "Fees",
-                        "hard": true,
-                        "apis": []
-                    },
-                    {
-                        "name": "Payments",
-                        "hard": true,
-                        "apis": []
-                    },
-                    {
-                        "name": "Probate Validator",
-                        "hard": true,
-                        "apis": []
-                    },
-                    {
-                        "name": "Probate Persistence",
-                        "hard": true,
-                        "apis": []
-                    },
-                    {
-                        "name": "Probate Submition",
-                        "hard": true,
-                        "apis": []
-                    }
-                ],
-                "apis": [],
-                "version": ""
-            },
-            {
-                "name": "Probate Validator",
-                "description": "",
-                "repository": "",
-                "spec": "",
-                "dependencies": [],
-                "apis": [],
-                "version": ""
-            },
-            {
-                "name": "Probate Persistence",
-                "description": "",
-                "repository": "",
-                "spec": "",
-                "dependencies": [],
-                "apis": [],
-                "version": ""
-            },
-            {
-                "name": "Probate Submission",
-                "description": "",
-                "repository": "",
-                "spec": "",
-                "dependencies": [],
-                "apis": [],
-                "version": ""
-            }
-        ];
-    </script>
+    <link href="./vis-network.min.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
-    <ul id="apis">
-        <script type="text/javascript">
+    <ul id="apis"></ul>
+    <div id="api" style="width: 1000px;height:800px;"></div>
+    <script type="text/javascript" src="./vis-network.min.js"></script>
+    <script type="text/javascript">
+        function build(data) {
+            // populate list
             var apiList = document.getElementById('apis');
 
-            microservices.forEach(function(el) {
+            data.forEach(function(el) {
                 console.log(el);
                 if (el.spec) {
                     apiList.insertAdjacentHTML('beforeend', '<li><a href="./swagger.html?url=' + el.spec + '">' + el.name + '</a></li>');
@@ -160,7 +22,104 @@
                     apiList.insertAdjacentHTML('beforeend', '<li>' + el.name + '</li>');
                 }
             });
-        </script>
-    </ul>
+
+            var nodeData = data.map(function(micro) {
+                var href = "";
+                if (micro.spec) {
+                    href = "\"href\": \"./swagger.html?url=" + micro.spec + "\","
+                }
+                return JSON.parse("{" +
+                    "\"id\": \"" + micro.name + "\"," +
+                    "\"label\": \"" + micro.name + "\"," +
+                    href +
+                    "\"value\": " + (micro.name.length * 20) +
+                "}");
+            });
+
+            var edgesData = data.map(function(micro) {
+                var source = micro.name;
+                var dependencies = micro.dependencies || [];
+                var edge = dependencies.reduce(function(acc, item) {
+                    return acc + (acc === "" ? "" : ",") + "{" +
+                        "\"from\": \"" + source + "\"," +
+                        "\"to\": \"" + item.name + "\"" +
+                    "}";
+                }, "");
+
+                return JSON.parse('[' + edge + ']');
+            });
+            var edgesFlatData = [].concat.apply([], edgesData);
+
+            // Instantiate our network object.
+            var container = document.getElementById('api');
+            var data = {
+                nodes: nodeData,
+                edges: edgesFlatData
+            };
+            var options = {
+                nodes: {
+                    shape: 'dot',
+                },
+                edges: {
+                    arrows: {
+                        to: true
+                    }
+                },
+                interaction: {
+                    hover: true
+                }
+            };
+            var network = new vis.Network(container, data, options);
+            var networkCanvas = container.getElementsByTagName('canvas')[0];
+
+            network.on('click', function (params) {
+                var nodeId = this.getNodeAt(params.pointer.DOM);
+                var href = this.body.nodes[nodeId].options.href;
+
+                if (href) {
+                    window.open(href, '_blank');
+                }
+            });
+
+            function changeCursor(newCursorStyle){
+                networkCanvas.style.cursor = newCursorStyle;
+            }
+
+            network.on('hoverNode', function (params) {
+                var href = this.body.nodes[params.node].options.href;
+
+                if (href) {
+                    changeCursor('pointer');
+                }
+            });
+            network.on('blurNode', function (params) {
+                changeCursor('default');
+            });
+        }
+
+        // load data
+        function loadJSON(file, callback) {   
+            var xobj = new XMLHttpRequest();
+            xobj.overrideMimeType('application/json');
+            xobj.open('GET', file, true); // Replace 'my_data' with the path to your file
+            xobj.onreadystatechange = function () {
+                if (xobj.readyState == 4 && xobj.status == '200') {
+                // Required use of an anonymous callback as .open will NOT return a value but simply returns undefined in asynchronous mode
+                callback(xobj.responseText);
+                }
+            };
+            xobj.send(null);  
+            }
+            
+        
+        function load() {
+            loadJSON('./microservices.json', function(response) {
+                var microservices = JSON.parse(response);
+                build(microservices);
+            });
+        }
+
+        load();
+  </script>
 </body>
 </html>

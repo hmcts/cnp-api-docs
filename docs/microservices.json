@@ -1,0 +1,141 @@
+[
+    {
+        "name": "Draft Store",
+        "spec": "https://hmcts.github.io/reform-api-docs/specs/draft-store.json"
+    },
+    {
+        "name": "CCD Definition Store",
+        "description": "",
+        "repository": "",
+        "spec": "",
+        "dependencies": [
+            {
+                "name": "IdAM",
+                "hard": true,
+                "apis": []
+            }
+        ],
+        "apis": [],
+        "version": ""
+    },
+    {
+        "name": "CCD Data Store",
+        "description": "",
+        "repository": "",
+        "spec": "",
+        "dependencies": [
+            {
+                "name": "CCD Definition Store",
+                "hard": true,
+                "apis": []
+            },
+            {
+                "name": "IdAM",
+                "hard": true,
+                "apis": []
+            }
+        ],
+        "apis": [],
+        "version": ""
+    },
+    {
+        "name": "Fees",
+        "description": "",
+        "repository": "",
+        "spec": "",
+        "dependencies": [],
+        "apis": [],
+        "version": ""
+    },
+    {
+        "name": "Payments",
+        "description": "",
+        "repository": "",
+        "spec": "",
+        "dependencies": [
+            {
+                "name": "IdAM",
+                "hard": true,
+                "apis": []
+            }
+        ],
+        "apis": [],
+        "version": ""
+    },
+    {
+        "name": "IdAM",
+        "description": "",
+        "repository": "",
+        "spec": "",
+        "dependencies": [],
+        "apis": [],
+        "version": ""
+    },
+    {
+        "name": "Probate Frontend",
+        "description": "",
+        "repository": "",
+        "spec": "",
+        "dependencies": [
+            {
+                "name": "IdAM",
+                "hard": true,
+                "apis": []
+            },
+            {
+                "name": "Fees",
+                "hard": true,
+                "apis": []
+            },
+            {
+                "name": "Payments",
+                "hard": true,
+                "apis": []
+            },
+            {
+                "name": "Probate Validator",
+                "hard": true,
+                "apis": []
+            },
+            {
+                "name": "Probate Persistence",
+                "hard": true,
+                "apis": []
+            },
+            {
+                "name": "Probate Submission",
+                "hard": true,
+                "apis": []
+            }
+        ],
+        "apis": [],
+        "version": ""
+    },
+    {
+        "name": "Probate Validator",
+        "description": "",
+        "repository": "",
+        "spec": "",
+        "dependencies": [],
+        "apis": [],
+        "version": ""
+    },
+    {
+        "name": "Probate Persistence",
+        "description": "",
+        "repository": "",
+        "spec": "",
+        "dependencies": [],
+        "apis": [],
+        "version": ""
+    },
+    {
+        "name": "Probate Submission",
+        "description": "",
+        "repository": "",
+        "spec": "",
+        "dependencies": [],
+        "apis": [],
+        "version": ""
+    }
+]

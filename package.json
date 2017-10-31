@@ -10,7 +10,8 @@
     "url": "git+https://github.com/hmcts/reform-api-docs.git"
   },
   "scripts": {
-    "update-swagger": "cp node_modules/swagger-ui-dist/swagger-ui* docs/"
+    "update-swagger": "cp node_modules/swagger-ui-dist/swagger-ui* docs/",
+    "update-vis": "cp node_modules/vis/dist/vis-network* docs/ && cp -r node_modules/vis/dist/img docs/"
   },
   "author": "",
   "license": "MIT",
@@ -19,6 +20,7 @@
   },
   "homepage": "https://github.com/hmcts/reform-api-docs#readme",
   "dependencies": {
-    "swagger-ui-dist": "^3.4.1"
+    "swagger-ui-dist": "^3.4.2",
+    "vis": "^4.21.0"
   }
 }
