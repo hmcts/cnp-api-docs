@@ -3,10 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <title>Reform APIs</title>
+    <link href="./vis-network.min.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
     <ul id="apis"></ul>
     <div id="api" style="width: 1000px;height:800px;"></div>
+    <script type="text/javascript" src="./vis-network.min.js"></script>
     <script type="text/javascript">
         function build(data) {
             // populate list
@@ -27,42 +29,81 @@
                     href = "\"href\": \"./swagger.html?url=" + micro.spec + "\","
                 }
                 return JSON.parse("{" +
-                    "\"data\": {" +
-                        "\"id\": \"" + micro.name + "\"," +
-                        "\"name\": \"" + micro.name + "\"," +
-                        href +
-                        "\"weight\": " + (micro.name.length * 20) +
-                    "}" +
+                    "\"id\": \"" + micro.name + "\"," +
+                    "\"label\": \"" + micro.name + "\"," +
+                    href +
+                    "\"value\": " + (micro.name.length * 20) +
                 "}");
             });
-            console.log(nodeData);
+
             var edgesData = data.map(function(micro) {
                 var source = micro.name;
                 var dependencies = micro.dependencies || [];
                 var edge = dependencies.reduce(function(acc, item) {
-                    var tmp = "";
-                    if (acc === "") {
-                        tmp = acc;
-                    } else {
-                        tmp = acc + ",";
-                    }
-
-                    return tmp + "{\"data\":{\"source\":\"" + source + "\",\"target\":\"" + item.name + "\"}}"
+                    return acc + (acc === "" ? "" : ",") + "{" +
+                        "\"from\": \"" + source + "\"," +
+                        "\"to\": \"" + item.name + "\"" +
+                    "}";
                 }, "");
 
-                return JSON.parse("[" + edge + "]");
+                return JSON.parse('[' + edge + ']');
             });
             var edgesFlatData = [].concat.apply([], edgesData);
-            console.log(edgesFlatData);
+
+            // Instantiate our network object.
+            var container = document.getElementById('api');
+            var data = {
+                nodes: nodeData,
+                edges: edgesFlatData
+            };
+            var options = {
+                nodes: {
+                    shape: 'dot',
+                },
+                edges: {
+                    arrows: {
+                        to: true
+                    }
+                },
+                interaction: {
+                    hover: true
+                }
+            };
+            var network = new vis.Network(container, data, options);
+            var networkCanvas = container.getElementsByTagName('canvas')[0];
+
+            network.on('click', function (params) {
+                var nodeId = this.getNodeAt(params.pointer.DOM);
+                var href = this.body.nodes[nodeId].options.href;
+
+                if (href) {
+                    window.open(href, '_blank');
+                }
+            });
+
+            function changeCursor(newCursorStyle){
+                networkCanvas.style.cursor = newCursorStyle;
+            }
+
+            network.on('hoverNode', function (params) {
+                var href = this.body.nodes[params.node].options.href;
+
+                if (href) {
+                    changeCursor('pointer');
+                }
+            });
+            network.on('blurNode', function (params) {
+                changeCursor('default');
+            });
         }
 
         // load data
         function loadJSON(file, callback) {   
             var xobj = new XMLHttpRequest();
-            xobj.overrideMimeType("application/json");
+            xobj.overrideMimeType('application/json');
             xobj.open('GET', file, true); // Replace 'my_data' with the path to your file
             xobj.onreadystatechange = function () {
-                if (xobj.readyState == 4 && xobj.status == "200") {
+                if (xobj.readyState == 4 && xobj.status == '200') {
                 // Required use of an anonymous callback as .open will NOT return a value but simply returns undefined in asynchronous mode
                 callback(xobj.responseText);
                 }
@@ -72,7 +113,7 @@
             
         
         function load() {
-            loadJSON("./microservices.json", function(response) {
+            loadJSON('./microservices.json', function(response) {
                 var microservices = JSON.parse(response);
                 build(microservices);
             });
