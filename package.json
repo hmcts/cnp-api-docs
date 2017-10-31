@@ -1,0 +1,24 @@
+{
+  "name": "reform-api-docs",
+  "version": "1.0.0",
+  "description": "Swagger docs for all Reform Program APIs",
+  "directories": {
+    "doc": "docs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hmcts/reform-api-docs.git"
+  },
+  "scripts": {
+    "update-swagger": "cp node_modules/swagger-ui-dist/swagger-ui* docs/"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/hmcts/reform-api-docs/issues"
+  },
+  "homepage": "https://github.com/hmcts/reform-api-docs#readme",
+  "dependencies": {
+    "swagger-ui-dist": "^3.4.1"
+  }
+}
