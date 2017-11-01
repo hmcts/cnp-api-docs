@@ -12,37 +12,36 @@ function build(data) {
     });
 
     var nodeData = data.map(function(micro) {
-        var href = "";
+        var href = undefined;
+
         if (micro.spec) {
-            href = "\"href\": \"./swagger.html?url=" + micro.spec + "\","
+            href = './swagger.html?url=' + micro.spec
         }
-        return JSON.parse("{" +
-            "\"id\": \"" + micro.name + "\"," +
-            "\"label\": \"" + micro.name + "\"," +
-            href +
-            "\"value\": " + (micro.name.length * 20) +
-        "}");
+
+        return {
+            id: micro.name,
+            label: micro.name,
+            href: href,
+            value: micro.name.length * 20
+        }
     });
 
-    var edgesData = data.map(function(micro) {
+    var edgesData = data.reduce(function(acc, micro) {
         var source = micro.name;
         var dependencies = micro.dependencies || [];
-        var edge = dependencies.reduce(function(acc, item) {
-            return acc + (acc === "" ? "" : ",") + "{" +
-                "\"from\": \"" + source + "\"," +
-                "\"to\": \"" + item.name + "\"" +
-            "}";
-        }, "");
-
-        return JSON.parse('[' + edge + ']');
-    });
-    var edgesFlatData = [].concat.apply([], edgesData);
+        return acc.concat(dependencies.map(function(item) {
+            return {
+                from: source,
+                to: item.name
+            };
+        }));
+    }, []);
 
     // Instantiate our network object.
     var container = document.getElementById('api');
     var data = {
         nodes: nodeData,
-        edges: edgesFlatData
+        edges: edgesData
     };
     var options = {
         nodes: {
@@ -62,10 +61,13 @@ function build(data) {
 
     network.on('click', function (params) {
         var nodeId = this.getNodeAt(params.pointer.DOM);
-        var href = this.body.nodes[nodeId].options.href;
 
-        if (href) {
-            window.open(href, '_blank');
+        if (this.body.nodes[nodeId]) {
+            var href = this.body.nodes[nodeId].options.href;
+
+            if (href) {
+                window.open(href, '_blank');
+            }
         }
     });
 
