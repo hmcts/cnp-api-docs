@@ -1,15 +1,4 @@
 function build(data) {
-    // populate list
-    var apiList = document.getElementById('apis');
-
-    data.forEach(function(el) {
-        if (el.spec) {
-            apiList.insertAdjacentHTML('beforeend', '<li><a href="./swagger.html?url=' + el.spec + '">' + el.name + '</a></li>');
-        } else {
-            apiList.insertAdjacentHTML('beforeend', '<li>' + el.name + '</li>');
-        }
-    });
-
     var edgesData = data.reduce(function(acc, micro) {
         var source = micro.name;
         var dependencies = micro.dependencies || [];
@@ -40,7 +29,7 @@ function build(data) {
 
     // Instantiate our network object.
     var container = document.getElementById('api');
-    var data = {
+    var networkData = {
         nodes: nodeData,
         edges: edgesData
     };
@@ -57,7 +46,7 @@ function build(data) {
             hover: true
         }
     };
-    var network = new vis.Network(container, data, options);
+    var network = new vis.Network(container, networkData, options);
     var networkCanvas = container.getElementsByTagName('canvas')[0];
 
     network.on('click', function (params) {
@@ -78,12 +67,21 @@ function build(data) {
 
     network.on('hoverNode', function (params) {
         var href = this.body.nodes[params.node].options.href;
+        var microData = data.find(function(item) {
+            return item.name === params.node;
+        });
+
+        document.getElementById('api-spec').innerHTML = '<h2>' + params.node + '(v: ' + microData.version + ')</h2>' +
+            '<div>' + microData.description + '</div>' +
+            '<div>' + microData.repository + '</div>';
 
         if (href) {
             changeCursor('pointer');
         }
     });
     network.on('blurNode', function (params) {
+        document.getElementById('api-spec').innerHTML = '';
+
         changeCursor('default');
     });
 }
