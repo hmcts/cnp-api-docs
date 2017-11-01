@@ -3,26 +3,10 @@ function build(data) {
     var apiList = document.getElementById('apis');
 
     data.forEach(function(el) {
-        console.log(el);
         if (el.spec) {
             apiList.insertAdjacentHTML('beforeend', '<li><a href="./swagger.html?url=' + el.spec + '">' + el.name + '</a></li>');
         } else {
             apiList.insertAdjacentHTML('beforeend', '<li>' + el.name + '</li>');
-        }
-    });
-
-    var nodeData = data.map(function(micro) {
-        var href = undefined;
-
-        if (micro.spec) {
-            href = './swagger.html?url=' + micro.spec
-        }
-
-        return {
-            id: micro.name,
-            label: micro.name,
-            href: href,
-            value: micro.name.length * 20
         }
     });
 
@@ -36,6 +20,23 @@ function build(data) {
             };
         }));
     }, []);
+
+    var nodeData = data.map(function(micro) {
+        var href = undefined;
+
+        if (micro.spec) {
+            href = './swagger.html?url=' + micro.spec
+        }
+
+        return {
+            id: micro.name,
+            label: micro.name,
+            href: href,
+            value: edgesData.filter(function(obj) {
+                return obj.to === micro.name;
+            }).length * 5 + 5
+        }
+    });
 
     // Instantiate our network object.
     var container = document.getElementById('api');
