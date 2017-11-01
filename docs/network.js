@@ -1,3 +1,19 @@
+function hexToRgbA(hex, alpha = 1) {
+    var c;
+
+    if (/^#([A-Fa-f0-9]{3}){1,2}$/.test(hex)) {
+        c = hex.substring(1).split('');
+        if (c.length == 3) {
+            c = [c[0], c[0], c[1], c[1], c[2], c[2]];
+        }
+
+        c = '0x' + c.join('');
+
+        return 'rgba('+[(c>>16)&255, (c>>8)&255, c&255].join(',')+',' + alpha + ')';
+    }
+    throw new Error('Bad Hex');
+}
+
 function build(data) {
     var edgesData = data.reduce(function(acc, micro) {
         var source = micro.name;
@@ -17,13 +33,34 @@ function build(data) {
             href = './swagger.html?url=' + micro.spec
         }
 
+        var colour = hexToRgbA(micro.colour);
+        var hoverColour = hexToRgbA(micro.colour, 0.7);
+        var highlightColour = hexToRgbA(micro.colour, 0.9);
+
         return {
             id: micro.name,
             label: micro.name,
             href: href,
             value: edgesData.filter(function(obj) {
                 return obj.to === micro.name;
-            }).length * 5 + 5
+            }).length * 5 + 5,
+            color: {
+                background: colour,
+                border: colour,
+                hover: {
+                    background: hoverColour,
+                    border: hoverColour
+                },
+                highlight: {
+                    background: highlightColour,
+                    border: highlightColour
+                }
+            }
+            // leftover colours from default pastel of 10
+            // d35400
+            // c0392b
+            // bdc3c7
+            // 7f8c8d
         }
     });
 
