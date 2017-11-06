@@ -5,12 +5,74 @@
         "colour": "#16a085"
     },
     {
-        "name": "CCD Definition Store",
+        "name": "CCD API Gateway",
         "description": null,
         "repository": null,
         "spec": null,
-        "colour": "#27ae60",
+        "colour": "#FF69B4",
         "dependencies": [
+            {
+                "name": "CCD Data Store",
+                "hard": true,
+                "apis": []
+            },
+            {
+                "name": "CCD Definition Store",
+                "hard": true,
+                "apis": []
+            },
+            {
+                "name": "CCD User Profile",
+                "hard": true,
+                "apis": []
+            },
+            {
+                "name": "IdAM",
+                "hard": true,
+                "apis": []
+            },
+            {
+                "name": "IdAM S2S",
+                "hard": true,
+                "apis": []
+            }
+        ],
+        "apis": [],
+        "version": null
+    },
+    {
+        "name": "CCD Case Activity",
+        "description": null,
+        "repository": null,
+        "spec": null,
+        "colour": "#FF69B4",
+        "dependencies": [
+            {
+                "name": "IdAM",
+                "hard": true,
+                "apis": []
+            }
+        ],
+        "apis": [],
+        "version": null
+    },
+    {
+        "name": "CCD Case Management Web",
+        "description": null,
+        "repository": null,
+        "spec": null,
+        "colour": "#FF69B4",
+        "dependencies": [
+            {
+                "name": "CCD API Gateway",
+                "hard": true,
+                "apis": []
+            },
+            {
+                "name": "CCD Case Activity",
+                "hard": true,
+                "apis": []
+            },
             {
                 "name": "IdAM",
                 "hard": true,
@@ -25,10 +87,67 @@
         "description": null,
         "repository": null,
         "spec": null,
-        "colour": "#27ae60",
+        "colour": "#FF69B4",
         "dependencies": [
             {
                 "name": "CCD Definition Store",
+                "hard": true,
+                "apis": []
+            },
+            {
+                "name": "CCD User Profile",
+                "hard": true,
+                "apis": []
+            },
+            {
+                "name": "IdAM",
+                "hard": true,
+                "apis": []
+            },
+            {
+                "name": "IdAM S2S",
+                "hard": true,
+                "apis": []
+            }
+        ],
+        "apis": [],
+        "version": null
+    },
+    {
+        "name": "CCD Definition Store",
+        "description": null,
+        "repository": null,
+        "spec": null,
+        "colour": "#FF69B4",
+        "dependencies": [
+            {
+                "name": "CCD User Profile",
+                "hard": true,
+                "apis": []
+            },
+            {
+                "name": "IdAM",
+                "hard": true,
+                "apis": []
+            },
+            {
+                "name": "IdAM S2S",
+                "hard": true,
+                "apis": []
+            }
+        ],
+        "apis": [],
+        "version": "null"
+    },
+    {
+        "name": "CCD Import Web",
+        "description": null,
+        "repository": null,
+        "spec": null,
+        "colour": "#FF69B4",
+        "dependencies": [
+            {
+                "name": "CCD API Gateway",
                 "hard": true,
                 "apis": []
             },
@@ -40,6 +159,27 @@
         ],
         "apis": [],
         "version": null
+    },
+    {
+        "name": "CCD User Profile",
+        "description": null,
+        "repository": null,
+        "spec": null,
+        "colour": "#FF69B4",
+        "dependencies": [
+            {
+                "name": "IdAM",
+                "hard": true,
+                "apis": []
+            },
+            {
+                "name": "IdAM S2S",
+                "hard": true,
+                "apis": []
+            }
+        ],
+        "apis": [],
+        "version": "null"
     },
     {
         "name": "Fees",
@@ -70,6 +210,16 @@
     {
         "name": "IdAM",
         "description": null,
+        "repository": null,
+        "spec": null,
+        "colour": "#2c3e50",
+        "dependencies": [],
+        "apis": [],
+        "version": null
+    },
+    {
+        "name": "IdAM S2S",
+        "description": "Service to Service",
         "repository": null,
         "spec": null,
         "colour": "#2c3e50",
