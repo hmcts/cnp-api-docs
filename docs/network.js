@@ -37,9 +37,18 @@ function build(data) {
         var hoverColour = hexToRgbA(micro.colour, 0.7);
         var highlightColour = hexToRgbA(micro.colour, 0.9);
 
+        var tooltip = undefined;
+
+        if (micro.version || micro.description || micro.repository) {
+            tooltip = '<h2>' + micro.name + (micro.version ? ' (v: ' + micro.version + ')' : '') + '</h2>' +
+                (micro.description ? '<div>' + micro.description + '</div>' : '') +
+                (micro.repository ? '<div>' + micro.repository + '</div>' : '');
+        }
+
         return {
             id: micro.name,
             label: micro.name,
+            title: tooltip,
             href: href,
             value: edgesData.filter(function(obj) {
                 return obj.to === micro.name;
@@ -104,21 +113,12 @@ function build(data) {
 
     network.on('hoverNode', function (params) {
         var href = this.body.nodes[params.node].options.href;
-        var microData = data.find(function(item) {
-            return item.name === params.node;
-        });
-
-        document.getElementById('api-spec').innerHTML = '<h2>' + params.node + '(v: ' + microData.version + ')</h2>' +
-            '<div>' + microData.description + '</div>' +
-            '<div>' + microData.repository + '</div>';
 
         if (href) {
             changeCursor('pointer');
         }
     });
     network.on('blurNode', function (params) {
-        document.getElementById('api-spec').innerHTML = '';
-
         changeCursor('default');
     });
 }
