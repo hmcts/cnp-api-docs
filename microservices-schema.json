@@ -1,0 +1,120 @@
+{
+    "definitions": {},
+    "$schema": "http://json-schema.org/draft-06/schema#",
+    "type": "array",
+    "$id": "https://raw.githubusercontent.com/hmcts/reform-api-docs/master/docs/microservices.json",
+    "items": {
+        "type": "object",
+        "$id": "https://raw.githubusercontent.com/hmcts/reform-api-docs/master/docs/microservices.json/items",
+        "properties": {
+            "name": {
+                "type": "string",
+                "$id": "https://raw.githubusercontent.com/hmcts/reform-api-docs/master/docs/microservices.json/items/properties/name",
+                "title": "API name",
+                "description": "The name of the API, usually a match of GitHub repo README title",
+                "default": "",
+                "examples": [
+                    "Payments"
+                ]
+            },
+            "description": {
+                "type": "string",
+                "$id": "https://raw.githubusercontent.com/hmcts/reform-api-docs/master/docs/microservices.json/items/properties/description",
+                "title": "API description",
+                "description": "Short description of the API",
+                "default": null,
+                "examples": [
+                    "Payment methods provided to the customer"
+                ]
+            },
+            "repository": {
+                "type": "string",
+                "$id": "https://raw.githubusercontent.com/hmcts/reform-api-docs/master/docs/microservices.json/items/properties/repository",
+                "title": "API repository",
+                "description": "Link to the API repository",
+                "default": null,
+                "examples": [
+                    "https://github.com/hmcts/payments"
+                ]
+            },
+            "spec": {
+                "type": "string",
+                "$id": "https://raw.githubusercontent.com/hmcts/reform-api-docs/master/docs/microservices.json/items/properties/spec",
+                "title": "API specs",
+                "description": "Link to API specification json file",
+                "default": null,
+                "examples": [
+                    "https://hmcts.github.io/reform-api-docs/specs/payments.json"
+                ]
+            },
+            "colour": {
+                "type": "string",
+                "$id": "https://raw.githubusercontent.com/hmcts/reform-api-docs/master/docs/microservices.json/items/properties/colour",
+                "title": "Network colout",
+                "description": "Colour used to paint and group APIs in the network graph",
+                "default": "",
+                "examples": [
+                    "#8e44ad"
+                ]
+            },
+            "dependencies": {
+                "type": "array",
+                "$id": "https://raw.githubusercontent.com/hmcts/reform-api-docs/master/docs/microservices.json/items/properties/dependencies",
+                "items": {
+                    "type": "object",
+                    "$id": "https://raw.githubusercontent.com/hmcts/reform-api-docs/master/docs/microservices.json/items/properties/dependencies/items",
+                    "properties": {
+                        "name": {
+                            "type": "string",
+                            "$id": "https://raw.githubusercontent.com/hmcts/reform-api-docs/master/docs/microservices.json/items/properties/dependencies/items/properties/name",
+                            "title": "API name",
+                            "description": "The name of the API, usually a match of GitHub repo README title",
+                            "default": "",
+                            "examples": [
+                                "IdAM"
+                            ]
+                        },
+                        "hard": {
+                            "type": "boolean",
+                            "$id": "https://raw.githubusercontent.com/hmcts/reform-api-docs/master/docs/microservices.json/items/properties/dependencies/items/properties/hard",
+                            "title": "???",
+                            "description": "???",
+                            "default": false,
+                            "examples": [
+                                true
+                            ]
+                        },
+                        "apis": {
+                            "type": "array",
+                            "$id": "https://raw.githubusercontent.com/hmcts/reform-api-docs/master/docs/microservices.json/items/properties/dependencies/items/properties/apis",
+                            "items": {
+                                "$id": "grizzlybear",
+                                "title": "???",
+                                "description": "???"
+                            }
+                        }
+                    }
+                }
+            },
+            "apis": {
+                "type": "array",
+                "$id": "https://raw.githubusercontent.com/hmcts/reform-api-docs/master/docs/microservices.json/items/properties/apis",
+                "items": {
+                    "$id": "sunbear",
+                    "title": "???",
+                    "description": "???"
+                }
+            },
+            "version": {
+                "type": "string",
+                "$id": "https://raw.githubusercontent.com/hmcts/reform-api-docs/master/docs/microservices.json/items/properties/version",
+                "title": "API version",
+                "description": "Version of the API",
+                "default": null,
+                "examples": [
+                    "1.0.0"
+                ]
+            }
+        }
+    }
+}
