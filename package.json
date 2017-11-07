@@ -20,7 +20,8 @@
   },
   "homepage": "https://github.com/hmcts/reform-api-docs#readme",
   "dependencies": {
-    "swagger-ui-dist": "^3.4.2",
+    "djv": "^2.0.0",
+    "swagger-ui-dist": "^3.4.3",
     "vis": "^4.21.0"
   }
 }
