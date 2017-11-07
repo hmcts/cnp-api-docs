@@ -54,3 +54,15 @@ npm run update-vis
 ```
 
 Repository is using swagger bundle so instead of downloading individual `swagger-ui` packages it gets the `swagger-ui-dist` for the whole thing and then just graps everything from `dist` upon npm script execution.
+
+## Testing
+
+```bash
+npm test
+```
+
+## Localhost viewing
+
+```bash
+npm start
+```
