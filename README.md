@@ -31,7 +31,7 @@ In order to populate one of the API in the network graph we need to enter the fo
         }
     ],
     "apis": [],
-    "version": "null"
+    "version": null
 }
 ```
 
