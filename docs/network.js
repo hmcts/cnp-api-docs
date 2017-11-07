@@ -54,11 +54,6 @@ function build(data) {
             value: edgesData.filter(function(obj) {
                 return obj.to === micro.id;
             }).length * 5 + 5
-            // leftover colours from default pastel of 10
-            // d35400
-            // c0392b
-            // bdc3c7
-            // 7f8c8d
         }
     });
 
