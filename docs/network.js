@@ -37,14 +37,6 @@ function build(data) {
             href = './swagger.html?url=' + micro.spec
         }
 
-        var groupColour = data.groups.find(function(item) {
-            return item.name == micro.group;
-        }).colour;
-
-        var colour = hexToRgbA(groupColour);
-        var hoverColour = hexToRgbA(groupColour, 0.7);
-        var highlightColour = hexToRgbA(groupColour, 0.9);
-
         var tooltip = undefined;
 
         if (micro.version || micro.description || micro.repository) {
@@ -56,11 +48,54 @@ function build(data) {
         return {
             id: micro.id,
             label: micro.name,
+            group: micro.group,
             title: tooltip,
             href: href,
             value: edgesData.filter(function(obj) {
                 return obj.to === micro.id;
-            }).length * 5 + 5,
+            }).length * 5 + 5
+            // leftover colours from default pastel of 10
+            // d35400
+            // c0392b
+            // bdc3c7
+            // 7f8c8d
+        }
+    });
+
+    // container
+
+    var container = document.getElementById('api');
+
+    // legend (extra not connected nodes)
+
+    var x = - container.clientWidth / 2 - 150;
+    var y = - container.clientHeight / 2 - 150;
+    var step = 50;
+
+    data.groups.forEach(function(group, index) {
+        nodeData.push({
+            id: 1000 + index,
+            x: x,
+            y: y + index * step,
+            label: group.name,
+            group: group.name,
+            value: 1,
+            fixed: true,
+            physics: false
+        });
+    });
+
+    // groups
+
+    var groupOptions = {};
+
+    data.groups.forEach(function(group) {
+        var colour = hexToRgbA(group.colour);
+        var hoverColour = hexToRgbA(group.colour, 0.7);
+        var highlightColour = hexToRgbA(group.colour, 0.9);
+
+        groupOptions[group.name] = {
+            shape: 'dot',
             color: {
                 background: colour,
                 border: colour,
@@ -73,25 +108,17 @@ function build(data) {
                     border: highlightColour
                 }
             }
-            // leftover colours from default pastel of 10
-            // d35400
-            // c0392b
-            // bdc3c7
-            // 7f8c8d
-        }
+        };
     });
 
     // Instantiate our network object.
 
-    var container = document.getElementById('api');
     var networkData = {
         nodes: nodeData,
         edges: edgesData
     };
     var options = {
-        nodes: {
-            shape: 'dot',
-        },
+        groups: groupOptions,
         edges: {
             arrows: {
                 to: true
