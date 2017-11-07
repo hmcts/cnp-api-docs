@@ -2,7 +2,19 @@
     {
         "name": "Draft Store",
         "spec": "https://hmcts.github.io/reform-api-docs/specs/draft-store.json",
-        "colour": "#16a085"
+        "colour": "#16a085",
+        "dependencies": [
+            {
+                "name": "IdAM S2S",
+                "hard": true,
+                "apis": []
+            },
+            {
+                "name": "IdAM",
+                "hard": true,
+                "apis": []
+            }
+        ]
     },
     {
         "name": "CCD API Gateway",
