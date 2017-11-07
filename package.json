@@ -10,6 +10,7 @@
     "url": "git+https://github.com/hmcts/reform-api-docs.git"
   },
   "scripts": {
+    "test": "jasmine JASMINE_CONFIG_PATH=package.json",
     "update-swagger": "cp node_modules/swagger-ui-dist/swagger-ui* docs/",
     "update-vis": "cp node_modules/vis/dist/vis-network* docs/ && cp -r node_modules/vis/dist/img docs/"
   },
@@ -21,7 +22,12 @@
   "homepage": "https://github.com/hmcts/reform-api-docs#readme",
   "dependencies": {
     "djv": "^2.0.0",
+    "jasmine": "^2.8.0",
     "swagger-ui-dist": "^3.4.3",
     "vis": "^4.21.0"
-  }
+  },
+  "spec_dir": "test",
+  "spec_files": [
+    "**/*.js"
+  ]
 }
