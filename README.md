@@ -13,19 +13,20 @@ In order to populate one of the API in the network graph we need to enter the fo
 
 ```json
 {
-    "name": "CCD User Profile",
+    "id": "ccd-user-profile",
+    "name": "User Profile",
+    "group": "CCD",
     "description": null,
     "repository": null,
     "spec": null,
-    "colour": "#FF69B4",
     "dependencies": [
         {
-            "name": "IdAM",
+            "id": "idam",
             "hard": true,
             "apis": []
         },
         {
-            "name": "IdAM S2S",
+            "id": "idam-s2s",
             "hard": true,
             "apis": []
         }
@@ -34,6 +35,8 @@ In order to populate one of the API in the network graph we need to enter the fo
     "version": null
 }
 ```
+
+In case you are introducing a new network group, please provide relevant information about it in the `groups` field (follow specification linked below and implementation linked above).
 
 Full specification can be viewed in [json schema](microservices-schema.json).
 
