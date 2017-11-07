@@ -50,7 +50,7 @@
             "colour": {
                 "type": "string",
                 "$id": "https://raw.githubusercontent.com/hmcts/reform-api-docs/master/docs/microservices.json/items/properties/colour",
-                "title": "Network colout",
+                "title": "Network colour",
                 "description": "Colour used to paint and group APIs in the network graph",
                 "default": "",
                 "examples": [
