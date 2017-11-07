@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/hmcts/reform-api-docs.svg?branch=master)](https://travis-ci.org/hmcts/reform-api-docs)
+
 # HMCTS Reform API Documentation
 
 ## Intro
