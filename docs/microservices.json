@@ -1,313 +1,357 @@
-[
-    {
-        "name": "Draft Store",
-        "spec": "https://hmcts.github.io/reform-api-docs/specs/draft-store.json",
-        "colour": "#16a085",
-        "dependencies": [
-            {
-                "name": "IdAM S2S",
-                "hard": true,
-                "apis": []
-            },
-            {
-                "name": "IdAM",
-                "hard": true,
-                "apis": []
-            }
-        ]
-    },
-    {
-        "name": "CCD API Gateway",
-        "description": null,
-        "repository": null,
-        "spec": null,
-        "colour": "#FF69B4",
-        "dependencies": [
-            {
-                "name": "CCD Data Store",
-                "hard": true,
-                "apis": []
-            },
-            {
-                "name": "CCD Definition Store",
-                "hard": true,
-                "apis": []
-            },
-            {
-                "name": "CCD User Profile",
-                "hard": true,
-                "apis": []
-            },
-            {
-                "name": "IdAM",
-                "hard": true,
-                "apis": []
-            },
-            {
-                "name": "IdAM S2S",
-                "hard": true,
-                "apis": []
-            }
-        ],
-        "apis": [],
-        "version": null
-    },
-    {
-        "name": "CCD Case Activity",
-        "description": null,
-        "repository": null,
-        "spec": null,
-        "colour": "#FF69B4",
-        "dependencies": [
-            {
-                "name": "IdAM",
-                "hard": true,
-                "apis": []
-            }
-        ],
-        "apis": [],
-        "version": null
-    },
-    {
-        "name": "CCD Case Management Web",
-        "description": null,
-        "repository": null,
-        "spec": null,
-        "colour": "#FF69B4",
-        "dependencies": [
-            {
-                "name": "CCD API Gateway",
-                "hard": true,
-                "apis": []
-            },
-            {
-                "name": "CCD Case Activity",
-                "hard": true,
-                "apis": []
-            },
-            {
-                "name": "IdAM",
-                "hard": true,
-                "apis": []
-            }
-        ],
-        "apis": [],
-        "version": null
-    },
-    {
-        "name": "CCD Data Store",
-        "description": null,
-        "repository": null,
-        "spec": null,
-        "colour": "#FF69B4",
-        "dependencies": [
-            {
-                "name": "CCD Definition Store",
-                "hard": true,
-                "apis": []
-            },
-            {
-                "name": "CCD User Profile",
-                "hard": true,
-                "apis": []
-            },
-            {
-                "name": "IdAM",
-                "hard": true,
-                "apis": []
-            },
-            {
-                "name": "IdAM S2S",
-                "hard": true,
-                "apis": []
-            }
-        ],
-        "apis": [],
-        "version": null
-    },
-    {
-        "name": "CCD Definition Store",
-        "description": null,
-        "repository": null,
-        "spec": null,
-        "colour": "#FF69B4",
-        "dependencies": [
-            {
-                "name": "CCD User Profile",
-                "hard": true,
-                "apis": []
-            },
-            {
-                "name": "IdAM",
-                "hard": true,
-                "apis": []
-            },
-            {
-                "name": "IdAM S2S",
-                "hard": true,
-                "apis": []
-            }
-        ],
-        "apis": [],
-        "version": null
-    },
-    {
-        "name": "CCD Import Web",
-        "description": null,
-        "repository": null,
-        "spec": null,
-        "colour": "#FF69B4",
-        "dependencies": [
-            {
-                "name": "CCD API Gateway",
-                "hard": true,
-                "apis": []
-            },
-            {
-                "name": "IdAM",
-                "hard": true,
-                "apis": []
-            }
-        ],
-        "apis": [],
-        "version": null
-    },
-    {
-        "name": "CCD User Profile",
-        "description": null,
-        "repository": null,
-        "spec": null,
-        "colour": "#FF69B4",
-        "dependencies": [
-            {
-                "name": "IdAM",
-                "hard": true,
-                "apis": []
-            },
-            {
-                "name": "IdAM S2S",
-                "hard": true,
-                "apis": []
-            }
-        ],
-        "apis": [],
-        "version": null
-    },
-    {
-        "name": "Fees",
-        "description": null,
-        "repository": null,
-        "spec": null,
-        "colour": "#2980b9",
-        "dependencies": [],
-        "apis": [],
-        "version": null
-    },
-    {
-        "name": "Payments",
-        "description": null,
-        "repository": null,
-        "spec": null,
-        "colour": "#8e44ad",
-        "dependencies": [
-            {
-                "name": "IdAM",
-                "hard": true,
-                "apis": []
-            }
-        ],
-        "apis": [],
-        "version": null
-    },
-    {
-        "name": "IdAM",
-        "description": null,
-        "repository": null,
-        "spec": null,
-        "colour": "#2c3e50",
-        "dependencies": [],
-        "apis": [],
-        "version": null
-    },
-    {
-        "name": "IdAM S2S",
-        "description": "Service to Service",
-        "repository": null,
-        "spec": null,
-        "colour": "#2c3e50",
-        "dependencies": [],
-        "apis": [],
-        "version": null
-    },
-    {
-        "name": "Probate Frontend",
-        "description": null,
-        "repository": null,
-        "spec": null,
-        "colour": "#f39c12",
-        "dependencies": [
-            {
-                "name": "IdAM",
-                "hard": true,
-                "apis": []
-            },
-            {
-                "name": "Fees",
-                "hard": true,
-                "apis": []
-            },
-            {
-                "name": "Payments",
-                "hard": true,
-                "apis": []
-            },
-            {
-                "name": "Probate Validator",
-                "hard": true,
-                "apis": []
-            },
-            {
-                "name": "Probate Persistence",
-                "hard": true,
-                "apis": []
-            },
-            {
-                "name": "Probate Submission",
-                "hard": true,
-                "apis": []
-            }
-        ],
-        "apis": [],
-        "version": null
-    },
-    {
-        "name": "Probate Validator",
-        "description": null,
-        "repository": null,
-        "spec": null,
-        "colour": "#f39c12",
-        "dependencies": [],
-        "apis": [],
-        "version": null
-    },
-    {
-        "name": "Probate Persistence",
-        "description": null,
-        "repository": null,
-        "spec": null,
-        "colour": "#f39c12",
-        "dependencies": [],
-        "apis": [],
-        "version": null
-    },
-    {
-        "name": "Probate Submission",
-        "description": null,
-        "repository": null,
-        "spec": null,
-        "colour": "#f39c12",
-        "dependencies": [],
-        "apis": [],
-        "version": null
-    }
-]
+{
+    "groups": [
+        {
+            "name": "Draft Store",
+            "colour": "#16a085"
+        },
+        {
+            "name": "CCD",
+            "colour": "#ff69b4"
+        },
+        {
+            "name": "Fees",
+            "colour": "#2980b9"
+        },
+        {
+            "name": "Payments",
+            "colour": "#8e44ad"
+        },
+        {
+            "name": "IdAM",
+            "colour": "#2c3e50"
+        },
+        {
+            "name": "Probate",
+            "colour": "#f39c12"
+        }
+    ],
+    "apis": [
+        {
+            "id": "draft-store",
+            "name": "Draft Store",
+            "spec": "https://hmcts.github.io/reform-api-docs/specs/draft-store.json",
+            "group": "Draft Store",
+            "dependencies": [
+                {
+                    "id": "idam-s2s",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "idam",
+                    "hard": true,
+                    "apis": []
+                }
+            ]
+        },
+        {
+            "id": "ccd-api-gateway",
+            "name": "API Gateway",
+            "group": "CCD",
+            "description": null,
+            "repository": null,
+            "spec": null,
+            "dependencies": [
+                {
+                    "id": "ccd-data-store",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "ccd-definition-store",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "ccd-user-profile",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "idam",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "idam-s2s",
+                    "hard": true,
+                    "apis": []
+                }
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "ccd-case-activity",
+            "name": "Case Activity",
+            "group": "CCD",
+            "description": null,
+            "repository": null,
+            "spec": null,
+            "dependencies": [
+                {
+                    "id": "idam",
+                    "hard": true,
+                    "apis": []
+                }
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "ccd-case-management-web",
+            "name": "Case Management Web",
+            "group": "CCD",
+            "description": null,
+            "repository": null,
+            "spec": null,
+            "dependencies": [
+                {
+                    "id": "ccd-api-gateway",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "ccd-case-activity",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "idam",
+                    "hard": true,
+                    "apis": []
+                }
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "ccd-data-store",
+            "name": "Data Store",
+            "group": "CCD",
+            "description": null,
+            "repository": null,
+            "spec": null,
+            "dependencies": [
+                {
+                    "id": "ccd-definition-store",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "ccd-user-profile",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "idam",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "idam-s2s",
+                    "hard": true,
+                    "apis": []
+                }
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "ccd-definition-store",
+            "name": "Definition Store",
+            "group": "CCD",
+            "description": null,
+            "repository": null,
+            "spec": null,
+            "dependencies": [
+                {
+                    "id": "ccd-user-profile",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "idam",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "idam-s2s",
+                    "hard": true,
+                    "apis": []
+                }
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "ccd-import-web",
+            "name": "Import Web",
+            "group": "CCD",
+            "description": null,
+            "repository": null,
+            "spec": null,
+            "dependencies": [
+                {
+                    "id": "ccd-api-gateway",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "idam",
+                    "hard": true,
+                    "apis": []
+                }
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "ccd-user-profile",
+            "name": "User Profile",
+            "group": "CCD",
+            "description": null,
+            "repository": null,
+            "spec": null,
+            "dependencies": [
+                {
+                    "id": "idam",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "idam-s2s",
+                    "hard": true,
+                    "apis": []
+                }
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "fees",
+            "name": "Fees",
+            "group": "Fees",
+            "description": null,
+            "repository": null,
+            "spec": null,
+            "dependencies": [],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "payments",
+            "name": "Payments",
+            "group": "Payments",
+            "description": null,
+            "repository": null,
+            "spec": null,
+            "dependencies": [
+                {
+                    "id": "idam",
+                    "hard": true,
+                    "apis": []
+                }
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "idam",
+            "name": "IdAM",
+            "group": "IdAM",
+            "description": null,
+            "repository": null,
+            "spec": null,
+            "dependencies": [],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "idam-s2s",
+            "name": "S2S",
+            "group": "IdAM",
+            "description": "Service to Service",
+            "repository": null,
+            "spec": null,
+            "dependencies": [],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "probate-frontend",
+            "name": "Frontend",
+            "group": "Probate",
+            "description": null,
+            "repository": null,
+            "spec": null,
+            "dependencies": [
+                {
+                    "id": "idam",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "fees",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "payments",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "probate-validator",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "probate-persistence",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "probate-submission",
+                    "hard": true,
+                    "apis": []
+                }
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "probate-validator",
+            "name": "Validator",
+            "group": "Probate",
+            "description": null,
+            "repository": null,
+            "spec": null,
+            "dependencies": [],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "probate-persistence",
+            "name": "Persistence",
+            "group": "Probate",
+            "description": null,
+            "repository": null,
+            "spec": null,
+            "dependencies": [],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "probate-submission",
+            "name": "Submission",
+            "group": "Probate",
+            "description": null,
+            "repository": null,
+            "spec": null,
+            "dependencies": [],
+            "apis": [],
+            "version": null
+        }
+    ]
+}

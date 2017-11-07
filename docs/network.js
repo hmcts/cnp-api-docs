@@ -15,27 +15,35 @@ function hexToRgbA(hex, alpha = 1) {
 }
 
 function build(data) {
-    var edgesData = data.reduce(function(acc, micro) {
-        var source = micro.name;
+    // edges
+
+    var edgesData = data.apis.reduce(function(acc, micro) {
         var dependencies = micro.dependencies || [];
         return acc.concat(dependencies.map(function(item) {
             return {
-                from: source,
-                to: item.name
+                from: micro.id,
+                to: item.id,
+                dashes: !item.hard
             };
         }));
     }, []);
 
-    var nodeData = data.map(function(micro) {
+    // data
+
+    var nodeData = data.apis.map(function(micro) {
         var href = undefined;
 
         if (micro.spec) {
             href = './swagger.html?url=' + micro.spec
         }
 
-        var colour = hexToRgbA(micro.colour);
-        var hoverColour = hexToRgbA(micro.colour, 0.7);
-        var highlightColour = hexToRgbA(micro.colour, 0.9);
+        var groupColour = data.groups.find(function(item) {
+            return item.name == micro.group;
+        }).colour;
+
+        var colour = hexToRgbA(groupColour);
+        var hoverColour = hexToRgbA(groupColour, 0.7);
+        var highlightColour = hexToRgbA(groupColour, 0.9);
 
         var tooltip = undefined;
 
@@ -46,12 +54,12 @@ function build(data) {
         }
 
         return {
-            id: micro.name,
+            id: micro.id,
             label: micro.name,
             title: tooltip,
             href: href,
             value: edgesData.filter(function(obj) {
-                return obj.to === micro.name;
+                return obj.to === micro.id;
             }).length * 5 + 5,
             color: {
                 background: colour,
@@ -74,6 +82,7 @@ function build(data) {
     });
 
     // Instantiate our network object.
+
     var container = document.getElementById('api');
     var networkData = {
         nodes: nodeData,
