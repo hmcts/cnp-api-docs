@@ -15,27 +15,27 @@ function hexToRgbA(hex, alpha = 1) {
 }
 
 function build(data) {
-    var edgesData = data.reduce(function(acc, micro) {
-        var source = micro.name;
+    // edges
+
+    var edgesData = data.apis.reduce(function(acc, micro) {
         var dependencies = micro.dependencies || [];
         return acc.concat(dependencies.map(function(item) {
             return {
-                from: source,
-                to: item.name
+                from: micro.id,
+                to: item.id,
+                dashes: !item.hard
             };
         }));
     }, []);
 
-    var nodeData = data.map(function(micro) {
+    // data
+
+    var nodeData = data.apis.map(function(micro) {
         var href = undefined;
 
         if (micro.spec) {
             href = './swagger.html?url=' + micro.spec
         }
-
-        var colour = hexToRgbA(micro.colour);
-        var hoverColour = hexToRgbA(micro.colour, 0.7);
-        var highlightColour = hexToRgbA(micro.colour, 0.9);
 
         var tooltip = undefined;
 
@@ -46,13 +46,51 @@ function build(data) {
         }
 
         return {
-            id: micro.name,
+            id: micro.id,
             label: micro.name,
+            group: micro.group,
             title: tooltip,
             href: href,
             value: edgesData.filter(function(obj) {
-                return obj.to === micro.name;
-            }).length * 5 + 5,
+                return obj.to === micro.id;
+            }).length * 5 + 5
+        }
+    });
+
+    // container
+
+    var container = document.getElementById('api');
+
+    // legend (extra not connected nodes)
+
+    var x = - container.clientWidth / 2 - 150;
+    var y = - container.clientHeight / 2 - 150;
+    var step = 50;
+
+    data.groups.forEach(function(group, index) {
+        nodeData.push({
+            id: 1000 + index,
+            x: x,
+            y: y + index * step,
+            label: group.name,
+            group: group.name,
+            value: 1,
+            fixed: true,
+            physics: false
+        });
+    });
+
+    // groups
+
+    var groupOptions = {};
+
+    data.groups.forEach(function(group) {
+        var colour = hexToRgbA(group.colour);
+        var hoverColour = hexToRgbA(group.colour, 0.7);
+        var highlightColour = hexToRgbA(group.colour, 0.9);
+
+        groupOptions[group.name] = {
+            shape: 'dot',
             color: {
                 background: colour,
                 border: colour,
@@ -65,24 +103,17 @@ function build(data) {
                     border: highlightColour
                 }
             }
-            // leftover colours from default pastel of 10
-            // d35400
-            // c0392b
-            // bdc3c7
-            // 7f8c8d
-        }
+        };
     });
 
     // Instantiate our network object.
-    var container = document.getElementById('api');
+
     var networkData = {
         nodes: nodeData,
         edges: edgesData
     };
     var options = {
-        nodes: {
-            shape: 'dot',
-        },
+        groups: groupOptions,
         edges: {
             arrows: {
                 to: true
