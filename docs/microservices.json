@@ -23,6 +23,10 @@
         {
             "name": "Probate",
             "colour": "#f39c12"
+        },
+        {
+            "name": "CMC",
+            "colour": "#f30000"
         }
     ],
     "apis": [
@@ -350,6 +354,123 @@
             "repository": null,
             "spec": null,
             "dependencies": [],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "cmc-legal-rep-frontend",
+            "name": "Legal Rep Frontend",
+            "group": "CMC",
+            "description": null,
+            "repository": "https://github.com/hmcts/cmc-legal-rep-frontend",
+            "spec": null,
+            "dependencies": [
+                {
+                    "id": "cmc-claim-store",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "draft-store",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "cmc-pdf-service",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "idam",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "payments",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "fees",
+                    "hard": true,
+                    "apis": []
+                }
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "cmc-citizen-frontend",
+            "name": "Citizen Frontend",
+            "group": "CMC",
+            "description": null,
+            "repository": "https://github.com/hmcts/cmc-citizen-frontend",
+            "spec": null,
+            "dependencies": [
+                {
+                    "id": "cmc-claim-store",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "draft-store",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "cmc-pdf-service",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "idam",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "payments",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "fees",
+                    "hard": true,
+                    "apis": []
+                }
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "cmc-pdf-service",
+            "name": "PDF Service",
+            "group": "CMC",
+            "description": null,
+            "repository": "https://github.com/hmcts/cmc-pdf-service",
+            "spec": null,
+            "dependencies": [],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "cmc-claim-store",
+            "name": "Claim Store",
+            "group": "CMC",
+            "description": null,
+            "repository": "https://github.com/hmcts/cmc-claim-store",
+            "spec": null,
+            "dependencies": [
+                {
+                    "id": "ccd-api-gateway",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "idam-s2s",
+                    "hard": true,
+                    "apis": []
+                }
+            ],
             "apis": [],
             "version": null
         }
