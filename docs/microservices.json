@@ -1,7 +1,7 @@
 {
     "groups": [
         {
-            "name": "Draft Store",
+            "name": "Platform Engineering",
             "colour": "#16a085"
         },
         {
@@ -34,15 +34,11 @@
             "id": "draft-store",
             "name": "Draft Store",
             "spec": "https://hmcts.github.io/reform-api-docs/specs/draft-store.json",
-            "group": "Draft Store",
+            "group": "Platform Engineering",
+            "repository": "https://github.com/hmcts/draft-store",
             "dependencies": [
                 {
                     "id": "idam-s2s",
-                    "hard": true,
-                    "apis": []
-                },
-                {
-                    "id": "idam",
                     "hard": true,
                     "apis": []
                 }
@@ -72,7 +68,7 @@
                     "apis": []
                 },
                 {
-                    "id": "idam",
+                    "id": "idam-web",
                     "hard": true,
                     "apis": []
                 },
@@ -94,7 +90,7 @@
             "spec": null,
             "dependencies": [
                 {
-                    "id": "idam",
+                    "id": "idam-web",
                     "hard": true,
                     "apis": []
                 }
@@ -121,7 +117,7 @@
                     "apis": []
                 },
                 {
-                    "id": "idam",
+                    "id": "idam-web",
                     "hard": true,
                     "apis": []
                 }
@@ -148,7 +144,7 @@
                     "apis": []
                 },
                 {
-                    "id": "idam",
+                    "id": "idam-web",
                     "hard": true,
                     "apis": []
                 },
@@ -175,7 +171,7 @@
                     "apis": []
                 },
                 {
-                    "id": "idam",
+                    "id": "idam-web",
                     "hard": true,
                     "apis": []
                 },
@@ -202,7 +198,7 @@
                     "apis": []
                 },
                 {
-                    "id": "idam",
+                    "id": "idam-web",
                     "hard": true,
                     "apis": []
                 }
@@ -219,7 +215,7 @@
             "spec": null,
             "dependencies": [
                 {
-                    "id": "idam",
+                    "id": "idam-web",
                     "hard": true,
                     "apis": []
                 },
@@ -233,13 +229,46 @@
             "version": null
         },
         {
-            "id": "fees",
-            "name": "Fees",
+            "id": "fees-register-app",
+            "name": "Fees App",
             "group": "Fees",
             "description": null,
             "repository": null,
             "spec": null,
-            "dependencies": [],
+            "dependencies": [
+                {
+                    "id": "idam-s2s",
+                    "hard": true,
+                    "apis": []
+                }
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "fees-register-admin-web",
+            "name": "Fees Admin",
+            "group": "Fees",
+            "description": null,
+            "repository": null,
+            "spec": null,
+            "dependencies": [
+                {
+                    "id": "idam-web",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "idam-s2s",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "fees-register-app",
+                    "hard": true,
+                    "apis": []
+                }
+            ],
             "apis": [],
             "version": null
         },
@@ -252,7 +281,7 @@
             "spec": null,
             "dependencies": [
                 {
-                    "id": "idam",
+                    "id": "idam-s2s",
                     "hard": true,
                     "apis": []
                 }
@@ -261,8 +290,8 @@
             "version": null
         },
         {
-            "id": "idam",
-            "name": "IdAM",
+            "id": "idam-web",
+            "name": "Web",
             "group": "IdAM",
             "description": null,
             "repository": null,
@@ -291,12 +320,12 @@
             "spec": null,
             "dependencies": [
                 {
-                    "id": "idam",
+                    "id": "idam-web",
                     "hard": true,
                     "apis": []
                 },
                 {
-                    "id": "fees",
+                    "id": "fees-register-app",
                     "hard": true,
                     "apis": []
                 },
@@ -381,7 +410,7 @@
                     "apis": []
                 },
                 {
-                    "id": "idam",
+                    "id": "idam-web",
                     "hard": true,
                     "apis": []
                 },
@@ -391,7 +420,7 @@
                     "apis": []
                 },
                 {
-                    "id": "fees",
+                    "id": "fees-register-app",
                     "hard": true,
                     "apis": []
                 }
@@ -423,7 +452,7 @@
                     "apis": []
                 },
                 {
-                    "id": "idam",
+                    "id": "idam-web",
                     "hard": true,
                     "apis": []
                 },
@@ -433,7 +462,7 @@
                     "apis": []
                 },
                 {
-                    "id": "fees",
+                    "id": "fees-register-app",
                     "hard": true,
                     "apis": []
                 }
