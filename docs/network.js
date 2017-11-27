@@ -119,6 +119,12 @@ function build(data) {
                 to: true
             }
         },
+        physics: {
+          solver: "forceAtlas2Based",
+          forceAtlas2Based: {
+            avoidOverlap: 1
+          }
+        },
         interaction: {
             hover: true
         }
