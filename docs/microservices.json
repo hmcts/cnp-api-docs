@@ -38,7 +38,12 @@
             "repository": "https://github.com/hmcts/draft-store",
             "dependencies": [
                 {
-                    "id": "idam-s2s",
+                    "id": "service-auth-provider-app",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "idam-app",
                     "hard": true,
                     "apis": []
                 }
@@ -68,12 +73,17 @@
                     "apis": []
                 },
                 {
-                    "id": "idam-web",
+                    "id": "authentication-web",
                     "hard": true,
                     "apis": []
                 },
                 {
-                    "id": "idam-s2s",
+                    "id": "service-auth-provider-app",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "idam-app",
                     "hard": true,
                     "apis": []
                 }
@@ -90,7 +100,12 @@
             "spec": null,
             "dependencies": [
                 {
-                    "id": "idam-web",
+                    "id": "idam-app",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "service-auth-provider-app",
                     "hard": true,
                     "apis": []
                 }
@@ -117,7 +132,17 @@
                     "apis": []
                 },
                 {
-                    "id": "idam-web",
+                    "id": "authentication-web",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "idam-app",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "service-auth-provider-app",
                     "hard": true,
                     "apis": []
                 }
@@ -144,12 +169,12 @@
                     "apis": []
                 },
                 {
-                    "id": "idam-web",
+                    "id": "idam-app",
                     "hard": true,
                     "apis": []
                 },
                 {
-                    "id": "idam-s2s",
+                    "id": "service-auth-provider-app",
                     "hard": true,
                     "apis": []
                 }
@@ -171,12 +196,12 @@
                     "apis": []
                 },
                 {
-                    "id": "idam-web",
+                    "id": "idam-app",
                     "hard": true,
                     "apis": []
                 },
                 {
-                    "id": "idam-s2s",
+                    "id": "service-auth-provider-app",
                     "hard": true,
                     "apis": []
                 }
@@ -198,7 +223,17 @@
                     "apis": []
                 },
                 {
-                    "id": "idam-web",
+                    "id": "authentication-web",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "idam-app",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "service-auth-provider-app",
                     "hard": true,
                     "apis": []
                 }
@@ -215,12 +250,12 @@
             "spec": null,
             "dependencies": [
                 {
-                    "id": "idam-web",
+                    "id": "idam-app",
                     "hard": true,
                     "apis": []
                 },
                 {
-                    "id": "idam-s2s",
+                    "id": "service-auth-provider-app",
                     "hard": true,
                     "apis": []
                 }
@@ -237,7 +272,12 @@
             "spec": null,
             "dependencies": [
                 {
-                    "id": "idam-s2s",
+                    "id": "service-auth-provider-app",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "idam-app",
                     "hard": true,
                     "apis": []
                 }
@@ -254,12 +294,12 @@
             "spec": null,
             "dependencies": [
                 {
-                    "id": "idam-web",
+                    "id": "authentication-web",
                     "hard": true,
                     "apis": []
                 },
                 {
-                    "id": "idam-s2s",
+                    "id": "idam-app",
                     "hard": true,
                     "apis": []
                 },
@@ -281,7 +321,7 @@
             "spec": null,
             "dependencies": [
                 {
-                    "id": "idam-s2s",
+                    "id": "service-auth-provider-app",
                     "hard": true,
                     "apis": []
                 }
@@ -290,8 +330,41 @@
             "version": null
         },
         {
-            "id": "idam-web",
-            "name": "Web",
+            "id": "authentication-web",
+            "name": "Auth Web",
+            "group": "IdAM",
+            "description": null,
+            "repository": null,
+            "spec": null,
+            "dependencies": [
+                {
+                    "id": "idam-app",
+                    "hard": true,
+                    "apis": []
+                }
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "registration-web",
+            "name": "Reg Web",
+            "group": "IdAM",
+            "description": null,
+            "repository": null,
+            "spec": null,
+            "dependencies": [
+                {
+                    "id": "idam-app",
+                    "hard": true,
+                    "apis": []
+                }],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "idam-app",
+            "name": "IdAM App",
             "group": "IdAM",
             "description": null,
             "repository": null,
@@ -301,7 +374,7 @@
             "version": null
         },
         {
-            "id": "idam-s2s",
+            "id": "service-auth-provider-app",
             "name": "S2S",
             "group": "IdAM",
             "description": "Service to Service",
@@ -320,7 +393,7 @@
             "spec": null,
             "dependencies": [
                 {
-                    "id": "idam-web",
+                    "id": "authentication-web",
                     "hard": true,
                     "apis": []
                 },
@@ -410,7 +483,7 @@
                     "apis": []
                 },
                 {
-                    "id": "idam-web",
+                    "id": "authentication-web",
                     "hard": true,
                     "apis": []
                 },
@@ -452,7 +525,7 @@
                     "apis": []
                 },
                 {
-                    "id": "idam-web",
+                    "id": "authentication-web",
                     "hard": true,
                     "apis": []
                 },
@@ -495,7 +568,7 @@
                     "apis": []
                 },
                 {
-                    "id": "idam-s2s",
+                    "id": "service-auth-provider-app",
                     "hard": true,
                     "apis": []
                 }
