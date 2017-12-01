@@ -46,6 +46,8 @@ Full specification can be viewed in [json schema](microservices-schema.json).
 
 In case the `spec` field is present, API bubble represented in the graph will allow to click through to the API documentation.
 
+[How to publish swagger docs](#publish-swagger-docs) for your spring boot template application
+
 ## Tools
 
 There are very simple npm scripts to update the `swagger-ui` and `vis.js` currently used to show docs
@@ -68,3 +70,17 @@ npm test
 ```bash
 npm start
 ```
+
+## Publish Swagger docs
+
+Include extra lines in your travis configuration file
+
+```yaml
+before_install:
+  - curl https://raw.githubusercontent.com/hmcts/reform-api-docs/master/bin/publish-swagger-docs.sh > publish-swagger-docs.sh
+
+after_success:
+  - if [ "$TRAVIS_BRANCH" == "master" && "$TRAVIS_PULL_REQUEST" = "false" ]; ./publish-swagger-docs.sh; fi
+```
+
+Script assumes you have configured `docker-compose.yml` and `.env` files as per example in [Spring Boot Template](https://github.com/hmcts/spring-boot-template) repository
