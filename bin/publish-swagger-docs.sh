@@ -5,7 +5,7 @@
 set -e
 
 # assign environment variables
-source .env
+. ./.env
 
 ./gradlew clean installDist
 
