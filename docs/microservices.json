@@ -398,6 +398,11 @@
                     "apis": []
                 },
                 {
+                    "id": "idam-app",
+                    "hard": true,
+                    "apis": []
+                },
+                {
                     "id": "fees-register-app",
                     "hard": true,
                     "apis": []
@@ -488,6 +493,11 @@
                     "apis": []
                 },
                 {
+                    "id": "idam-app",
+                    "hard": true,
+                    "apis": []
+                },
+                {
                     "id": "payments",
                     "hard": true,
                     "apis": []
@@ -526,6 +536,11 @@
                 },
                 {
                     "id": "authentication-web",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "idam-app",
                     "hard": true,
                     "apis": []
                 },
