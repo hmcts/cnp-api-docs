@@ -2,8 +2,6 @@
 # Runs the api and backend db, grabs the generated swagger json spec and compares to what is in the
 # central reform-api-docs repo. Updates reform-api-docs spec if needed
 
-set -e
-
 # assign environment variables
 . ./.env
 
