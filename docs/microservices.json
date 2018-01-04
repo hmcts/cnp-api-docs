@@ -473,10 +473,10 @@
         {
             "id": "cmc-pdf-service",
             "name": "PDF Service",
-            "group": "CMC",
+            "group": "Platform Engineering",
             "description": null,
             "repository": "https://github.com/hmcts/cmc-pdf-service",
-            "spec": null,
+            "spec": "https://hmcts.github.io/reform-api-docs/specs/cmc-pdf-service.json",
             "dependencies": [],
             "apis": [],
             "version": null
