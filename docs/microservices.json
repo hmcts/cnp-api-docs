@@ -31,6 +31,10 @@
         {
             "name": "Divorce",
             "colour": "#c0392b"
+        },
+        {
+            "name": "Evidence",
+            "colour": "#8b4513"
         }
     ],
     "apis": [
@@ -427,6 +431,11 @@
                     "id": "fees-register-app",
                     "hard": true,
                     "apis": []
+                },
+                {
+                    "id": "document-management-store-api-gateway-web",
+                    "hard": true,
+                    "apis": []
                 }
             ],
             "apis": [],
@@ -500,6 +509,82 @@
                 },
                 {
                     "id": "idam-s2s",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "document-management-store-api-gateway-web",
+                    "hard": true,
+                    "apis": []
+                }
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "document-management-store-app",
+            "name": "Document Management Store",
+            "group": "Evidence",
+            "description": null,
+            "repository": "https://github.com/hmcts/document-management-store-app",
+            "spec": null,
+            "dependencies": [
+                {
+                    "id": "idam-web",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "idam-s2s",
+                    "hard": true,
+                    "apis": []
+                }
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "document-management-store-api-gateway-web",
+            "name": "Document Management Store Api Gateway",
+            "group": "Evidence",
+            "description": null,
+            "repository": "https://github.com/hmcts/document-management-store-api-gateway-web",
+            "spec": null,
+            "dependencies": [
+                {
+                    "id": "idam-web",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "idam-s2s",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "document-management-store-app",
+                    "hard": true,
+                    "apis": []
+                }
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "document-management-viewer",
+            "name": "Document Management Viewer",
+            "group": "Evidence",
+            "description": null,
+            "repository": "https://github.com/hmcts/document-management-viewer",
+            "spec": null,
+            "dependencies": [
+                {
+                    "id": "idam-web",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "document-management-store-api-gateway-web",
                     "hard": true,
                     "apis": []
                 }
