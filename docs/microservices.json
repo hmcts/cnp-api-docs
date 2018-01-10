@@ -29,6 +29,10 @@
             "colour": "#f30000"
         },
         {
+            "name": "Divorce",
+            "colour": "#c0392b"
+        },
+        {
             "name": "Evidence",
             "colour": "#8b4513"
         }
@@ -581,6 +585,93 @@
                 },
                 {
                     "id": "document-management-store-api-gateway-web",
+                    "hard": true,
+                    "apis": []
+                }
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "transformation-api",
+            "name": "Transformation API",
+            "group": "Divorce",
+            "description": null,
+            "repository": null,
+            "spec": null,
+            "dependencies": [
+                {
+                    "id": "ccd-data-store",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "idam-s2s",
+                    "hard": true,
+                    "apis": []
+                }
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "evidence-management-client-api",
+            "name": "Evidence Management Client API",
+            "group": "Divorce",
+            "description": null,
+            "repository": null,
+            "spec": null,
+            "dependencies": [
+                {
+                    "id": "document-management-store-api-gateway-web",
+                    "hard": true,
+                    "apis": []
+                }
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "divorce-pdf-generator",
+            "name": "PDF Generator",
+            "group": "Divorce",
+            "description": null,
+            "repository": null,
+            "spec": null,
+            "dependencies": [],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "divorce-frontend",
+            "name": "Frontend",
+            "group": "Divorce",
+            "description": null,
+            "repository": null,
+            "spec": null,
+            "dependencies": [
+                {
+                    "id": "idam-web",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "payments",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "transformation-api",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "evidence-management-client-api",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "divorce-pdf-generator",
                     "hard": true,
                     "apis": []
                 }
