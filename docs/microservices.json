@@ -25,8 +25,8 @@
             "colour": "#f39c12"
         },
         {
-            "name": "CMC",
-            "colour": "#f30000"
+            "name": "Divorce",
+            "colour": "#7f8c8d"
         }
     ],
     "apis": [
@@ -387,28 +387,13 @@
             "version": null
         },
         {
-            "id": "cmc-legal-rep-frontend",
-            "name": "Legal Rep Frontend",
-            "group": "CMC",
+            "id": "divorce-frontend",
+            "name": "Frontend",
+            "group": "Divorce",
             "description": null,
-            "repository": "https://github.com/hmcts/cmc-legal-rep-frontend",
+            "repository": null,
             "spec": null,
             "dependencies": [
-                {
-                    "id": "cmc-claim-store",
-                    "hard": true,
-                    "apis": []
-                },
-                {
-                    "id": "draft-store",
-                    "hard": true,
-                    "apis": []
-                },
-                {
-                    "id": "cmc-pdf-service",
-                    "hard": true,
-                    "apis": []
-                },
                 {
                     "id": "idam-web",
                     "hard": true,
@@ -420,7 +405,17 @@
                     "apis": []
                 },
                 {
-                    "id": "fees-register-app",
+                    "id": "transformation-api",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "evidence-management-client-api",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "divorce-pdf-generator",
                     "hard": true,
                     "apis": []
                 }
@@ -429,68 +424,15 @@
             "version": null
         },
         {
-            "id": "cmc-citizen-frontend",
-            "name": "Citizen Frontend",
-            "group": "CMC",
+            "id": "transformation-api",
+            "name": "Transformation API",
+            "group": "Divorce",
             "description": null,
-            "repository": "https://github.com/hmcts/cmc-citizen-frontend",
+            "repository": null,
             "spec": null,
             "dependencies": [
                 {
-                    "id": "cmc-claim-store",
-                    "hard": true,
-                    "apis": []
-                },
-                {
-                    "id": "draft-store",
-                    "hard": true,
-                    "apis": []
-                },
-                {
-                    "id": "cmc-pdf-service",
-                    "hard": true,
-                    "apis": []
-                },
-                {
-                    "id": "idam-web",
-                    "hard": true,
-                    "apis": []
-                },
-                {
-                    "id": "payments",
-                    "hard": true,
-                    "apis": []
-                },
-                {
-                    "id": "fees-register-app",
-                    "hard": true,
-                    "apis": []
-                }
-            ],
-            "apis": [],
-            "version": null
-        },
-        {
-            "id": "cmc-pdf-service",
-            "name": "PDF Service",
-            "group": "Platform Engineering",
-            "description": null,
-            "repository": "https://github.com/hmcts/cmc-pdf-service",
-            "spec": "https://hmcts.github.io/reform-api-docs/specs/cmc-pdf-service.json",
-            "dependencies": [],
-            "apis": [],
-            "version": null
-        },
-        {
-            "id": "cmc-claim-store",
-            "name": "Claim Store",
-            "group": "CMC",
-            "description": null,
-            "repository": "https://github.com/hmcts/cmc-claim-store",
-            "spec": null,
-            "dependencies": [
-                {
-                    "id": "ccd-api-gateway",
+                    "id": "ccd-data-store",
                     "hard": true,
                     "apis": []
                 },
@@ -502,6 +444,34 @@
             ],
             "apis": [],
             "version": null
-        }
+        },
+        {
+            "id": "evidence-management-client-api",
+            "name": "Evidence Management Client API",
+            "group": "Divorce",
+            "description": null,
+            "repository": null,
+            "spec": null,
+            "dependencies": [
+                {
+                    "id": "document-management-store-api-gateway-web",
+                    "hard": true,
+                    "apis": []
+                }
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "divorce-pdf-generator",
+            "name": "PDF Generator",
+            "group": "Divorce",
+            "description": null,
+            "repository": null,
+            "spec": null,
+            "dependencies": [],
+            "apis": [],
+            "version": null
+        }  
     ]
 }
