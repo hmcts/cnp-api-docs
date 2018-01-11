@@ -527,7 +527,7 @@
             "group": "Evidence",
             "description": null,
             "repository": "https://github.com/hmcts/document-management-store-app",
-            "spec": null,
+            "spec": "https://hmcts.github.io/reform-api-docs/specs/document-management-store-app.json",
             "dependencies": [
                 {
                     "id": "idam-web",
