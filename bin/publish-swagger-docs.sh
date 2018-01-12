@@ -24,7 +24,7 @@ if [ "$NEW_DOCS" = "" ]; then
 elif [ "$CURRENT_DOCS" != "$NEW_DOCS" ]; then
     echo "Update reform-api-docs"
     mkdir swagger-staging
-    cd swagger-staging
+    cd swagger-staging || exit
     git init
 
     git config user.name "Travis CI"
@@ -32,12 +32,15 @@ elif [ "$CURRENT_DOCS" != "$NEW_DOCS" ]; then
     git remote add upstream "https://${GH_TOKEN}@github.com/hmcts/reform-api-docs.git"
     git pull upstream master
 
+    BRANCH_NAME="$REPO_NAME/spec-update"
+    git checkout -b "$BRANCH_NAME"
+
     TARGET_SPEC=docs/specs/"$REPO_NAME".json
     echo "$NEW_DOCS" > "$TARGET_SPEC"
 
     git add "$TARGET_SPEC"
-    git commit -m "Updating spec for $REPO_NAME from $TRAVIS_PULL_REQUEST_SLUG"
-    git push --set-upstream upstream master
+    git commit -m "Update spec for $REPO_NAME from $TRAVIS_PULL_REQUEST_SLUG"
+    git push --set-upstream upstream "$BRANCH_NAME"
 else
     echo "API Documentation is up to date."
 fi
