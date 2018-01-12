@@ -77,7 +77,11 @@ Include extra lines in your travis configuration file
 
 ```yaml
 before_install:
+  - curl https://raw.githubusercontent.com/hmcts/reform-api-docs/master/bin/hub-cli.sh > hub-cli.sh
   - curl https://raw.githubusercontent.com/hmcts/reform-api-docs/master/bin/publish-swagger-docs.sh > publish-swagger-docs.sh
+
+install:
+  - test "$TRAVIS_BRANCH" = "master" && test "$TRAVIS_PULL_REQUEST" = "false" && sh ./hub-cli.sh
 
 after_success:
   - test "$TRAVIS_BRANCH" = "master" && test "$TRAVIS_PULL_REQUEST" = "false" && sh ./publish-swagger-docs.sh
