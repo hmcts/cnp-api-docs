@@ -9,6 +9,6 @@ tar xf ~/hub-latest.tar.gz -C ~/hub-latest --strip-components 1
 
 mkdir local > /dev/null 2>&1 || echo "Will install in existing 'local' directory"
 
-prefix=local ~/hub-latest/install
+prefix=$(pwd)/local ~/hub-latest/install
 
 ./local/bin/hub version
