@@ -46,7 +46,7 @@ elif [ "$CURRENT_DOCS" != "$NEW_DOCS" ]; then
 
     echo "Creating pull request.."
 
-    ./local/bin/hub pull-request -m "Update spec for $REPO_NAME"
+    ../local/bin/hub pull-request -m "Update spec for $REPO_NAME"
 else
     echo "API Documentation is up to date."
 fi
