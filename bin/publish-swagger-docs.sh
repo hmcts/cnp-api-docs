@@ -23,14 +23,13 @@ if [ "$NEW_DOCS" = "" ]; then
     docker-compose logs
 elif [ "$CURRENT_DOCS" != "$NEW_DOCS" ]; then
     echo "Update reform-api-docs"
-    mkdir swagger-staging
-    cd swagger-staging || exit
-    git init
 
+    git clone "https://${GH_TOKEN}@github.com/hmcts/reform-api-docs.git" swagger-staging
+    cd swagger-staging || exit
+
+    git config github.user "jenkins-reform-hmcts"
     git config user.name "Travis CI"
     git config user.email "travis@travis-ci.org"
-    git remote add upstream "https://${GH_TOKEN}@github.com/hmcts/reform-api-docs.git"
-    git pull upstream master
 
     BRANCH_NAME="$REPO_NAME/spec-update"
     git checkout -b "$BRANCH_NAME"
@@ -40,8 +39,14 @@ elif [ "$CURRENT_DOCS" != "$NEW_DOCS" ]; then
 
     git add "$TARGET_SPEC"
     git commit -m "Update spec for $REPO_NAME from $TRAVIS_PULL_REQUEST_SLUG"
-    git push --set-upstream upstream "$BRANCH_NAME"
-    hub pull-request -m "Update spec for $REPO_NAME"
+
+    echo "Pushing spec update branch.."
+
+    git push --set-upstream origin "$BRANCH_NAME"
+
+    echo "Creating pull request.."
+
+    ./local/bin/hub pull-request -m "Update spec for $REPO_NAME"
 else
     echo "API Documentation is up to date."
 fi
