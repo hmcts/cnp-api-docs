@@ -597,7 +597,7 @@
             "name": "Transformation API",
             "group": "Divorce",
             "description": null,
-            "repository": null,
+            "repository": "https://git.reform.hmcts.net/divorce/transformation-service",
             "spec": null,
             "dependencies": [
                 {
@@ -619,7 +619,7 @@
             "name": "Evidence Management Client API",
             "group": "Divorce",
             "description": null,
-            "repository": null,
+            "repository": "https://git.reform.hmcts.net/divorce/evidence-management-client-api",
             "spec": null,
             "dependencies": [
                 {
@@ -636,7 +636,7 @@
             "name": "PDF Generator",
             "group": "Divorce",
             "description": null,
-            "repository": null,
+            "repository": "https://git.reform.hmcts.net/divorce/pdf-generator",
             "spec": null,
             "dependencies": [],
             "apis": [],
@@ -647,7 +647,7 @@
             "name": "Frontend",
             "group": "Divorce",
             "description": null,
-            "repository": null,
+            "repository": "https://git.reform.hmcts.net/divorce/frontend",
             "spec": null,
             "dependencies": [
                 {
