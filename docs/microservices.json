@@ -545,7 +545,7 @@
         },
         {
             "id": "document-management-store-api-gateway-web",
-            "name": "Document Management Store Api Gateway",
+            "name": "Document Management Store Api Gateway Web",
             "group": "Evidence",
             "description": null,
             "repository": "https://github.com/hmcts/document-management-store-api-gateway-web",
@@ -571,11 +571,11 @@
             "version": null
         },
         {
-            "id": "document-management-viewer",
-            "name": "Document Management Viewer",
+            "id": "em-viewer-web",
+            "name": "Evidence Management Viewer Web",
             "group": "Evidence",
             "description": null,
-            "repository": "https://github.com/hmcts/document-management-viewer",
+            "repository": "https://github.com/hmcts/em-viewer-web",
             "spec": null,
             "dependencies": [
                 {
@@ -587,10 +587,74 @@
                     "id": "document-management-store-api-gateway-web",
                     "hard": true,
                     "apis": []
+                },
+                {
+                    "id": "em-annotation-app",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "em-redaction-app",
+                    "hard": true,
+                    "apis": []
                 }
             ],
             "apis": [],
             "version": null
+        },
+        {
+            "id": "em-annotation-app",
+            "name": "Evidence Management Annotation App",
+            "group": "Evidence",
+            "description": null,
+            "repository": "https://github.com/hmcts/em-annotation-app",
+            "spec": "https://hmcts.github.io/reform-api-docs/specs/em-annotation-app.json",
+            "dependencies": [
+                {
+                    "id": "idam-web",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "idam-s2s",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "document-management-store-api-gateway-web",
+                    "hard": true,
+                    "apis": []
+                }
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "em-redaction-app",
+            "name": "Evidence Management Redaction App",
+            "group": "Evidence",
+            "description": null,
+            "repository": "https://github.com/hmcts/em-redaction-app",
+            "spec": "https://hmcts.github.io/reform-api-docs/specs/em-redaction-app.json",
+            "dependencies": [
+                {
+                    "id": "idam-web",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "idam-s2s",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "document-management-store-api-gateway-web",
+                    "hard": true,
+                    "apis": []
+                }
+            ],
+            "apis": [],
+        "version": null
         },
         {
             "id": "transformation-api",
