@@ -68,7 +68,14 @@ npm test
 ## Localhost viewing
 
 ```bash
+npm install
 npm start
+```
+
+or with docker-compose
+
+```bash
+docker-compose up --build
 ```
 
 ## Publish Swagger docs
