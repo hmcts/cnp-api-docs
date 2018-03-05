@@ -554,6 +554,11 @@
                     "id": "document-management-store-api-gateway-web",
                     "hard": true,
                     "apis": []
+                },
+                {
+                    "id": "letters-producer",
+                    "hard": true,
+                    "apis": []
                 }
             ],
             "apis": [],
