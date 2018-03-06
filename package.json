@@ -25,7 +25,8 @@
     "djv": "^2.0.0",
     "jasmine": "^2.8.0",
     "swagger-ui-dist": "^3.4.3",
-    "vis": "^4.21.0"
+    "vis": "^4.21.0",
+    "moment": "~2.19.3"
   },
   "devDependencies": {
     "http-server": "^0.10.0"
