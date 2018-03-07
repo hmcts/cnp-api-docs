@@ -17,7 +17,37 @@ function hexToRgbA(hex, alpha = 1) {
 function build(data) {
     var idamGroup = "IdAM";
     var idamIdPrefix = "idam";
-    var idamNames = {}
+    var idamGroupObject = {}
+
+    // groups
+
+    var groupOptions = {};
+
+    data.groups.forEach(function(group) {
+        if (group.name == idamGroup) {
+            idamGroupObject = group;
+        }
+
+        var colour = hexToRgbA(group.colour);
+        var hoverColour = hexToRgbA(group.colour, 0.7);
+        var highlightColour = hexToRgbA(group.colour, 0.9);
+
+        groupOptions[group.name] = {
+            shape: 'dot',
+            color: {
+                background: colour,
+                border: colour,
+                hover: {
+                    background: hoverColour,
+                    border: hoverColour
+                },
+                highlight: {
+                    background: highlightColour,
+                    border: highlightColour
+                }
+            }
+        };
+    });
 
     // edges
 
@@ -55,7 +85,6 @@ function build(data) {
             var idamDependencies = micro.dependencies.filter(function(item) {
                 return item.id.substring(0, 4) == idamIdPrefix;
             })
-            console.log(idamDependencies);
 
             var tooltip = undefined;
 
@@ -79,6 +108,7 @@ function build(data) {
                 group: micro.group,
                 title: tooltip,
                 href: href,
+                borderWidth: idamDependencies.length * 2,
                 value: edgesData.filter(function(obj) {
                     return obj.to === micro.id;
                 }).length * 5 + 5
@@ -111,32 +141,6 @@ function build(data) {
                 physics: false
             });
         });
-
-    // groups
-
-    var groupOptions = {};
-
-    data.groups.forEach(function(group) {
-        var colour = hexToRgbA(group.colour);
-        var hoverColour = hexToRgbA(group.colour, 0.7);
-        var highlightColour = hexToRgbA(group.colour, 0.9);
-
-        groupOptions[group.name] = {
-            shape: 'dot',
-            color: {
-                background: colour,
-                border: colour,
-                hover: {
-                    background: hoverColour,
-                    border: hoverColour
-                },
-                highlight: {
-                    background: highlightColour,
-                    border: highlightColour
-                }
-            }
-        };
-    });
 
     // Instantiate our network object.
 
