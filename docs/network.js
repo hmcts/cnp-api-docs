@@ -15,47 +15,60 @@ function hexToRgbA(hex, alpha = 1) {
 }
 
 function build(data) {
+    var idamGroup = "IdAM";
+    var idamIdPrefix = "idam";
+
     // edges
 
-    var edgesData = data.apis.reduce(function(acc, micro) {
-        var dependencies = micro.dependencies || [];
-        return acc.concat(dependencies.map(function(item) {
-            return {
-                from: micro.id,
-                to: item.id,
-                dashes: !item.hard
-            };
-        }));
-    }, []);
+    var edgesData = data.apis
+        .filter(function(micro) {
+            return micro.group != idamGroup;
+        })
+        .reduce(function(acc, micro) {
+            var dependencies = micro.dependencies.filter(function(item) {
+                return item.id.substring(0, 3) != idamIdPrefix;
+            }) || [];
+            return acc.concat(dependencies.map(function(item) {
+                return {
+                    from: micro.id,
+                    to: item.id,
+                    dashes: !item.hard
+                };
+            }));
+        }, []);
 
     // data
 
-    var nodeData = data.apis.map(function(micro) {
-        var href = undefined;
+    var nodeData = data.apis
+        .filter(function(micro) {
+            return micro.group != idamGroup;
+        })
+        .map(function(micro) {
+            var href = undefined;
 
-        if (micro.spec) {
-            href = './swagger.html?url=' + micro.spec
-        }
+            if (micro.spec) {
+                href = './swagger.html?url=' + micro.spec
+            }
 
-        var tooltip = undefined;
+            var tooltip = undefined;
 
-        if (micro.version || micro.description || micro.repository) {
-            tooltip = '<h2>' + micro.name + (micro.version ? ' (v: ' + micro.version + ')' : '') + '</h2>' +
-                (micro.description ? '<div>' + micro.description + '</div>' : '') +
-                (micro.repository ? '<div>' + micro.repository + '</div>' : '');
-        }
+            if (micro.version || micro.description || micro.repository) {
+                tooltip = '<h2>' + micro.name + (micro.version ? ' (v: ' + micro.version + ')' : '') + '</h2>' +
+                    (micro.description ? '<div>' + micro.description + '</div>' : '') +
+                    (micro.repository ? '<div>' + micro.repository + '</div>' : '');
+            }
 
-        return {
-            id: micro.id,
-            label: micro.name,
-            group: micro.group,
-            title: tooltip,
-            href: href,
-            value: edgesData.filter(function(obj) {
-                return obj.to === micro.id;
-            }).length * 5 + 5
-        }
-    });
+            return {
+                id: micro.id,
+                label: micro.name,
+                group: micro.group,
+                title: tooltip,
+                href: href,
+                value: edgesData.filter(function(obj) {
+                    return obj.to === micro.id;
+                }).length * 5 + 5
+            }
+        });
 
     // container
 
@@ -67,18 +80,22 @@ function build(data) {
     var y = - container.clientHeight / 2 - 150;
     var step = 50;
 
-    data.groups.forEach(function(group, index) {
-        nodeData.push({
-            id: 1000 + index,
-            x: x,
-            y: y + index * step,
-            label: group.name,
-            group: group.name,
-            value: 1,
-            fixed: true,
-            physics: false
+    data.groups
+        .filter(function(group) {
+            return group.name != idamGroup;
+        })
+        .forEach(function(group, index) {
+            nodeData.push({
+                id: 1000 + index,
+                x: x,
+                y: y + index * step,
+                label: group.name,
+                group: group.name,
+                value: 1,
+                fixed: true,
+                physics: false
+            });
         });
-    });
 
     // groups
 
@@ -161,7 +178,7 @@ function build(data) {
 }
 
 // load data
-function loadJSON(file, callback) {   
+function loadJSON(file, callback) {
     var xobj = new XMLHttpRequest();
     xobj.overrideMimeType('application/json');
     xobj.open('GET', file, true); // Replace 'my_data' with the path to your file
@@ -171,9 +188,9 @@ function loadJSON(file, callback) {
         callback(xobj.responseText);
         }
     };
-    xobj.send(null);  
+    xobj.send(null);
     }
-    
+
 
 function load() {
     loadJSON('./microservices.json', function(response) {
