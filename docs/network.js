@@ -17,17 +17,13 @@ function hexToRgbA(hex, alpha = 1) {
 function build(data) {
     var idamGroup = "IdAM";
     var idamIdPrefix = "idam";
-    var idamGroupObject = {}
+    var microNames = {};
 
     // groups
 
     var groupOptions = {};
 
     data.groups.forEach(function(group) {
-        if (group.name == idamGroup) {
-            idamGroupObject = group;
-        }
-
         var colour = hexToRgbA(group.colour);
         var hoverColour = hexToRgbA(group.colour, 0.7);
         var highlightColour = hexToRgbA(group.colour, 0.9);
@@ -36,14 +32,11 @@ function build(data) {
             shape: 'dot',
             color: {
                 background: colour,
-                border: colour,
                 hover: {
-                    background: hoverColour,
-                    border: hoverColour
+                    background: hoverColour
                 },
                 highlight: {
-                    background: highlightColour,
-                    border: highlightColour
+                    background: highlightColour
                 }
             }
         };
@@ -53,7 +46,7 @@ function build(data) {
 
     var edgesData = data.apis
         .filter(function(micro) {
-            idamNames[micro.id] = micro.name;
+            microNames[micro.id] = micro.name;
             return micro.group != idamGroup;
         })
         .reduce(function(acc, micro) {
@@ -98,9 +91,11 @@ function build(data) {
                 }
 
                 idamDependencies.forEach(function(item) {
-                    tooltip += '<div>' + idamGroup + ' ' + idamNames[item.id] + '. Is hard Dependency: ' + item.hard + '</div>';
+                    tooltip += '<div>' + idamGroup + ' ' + microNames[item.id] + '. Is hard Dependency: ' + item.hard + '</div>';
                 })
             }
+
+            var groupColour = (idamDependencies.length > 0 ? groupOptions[idamGroup] : groupOptions[micro.group]).color;
 
             return {
                 id: micro.id,
@@ -109,6 +104,15 @@ function build(data) {
                 title: tooltip,
                 href: href,
                 borderWidth: idamDependencies.length * 2,
+                color: {
+                    border: groupColour.background,
+                    hover: {
+                        border: groupColour.hover.background
+                    },
+                    highlight: {
+                        border: groupColour.highlight.background
+                    }
+                },
                 value: edgesData.filter(function(obj) {
                     return obj.to === micro.id;
                 }).length * 5 + 5
