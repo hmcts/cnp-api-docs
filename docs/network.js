@@ -17,16 +17,18 @@ function hexToRgbA(hex, alpha = 1) {
 function build(data) {
     var idamGroup = "IdAM";
     var idamIdPrefix = "idam";
+    var idamNames = {}
 
     // edges
 
     var edgesData = data.apis
         .filter(function(micro) {
+            idamNames[micro.id] = micro.name;
             return micro.group != idamGroup;
         })
         .reduce(function(acc, micro) {
             var dependencies = micro.dependencies.filter(function(item) {
-                return item.id.substring(0, 3) != idamIdPrefix;
+                return item.id.substring(0, 4) != idamIdPrefix;
             }) || [];
             return acc.concat(dependencies.map(function(item) {
                 return {
@@ -50,12 +52,25 @@ function build(data) {
                 href = './swagger.html?url=' + micro.spec
             }
 
+            var idamDependencies = micro.dependencies.filter(function(item) {
+                return item.id.substring(0, 4) == idamIdPrefix;
+            })
+            console.log(idamDependencies);
+
             var tooltip = undefined;
 
-            if (micro.version || micro.description || micro.repository) {
+            if (micro.version || micro.description || micro.repository || idamDependencies.length > 0) {
                 tooltip = '<h2>' + micro.name + (micro.version ? ' (v: ' + micro.version + ')' : '') + '</h2>' +
                     (micro.description ? '<div>' + micro.description + '</div>' : '') +
                     (micro.repository ? '<div>' + micro.repository + '</div>' : '');
+
+                if (idamDependencies.length > 0) {
+                    tooltip += '<br/>';
+                }
+
+                idamDependencies.forEach(function(item) {
+                    tooltip += '<div>' + idamGroup + ' ' + idamNames[item.id] + '. Is hard Dependency: ' + item.hard + '</div>';
+                })
             }
 
             return {
