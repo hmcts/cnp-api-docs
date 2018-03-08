@@ -3,6 +3,7 @@ function hexToRgbA(hex, alpha = 1) {
 
     if (/^#([A-Fa-f0-9]{3}){1,2}$/.test(hex)) {
         c = hex.substring(1).split('');
+
         if (c.length == 3) {
             c = [c[0], c[0], c[1], c[1], c[2], c[2]];
         }
@@ -11,6 +12,7 @@ function hexToRgbA(hex, alpha = 1) {
 
         return 'rgba('+[(c>>16)&255, (c>>8)&255, c&255].join(',')+',' + alpha + ')';
     }
+
     throw new Error('Bad Hex');
 }
 
@@ -47,12 +49,14 @@ function build(data) {
     var edgesData = data.apis
         .filter(function(micro) {
             microNames[micro.id] = micro.name;
+
             return micro.group != idamGroup;
         })
         .reduce(function(acc, micro) {
             var dependencies = micro.dependencies.filter(function(item) {
                 return item.id.substring(0, 4) != idamIdPrefix;
             }) || [];
+
             return acc.concat(dependencies.map(function(item) {
                 return {
                     from: micro.id,
@@ -184,7 +188,7 @@ function build(data) {
         }
     });
 
-    function changeCursor(newCursorStyle){
+    function changeCursor(newCursorStyle) {
         networkCanvas.style.cursor = newCursorStyle;
     }
 
@@ -203,17 +207,19 @@ function build(data) {
 // load data
 function loadJSON(file, callback) {
     var xobj = new XMLHttpRequest();
+
     xobj.overrideMimeType('application/json');
     xobj.open('GET', file, true); // Replace 'my_data' with the path to your file
+
     xobj.onreadystatechange = function () {
         if (xobj.readyState == 4 && xobj.status == '200') {
         // Required use of an anonymous callback as .open will NOT return a value but simply returns undefined in asynchronous mode
         callback(xobj.responseText);
         }
     };
-    xobj.send(null);
-    }
 
+    xobj.send(null);
+}
 
 function load() {
     loadJSON('./microservices.json', function(response) {
