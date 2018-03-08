@@ -113,9 +113,9 @@ function build(data) {
                         border: groupColour.highlight.background
                     }
                 },
-                value: edgesData.filter(function(obj) {
+                value: (edgesData.filter(function(obj) {
                     return obj.to === micro.id;
-                }).length * 5 + 5
+                }).length + idamDependencies.length) * 5 + 5
             }
         });
 
