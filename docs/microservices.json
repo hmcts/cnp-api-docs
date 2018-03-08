@@ -33,7 +33,7 @@
             "colour": "#c0392b"
         },
         {
-            "name": "Evidence",
+            "name": "Evidence Management",
             "colour": "#8b4513"
         }
     ],
@@ -551,7 +551,7 @@
                     "apis": []
                 },
                 {
-                    "id": "document-management-store-api-gateway-web",
+                    "id": "document-store-api-gateway-web",
                     "hard": true,
                     "apis": []
                 },
@@ -565,9 +565,9 @@
             "version": null
         },
         {
-            "id": "document-management-store-app",
-            "name": "Document Management Store",
-            "group": "Evidence",
+            "id": "document-store-app",
+            "name": "Document Store",
+            "group": "Evidence Management",
             "description": null,
             "repository": "https://github.com/hmcts/document-management-store-app",
             "spec": "https://hmcts.github.io/reform-api-docs/specs/document-management-store-app.json",
@@ -587,9 +587,9 @@
             "version": null
         },
         {
-            "id": "document-management-store-api-gateway-web",
-            "name": "Document Management Store Api Gateway Web",
-            "group": "Evidence",
+            "id": "document-store-api-gateway-web",
+            "name": "Document Store\nApi Gateway Web",
+            "group": "Evidence Management",
             "description": null,
             "repository": "https://github.com/hmcts/document-management-store-api-gateway-web",
             "spec": null,
@@ -605,7 +605,7 @@
                     "apis": []
                 },
                 {
-                    "id": "document-management-store-app",
+                    "id": "document-store-app",
                     "hard": true,
                     "apis": []
                 }
@@ -615,8 +615,8 @@
         },
         {
             "id": "em-viewer-web",
-            "name": "Evidence Management Viewer Web",
-            "group": "Evidence",
+            "name": "Viewer Web",
+            "group": "Evidence Management",
             "description": null,
             "repository": "https://github.com/hmcts/em-viewer-web",
             "spec": null,
@@ -627,7 +627,7 @@
                     "apis": []
                 },
                 {
-                    "id": "document-management-store-api-gateway-web",
+                    "id": "document-store-api-gateway-web",
                     "hard": true,
                     "apis": []
                 },
@@ -647,8 +647,8 @@
         },
         {
             "id": "em-annotation-app",
-            "name": "Evidence Management Annotation App",
-            "group": "Evidence",
+            "name": "Annotation App",
+            "group": "Evidence Management",
             "description": null,
             "repository": "https://github.com/hmcts/em-annotation-app",
             "spec": "https://hmcts.github.io/reform-api-docs/specs/em-annotation-app.json",
@@ -664,7 +664,7 @@
                     "apis": []
                 },
                 {
-                    "id": "document-management-store-api-gateway-web",
+                    "id": "document-store-api-gateway-web",
                     "hard": true,
                     "apis": []
                 }
@@ -674,8 +674,8 @@
         },
         {
             "id": "em-redaction-app",
-            "name": "Evidence Management Redaction App",
-            "group": "Evidence",
+            "name": "Redaction App",
+            "group": "Evidence Management",
             "description": null,
             "repository": "https://github.com/hmcts/em-redaction-app",
             "spec": "https://hmcts.github.io/reform-api-docs/specs/em-redaction-app.json",
@@ -691,7 +691,7 @@
                     "apis": []
                 },
                 {
-                    "id": "document-management-store-api-gateway-web",
+                    "id": "document-store-api-gateway-web",
                     "hard": true,
                     "apis": []
                 }
@@ -722,15 +722,15 @@
             "version": null
         },
         {
-            "id": "evidence-management-client-api",
-            "name": "Evidence Management Client API",
+            "id": "evidence-client-api",
+            "name": "Client API",
             "group": "Divorce",
             "description": null,
-            "repository": "https://git.reform.hmcts.net/divorce/evidence-management-client-api",
+            "repository": "https://git.reform.hmcts.net/divorce/Evidence Management-management-client-api",
             "spec": null,
             "dependencies": [
                 {
-                    "id": "document-management-store-api-gateway-web",
+                    "id": "document-store-api-gateway-web",
                     "hard": true,
                     "apis": []
                 }
@@ -773,7 +773,7 @@
                     "apis": []
                 },
                 {
-                    "id": "evidence-management-client-api",
+                    "id": "evidence-client-api",
                     "hard": true,
                     "apis": []
                 },
