@@ -3,6 +3,7 @@ function hexToRgbA(hex, alpha = 1) {
 
     if (/^#([A-Fa-f0-9]{3}){1,2}$/.test(hex)) {
         c = hex.substring(1).split('');
+
         if (c.length == 3) {
             c = [c[0], c[0], c[1], c[1], c[2], c[2]];
         }
@@ -11,74 +12,14 @@ function hexToRgbA(hex, alpha = 1) {
 
         return 'rgba('+[(c>>16)&255, (c>>8)&255, c&255].join(',')+',' + alpha + ')';
     }
+
     throw new Error('Bad Hex');
 }
 
 function build(data) {
-    // edges
-
-    var edgesData = data.apis.reduce(function(acc, micro) {
-        var dependencies = micro.dependencies || [];
-        return acc.concat(dependencies.map(function(item) {
-            return {
-                from: micro.id,
-                to: item.id,
-                dashes: !item.hard
-            };
-        }));
-    }, []);
-
-    // data
-
-    var nodeData = data.apis.map(function(micro) {
-        var href = undefined;
-
-        if (micro.spec) {
-            href = './swagger.html?url=' + micro.spec
-        }
-
-        var tooltip = undefined;
-
-        if (micro.version || micro.description || micro.repository) {
-            tooltip = '<h2>' + micro.name + (micro.version ? ' (v: ' + micro.version + ')' : '') + '</h2>' +
-                (micro.description ? '<div>' + micro.description + '</div>' : '') +
-                (micro.repository ? '<div>' + micro.repository + '</div>' : '');
-        }
-
-        return {
-            id: micro.id,
-            label: micro.name,
-            group: micro.group,
-            title: tooltip,
-            href: href,
-            value: edgesData.filter(function(obj) {
-                return obj.to === micro.id;
-            }).length * 5 + 5
-        }
-    });
-
-    // container
-
-    var container = document.getElementById('api');
-
-    // legend (extra not connected nodes)
-
-    var x = - container.clientWidth / 2 - 150;
-    var y = - container.clientHeight / 2 - 150;
-    var step = 50;
-
-    data.groups.forEach(function(group, index) {
-        nodeData.push({
-            id: 1000 + index,
-            x: x,
-            y: y + index * step,
-            label: group.name,
-            group: group.name,
-            value: 1,
-            fixed: true,
-            physics: false
-        });
-    });
+    var idamGroup = "IdAM";
+    var idamIdPrefix = "idam";
+    var microNames = {};
 
     // groups
 
@@ -93,18 +34,121 @@ function build(data) {
             shape: 'dot',
             color: {
                 background: colour,
-                border: colour,
                 hover: {
-                    background: hoverColour,
-                    border: hoverColour
+                    background: hoverColour
                 },
                 highlight: {
-                    background: highlightColour,
-                    border: highlightColour
+                    background: highlightColour
                 }
             }
         };
     });
+
+    // edges
+
+    var edgesData = data.apis
+        .filter(function(micro) {
+            microNames[micro.id] = micro.name;
+
+            return micro.group != idamGroup;
+        })
+        .reduce(function(acc, micro) {
+            var dependencies = micro.dependencies.filter(function(item) {
+                return item.id.substring(0, 4) != idamIdPrefix;
+            }) || [];
+
+            return acc.concat(dependencies.map(function(item) {
+                return {
+                    from: micro.id,
+                    to: item.id,
+                    dashes: !item.hard
+                };
+            }));
+        }, []);
+
+    // data
+
+    var nodeData = data.apis
+        .filter(function(micro) {
+            return micro.group != idamGroup;
+        })
+        .map(function(micro) {
+            var href = undefined;
+
+            if (micro.spec) {
+                href = './swagger.html?url=' + micro.spec
+            }
+
+            var idamDependencies = micro.dependencies.filter(function(item) {
+                return item.id.substring(0, 4) == idamIdPrefix;
+            })
+
+            var tooltip = undefined;
+
+            if (micro.version || micro.description || micro.repository || idamDependencies.length > 0) {
+                tooltip = '<h2>' + micro.name + (micro.version ? ' (v: ' + micro.version + ')' : '') + '</h2>' +
+                    (micro.description ? '<div>' + micro.description + '</div>' : '') +
+                    (micro.repository ? '<div>' + micro.repository + '</div>' : '');
+
+                if (idamDependencies.length > 0) {
+                    tooltip += '<br/>';
+                }
+
+                idamDependencies.forEach(function(item) {
+                    tooltip += '<div>' + idamGroup + ' ' + microNames[item.id] + '. Is hard Dependency: ' + item.hard + '</div>';
+                })
+            }
+
+            var groupColour = (idamDependencies.length > 0 ? groupOptions[idamGroup] : groupOptions[micro.group]).color;
+
+            return {
+                id: micro.id,
+                label: micro.name,
+                group: micro.group,
+                title: tooltip,
+                href: href,
+                borderWidth: idamDependencies.length * 2,
+                color: {
+                    border: groupColour.background,
+                    hover: {
+                        border: groupColour.hover.background
+                    },
+                    highlight: {
+                        border: groupColour.highlight.background
+                    }
+                },
+                value: (edgesData.filter(function(obj) {
+                    return obj.to === micro.id;
+                }).length + idamDependencies.length) * 5 + 5
+            }
+        });
+
+    // container
+
+    var container = document.getElementById('api');
+
+    // legend (extra not connected nodes)
+
+    var x = - container.clientWidth / 2 - 150;
+    var y = - container.clientHeight / 2 - 150;
+    var step = 50;
+
+    data.groups
+        .filter(function(group) {
+            return group.name != idamGroup;
+        })
+        .forEach(function(group, index) {
+            nodeData.push({
+                id: 1000 + index,
+                x: x,
+                y: y + index * step,
+                label: group.name,
+                group: group.name,
+                value: 1,
+                fixed: true,
+                physics: false
+            });
+        });
 
     // Instantiate our network object.
 
@@ -144,7 +188,7 @@ function build(data) {
         }
     });
 
-    function changeCursor(newCursorStyle){
+    function changeCursor(newCursorStyle) {
         networkCanvas.style.cursor = newCursorStyle;
     }
 
@@ -161,19 +205,21 @@ function build(data) {
 }
 
 // load data
-function loadJSON(file, callback) {   
+function loadJSON(file, callback) {
     var xobj = new XMLHttpRequest();
+
     xobj.overrideMimeType('application/json');
     xobj.open('GET', file, true); // Replace 'my_data' with the path to your file
+
     xobj.onreadystatechange = function () {
         if (xobj.readyState == 4 && xobj.status == '200') {
         // Required use of an anonymous callback as .open will NOT return a value but simply returns undefined in asynchronous mode
         callback(xobj.responseText);
         }
     };
-    xobj.send(null);  
-    }
-    
+
+    xobj.send(null);
+}
 
 function load() {
     loadJSON('./microservices.json', function(response) {

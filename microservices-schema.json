@@ -11,31 +11,31 @@
         "groups": {
             "type": "array",
             "items": {
-            "type": "object",
-            "required": [
-                "name",
-                "colour"
-            ],
-            "properties": {
-                "name": {
-                    "type": "string",
-                    "title": "Group name",
-                    "description": "Group name is shown in the legend",
-                    "default": "",
-                    "examples": [
-                        "Payments"
-                    ]
-                },
-                "colour": {
-                    "type": "string",
-                    "title": "Group colour",
-                    "description": "Colour used to paint and group APIs in the network graph",
-                    "default": "",
-                    "examples": [
-                        "#8e44ad"
-                    ]
+                "type": "object",
+                "required": [
+                    "name",
+                    "colour"
+                ],
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "title": "Group name",
+                        "description": "Group name is shown in the legend",
+                        "default": "",
+                        "examples": [
+                            "Payments"
+                        ]
+                    },
+                    "colour": {
+                        "type": "string",
+                        "title": "Group colour",
+                        "description": "Colour used to paint and group APIs in the network graph",
+                        "default": "",
+                        "examples": [
+                            "#8e44ad"
+                        ]
+                    }
                 }
-            }
             }
         },
         "apis": {
