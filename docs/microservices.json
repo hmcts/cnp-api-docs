@@ -726,7 +726,7 @@
             "name": "Client API",
             "group": "Divorce",
             "description": null,
-            "repository": "https://git.reform.hmcts.net/divorce/Evidence Management-management-client-api",
+            "repository": "https://git.reform.hmcts.net/divorce/evidence-management-client-api",
             "spec": null,
             "dependencies": [
                 {
