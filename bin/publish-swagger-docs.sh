@@ -36,7 +36,7 @@ elif [ "$CURRENT_DOCS" != "$NEW_DOCS" ]; then
     echo "$NEW_DOCS" > "$TARGET_SPEC"
 
     git add "$TARGET_SPEC"
-    git commit -m "Updating spec for $REPO_NAME from $TRAVIS_PULL_REQUEST_SLUG"
+    git commit -m "Update spec from $TRAVIS_REPO_SLUG build $TRAVIS_BUILD_NUMBER"
     git push --set-upstream upstream master
 else
     echo "API Documentation is up to date."
