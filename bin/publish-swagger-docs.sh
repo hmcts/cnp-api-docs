@@ -11,6 +11,8 @@
 docker-compose up -d
 
 sleep 15
+wget --retry-connrefused --tries=120 --waitretry=1 -O /dev/null http://localhost:$SERVER_PORT/health
+#curl --retry-connrefused --retry 120 --retry-delay 1 http://localhost:{$SERVER_PORT}/health
 
 REPO_NAME=$(echo "$TRAVIS_REPO_SLUG" | cut -f2- -d/)
 CURRENT_DOCS=$(curl https://hmcts.github.io/reform-api-docs/specs/"$REPO_NAME".json)
