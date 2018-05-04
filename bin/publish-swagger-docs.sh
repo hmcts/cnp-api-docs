@@ -6,7 +6,7 @@
 # shellcheck disable=SC1091
 . ./.env
 
-./gradlew clean installDist
+./gradlew clean assemble installDist
 
 docker-compose up -d
 
