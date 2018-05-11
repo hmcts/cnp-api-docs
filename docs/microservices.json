@@ -53,38 +53,14 @@
             ]
         },
         {
-            "id": "letters-producer",
-            "name": "Letters producer",
-            "spec": "https://hmcts.github.io/reform-api-docs/specs/send-letter-producer-service.json",
+            "id": "bulk-printing",
+            "name": "Bulk printing",
+            "spec": "https://hmcts.github.io/reform-api-docs/specs/send-letter-service.json",
             "group": "Platform Engineering",
-            "repository": "https://github.com/hmcts/send-letter-producer-service",
+            "repository": "https://github.com/hmcts/send-letter-service",
             "dependencies": [
                 {
                     "id": "idam-s2s",
-                    "hard": true,
-                    "apis": []
-                }
-            ]
-        },
-        {
-            "id": "letters-consumer",
-            "name": "Letters consumer",
-            "spec": null,
-            "group": "Platform Engineering",
-            "repository": "https://github.com/hmcts/send-letter-consumer-service",
-            "dependencies": [
-                {
-                    "id": "idam-s2s",
-                    "hard": true,
-                    "apis": []
-                },
-                {
-                    "id": "letters-producer",
-                    "hard": true,
-                    "apis": []
-                },
-                {
-                    "id": "cmc-pdf-service",
                     "hard": true,
                     "apis": []
                 }
@@ -556,7 +532,7 @@
                     "apis": []
                 },
                 {
-                    "id": "letters-producer",
+                    "id": "bulk-printing",
                     "hard": true,
                     "apis": []
                 }
