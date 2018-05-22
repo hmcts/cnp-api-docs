@@ -3,7 +3,7 @@
 "info": {
 "description": "API for service that doesn't exist",
 "version": "1.0.0",
-"title": "Non-existing API",
+"title": "Non-existing Pet Store API",
 "termsOfService": "http://swagger.io/terms/",
 "contact": {
 "email": "apiteam@example.com"
