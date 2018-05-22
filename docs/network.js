@@ -16,37 +16,15 @@ function hexToRgbA(hex, alpha = 1) {
     throw new Error('Bad Hex');
 }
 
-function build(data) {
-    var idamGroup = "IdAM";
-    var idamIdPrefix = "idam";
-    var microNames = {};
+var idamGroup = "IdAM";
+var idamIdPrefix = "idam";
+var microNames = {};
+var legendaryNodeIds = [];
 
-    // groups
+// all edges
 
-    var groupOptions = {};
-
-    data.groups.forEach(function(group) {
-        var colour = hexToRgbA(group.colour);
-        var hoverColour = hexToRgbA(group.colour, 0.7);
-        var highlightColour = hexToRgbA(group.colour, 0.9);
-
-        groupOptions[group.name] = {
-            shape: 'dot',
-            color: {
-                background: colour,
-                hover: {
-                    background: hoverColour
-                },
-                highlight: {
-                    background: highlightColour
-                }
-            }
-        };
-    });
-
-    // edges
-
-    var edgesData = data.apis
+function getEdges(data) {
+    return data.apis
         .filter(function(micro) {
             microNames[micro.id] = micro.name;
 
@@ -65,10 +43,16 @@ function build(data) {
                 };
             }));
         }, []);
+}
 
-    // data
+// container
 
-    var nodeData = data.apis
+var container = document.getElementById('api');
+
+// all nodes
+
+function getNodes(data, edgesData, groupOptions) {
+    var nodes = data.apis
         .filter(function(micro) {
             return micro.group != idamGroup;
         })
@@ -123,10 +107,6 @@ function build(data) {
             }
         });
 
-    // container
-
-    var container = document.getElementById('api');
-
     // legend (extra not connected nodes)
 
     var x = - container.clientWidth / 2 - 150;
@@ -138,8 +118,10 @@ function build(data) {
             return group.name != idamGroup;
         })
         .forEach(function(group, index) {
-            nodeData.push({
-                id: 1000 + index,
+            var legendId = 1000 + index;
+            legendaryNodeIds.push(legendId);
+            nodes.push({
+                id: legendId,
                 x: x,
                 y: y + index * step,
                 label: group.name,
@@ -149,6 +131,41 @@ function build(data) {
                 physics: false
             });
         });
+
+    return nodes;
+}
+
+function build(data) {
+    // groups
+
+    var groupOptions = {};
+
+    data.groups.forEach(function(group) {
+        var colour = hexToRgbA(group.colour);
+        var hoverColour = hexToRgbA(group.colour, 0.7);
+        var highlightColour = hexToRgbA(group.colour, 0.9);
+
+        groupOptions[group.name] = {
+            shape: 'dot',
+            color: {
+                background: colour,
+                hover: {
+                    background: hoverColour
+                },
+                highlight: {
+                    background: highlightColour
+                }
+            }
+        };
+    });
+
+    // edges
+
+    var edgesData = getEdges(data);
+
+    // data
+
+    var nodeData = getNodes(data, edgesData, groupOptions);
 
     // Instantiate our network object.
 
@@ -175,6 +192,29 @@ function build(data) {
     };
     var network = new vis.Network(container, networkData, options);
     var networkCanvas = container.getElementsByTagName('canvas')[0];
+
+    network.on('click', function (params) {
+        var nodeId = this.getNodeAt(params.pointer.DOM);
+
+        if (legendaryNodeIds.includes(nodeId)) {
+            var legendGroup = this.body.nodes[nodeId].options.group
+            var nodeIds = [];
+
+            network.setData({
+                nodes: getNodes(data, edgesData, groupOptions).filter(function(node) {
+                    if (node.group == legendGroup && !legendaryNodeIds.includes(node.id)) {
+                        nodeIds.push(node.id);
+                    }
+
+                    return node.group != legendGroup || legendaryNodeIds.includes(node.id);
+                }),
+                edges: getEdges(data).filter(function(edge) {
+                    return !nodeIds.includes(edge.from) && !nodeIds.includes(edge.to)
+                })
+            });
+            network.redraw();
+        }
+    });
 
     network.on('click', function (params) {
         var nodeId = this.getNodeAt(params.pointer.DOM);
