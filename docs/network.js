@@ -19,7 +19,7 @@ function hexToRgbA(hex, alpha = 1) {
 var idamGroup = "IdAM";
 var idamIdPrefix = "idam";
 var microNames = {};
-var legendaryNodeIds = [];
+var legendaryNodeIds = {};
 
 // all edges
 
@@ -119,7 +119,11 @@ function getNodes(data, edgesData, groupOptions) {
         })
         .forEach(function(group, index) {
             var legendId = 1000 + index;
-            legendaryNodeIds.push(legendId);
+
+            if (legendaryNodeIds[legendId] == undefined) {
+                legendaryNodeIds[legendId] = true;
+            }
+
             nodes.push({
                 id: legendId,
                 x: x,
@@ -196,22 +200,35 @@ function build(data) {
     network.on('click', function (params) {
         var nodeId = this.getNodeAt(params.pointer.DOM);
 
-        if (legendaryNodeIds.includes(nodeId)) {
+        if (legendaryNodeIds[nodeId] != undefined) {
+            legendaryNodeIds[nodeId] = !legendaryNodeIds[nodeId];
             var legendGroup = this.body.nodes[nodeId].options.group
-            var nodeIds = [];
+            var nodeIdsToClear = [];
 
             network.setData({
                 nodes: getNodes(data, edgesData, groupOptions).filter(function(node) {
-                    if (node.group == legendGroup && !legendaryNodeIds.includes(node.id)) {
-                        nodeIds.push(node.id);
+                    var clear = false;
+
+                    for (var legendId in legendaryNodeIds) {
+                        // skip loop if the property is from prototype
+                        if (!legendaryNodeIds.hasOwnProperty(legendId)) {
+                            continue;
+                        }
+
+                        if (!legendaryNodeIds[legendId] && network.body.nodes[legendId].options.group == node.group) {
+                            nodeIdsToClear.push(node.id);
+                            clear = true;
+                            break;
+                        }
                     }
 
-                    return node.group != legendGroup || legendaryNodeIds.includes(node.id);
+                    return !clear || legendaryNodeIds[node.id] != undefined;
                 }),
                 edges: getEdges(data).filter(function(edge) {
-                    return !nodeIds.includes(edge.from) && !nodeIds.includes(edge.to)
+                    return !nodeIdsToClear.includes(edge.from) && !nodeIdsToClear.includes(edge.to)
                 })
             });
+
             network.redraw();
         }
     });
