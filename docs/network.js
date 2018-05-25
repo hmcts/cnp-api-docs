@@ -19,7 +19,7 @@ function hexToRgbA(hex, alpha = 1) {
 var idamGroup = "IdAM";
 var idamIdPrefix = "idam";
 var microNames = {};
-var legendaryNodeIds = {};
+var legendaryNodeIds = {}; // ids of nodes in legend
 
 // all edges
 
