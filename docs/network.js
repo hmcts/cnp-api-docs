@@ -16,37 +16,15 @@ function hexToRgbA(hex, alpha = 1) {
     throw new Error('Bad Hex');
 }
 
-function build(data) {
-    var idamGroup = "IdAM";
-    var idamIdPrefix = "idam";
-    var microNames = {};
+var idamGroup = "IdAM";
+var idamIdPrefix = "idam";
+var microNames = {};
+var legendaryNodeIds = {}; // ids of nodes in legend
 
-    // groups
+// all edges
 
-    var groupOptions = {};
-
-    data.groups.forEach(function(group) {
-        var colour = hexToRgbA(group.colour);
-        var hoverColour = hexToRgbA(group.colour, 0.7);
-        var highlightColour = hexToRgbA(group.colour, 0.9);
-
-        groupOptions[group.name] = {
-            shape: 'dot',
-            color: {
-                background: colour,
-                hover: {
-                    background: hoverColour
-                },
-                highlight: {
-                    background: highlightColour
-                }
-            }
-        };
-    });
-
-    // edges
-
-    var edgesData = data.apis
+function getEdges(data) {
+    return data.apis
         .filter(function(micro) {
             microNames[micro.id] = micro.name;
 
@@ -65,10 +43,16 @@ function build(data) {
                 };
             }));
         }, []);
+}
 
-    // data
+// container
 
-    var nodeData = data.apis
+var container = document.getElementById('api');
+
+// all nodes
+
+function getNodes(data, edgesData, groupOptions) {
+    var nodes = data.apis
         .filter(function(micro) {
             return micro.group != idamGroup;
         })
@@ -123,10 +107,6 @@ function build(data) {
             }
         });
 
-    // container
-
-    var container = document.getElementById('api');
-
     // legend (extra not connected nodes)
 
     var x = - container.clientWidth / 2 - 150;
@@ -138,8 +118,14 @@ function build(data) {
             return group.name != idamGroup;
         })
         .forEach(function(group, index) {
-            nodeData.push({
-                id: 1000 + index,
+            var legendId = 1000 + index;
+
+            if (legendaryNodeIds[legendId] == undefined) {
+                legendaryNodeIds[legendId] = true;
+            }
+
+            nodes.push({
+                id: legendId,
                 x: x,
                 y: y + index * step,
                 label: group.name,
@@ -149,6 +135,41 @@ function build(data) {
                 physics: false
             });
         });
+
+    return nodes;
+}
+
+function build(data) {
+    // groups
+
+    var groupOptions = {};
+
+    data.groups.forEach(function(group) {
+        var colour = hexToRgbA(group.colour);
+        var hoverColour = hexToRgbA(group.colour, 0.7);
+        var highlightColour = hexToRgbA(group.colour, 0.9);
+
+        groupOptions[group.name] = {
+            shape: 'dot',
+            color: {
+                background: colour,
+                hover: {
+                    background: hoverColour
+                },
+                highlight: {
+                    background: highlightColour
+                }
+            }
+        };
+    });
+
+    // edges
+
+    var edgesData = getEdges(data);
+
+    // data
+
+    var nodeData = getNodes(data, edgesData, groupOptions);
 
     // Instantiate our network object.
 
@@ -175,6 +196,42 @@ function build(data) {
     };
     var network = new vis.Network(container, networkData, options);
     var networkCanvas = container.getElementsByTagName('canvas')[0];
+
+    network.on('click', function (params) {
+        var nodeId = this.getNodeAt(params.pointer.DOM);
+
+        if (legendaryNodeIds[nodeId] != undefined) {
+            legendaryNodeIds[nodeId] = !legendaryNodeIds[nodeId];
+            var legendGroup = this.body.nodes[nodeId].options.group
+            var nodeIdsToClear = [];
+
+            network.setData({
+                nodes: getNodes(data, edgesData, groupOptions).filter(function(node) {
+                    var clear = false;
+
+                    for (var legendId in legendaryNodeIds) {
+                        // skip loop if the property is from prototype
+                        if (!legendaryNodeIds.hasOwnProperty(legendId)) {
+                            continue;
+                        }
+
+                        if (!legendaryNodeIds[legendId] && network.body.nodes[legendId].options.group == node.group) {
+                            nodeIdsToClear.push(node.id);
+                            clear = true;
+                            break;
+                        }
+                    }
+
+                    return !clear || legendaryNodeIds[node.id] != undefined;
+                }),
+                edges: getEdges(data).filter(function(edge) {
+                    return !nodeIdsToClear.includes(edge.from) && !nodeIdsToClear.includes(edge.to)
+                })
+            });
+
+            network.redraw();
+        }
+    });
 
     network.on('click', function (params) {
         var nodeId = this.getNodeAt(params.pointer.DOM);
