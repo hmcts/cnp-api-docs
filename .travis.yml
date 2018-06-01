@@ -4,6 +4,10 @@ node_js:
   - "9"
   - "10"
 
+branches:
+  only:
+    - master
+
 cache:
   directories:
     - node_modules
