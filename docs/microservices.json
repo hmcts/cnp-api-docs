@@ -67,6 +67,14 @@
             ]
         },
         {
+            "id": "feature-toggle",
+            "name": "Feature toggle",
+            "spec": "https://hmcts.github.io/reform-api-docs/specs/feature-toggle-api.json",
+            "group": "Platform Engineering",
+            "repository": "https://github.com/hmcts/feature-toggle-api",
+            "dependencies": []
+        },
+        {
             "id": "ccd-api-gateway",
             "name": "API Gateway",
             "group": "CCD",
