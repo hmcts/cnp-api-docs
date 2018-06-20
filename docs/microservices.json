@@ -17,6 +17,10 @@
             "colour": "#8b4513"
         },
         {
+            "name": "COH",
+            "colour": "#81CCA9"
+        },
+        {
             "name": "Fees",
             "colour": "#2980b9"
         },
@@ -766,6 +770,11 @@
                     "id": "ccd-definition-store",
                     "hard": true,
                     "apis": []
+                },
+                {
+                    "id": "continuous-online-resolution",
+                    "hard": true,
+                    "apis": []
                 }
             ],
             "apis": [],
@@ -801,6 +810,28 @@
                 },
                 {
                     "id": "ccd-definition-store",
+                    "hard": true,
+                    "apis": []
+                }
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "continuous-online-resolution",
+            "name": "Continuous Online Resolution",
+            "group": "COH",
+            "description": null,
+            "repository": "https://github.com/hmcts/coh-continuous-online-resolution",
+            "spec": "https://hmcts.github.io/reform-api-docs/specs/coh-continuous-online-resolution.json",
+            "dependencies": [
+                {
+                    "id": "idam-web",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "idam-s2s",
                     "hard": true,
                     "apis": []
                 }
