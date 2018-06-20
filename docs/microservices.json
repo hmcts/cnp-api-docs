@@ -671,7 +671,7 @@
         },
         {
             "id": "div-evidence-management-client-api",
-            "name": "Divorce Evidence Management Client API",
+            "name": "Divorce\nEvidence Management\nClient API",
             "group": "Divorce",
             "description": null,
             "repository": "https://github.com/hmcts/div-evidence-management-client-api",
