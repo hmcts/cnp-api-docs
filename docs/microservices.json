@@ -33,6 +33,10 @@
             "colour": "#41dff4"
         },
         {
+            "name": "Reference Data",
+            "colour": "#000000"
+        },
+        {
             "name": "Probate",
             "colour": "#f39c12"
         },
@@ -836,6 +840,17 @@
                     "apis": []
                 }
             ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "ref-professional-user-profile",
+            "name": "Professional User Profile\nReference Data",
+            "group": "Reference Data",
+            "description": null,
+            "repository": "https://github.com/hmcts/ref-professional-user-profile",
+            "spec": "https://hmcts.github.io/reform-api-docs/specs/ref-professional-user-profile.json",
+            "dependencies": [],
             "apis": [],
             "version": null
         }
