@@ -22,11 +22,11 @@
   },
   "homepage": "https://github.com/hmcts/reform-api-docs#readme",
   "dependencies": {
-    "djv": "^2.0.0",
+    "djv": "^2.1.0",
     "jasmine": "^2.99.0",
     "moment": "~2.19.3",
     "npm": "^6.1.0",
-    "swagger-ui-dist": "^3.14.2",
+    "swagger-ui-dist": "^3.17.1",
     "vis": "^4.21.0"
   },
   "devDependencies": {
