@@ -1,6 +1,6 @@
 {
   "name": "reform-api-docs",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Swagger docs for all Reform Program APIs",
   "directories": {
     "doc": "docs"

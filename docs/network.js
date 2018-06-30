@@ -1,10 +1,10 @@
 function hexToRgbA(hex, alpha = 1) {
-    var c;
+    let c;
 
     if (/^#([A-Fa-f0-9]{3}){1,2}$/.test(hex)) {
         c = hex.substring(1).split('');
 
-        if (c.length == 3) {
+        if (c.length === 3) {
             c = [c[0], c[0], c[1], c[1], c[2], c[2]];
         }
 
@@ -16,23 +16,22 @@ function hexToRgbA(hex, alpha = 1) {
     throw new Error('Bad Hex');
 }
 
-var idamGroup = "IdAM";
-var idamIdPrefix = "idam";
-var microNames = {};
-var legendaryNodeIds = {}; // ids of nodes in legend
+let idamGroup = "IDAM";
+let idamIdPrefix = "idam";
+let s2sId = "rpe-service-auth-provider";
+let microNames = {};
+let legendaryNodeIds = {}; // ids of nodes in legend
 
 // all edges
-
 function getEdges(data) {
     return data.apis
         .filter(function(micro) {
             microNames[micro.id] = micro.name;
-
-            return micro.group != idamGroup;
+            return micro.group !== idamGroup && micro.id !== s2sId;
         })
         .reduce(function(acc, micro) {
-            var dependencies = micro.dependencies.filter(function(item) {
-                return item.id.substring(0, 4) != idamIdPrefix;
+            let dependencies = micro.dependencies.filter(function(item) {
+                return item.id.substring(0, 4) !== idamIdPrefix && item.id !== s2sId;
             }) || [];
 
             return acc.concat(dependencies.map(function(item) {
@@ -46,49 +45,50 @@ function getEdges(data) {
 }
 
 // container
-
-var container = document.getElementById('api');
+let container = document.getElementById('api');
 
 // all nodes
-
 function getNodes(data, edgesData, groupOptions) {
-    var nodes = data.apis
+    let nodes = data.apis
         .filter(function(micro) {
-            return micro.group != idamGroup;
+            return micro.group !== idamGroup && micro.id !== s2sId;
         })
         .map(function(micro) {
-            var href = undefined;
+            let href = undefined;
 
             if (micro.spec) {
                 href = './swagger.html?url=' + micro.spec
             }
 
-            var idamDependencies = micro.dependencies.filter(function(item) {
-                return item.id.substring(0, 4) == idamIdPrefix;
-            })
+            let idamDependencies = micro.dependencies.filter(function(item) {
+                return item.id.substring(0, 4) === idamIdPrefix;
+            });
 
-            var tooltip = undefined;
+            let tooltip = undefined;
 
             if (micro.version || micro.description || micro.repository || idamDependencies.length > 0) {
-                tooltip = '<h2>' + micro.name + (micro.version ? ' (v: ' + micro.version + ')' : '') + '</h2>' +
-                    (micro.description ? '<div>' + micro.description + '</div>' : '') +
-                    (micro.repository ? '<div>' + micro.repository + '</div>' : '');
+                const microVerDiv = (micro.version ? `(v: ${micro.version})` : '');
+                const microrDescpDiv = (micro.description ? `<div>${micro.description}</div>` : '');
+                const microRepoDiv = (micro.repository ? `<div>${micro.repository}</div>` : '');
+                tooltip = `<h2> ${micro.name} ${microVerDiv} </h2> ${microrDescpDiv} ${microRepoDiv}`;
 
                 if (idamDependencies.length > 0) {
                     tooltip += '<br/>';
                 }
 
                 idamDependencies.forEach(function(item) {
-                    tooltip += '<div>' + idamGroup + ' ' + microNames[item.id] + '. Is hard Dependency: ' + item.hard + '</div>';
+                    tooltip += `<div>${idamGroup} ${microNames[item.id]}. Is hard Dependency: ${item.hard} </div>`;
                 })
             }
 
-            var groupColour = (idamDependencies.length > 0 ? groupOptions[idamGroup] : groupOptions[micro.group]).color;
+            const groupColour = (idamDependencies.length > 0 ? groupOptions[idamGroup] : groupOptions[micro.group]).color;
+
+            const group = (micro.proType === 'web' || micro.proType === 'api') ? `${micro.group} ${micro.proType}` : micro.group;
 
             return {
                 id: micro.id,
                 label: micro.name,
-                group: micro.group,
+                group: group,
                 title: tooltip,
                 href: href,
                 borderWidth: idamDependencies.length * 2,
@@ -108,19 +108,18 @@ function getNodes(data, edgesData, groupOptions) {
         });
 
     // legend (extra not connected nodes)
-
-    var x = - container.clientWidth / 2 - 150;
-    var y = - container.clientHeight / 2 - 150;
-    var step = 50;
+    let x = - container.clientWidth / 2 - 150;
+    let y = - container.clientHeight / 2 - 150;
+    let step = 50;
 
     data.groups
         .filter(function(group) {
-            return group.name != idamGroup;
+            return group.name !== idamGroup;
         })
         .forEach(function(group, index) {
-            var legendId = 1000 + index;
+            let legendId = 1000 + index;
 
-            if (legendaryNodeIds[legendId] == undefined) {
+            if (legendaryNodeIds[legendId] === undefined) {
                 legendaryNodeIds[legendId] = true;
             }
 
@@ -142,15 +141,50 @@ function getNodes(data, edgesData, groupOptions) {
 function build(data) {
     // groups
 
-    var groupOptions = {};
+    let groupOptions = {};
 
     data.groups.forEach(function(group) {
-        var colour = hexToRgbA(group.colour);
-        var hoverColour = hexToRgbA(group.colour, 0.7);
-        var highlightColour = hexToRgbA(group.colour, 0.9);
+        let colour = hexToRgbA(group.colour);
+        let hoverColour = hexToRgbA(group.colour, 0.7);
+        let highlightColour = hexToRgbA(group.colour, 0.9);
 
         groupOptions[group.name] = {
+            // shape: 'dot',
+            // shape: 'triangle',
+            // shape: 'square',
+            shape: 'diamond',
+            color: {
+                background: colour,
+                hover: {
+                    background: hoverColour
+                },
+                highlight: {
+                    background: highlightColour
+                }
+            }
+        };
+
+        groupOptions[`${group.name} api`] = {
             shape: 'dot',
+            // shape: 'triangle',
+            // shape: 'square',
+            // shape: 'diamond',
+            color: {
+                background: colour,
+                hover: {
+                    background: hoverColour
+                },
+                highlight: {
+                    background: highlightColour
+                }
+            }
+        };
+
+        groupOptions[`${group.name} web`] = {
+            // shape: 'dot',
+            shape: 'triangle',
+            // shape: 'square',
+            // shape: 'diamond',
             color: {
                 background: colour,
                 hover: {
@@ -164,20 +198,19 @@ function build(data) {
     });
 
     // edges
-
-    var edgesData = getEdges(data);
+    let edgesData = getEdges(data);
 
     // data
 
-    var nodeData = getNodes(data, edgesData, groupOptions);
+    let nodeData = getNodes(data, edgesData, groupOptions);
 
     // Instantiate our network object.
-
-    var networkData = {
+    let networkData = {
         nodes: nodeData,
         edges: edgesData
     };
-    var options = {
+
+    let options = {
         groups: groupOptions,
         edges: {
             arrows: {
@@ -194,35 +227,35 @@ function build(data) {
             hover: true
         }
     };
-    var network = new vis.Network(container, networkData, options);
-    var networkCanvas = container.getElementsByTagName('canvas')[0];
+    let network = new vis.Network(container, networkData, options);
+    let networkCanvas = container.getElementsByTagName('canvas')[0];
 
     network.on('click', function (params) {
-        var nodeId = this.getNodeAt(params.pointer.DOM);
+        let nodeId = this.getNodeAt(params.pointer.DOM);
 
-        if (legendaryNodeIds[nodeId] != undefined) {
+        if (legendaryNodeIds[nodeId] !== undefined) {
             legendaryNodeIds[nodeId] = !legendaryNodeIds[nodeId];
-            var legendGroup = this.body.nodes[nodeId].options.group
-            var nodeIdsToClear = [];
+            let legendGroup = this.body.nodes[nodeId].options.group;
+            let nodeIdsToClear = [];
 
             network.setData({
                 nodes: getNodes(data, edgesData, groupOptions).filter(function(node) {
-                    var clear = false;
+                    let clear = false;
 
-                    for (var legendId in legendaryNodeIds) {
+                    for (let legendId in legendaryNodeIds) {
                         // skip loop if the property is from prototype
                         if (!legendaryNodeIds.hasOwnProperty(legendId)) {
                             continue;
                         }
 
-                        if (!legendaryNodeIds[legendId] && network.body.nodes[legendId].options.group == node.group) {
+                        if (!legendaryNodeIds[legendId] && network.body.nodes[legendId].options.group === node.group) {
                             nodeIdsToClear.push(node.id);
                             clear = true;
                             break;
                         }
                     }
 
-                    return !clear || legendaryNodeIds[node.id] != undefined;
+                    return !clear || legendaryNodeIds[node.id] !== undefined;
                 }),
                 edges: getEdges(data).filter(function(edge) {
                     return !nodeIdsToClear.includes(edge.from) && !nodeIdsToClear.includes(edge.to)
@@ -234,10 +267,10 @@ function build(data) {
     });
 
     network.on('click', function (params) {
-        var nodeId = this.getNodeAt(params.pointer.DOM);
+        let nodeId = this.getNodeAt(params.pointer.DOM);
 
         if (this.body.nodes[nodeId]) {
-            var href = this.body.nodes[nodeId].options.href;
+            let href = this.body.nodes[nodeId].options.href;
 
             if (href) {
                 window.open(href, '_blank');
@@ -250,7 +283,7 @@ function build(data) {
     }
 
     network.on('hoverNode', function (params) {
-        var href = this.body.nodes[params.node].options.href;
+        let href = this.body.nodes[params.node].options.href;
 
         if (href) {
             changeCursor('pointer');
@@ -263,7 +296,7 @@ function build(data) {
 
 // load data
 function loadJSON(file, callback) {
-    var xobj = new XMLHttpRequest();
+    let xobj = new XMLHttpRequest();
 
     xobj.overrideMimeType('application/json');
     xobj.open('GET', file, true); // Replace 'my_data' with the path to your file
@@ -280,7 +313,7 @@ function loadJSON(file, callback) {
 
 function load() {
     loadJSON('./microservices.json', function(response) {
-        var microservices = JSON.parse(response);
+        let microservices = JSON.parse(response);
         build(microservices);
     });
 }
