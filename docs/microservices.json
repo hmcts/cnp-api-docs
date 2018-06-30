@@ -53,7 +53,7 @@
 
         {
             "id": "idam-web",
-            "name": "Web",
+            "name": "IDAM (Tatical)",
             "group": "IDAM",
             "proType": "api",
             "description": null,
@@ -64,18 +64,47 @@
             "version": null
         },
         {
-            "id": "rpe-service-auth-provider",
-            "name": "S2S",
+            "id": "idam-api",
+            "name": "IDAM (Strategic)",
             "group": "IDAM",
             "proType": "api",
-            "description": "Service to Service",
-            "repository": null,
-            "spec": null,
-            "dependencies": [],
+            "description": "",
+            "repository": "https://github.com/hmcts/idam-api",
+            "spec": "https://hmcts.github.io/reform-api-docs/specs/idam-api.json",
+            "dependencies": [
+
+            ],
             "apis": [],
             "version": null
         },
+        {
+            "id": "idam-web-admin",
+            "name": "IDAM Web Admin",
+            "group": "IDAM",
+            "proType": "web",
+            "description": "",
+            "repository": "https://github.com/hmcts/idam-web-admin",
+            "spec": "https://hmcts.github.io/reform-api-docs/specs/idam-web-admin.json",
+            "dependencies": [
 
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "idam-web-public",
+            "name": "IDAM Web",
+            "group": "IDAM",
+            "proType": "web",
+            "description": "",
+            "repository": "https://github.com/hmcts/idam-web-public",
+            "spec": "https://hmcts.github.io/reform-api-docs/specs/idam-web-public.json",
+            "dependencies": [
+
+            ],
+            "apis": [],
+            "version": null
+        },
 
 
 
@@ -180,48 +209,6 @@
                     "hard": true,
                     "apis": []
                 }
-            ],
-            "apis": [],
-            "version": null
-        },
-        {
-            "id": "idam-api-idam",
-            "name": "IDAM (Strategic)",
-            "group": "IDAM",
-            "proType": "api",
-            "description": "",
-            "repository": "https://github.com/hmcts/idam-api",
-            "spec": "https://hmcts.github.io/reform-api-docs/specs/idam-api.json",
-            "dependencies": [
-
-            ],
-            "apis": [],
-            "version": null
-        },
-        {
-            "id": "idam-web-admin-idam",
-            "name": "IDAM Web Admin",
-            "group": "IDAM",
-            "proType": "web",
-            "description": "",
-            "repository": "https://github.com/hmcts/idam-web-admin",
-            "spec": "https://hmcts.github.io/reform-api-docs/specs/idam-web-admin.json",
-            "dependencies": [
-
-            ],
-            "apis": [],
-            "version": null
-        },
-        {
-            "id": "idam-web-public-idam",
-            "name": "IDAM Web",
-            "group": "IDAM",
-            "proType": "web",
-            "description": "",
-            "repository": "https://github.com/hmcts/idam-web-public",
-            "spec": "https://hmcts.github.io/reform-api-docs/specs/idam-web-public.json",
-            "dependencies": [
-
             ],
             "apis": [],
             "version": null
@@ -1025,11 +1012,6 @@
                 },
                 {
                     "id": "fees-register-api",
-                    "hard": true,
-                    "apis": []
-                },
-                {
-                    "id": "dm-store",
                     "hard": true,
                     "apis": []
                 },
