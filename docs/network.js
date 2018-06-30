@@ -21,6 +21,11 @@ let idamIdPrefix = "idam";
 let s2sId = "rpe-service-auth-provider";
 let microNames = {};
 let legendaryNodeIds = {}; // ids of nodes in legend
+let appTypes = [
+    { type: "", shape: 'diamond'},
+    { type: "-api", shape: 'dot'},
+    { type: "-web", shape: 'triangle'}
+];
 
 // all edges
 function getEdges(data) {
@@ -83,7 +88,7 @@ function getNodes(data, edgesData, groupOptions) {
 
             const groupColour = (idamDependencies.length > 0 ? groupOptions[idamGroup] : groupOptions[micro.group]).color;
 
-            const group = (micro.proType === 'web' || micro.proType === 'api') ? `${micro.group} ${micro.proType}` : micro.group;
+            const group = hasKnownType(micro.proType) ? `${micro.group}-${micro.proType}` : micro.group;
 
             return {
                 id: micro.id,
@@ -138,9 +143,17 @@ function getNodes(data, edgesData, groupOptions) {
     return nodes;
 }
 
+
+function hasKnownType(protype) {
+    let b = false;
+    appTypes.forEach((appType) => {
+        b = b || appType.type === `-${protype}`;
+    });
+    return b;
+}
+
 function build(data) {
     // groups
-
     let groupOptions = {};
 
     data.groups.forEach(function(group) {
@@ -148,53 +161,20 @@ function build(data) {
         let hoverColour = hexToRgbA(group.colour, 0.7);
         let highlightColour = hexToRgbA(group.colour, 0.9);
 
-        groupOptions[group.name] = {
-            // shape: 'dot',
-            // shape: 'triangle',
-            // shape: 'square',
-            shape: 'diamond',
-            color: {
-                background: colour,
-                hover: {
-                    background: hoverColour
-                },
-                highlight: {
-                    background: highlightColour
+        appTypes.forEach((type) =>
+            groupOptions[`${group.name}${type.type}`] = {
+                shape: type.shape,
+                color: {
+                    background: colour,
+                    hover: {
+                        background: hoverColour
+                    },
+                    highlight: {
+                        background: highlightColour
+                    }
                 }
             }
-        };
-
-        groupOptions[`${group.name} api`] = {
-            shape: 'dot',
-            // shape: 'triangle',
-            // shape: 'square',
-            // shape: 'diamond',
-            color: {
-                background: colour,
-                hover: {
-                    background: hoverColour
-                },
-                highlight: {
-                    background: highlightColour
-                }
-            }
-        };
-
-        groupOptions[`${group.name} web`] = {
-            // shape: 'dot',
-            shape: 'triangle',
-            // shape: 'square',
-            // shape: 'diamond',
-            color: {
-                background: colour,
-                hover: {
-                    background: hoverColour
-                },
-                highlight: {
-                    background: highlightColour
-                }
-            }
-        };
+        );
     });
 
     // edges
@@ -218,10 +198,10 @@ function build(data) {
             }
         },
         physics: {
-          solver: "forceAtlas2Based",
-          forceAtlas2Based: {
-            avoidOverlap: 1
-          }
+            solver: "forceAtlas2Based",
+            forceAtlas2Based: {
+                avoidOverlap: 1
+            }
         },
         interaction: {
             hover: true
@@ -303,8 +283,8 @@ function loadJSON(file, callback) {
 
     xobj.onreadystatechange = function () {
         if (xobj.readyState == 4 && xobj.status == '200') {
-        // Required use of an anonymous callback as .open will NOT return a value but simply returns undefined in asynchronous mode
-        callback(xobj.responseText);
+            // Required use of an anonymous callback as .open will NOT return a value but simply returns undefined in asynchronous mode
+            callback(xobj.responseText);
         }
     };
 
