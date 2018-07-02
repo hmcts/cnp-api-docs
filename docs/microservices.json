@@ -1034,7 +1034,7 @@
             "spec": "https://hmcts.github.io/reform-api-docs/specs/cmc-claim-store.json",
             "dependencies": [
                 {
-                    "id": "ccd-api-gateway",
+                    "id": "ccd-data-store-api",
                     "hard": true,
                     "apis": []
                 },
@@ -1374,6 +1374,16 @@
             "dependencies": [
                 {
                     "id": "idam-web",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "rpe-service-auth-provider",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "draft-store-service",
                     "hard": true,
                     "apis": []
                 }
