@@ -1,4 +1,18 @@
 {
+    "appTypes" :[
+        {
+            "type" : "",
+            "shape": "diamond"
+        },
+        {
+            "type" : "-api",
+            "shape": "dot"
+        },
+        {
+            "type" : "-web",
+            "shape": "triangle"
+        }
+    ],
     "groups": [
         {
             "name": "IDAM",
@@ -53,7 +67,7 @@
 
         {
             "id": "idam-web",
-            "name": "IDAM (Tatical)",
+            "name": "IDAM (Tactical)",
             "group": "IDAM",
             "proType": "api",
             "description": null,
@@ -647,20 +661,6 @@
             "version": null
         },
         {
-            "id": "rpe-feature-toggle-web",
-            "name": "RPE Feature Toggle Web",
-            "group": "RPE",
-            "proType": "web",
-            "description": "",
-            "repository": "https://github.com/hmcts/ft-toggle-web",
-            "spec": "https://hmcts.github.io/reform-api-docs/specs/ft-toggle-web.json",
-            "dependencies": [
-
-            ],
-            "apis": [],
-            "version": null
-        },
-        {
             "id": "pbi-service",
             "name": "RPE Private Beta Inivation",
             "group": "RPE",
@@ -733,6 +733,11 @@
             "repository": "https://github.com/hmcts/draft-store",
             "spec": "https://hmcts.github.io/reform-api-docs/specs/draft-store.json",
             "dependencies": [
+                {
+                    "id": "idam-web",
+                    "hard": true,
+                    "apis": []
+                },
                 {
                     "id": "rpe-service-auth-provider",
                     "hard": true,
