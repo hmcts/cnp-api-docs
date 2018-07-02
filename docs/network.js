@@ -206,7 +206,7 @@ function getNodes(data, edgesData, groupOptions) {
             });
 
             const tooltip = getToolTip(micro,idamDependencies);
-            const group = hasKnownType(micro.proType) ? `${micro.group}-${micro.proType}` : micro.group;
+            const group = hasKnownType(micro.type) ? `${micro.group}-${micro.type}` : micro.group;
             const groupColour = groupOptions[micro.group].color;
 
             return {
@@ -226,13 +226,13 @@ function getNodes(data, edgesData, groupOptions) {
                     }
                 },
                 value: (edgesData.filter((obj) => {return obj.to === micro.id;}).length + idamDependencies.length) * 5 + 5,
-                mass: 0.5,
+                mass: 1,
             }
         });
 
     // legend (extra not connected nodes)
-    let x = -container.clientWidth - 200;
-    let y = -container.clientHeight / 2;
+    let x = (-container.clientWidth / 2) - 200;
+    let y = (-container.clientHeight);
     let step = 50;
 
     //Create legendaryNodeIds
@@ -277,10 +277,10 @@ function getToolTip(micro,idamDependencies) {
     return tooltip;
 }
 
-function hasKnownType(proType) {
+function hasKnownType(type) {
     let b = false;
     appTypes.forEach((appType) => {
-        b = b || appType.type === `-${proType}`;
+        b = b || appType.type === `-${type}`;
     });
     return b;
 }
