@@ -1,10 +1,155 @@
+const idamGroup = "IDAM";
+const idamIdPrefix = "idam";
+const s2sId = "rpe-service-auth-provider";
+
+
+let networkCanvas;
+let container = document.getElementById('api');
+let appTypes = {};
+let microNames = {};
+let legendaryNodeIds = {};
+
+load();
+
+function load() {
+    loadJSON('./microservices.json', (response) => {build(JSON.parse(response));});
+}
+
+// load data
+function loadJSON(file, callback) {
+    let xobj = new XMLHttpRequest();
+    xobj.overrideMimeType('application/json');
+    xobj.open('GET', file, true); // Replace 'my_data' with the path to your file
+    xobj.onreadystatechange = function () {
+        if (xobj.readyState == 4 && xobj.status == '200') {
+            // Required use of an anonymous callback as .open will NOT return a value but simply returns undefined in asynchronous mode
+            callback(xobj.responseText);
+        }
+    };
+    xobj.send(null);
+}
+
+function build(data) {
+    appTypes = data.appTypes;
+    // groups
+    let groupOptions = createGroups(data);
+
+    // edges
+    let edgesData = getEdges(data);
+
+    // data
+    let nodeData = getNodes(data, edgesData, groupOptions);
+
+    // Instantiate our network object.
+    let networkData = {
+        nodes: nodeData,
+        edges: edgesData
+    };
+
+    let visOptions = createVisOptions(groupOptions);
+
+    let network = new vis.Network(container, networkData, visOptions);
+    networkCanvas = container.getElementsByTagName('canvas')[0];
+
+
+    network.on('click', function (params) {
+        let nodeId = this.getNodeAt(params.pointer.DOM);
+
+        if (legendaryNodeIds[nodeId] !== undefined) {
+            legendaryNodeIds[nodeId] = !legendaryNodeIds[nodeId];
+            let nodeIdsToClear = [];
+
+            network.setData({
+                nodes: getNodes(data, edgesData, groupOptions).filter((node) => {
+                    let clear = false;
+                    for (let legendId in legendaryNodeIds) {
+                        // skip loop if the property is from prototype
+                        if (!legendaryNodeIds.hasOwnProperty(legendId)) {
+                            console.log(legendId);
+                            console.dir(legendaryNodeIds);
+                            continue;
+                        }
+
+                        if (
+                            !legendaryNodeIds[legendId] && (
+                                isPartOfGroup(node.group,network.body.nodes[legendId].options.group)
+                            )) {
+                            nodeIdsToClear.push(node.id);
+                            clear = true;
+                            break;
+                        }
+                    }
+                    return !clear || legendaryNodeIds[node.id] !== undefined;
+                }),
+                edges: getEdges(data).filter(function(edge) {
+                    return !nodeIdsToClear.includes(edge.from) && !nodeIdsToClear.includes(edge.to)
+                })
+            });
+
+            network.redraw();
+        }
+    });
+    network.on('click', function (params) {
+        let nodeId = this.getNodeAt(params.pointer.DOM);
+
+        if (this.body.nodes[nodeId]) {
+            let href = this.body.nodes[nodeId].options.href;
+
+            if (href) {
+                window.open(href, '_blank');
+            }
+        }
+    });
+    network.on('hoverNode', function (params) {
+        let href = this.body.nodes[params.node].options.href;
+
+        if (href) {
+            changeCursor('pointer');
+        }
+    });
+    network.on('blurNode', function (params) {
+        changeCursor('default');
+    });
+}
+
+//////////////////////////////////////////////
+//////////////////////////////////////////////
+//CREATE GROUP
+//////////////////////////////////////////////
+//////////////////////////////////////////////
+
+function createGroups(data) {
+    let groupOptions = {};
+    data.groups.forEach(function(group) {
+        let colour = hexToRgbA(group.colour);
+        let hoverColour = hexToRgbA(group.colour, 0.7);
+        let highlightColour = hexToRgbA(group.colour, 0.9);
+
+        appTypes.forEach((type) =>
+            groupOptions[`${group.name}${type.type}`] = {
+                shape: type.shape,
+                color: {
+                    background: colour,
+                    hover: {
+                        background: hoverColour
+                    },
+                    highlight: {
+                        background: highlightColour
+                    }
+                }
+            }
+        );
+    });
+    return groupOptions;
+}
+
 function hexToRgbA(hex, alpha = 1) {
-    var c;
+    let c;
 
     if (/^#([A-Fa-f0-9]{3}){1,2}$/.test(hex)) {
         c = hex.substring(1).split('');
 
-        if (c.length == 3) {
+        if (c.length === 3) {
             c = [c[0], c[0], c[1], c[1], c[2], c[2]];
         }
 
@@ -12,27 +157,25 @@ function hexToRgbA(hex, alpha = 1) {
 
         return 'rgba('+[(c>>16)&255, (c>>8)&255, c&255].join(',')+',' + alpha + ')';
     }
-
     throw new Error('Bad Hex');
 }
 
-var idamGroup = "IdAM";
-var idamIdPrefix = "idam";
-var microNames = {};
-var legendaryNodeIds = {}; // ids of nodes in legend
 
-// all edges
+//////////////////////////////////////////////
+//////////////////////////////////////////////
+// GET EDGES
+//////////////////////////////////////////////
+//////////////////////////////////////////////
 
 function getEdges(data) {
     return data.apis
         .filter(function(micro) {
             microNames[micro.id] = micro.name;
-
-            return micro.group != idamGroup;
+            return micro.group !== idamGroup && micro.id !== s2sId;
         })
         .reduce(function(acc, micro) {
-            var dependencies = micro.dependencies.filter(function(item) {
-                return item.id.substring(0, 4) != idamIdPrefix;
+            let dependencies = micro.dependencies.filter(function(item) {
+                return item.id.substring(0, 4) !== idamIdPrefix && item.id !== s2sId;
             }) || [];
 
             return acc.concat(dependencies.map(function(item) {
@@ -45,50 +188,31 @@ function getEdges(data) {
         }, []);
 }
 
-// container
-
-var container = document.getElementById('api');
-
-// all nodes
+//////////////////////////////////////////////
+//////////////////////////////////////////////
+// GET NODES
+//////////////////////////////////////////////
+//////////////////////////////////////////////
 
 function getNodes(data, edgesData, groupOptions) {
-    var nodes = data.apis
-        .filter(function(micro) {
-            return micro.group != idamGroup;
+    let nodes = data.apis
+        .filter((micro) => {
+            return micro.group !== idamGroup && micro.id !== s2sId;
         })
         .map(function(micro) {
-            var href = undefined;
+            let href = micro.spec ? `./swagger.html?url=${micro.spec}` : undefined;
+            let idamDependencies = micro.dependencies.filter((item) => {
+                return item.id.substring(0, 4) === idamIdPrefix;
+            });
 
-            if (micro.spec) {
-                href = './swagger.html?url=' + micro.spec
-            }
-
-            var idamDependencies = micro.dependencies.filter(function(item) {
-                return item.id.substring(0, 4) == idamIdPrefix;
-            })
-
-            var tooltip = undefined;
-
-            if (micro.version || micro.description || micro.repository || idamDependencies.length > 0) {
-                tooltip = '<h2>' + micro.name + (micro.version ? ' (v: ' + micro.version + ')' : '') + '</h2>' +
-                    (micro.description ? '<div>' + micro.description + '</div>' : '') +
-                    (micro.repository ? '<div>' + micro.repository + '</div>' : '');
-
-                if (idamDependencies.length > 0) {
-                    tooltip += '<br/>';
-                }
-
-                idamDependencies.forEach(function(item) {
-                    tooltip += '<div>' + idamGroup + ' ' + microNames[item.id] + '. Is hard Dependency: ' + item.hard + '</div>';
-                })
-            }
-
-            var groupColour = (idamDependencies.length > 0 ? groupOptions[idamGroup] : groupOptions[micro.group]).color;
+            const tooltip = getToolTip(micro,idamDependencies);
+            const group = hasKnownType(micro.type) ? `${micro.group}-${micro.type}` : micro.group;
+            const groupColour = groupOptions[micro.group].color;
 
             return {
                 id: micro.id,
                 label: micro.name,
-                group: micro.group,
+                group: group,
                 title: tooltip,
                 href: href,
                 borderWidth: idamDependencies.length * 2,
@@ -101,33 +225,28 @@ function getNodes(data, edgesData, groupOptions) {
                         border: groupColour.highlight.background
                     }
                 },
-                value: (edgesData.filter(function(obj) {
-                    return obj.to === micro.id;
-                }).length + idamDependencies.length) * 5 + 5
+                value: (edgesData.filter((obj) => {return obj.to === micro.id;}).length + idamDependencies.length) * 5 + 5,
+                mass: 1,
             }
         });
 
     // legend (extra not connected nodes)
+    let x = (-container.clientWidth / 2) - 200;
+    let y = (-container.clientHeight);
+    let step = 50;
 
-    var x = - container.clientWidth / 2 - 150;
-    var y = - container.clientHeight / 2 - 150;
-    var step = 50;
-
+    //Create legendaryNodeIds
     data.groups
         .filter(function(group) {
-            return group.name != idamGroup;
+            return group.name !== idamGroup;
         })
         .forEach(function(group, index) {
-            var legendId = 1000 + index;
-
-            if (legendaryNodeIds[legendId] == undefined) {
-                legendaryNodeIds[legendId] = true;
-            }
-
+            let legendId = 1000 + index;
+            if (legendaryNodeIds[legendId] === undefined) {legendaryNodeIds[legendId] = true;}
             nodes.push({
                 id: legendId,
                 x: x,
-                y: y + index * step,
+                y: y + (index * step),
                 label: group.name,
                 group: group.name,
                 value: 1,
@@ -139,45 +258,45 @@ function getNodes(data, edgesData, groupOptions) {
     return nodes;
 }
 
-function build(data) {
-    // groups
+function getToolTip(micro,idamDependencies) {
+    let tooltip = "";
+    if (micro.version || micro.description || micro.repository || idamDependencies.length > 0) {
+        const microVerDiv = (micro.version ? `(v: ${micro.version})` : '');
+        const microrDescpDiv = (micro.description ? `<div>${micro.description}</div>` : '');
+        const microRepoDiv = (micro.repository ? `<div>${micro.repository}</div>` : '');
+        tooltip += `<h2> ${micro.name} ${microVerDiv} </h2> ${microrDescpDiv} ${microRepoDiv}`;
 
-    var groupOptions = {};
+        if (idamDependencies.length > 0) {
+            tooltip += '<br/>';
+        }
 
-    data.groups.forEach(function(group) {
-        var colour = hexToRgbA(group.colour);
-        var hoverColour = hexToRgbA(group.colour, 0.7);
-        var highlightColour = hexToRgbA(group.colour, 0.9);
+        idamDependencies.forEach(function(item) {
+            tooltip += `<div>${idamGroup} ${microNames[item.id]}. Is hard Dependency: ${item.hard} </div>`;
+        })
+    }
+    return tooltip;
+}
 
-        groupOptions[group.name] = {
-            shape: 'dot',
-            color: {
-                background: colour,
-                hover: {
-                    background: hoverColour
-                },
-                highlight: {
-                    background: highlightColour
-                }
-            }
-        };
+function hasKnownType(type) {
+    let b = false;
+    appTypes.forEach((appType) => {
+        b = b || appType.type === `-${type}`;
     });
+    return b;
+}
 
-    // edges
 
-    var edgesData = getEdges(data);
-
-    // data
-
-    var nodeData = getNodes(data, edgesData, groupOptions);
-
-    // Instantiate our network object.
-
-    var networkData = {
-        nodes: nodeData,
-        edges: edgesData
-    };
-    var options = {
+//////////////////////////////////////////////
+//////////////////////////////////////////////
+// Create Vis Options
+//////////////////////////////////////////////
+//////////////////////////////////////////////
+function createVisOptions(groupOptions) {
+    return {
+        autoResize: true,
+        height: '100%',
+        width: '100%',
+        locale: 'en',
         groups: groupOptions,
         edges: {
             arrows: {
@@ -185,104 +304,25 @@ function build(data) {
             }
         },
         physics: {
-          solver: "forceAtlas2Based",
-          forceAtlas2Based: {
-            avoidOverlap: 1
-          }
+            solver: "forceAtlas2Based",
+            forceAtlas2Based: {
+                avoidOverlap: 1
+            }
         },
         interaction: {
             hover: true
         }
     };
-    var network = new vis.Network(container, networkData, options);
-    var networkCanvas = container.getElementsByTagName('canvas')[0];
-
-    network.on('click', function (params) {
-        var nodeId = this.getNodeAt(params.pointer.DOM);
-
-        if (legendaryNodeIds[nodeId] != undefined) {
-            legendaryNodeIds[nodeId] = !legendaryNodeIds[nodeId];
-            var legendGroup = this.body.nodes[nodeId].options.group
-            var nodeIdsToClear = [];
-
-            network.setData({
-                nodes: getNodes(data, edgesData, groupOptions).filter(function(node) {
-                    var clear = false;
-
-                    for (var legendId in legendaryNodeIds) {
-                        // skip loop if the property is from prototype
-                        if (!legendaryNodeIds.hasOwnProperty(legendId)) {
-                            continue;
-                        }
-
-                        if (!legendaryNodeIds[legendId] && network.body.nodes[legendId].options.group == node.group) {
-                            nodeIdsToClear.push(node.id);
-                            clear = true;
-                            break;
-                        }
-                    }
-
-                    return !clear || legendaryNodeIds[node.id] != undefined;
-                }),
-                edges: getEdges(data).filter(function(edge) {
-                    return !nodeIdsToClear.includes(edge.from) && !nodeIdsToClear.includes(edge.to)
-                })
-            });
-
-            network.redraw();
-        }
-    });
-
-    network.on('click', function (params) {
-        var nodeId = this.getNodeAt(params.pointer.DOM);
-
-        if (this.body.nodes[nodeId]) {
-            var href = this.body.nodes[nodeId].options.href;
-
-            if (href) {
-                window.open(href, '_blank');
-            }
-        }
-    });
-
-    function changeCursor(newCursorStyle) {
-        networkCanvas.style.cursor = newCursorStyle;
-    }
-
-    network.on('hoverNode', function (params) {
-        var href = this.body.nodes[params.node].options.href;
-
-        if (href) {
-            changeCursor('pointer');
-        }
-    });
-    network.on('blurNode', function (params) {
-        changeCursor('default');
-    });
 }
 
-// load data
-function loadJSON(file, callback) {
-    var xobj = new XMLHttpRequest();
-
-    xobj.overrideMimeType('application/json');
-    xobj.open('GET', file, true); // Replace 'my_data' with the path to your file
-
-    xobj.onreadystatechange = function () {
-        if (xobj.readyState == 4 && xobj.status == '200') {
-        // Required use of an anonymous callback as .open will NOT return a value but simply returns undefined in asynchronous mode
-        callback(xobj.responseText);
-        }
-    };
-
-    xobj.send(null);
-}
-
-function load() {
-    loadJSON('./microservices.json', function(response) {
-        var microservices = JSON.parse(response);
-        build(microservices);
+function isPartOfGroup(nodeGroup, selectGroup) {
+    let b = false;
+    appTypes.forEach((appType) => {
+        b = b || nodeGroup === `${selectGroup}${appType.type}`;
     });
+    return b;
 }
 
-load();
+function changeCursor(newCursorStyle) {
+    networkCanvas.style.cursor = newCursorStyle;
+}

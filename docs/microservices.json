@@ -1,130 +1,147 @@
 {
+    "appTypes" :[
+        {
+            "type" : "",
+            "shape": "diamond"
+        },
+        {
+            "type" : "-api",
+            "shape": "dot"
+        },
+        {
+            "type" : "-web",
+            "shape": "triangle"
+        }
+    ],
     "groups": [
         {
-            "name": "IdAM",
-            "colour": "#2c3e50"
-        },
-        {
-            "name": "Platform Engineering",
-            "colour": "#16a085"
-        },
-        {
-            "name": "CCD",
-            "colour": "#ff69b4"
-        },
-        {
-            "name": "Evidence",
-            "colour": "#8b4513"
-        },
-        {
-            "name": "COH",
-            "colour": "#81CCA9"
-        },
-        {
-            "name": "Fees",
-            "colour": "#2980b9"
-        },
-        {
-            "name": "Payments",
-            "colour": "#8e44ad"
-        },
-        {
-            "name": "Professional Applications",
-            "colour": "#41dff4"
-        },
-        {
-            "name": "Reference Data",
+            "name": "IDAM",
             "colour": "#000000"
         },
         {
-            "name": "Probate",
-            "colour": "#f39c12"
+            "name": "RPE",
+            "colour": "#999999"
         },
         {
-            "name": "CMC",
-            "colour": "#f30000"
+            "name": "CDM",
+            "colour": "#AF9F2E"
         },
         {
-            "name": "Divorce",
-            "colour": "#c0392b"
+            "name": "Evidence",
+            "colour": "#532F0C"
+        },
+        {
+            "name": "BAR, Fee & Pay",
+            "colour": "#3B7FC0"
+        },
+        {
+            "name": "COH",
+            "colour": "#7122D6"
+        },
+        {
+            "name": "RPA",
+            "colour": "#28C5C7"
+        },
+        {
+            "name": "SNL",
+            "colour": "#97370E"
         },
         {
             "name": "SSCS",
-            "colour": "#c0392b"
+            "colour": "#C728C5"
+        },
+        {
+            "name": "Probate",
+            "colour": "#DD7F00"
+        },
+        {
+            "name": "CMC",
+            "colour": "#DD0000"
+        },
+        {
+            "name": "DIV",
+            "colour": "#119F5A"
+        },
+        {
+            "name": "FINREM",
+            "colour": "#A4DD00"
         }
     ],
     "apis": [
+
         {
-            "id": "draft-store",
-            "name": "Draft Store",
-            "spec": "https://hmcts.github.io/reform-api-docs/specs/draft-store.json",
-            "group": "Platform Engineering",
-            "repository": "https://github.com/hmcts/draft-store",
-            "dependencies": [
-                {
-                    "id": "idam-s2s",
-                    "hard": true,
-                    "apis": []
-                }
-            ]
-        },
-        {
-            "id": "bulk-printing",
-            "name": "Bulk printing",
-            "spec": "https://hmcts.github.io/reform-api-docs/specs/send-letter-service.json",
-            "group": "Platform Engineering",
-            "repository": "https://github.com/hmcts/send-letter-service",
-            "dependencies": [
-                {
-                    "id": "idam-s2s",
-                    "hard": true,
-                    "apis": []
-                }
-            ]
-        },
-        {
-            "id": "feature-toggle",
-            "name": "Feature toggle",
-            "spec": "https://hmcts.github.io/reform-api-docs/specs/feature-toggle-api.json",
-            "group": "Platform Engineering",
-            "repository": "https://github.com/hmcts/feature-toggle-api",
-            "dependencies": []
-        },
-        {
-            "id": "ccd-api-gateway",
-            "name": "API Gateway",
-            "group": "CCD",
+            "id": "idam-web",
+            "name": "IDAM (Tactical)",
+            "group": "IDAM",
+            "type": "api",
             "description": null,
             "repository": null,
             "spec": null,
+            "dependencies": [],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "idam-api",
+            "name": "IDAM (Strategic)",
+            "group": "IDAM",
+            "type": "api",
+            "description": "",
+            "repository": "https://github.com/hmcts/idam-api",
+            "spec": "https://hmcts.github.io/reform-api-docs/specs/idam-api.json",
+            "dependencies": [
+
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "idam-web-admin",
+            "name": "IDAM Web Admin",
+            "group": "IDAM",
+            "type": "web",
+            "description": "",
+            "repository": "https://github.com/hmcts/idam-web-admin",
+            "spec": "https://hmcts.github.io/reform-api-docs/specs/idam-web-admin.json",
+            "dependencies": [
+
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "idam-web-public",
+            "name": "IDAM Web",
+            "group": "IDAM",
+            "type": "web",
+            "description": "",
+            "repository": "https://github.com/hmcts/idam-web-public",
+            "spec": "https://hmcts.github.io/reform-api-docs/specs/idam-web-public.json",
+            "dependencies": [
+
+            ],
+            "apis": [],
+            "version": null
+        },
+
+
+
+        {
+            "id": "bar-web",
+            "name": "Bar Web",
+            "group": "BAR, Fee & Pay",
+            "type": "web",
+            "description": "",
+            "repository": "https://github.com/hmcts/bar-web",
+            "spec": "https://hmcts.github.io/reform-api-docs/specs/bar-web.json",
             "dependencies": [
                 {
-                    "id": "ccd-data-store",
+                    "id": "bar-api",
                     "hard": true,
                     "apis": []
                 },
                 {
-                    "id": "ccd-definition-store",
-                    "hard": true,
-                    "apis": []
-                },
-                {
-                    "id": "ccd-user-profile",
-                    "hard": true,
-                    "apis": []
-                },
-                {
-                    "id": "idam-web",
-                    "hard": true,
-                    "apis": []
-                },
-                {
-                    "id": "idam-s2s",
-                    "hard": true,
-                    "apis": []
-                },
-                {
-                    "id": "document-store-app",
+                    "id": "fees-register-api",
                     "hard": true,
                     "apis": []
                 }
@@ -133,15 +150,212 @@
             "version": null
         },
         {
-            "id": "ccd-case-activity",
-            "name": "Case Activity",
-            "group": "CCD",
-            "description": null,
-            "repository": null,
-            "spec": null,
+            "id": "bar-api",
+            "name": "Bar App",
+            "group": "BAR, Fee & Pay",
+            "type": "api",
+            "description": "",
+            "repository": "https://github.com/hmcts/bar-apps",
+            "spec": "https://hmcts.github.io/reform-api-docs/specs/bar-apps.json",
             "dependencies": [
                 {
                     "id": "idam-web",
+                    "hard": true,
+                    "apis": []
+                }
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "fees-register-frontend",
+            "name": "Fees Admin Frontend",
+            "group": "BAR, Fee & Pay",
+            "type": "web",
+            "description": "",
+            "repository": "https://github.com/hmcts/ccfr-fees-register-admin-web",
+            "spec": "https://hmcts.github.io/reform-api-docs/specs/ccfr-fees-register-admin-web.json",
+            "dependencies": [
+                {
+                    "id": "idam-web",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "fees-register-api",
+                    "hard": true,
+                    "apis": []
+                }
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "fees-register-api",
+            "name": "Fees App",
+            "group": "BAR, Fee & Pay",
+            "type": "api",
+            "description": "",
+            "repository": "https://github.com/hmcts/ccfr-fees-register-app",
+            "spec": "https://hmcts.github.io/reform-api-docs/specs/ccfr-fees-register-app.json",
+            "dependencies": [
+                {
+                    "id": "idam-web",
+                    "hard": true,
+                    "apis": []
+                }
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "payment-api",
+            "name": "Payments API",
+            "group": "BAR, Fee & Pay",
+            "type": "api",
+            "description": "",
+            "repository": "https://github.com/hmcts/ccpay-payment-app",
+            "spec": "https://hmcts.github.io/reform-api-docs/specs/ccpay-payment-app.json",
+            "dependencies": [
+                {
+                    "id": "rpe-service-auth-provider",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "fees-register-api",
+                    "hard": true,
+                    "apis": []
+                }
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "ccd-case-activity-api",
+            "name": "CCD Case Activities Api",
+            "group": "CDM",
+            "type": "api",
+            "description": "",
+            "repository": "https://github.com/hmcts/ccd-case-activity-api",
+            "spec": "https://hmcts.github.io/reform-api-docs/specs/ccd-case-activity-api.json",
+            "dependencies": [
+                {
+                    "id": "idam-web",
+                    "hard": true,
+                    "apis": []
+                }
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "ccd-case-print-service",
+            "name": "CCD Case Print Service",
+            "group": "CDM",
+            "type": "api",
+            "description": "",
+            "repository": "https://github.com/hmcts/ccd-case-print-service",
+            "spec": "https://hmcts.github.io/reform-api-docs/specs/ccd-case-print-service.json",
+            "dependencies": [
+                {
+                    "id": "rpe-service-auth-provider",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "ccd-data-store-api",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "idam-web",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "rpe-service-auth-provider",
+                    "hard": true,
+                    "apis": []
+                }
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "ccd-api-gateway-web",
+            "name": "CCD API GW",
+            "group": "CDM",
+            "type": "api-gw",
+            "description": "",
+            "repository": "https://github.com/hmcts/ccd-api-gateway",
+            "spec": "https://hmcts.github.io/reform-api-docs/specs/ccd-api-gateway.json",
+            "dependencies": [
+                {
+                    "id": "ccd-data-store-api",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "ccd-definition-store-api",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "ccd-case-activity-api",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "ccd-user-profile-api",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "ccd-case-print-service",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "idam-web",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "rpe-service-auth-provider",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "dm-store",
+                    "hard": true,
+                    "apis": []
+                }
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "ccd-admin-web",
+            "name": "CCD Admin Web",
+            "group": "CDM",
+            "type": "web",
+            "description": "",
+            "repository": "https://github.com/hmcts/ccd-admin-web",
+            "spec": "https://hmcts.github.io/reform-api-docs/specs/ccd-admin-web.json",
+            "dependencies": [
+                {
+                    "id": "idam-web",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "ccd-definition-store-api",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "rpe-service-auth-provider",
                     "hard": true,
                     "apis": []
                 }
@@ -151,19 +365,20 @@
         },
         {
             "id": "ccd-case-management-web",
-            "name": "Case Management Web",
-            "group": "CCD",
-            "description": null,
-            "repository": null,
-            "spec": null,
+            "name": "CCD Case Managment Web",
+            "group": "CDM",
+            "type": "web",
+            "description": "",
+            "repository": "https://github.com/hmcts/ccd-case-management-web",
+            "spec": "https://hmcts.github.io/reform-api-docs/specs/ccd-case-management-web.json",
             "dependencies": [
                 {
-                    "id": "ccd-api-gateway",
+                    "id": "ccd-api-gateway-web",
                     "hard": true,
                     "apis": []
                 },
                 {
-                    "id": "ccd-case-activity",
+                    "id": "ccd-case-activity-api",
                     "hard": true,
                     "apis": []
                 },
@@ -173,7 +388,11 @@
                     "apis": []
                 },
                 {
-                    "id": "document-store-app",
+                    "id": "dm-store",
+                    "hard": true,
+                    "apis": []
+                },                {
+                    "id": "ccd-case-print-service",
                     "hard": true,
                     "apis": []
                 }
@@ -182,20 +401,26 @@
             "version": null
         },
         {
-            "id": "ccd-data-store",
-            "name": "Data Store",
-            "group": "CCD",
-            "description": null,
-            "repository": null,
-            "spec": null,
+            "id": "ccd-data-store-api",
+            "name": "CCD Data Store",
+            "group": "CDM",
+            "type": "api",
+            "description": "",
+            "repository": "https://github.com/hmcts/ccd-data-store-api",
+            "spec": "https://hmcts.github.io/reform-api-docs/specs/ccd-data-store-api.json",
             "dependencies": [
                 {
-                    "id": "ccd-definition-store",
+                    "id": "ccd-definition-store-api",
                     "hard": true,
                     "apis": []
                 },
                 {
-                    "id": "ccd-user-profile",
+                    "id": "ccd-user-profile-api",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "ccd-case-print-service",
                     "hard": true,
                     "apis": []
                 },
@@ -205,12 +430,12 @@
                     "apis": []
                 },
                 {
-                    "id": "idam-s2s",
+                    "id": "rpe-service-auth-provider",
                     "hard": true,
                     "apis": []
                 },
                 {
-                    "id": "document-store-app",
+                    "id": "dm-store",
                     "hard": true,
                     "apis": []
                 }
@@ -219,15 +444,16 @@
             "version": null
         },
         {
-            "id": "ccd-definition-store",
-            "name": "Definition Store",
-            "group": "CCD",
-            "description": null,
-            "repository": null,
-            "spec": null,
+            "id": "ccd-definition-store-api",
+            "name": "CCD Defintion Store",
+            "group": "CDM",
+            "type": "api",
+            "description": "",
+            "repository": "https://github.com/hmcts/ccd-definition-store-api",
+            "spec": "https://hmcts.github.io/reform-api-docs/specs/ccd-definition-store-api.json",
             "dependencies": [
                 {
-                    "id": "ccd-user-profile",
+                    "id": "ccd-user-profile-api",
                     "hard": true,
                     "apis": []
                 },
@@ -237,7 +463,7 @@
                     "apis": []
                 },
                 {
-                    "id": "idam-s2s",
+                    "id": "rpe-service-auth-provider",
                     "hard": true,
                     "apis": []
                 }
@@ -246,20 +472,16 @@
             "version": null
         },
         {
-            "id": "ccd-import-web",
-            "name": "Import Web",
-            "group": "CCD",
-            "description": null,
-            "repository": null,
-            "spec": null,
+            "id": "ccd-user-profile-api",
+            "name": "CCD User Profile",
+            "group": "CDM",
+            "type": "api",
+            "description": "",
+            "repository": "https://github.com/hmcts/ccd-user-profile-api",
+            "spec": "https://hmcts.github.io/reform-api-docs/specs/ccd-user-profile-api.json",
             "dependencies": [
                 {
-                    "id": "ccd-api-gateway",
-                    "hard": true,
-                    "apis": []
-                },
-                {
-                    "id": "idam-web",
+                    "id": "rpe-service-auth-provider",
                     "hard": true,
                     "apis": []
                 }
@@ -268,332 +490,49 @@
             "version": null
         },
         {
-            "id": "ccd-user-profile",
-            "name": "User Profile",
-            "group": "CCD",
-            "description": null,
-            "repository": null,
-            "spec": null,
-            "dependencies": [
-                {
-                    "id": "idam-web",
-                    "hard": true,
-                    "apis": []
-                },
-                {
-                    "id": "idam-s2s",
-                    "hard": true,
-                    "apis": []
-                }
-            ],
-            "apis": [],
-            "version": null
-        },
-        {
-            "id": "fees-register-app",
-            "name": "Fees App",
-            "group": "Fees",
-            "description": null,
-            "repository": null,
-            "spec": null,
-            "dependencies": [
-                {
-                    "id": "idam-s2s",
-                    "hard": true,
-                    "apis": []
-                }
-            ],
-            "apis": [],
-            "version": null
-        },
-        {
-            "id": "fees-register-admin-web",
-            "name": "Fees Admin",
-            "group": "Fees",
-            "description": null,
-            "repository": null,
-            "spec": null,
-            "dependencies": [
-                {
-                    "id": "idam-web",
-                    "hard": true,
-                    "apis": []
-                },
-                {
-                    "id": "idam-s2s",
-                    "hard": true,
-                    "apis": []
-                },
-                {
-                    "id": "fees-register-app",
-                    "hard": true,
-                    "apis": []
-                }
-            ],
-            "apis": [],
-            "version": null
-        },
-        {
-            "id": "payments",
-            "name": "Payments",
-            "group": "Payments",
-            "description": null,
-            "repository": null,
-            "spec": null,
-            "dependencies": [
-                {
-                    "id": "idam-s2s",
-                    "hard": true,
-                    "apis": []
-                }
-            ],
-            "apis": [],
-            "version": null
-        },
-        {
-            "id": "idam-web",
-            "name": "Web",
-            "group": "IdAM",
-            "description": null,
-            "repository": null,
-            "spec": null,
-            "dependencies": [],
-            "apis": [],
-            "version": null
-        },
-        {
-            "id": "idam-s2s",
-            "name": "S2S",
-            "group": "IdAM",
-            "description": "Service to Service",
-            "repository": null,
-            "spec": null,
-            "dependencies": [],
-            "apis": [],
-            "version": null
-        },
-        {
-            "id": "probate-frontend",
-            "name": "Frontend",
-            "group": "Probate",
-            "description": null,
-            "repository": null,
-            "spec": null,
-            "dependencies": [
-                {
-                    "id": "idam-web",
-                    "hard": true,
-                    "apis": []
-                },
-                {
-                    "id": "fees-register-app",
-                    "hard": true,
-                    "apis": []
-                },
-                {
-                    "id": "payments",
-                    "hard": true,
-                    "apis": []
-                },
-                {
-                    "id": "probate-validator",
-                    "hard": true,
-                    "apis": []
-                },
-                {
-                    "id": "probate-persistence",
-                    "hard": true,
-                    "apis": []
-                },
-                {
-                    "id": "probate-submission",
-                    "hard": true,
-                    "apis": []
-                }
-            ],
-            "apis": [],
-            "version": null
-        },
-        {
-            "id": "probate-validator",
-            "name": "Validator",
-            "group": "Probate",
-            "description": null,
-            "repository": null,
-            "spec": null,
-            "dependencies": [],
-            "apis": [],
-            "version": null
-        },
-        {
-            "id": "probate-persistence",
-            "name": "Persistence",
-            "group": "Probate",
-            "description": null,
-            "repository": null,
-            "spec": null,
-            "dependencies": [],
-            "apis": [],
-            "version": null
-        },
-        {
-            "id": "probate-submission",
-            "name": "Submission",
-            "group": "Probate",
-            "description": null,
-            "repository": null,
-            "spec": null,
-            "dependencies": [],
-            "apis": [],
-            "version": null
-        },
-        {
-            "id": "cmc-legal-rep-frontend",
-            "name": "Legal Rep Frontend",
-            "group": "CMC",
-            "description": null,
-            "repository": "https://github.com/hmcts/cmc-legal-rep-frontend",
-            "spec": null,
-            "dependencies": [
-                {
-                    "id": "cmc-claim-store",
-                    "hard": true,
-                    "apis": []
-                },
-                {
-                    "id": "draft-store",
-                    "hard": true,
-                    "apis": []
-                },
-                {
-                    "id": "cmc-pdf-service",
-                    "hard": true,
-                    "apis": []
-                },
-                {
-                    "id": "idam-web",
-                    "hard": true,
-                    "apis": []
-                },
-                {
-                    "id": "payments",
-                    "hard": true,
-                    "apis": []
-                },
-                {
-                    "id": "fees-register-app",
-                    "hard": true,
-                    "apis": []
-                },
-                {
-                    "id": "document-management-store",
-                    "hard": true,
-                    "apis": []
-                }
-            ],
-            "apis": [],
-            "version": null
-        },
-        {
-            "id": "cmc-citizen-frontend",
-            "name": "Citizen Frontend",
-            "group": "CMC",
-            "description": null,
-            "repository": "https://github.com/hmcts/cmc-citizen-frontend",
-            "spec": null,
-            "dependencies": [
-                {
-                    "id": "cmc-claim-store",
-                    "hard": true,
-                    "apis": []
-                },
-                {
-                    "id": "draft-store",
-                    "hard": true,
-                    "apis": []
-                },
-                {
-                    "id": "cmc-pdf-service",
-                    "hard": true,
-                    "apis": []
-                },
-                {
-                    "id": "idam-web",
-                    "hard": true,
-                    "apis": []
-                },
-                {
-                    "id": "payments",
-                    "hard": true,
-                    "apis": []
-                },
-                {
-                    "id": "fees-register-app",
-                    "hard": true,
-                    "apis": []
-                }
-            ],
-            "apis": [],
-            "version": null
-        },
-        {
-            "id": "cmc-pdf-service",
-            "name": "PDF Service",
-            "group": "Platform Engineering",
-            "description": null,
-            "repository": "https://github.com/hmcts/cmc-pdf-service",
-            "spec": "https://hmcts.github.io/reform-api-docs/specs/cmc-pdf-service.json",
-            "dependencies": [],
-            "apis": [],
-            "version": null
-        },
-        {
-            "id": "cmc-claim-store",
-            "name": "Claim Store",
-            "group": "CMC",
-            "description": null,
-            "repository": "https://github.com/hmcts/cmc-claim-store",
-            "spec": null,
-            "dependencies": [
-                {
-                    "id": "ccd-api-gateway",
-                    "hard": true,
-                    "apis": []
-                },
-                {
-                    "id": "idam-s2s",
-                    "hard": true,
-                    "apis": []
-                },
-                {
-                    "id": "document-store-app",
-                    "hard": true,
-                    "apis": []
-                },
-                {
-                    "id": "bulk-printing",
-                    "hard": true,
-                    "apis": []
-                }
-            ],
-            "apis": [],
-            "version": null
-        },
-        {
-            "id": "document-store-app",
-            "name": "Document Store App",
+            "id": "dm-show",
+            "name": "DM Show",
             "group": "Evidence",
-            "description": null,
+            "type": "web",
+            "description": "",
+            "repository": "https://github.com/hmcts/document-management-node-demo",
+            "spec": "https://hmcts.github.io/reform-api-docs/specs/document-management-node-demo.json",
+            "dependencies": [
+                {
+                    "id": "idam-web",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "rpe-service-auth-provider",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "dm-store",
+                    "hard": true,
+                    "apis": []
+                }
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "dm-store",
+            "name": "DM Store",
+            "group": "Evidence",
+            "type": "api",
+            "description": "",
             "repository": "https://github.com/hmcts/document-management-store-app",
             "spec": "https://hmcts.github.io/reform-api-docs/specs/document-management-store-app.json",
             "dependencies": [
                 {
                     "id": "idam-web",
-                    "hard": true,
+                    "hard": false,
                     "apis": []
                 },
                 {
-                    "id": "idam-s2s",
+                    "id": "rpe-service-auth-provider",
                     "hard": true,
                     "apis": []
                 }
@@ -602,10 +541,11 @@
             "version": null
         },
         {
-            "id": "em-annotation-app",
-            "name": "Annotation App",
+            "id": "em-anno",
+            "name": "EM Annotation",
             "group": "Evidence",
-            "description": null,
+            "type": "api",
+            "description": "",
             "repository": "https://github.com/hmcts/em-annotation-app",
             "spec": "https://hmcts.github.io/reform-api-docs/specs/em-annotation-app.json",
             "dependencies": [
@@ -615,12 +555,12 @@
                     "apis": []
                 },
                 {
-                    "id": "idam-s2s",
+                    "id": "rpe-service-auth-provider",
                     "hard": true,
                     "apis": []
                 },
                 {
-                    "id": "document-store-app",
+                    "id": "dm-store",
                     "hard": true,
                     "apis": []
                 }
@@ -629,10 +569,11 @@
             "version": null
         },
         {
-            "id": "em-redaction-app",
-            "name": "Redaction App",
+            "id": "em-redact",
+            "name": "EM Redaction",
             "group": "Evidence",
-            "description": null,
+            "type": "api",
+            "description": "",
             "repository": "https://github.com/hmcts/em-redaction-app",
             "spec": "https://hmcts.github.io/reform-api-docs/specs/em-redaction-app.json",
             "dependencies": [
@@ -642,12 +583,12 @@
                     "apis": []
                 },
                 {
-                    "id": "idam-s2s",
+                    "id": "rpe-service-auth-provider",
                     "hard": true,
                     "apis": []
                 },
                 {
-                    "id": "document-store-app",
+                    "id": "dm-store",
                     "hard": true,
                     "apis": []
                 }
@@ -656,20 +597,16 @@
             "version": null
         },
         {
-            "id": "transformation-api",
-            "name": "Transformation API",
-            "group": "Divorce",
-            "description": null,
-            "repository": "https://git.reform.hmcts.net/divorce/transformation-service",
-            "spec": null,
+            "id": "snl-api",
+            "name": "SNL API",
+            "group": "SNL",
+            "type": "api",
+            "description": "",
+            "repository": "https://github.com/hmcts/snl-api",
+            "spec": "https://hmcts.github.io/reform-api-docs/specs/snl-api.json",
             "dependencies": [
                 {
-                    "id": "ccd-data-store",
-                    "hard": true,
-                    "apis": []
-                },
-                {
-                    "id": "idam-s2s",
+                    "id": "snl-events",
                     "hard": true,
                     "apis": []
                 }
@@ -678,15 +615,16 @@
             "version": null
         },
         {
-            "id": "div-evidence-management-client-api",
-            "name": "Divorce\nEvidence Management\nClient API",
-            "group": "Divorce",
-            "description": null,
-            "repository": "https://github.com/hmcts/div-evidence-management-client-api",
-            "spec": null,
+            "id": "snl-frontend",
+            "name": "SNL Frontend",
+            "group": "SNL",
+            "type": "web",
+            "description": "",
+            "repository": "https://github.com/hmcts/snl-frontend",
+            "spec": "https://hmcts.github.io/reform-api-docs/specs/snl-frontend.json",
             "dependencies": [
                 {
-                    "id": "document-store-app",
+                    "id": "snl-api",
                     "hard": true,
                     "apis": []
                 }
@@ -695,23 +633,109 @@
             "version": null
         },
         {
-            "id": "divorce-pdf-generator",
-            "name": "PDF Generator",
-            "group": "Divorce",
-            "description": null,
-            "repository": "https://git.reform.hmcts.net/divorce/pdf-generator",
-            "spec": null,
-            "dependencies": [],
+            "id": "snl-events",
+            "name": "SNL Event",
+            "group": "SNL",
+            "type": "api",
+            "description": "",
+            "repository": "https://github.com/hmcts/snl-events",
+            "spec": "https://hmcts.github.io/reform-api-docs/specs/snl-events.json",
+            "dependencies": [
+                {
+                    "id": "snl-rules",
+                    "hard": true,
+                    "apis": []
+                }
+            ],
             "apis": [],
             "version": null
         },
         {
-            "id": "divorce-frontend",
-            "name": "Frontend",
-            "group": "Divorce",
-            "description": null,
-            "repository": "https://git.reform.hmcts.net/divorce/frontend",
-            "spec": null,
+            "id": "snl-rules",
+            "name": "SNL Rules",
+            "group": "SNL",
+            "type": "api",
+            "description": "",
+            "repository": "https://github.com/hmcts/snl-rules",
+            "spec": "https://hmcts.github.io/reform-api-docs/specs/snl-rules.json",
+            "dependencies": [
+
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "pbi-service",
+            "name": "RPE Private Beta Inivation",
+            "group": "RPE",
+            "type": "api",
+            "description": "",
+            "repository": "https://github.com/hmcts/private-beta-invitation-service",
+            "spec": "https://hmcts.github.io/reform-api-docs/specs/private-beta-invitation-service.json",
+            "dependencies": [
+
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "rpe-service-auth-provider",
+            "name": "RPE Serivce Auth Provider (S2S)",
+            "group": "RPE",
+            "type": "api",
+            "description": "",
+            "repository": "https://github.com/hmcts/service-auth-provider-app",
+            "spec": "https://hmcts.github.io/reform-api-docs/specs/service-auth-provider-app.json",
+            "dependencies": [
+
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "rpe-feature-toggle-api",
+            "name": "RPE Feature Toggle",
+            "group": "RPE",
+            "type": "api",
+            "description": "",
+            "repository": "https://github.com/hmcts/feature-toggle-api",
+            "spec": "https://hmcts.github.io/reform-api-docs/specs/feature-toggle-api.json",
+            "dependencies": [
+                {
+                    "id": "rpe-service-auth-provider",
+                    "hard": true,
+                    "apis": []
+                }
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "cmc-pdf-service",
+            "name": "CMC PDF Service",
+            "group": "RPE",
+            "type": "api",
+            "description": "",
+            "repository": "https://github.com/hmcts/cmc-pdf-service",
+            "spec": "https://hmcts.github.io/reform-api-docs/specs/cmc-pdf-service.json",
+            "dependencies": [
+                {
+                    "id": "rpe-service-auth-provider",
+                    "hard": true,
+                    "apis": []
+                }
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "draft-store-service",
+            "name": "RPE Draft Store",
+            "group": "RPE",
+            "type": "api",
+            "description": "",
+            "repository": "https://github.com/hmcts/draft-store",
+            "spec": "https://hmcts.github.io/reform-api-docs/specs/draft-store.json",
             "dependencies": [
                 {
                     "id": "idam-web",
@@ -719,22 +743,62 @@
                     "apis": []
                 },
                 {
-                    "id": "payments",
+                    "id": "rpe-service-auth-provider",
+                    "hard": true,
+                    "apis": []
+                }
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "rpe-bulk-scan-processor",
+            "name": "RPE Bulk scan processor",
+            "group": "RPE",
+            "type": "api",
+            "description": "",
+            "repository": "https://github.com/hmcts/bulk-scan-processor",
+            "spec": "https://hmcts.github.io/reform-api-docs/specs/bulk-scan-processor.json",
+            "dependencies": [
+
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "rpe-send-letter-service",
+            "name": "RPE Bulk Prining (Send Letter)",
+            "group": "RPE",
+            "type": "api",
+            "description": "",
+            "repository": "https://github.com/hmcts/send-letter-service",
+            "spec": "https://hmcts.github.io/reform-api-docs/specs/send-letter-service.json",
+            "dependencies": [
+                {
+                    "id": "rpe-service-auth-provider",
+                    "hard": true,
+                    "apis": []
+                }
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "coh-cor",
+            "name": "COH Contious Online Resolution",
+            "group": "COH",
+            "type": "api",
+            "description": "",
+            "repository": "https://github.com/hmcts/coh-continuous-online-resolution",
+            "spec": "https://hmcts.github.io/reform-api-docs/specs/coh-continuous-online-resolution.json",
+            "dependencies": [
+                {
+                    "id": "idam-web",
                     "hard": true,
                     "apis": []
                 },
                 {
-                    "id": "transformation-api",
-                    "hard": true,
-                    "apis": []
-                },
-                {
-                    "id": "div-evidence-management-client-api",
-                    "hard": true,
-                    "apis": []
-                },
-                {
-                    "id": "divorce-pdf-generator",
+                    "id": "rpe-service-auth-provider",
                     "hard": true,
                     "apis": []
                 }
@@ -745,10 +809,11 @@
         {
             "id": "jui-webapp",
             "name": "JUI Webapp",
-            "group": "Professional Applications",
-            "description": null,
+            "group": "RPA",
+            "type": "web",
+            "description": "",
             "repository": "https://github.com/hmcts/jui-webapp",
-            "spec": null,
+            "spec": "https://hmcts.github.io/reform-api-docs/specs/jui-webapp.json",
             "dependencies": [
                 {
                     "id": "idam-web",
@@ -756,27 +821,64 @@
                     "apis": []
                 },
                 {
-                    "id": "idam-s2s",
+                    "id": "rpe-service-auth-provider",
                     "hard": true,
                     "apis": []
                 },
                 {
-                    "id": "document-store-app",
+                    "id": "dm-store",
                     "hard": true,
                     "apis": []
                 },
                 {
-                    "id": "ccd-data-store",
+                    "id": "ccd-data-store-api",
                     "hard": true,
                     "apis": []
                 },
                 {
-                    "id": "ccd-definition-store",
+                    "id": "ccd-definition-store-api",
                     "hard": true,
                     "apis": []
                 },
                 {
-                    "id": "continuous-online-resolution",
+                    "id": "coh-cor",
+                    "hard": true,
+                    "apis": []
+                }
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "rpa-icp",
+            "name": "RPA In Court Presnetation API",
+            "group": "RPA",
+            "type": "api",
+            "description": "",
+            "repository": "https://github.com/hmcts/rpa-in-court-presentation-api",
+            "spec": "https://hmcts.github.io/reform-api-docs/specs/rpa-in-court-presentation-api.json",
+            "dependencies": [
+
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "rpa-icp-w",
+            "name": "RPA In Court Presnetation Web",
+            "group": "RPA",
+            "type": "web",
+            "description": "",
+            "repository": "https://github.com/hmcts/rpa-in-court-presentation-web",
+            "spec": "https://hmcts.github.io/reform-api-docs/specs/rpa-in-court-presentation-web.json",
+            "dependencies": [
+                {
+                    "id": "rpa-icp",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "dm-store",
                     "hard": true,
                     "apis": []
                 }
@@ -787,10 +889,11 @@
         {
             "id": "pui-webapp",
             "name": "PUI Webapp",
-            "group": "Professional Applications",
-            "description": null,
+            "group": "RPA",
+            "type": "web",
+            "description": "",
             "repository": "https://github.com/hmcts/pui-webapp",
-            "spec": null,
+            "spec": "https://hmcts.github.io/reform-api-docs/specs/pui-webapp.json",
             "dependencies": [
                 {
                     "id": "idam-web",
@@ -798,22 +901,22 @@
                     "apis": []
                 },
                 {
-                    "id": "idam-s2s",
+                    "id": "rpe-service-auth-provider",
                     "hard": true,
                     "apis": []
                 },
                 {
-                    "id": "document-store-app",
+                    "id": "dm-store",
                     "hard": true,
                     "apis": []
                 },
                 {
-                    "id": "ccd-data-store",
+                    "id": "ccd-data-store-api",
                     "hard": true,
                     "apis": []
                 },
                 {
-                    "id": "ccd-definition-store",
+                    "id": "ccd-definition-store-api",
                     "hard": true,
                     "apis": []
                 }
@@ -822,35 +925,735 @@
             "version": null
         },
         {
-            "id": "continuous-online-resolution",
-            "name": "Continuous Online Resolution",
-            "group": "COH",
-            "description": null,
-            "repository": "https://github.com/hmcts/coh-continuous-online-resolution",
-            "spec": "https://hmcts.github.io/reform-api-docs/specs/coh-continuous-online-resolution.json",
-            "dependencies": [
-                {
-                    "id": "idam-web",
-                    "hard": true,
-                    "apis": []
-                },
-                {
-                    "id": "idam-s2s",
-                    "hard": true,
-                    "apis": []
-                }
-            ],
-            "apis": [],
-            "version": null
-        },
-        {
-            "id": "ref-professional-user-profile",
-            "name": "Professional User Profile\nReference Data",
-            "group": "Reference Data",
-            "description": null,
+            "id": "ref-pup",
+            "name": "PUP Reference Data",
+            "group": "RPA",
+            "type": "api",
+            "description": "",
             "repository": "https://github.com/hmcts/ref-professional-user-profile",
             "spec": "https://hmcts.github.io/reform-api-docs/specs/ref-professional-user-profile.json",
-            "dependencies": [],
+            "dependencies": [
+                {
+                    "id": "rpe-service-auth-provider",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "idam-web",
+                    "hard": true,
+                    "apis": []
+                }
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "cmc-citizen-frontend",
+            "name": "CMC Citzen Frontend",
+            "group": "CMC",
+            "type": "web",
+            "description": "",
+            "repository": "https://github.com/hmcts/cmc-citizen-frontend",
+            "spec": "https://hmcts.github.io/reform-api-docs/specs/cmc-citizen-frontend.json",
+            "dependencies": [
+                {
+                    "id": "cmc-claim-store",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "draft-store-service",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "idam-web",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "rpe-service-auth-provider",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "payment-api",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "fees-register-api",
+                    "hard": true,
+                    "apis": []
+                }
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "cmc-legal-frontend",
+            "name": "CMC Leagal Rep Frontend",
+            "group": "CMC",
+            "type": "web",
+            "description": "",
+            "repository": "https://github.com/hmcts/cmc-legal-rep-frontend",
+            "spec": "https://hmcts.github.io/reform-api-docs/specs/cmc-legal-rep-frontend.json",
+            "dependencies": [
+                {
+                    "id": "cmc-claim-store",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "draft-store-service",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "idam-web",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "payment-api",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "fees-register-api",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "rpe-service-auth-provider",
+                    "hard": true,
+                    "apis": []
+                }
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "cmc-claim-store",
+            "name": "CMC Claim Store",
+            "group": "CMC",
+            "type": "api",
+            "description": "",
+            "repository": "https://github.com/hmcts/cmc-claim-store",
+            "spec": "https://hmcts.github.io/reform-api-docs/specs/cmc-claim-store.json",
+            "dependencies": [
+                {
+                    "id": "ccd-data-store-api",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "rpe-service-auth-provider",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "idam-web",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "dm-store",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "rpe-send-letter-service",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "cmc-pdf-service",
+                    "hard": true,
+                    "apis": []
+                }
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "div-emca",
+            "name": "Divorce Evidence Managment Client",
+            "group": "DIV",
+            "type": "api",
+            "description": "",
+            "repository": "https://github.com/hmcts/div-evidence-management-client-api",
+            "spec": "https://hmcts.github.io/reform-api-docs/specs/div-evidence-management-client-api.json",
+            "dependencies": [
+                {
+                    "id": "rpe-service-auth-provider",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "dm-store",
+                    "hard": true,
+                    "apis": []
+                }
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "div-bfe",
+            "name": "Divorce Respondent Frontend",
+            "group": "DIV",
+            "type": "web",
+            "description": "",
+            "repository": "https://github.com/hmcts/div-respondent-frontend",
+            "spec": "https://hmcts.github.io/reform-api-docs/specs/div-respondent-frontend.json",
+            "dependencies": [
+                {
+                    "id": "rpe-service-auth-provider",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "idam-web",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "div-cps",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "div-emca",
+                    "hard": true,
+                    "apis": []
+                }
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "div-pfe",
+            "name": "Divorce Petitioner Frontend",
+            "group": "DIV",
+            "type": "web",
+            "description": "",
+            "repository": "https://github.com/hmcts/div-petitioner-frontend",
+            "spec": "https://hmcts.github.io/reform-api-docs/specs/div-petitioner-frontend.json",
+            "dependencies": [
+                {
+                    "id": "rpe-service-auth-provider",
+                    "hard": true,
+                    "apis": []
+                },                {
+                    "id": "idam-web",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "div-cps",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "div-emca",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "div-fps",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "fees-register-api",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "payment-api",
+                    "hard": true,
+                    "apis": []
+                }
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "div-cms",
+            "name": "Divorce Case Maintance Service",
+            "group": "DIV",
+            "type": "api",
+            "description": "",
+            "repository": "https://github.com/hmcts/div-case-maintenance-service",
+            "spec": "https://hmcts.github.io/reform-api-docs/specs/div-case-maintenance-service.json",
+            "dependencies": [
+                {
+                    "id": "ccd-data-store-api",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "rpe-service-auth-provider",
+                    "hard": true,
+                    "apis": []
+                }
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "div-cps",
+            "name": "Divorce (Transform) Case Progression Service",
+            "group": "DIV",
+            "type": "api",
+            "description": "",
+            "repository": "https://github.com/hmcts/div-case-progression-service",
+            "spec": "https://hmcts.github.io/reform-api-docs/specs/div-case-progression-service.json",
+            "dependencies": [
+                {
+                    "id": "ccd-data-store-api",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "rpe-service-auth-provider",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "div-dgs",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "draft-store-service",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "dm-store",
+                    "hard": true,
+                    "apis": []
+                }
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "div-dgs",
+            "name": "Divorce Document Generator Client",
+            "group": "DIV",
+            "type": "api",
+            "description": "",
+            "repository": "https://github.com/hmcts/div-document-generator-client",
+            "spec": "https://hmcts.github.io/reform-api-docs/specs/div-document-generator-client.json",
+            "dependencies": [
+                {
+                    "id": "cmc-pdf-service",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "rpe-service-auth-provider",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "div-emca",
+                    "hard": true,
+                    "apis": []
+                }
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "div-fps",
+            "name": "Divorce Fees and payments Service",
+            "group": "DIV",
+            "type": "api",
+            "description": "",
+            "repository": "https://github.com/hmcts/div-fees-and-payments-service",
+            "spec": "https://hmcts.github.io/reform-api-docs/specs/div-fees-and-payments-service.json",
+            "dependencies": [
+                {
+                    "id": "fees-register-api",
+                    "hard": true,
+                    "apis": []
+                }
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "div-vs",
+            "name": "Divorce Validation",
+            "group": "DIV",
+            "type": "api",
+            "description": "",
+            "repository": "https://github.com/hmcts/div-validation-service",
+            "spec": "https://hmcts.github.io/reform-api-docs/specs/div-validation-service.json",
+            "dependencies": [
+                {
+                    "id": "rpe-service-auth-provider",
+                    "hard": true,
+                    "apis": []
+                },                {
+                    "id": "ccd-data-store-api",
+                    "hard": true,
+                    "apis": []
+                },                {
+                    "id": "send-letter-producer",
+                    "hard": true,
+                    "apis": []
+                },                {
+                    "id": "idam-web",
+                    "hard": true,
+                    "apis": []
+                }
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "finrem-backend",
+            "name": "Finrem Backend",
+            "group": "FINREM",
+            "type": "api",
+            "description": "",
+            "repository": "https://github.com/hmcts/finrem-backend",
+            "spec": "https://hmcts.github.io/reform-api-docs/specs/finrem-backend.json",
+            "dependencies": [
+                {
+                    "id": "rpe-service-auth-provider",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "draft-store-service",
+                    "hard": true,
+                    "apis": []
+                }
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "finrem-frontend",
+            "name": "Finrem Frontend",
+            "group": "FINREM",
+            "type": "web",
+            "description": "",
+            "repository": "https://github.com/hmcts/finrem-frontend",
+            "spec": "https://hmcts.github.io/reform-api-docs/specs/finrem-frontend.json",
+            "dependencies": [
+                {
+                    "id": "idam-web",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "rpe-service-auth-provider",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "finrem-backend",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "fr-dss",
+                    "hard": true,
+                    "apis": []
+                }
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "fr-dss",
+            "name": "Finrem Draft store service",
+            "group": "FINREM",
+            "type": "api",
+            "description": "",
+            "repository": "https://github.com/hmcts/finrem-draft-store-service",
+            "spec": "https://hmcts.github.io/reform-api-docs/specs/finrem-draft-store-service.json",
+            "dependencies": [
+                {
+                    "id": "idam-web",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "rpe-service-auth-provider",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "draft-store-service",
+                    "hard": true,
+                    "apis": []
+                }
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "probate-persistence-service",
+            "name": "Probate Persitance Service",
+            "group": "Probate",
+            "type": "api",
+            "description": "",
+            "repository": "https://github.com/hmcts/probate-persistence-service",
+            "spec": "https://hmcts.github.io/reform-api-docs/specs/probate-persistence-service.json",
+            "dependencies": [
+
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "probate-submit-service",
+            "name": "Probate Submission Service",
+            "group": "Probate",
+            "type": "api",
+            "description": "",
+            "repository": "https://github.com/hmcts/probate-submit-service",
+            "spec": "https://hmcts.github.io/reform-api-docs/specs/probate-submit-service.json",
+            "dependencies": [
+                {
+                    "id": "rpe-service-auth-provider",
+                    "hard": true,
+                    "apis": []
+                },                {
+                    "id": "ccd-data-store-api",
+                    "hard": true,
+                    "apis": []
+                },                {
+                    "id": "probate-persistence-service",
+                    "hard": true,
+                    "apis": []
+                }
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "probate-frontend",
+            "name": "Probate Frontend",
+            "group": "Probate",
+            "type": "web",
+            "description": "",
+            "repository": "https://github.com/hmcts/probate-frontend",
+            "spec": "https://hmcts.github.io/reform-api-docs/specs/probate-frontend.json",
+            "dependencies": [
+                {
+                    "id": "idam-web",
+                    "hard": true,
+                    "apis": []
+                },                {
+                    "id": "rpe-service-auth-provider",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "fees-register-api",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "payment-api",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "probate-business-service",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "probate-persistence-service",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "probate-submit-service",
+                    "hard": true,
+                    "apis": []
+                }
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "probate-back-office",
+            "name": "Probate Back Office",
+            "group": "Probate",
+            "type": "api",
+            "description": "",
+            "repository": "https://github.com/hmcts/probate-sol-ccd-services",
+            "spec": "https://hmcts.github.io/reform-api-docs/specs/probate-sol-ccd-services.json",
+            "dependencies": [
+                {
+                    "id": "rpe-service-auth-provider",
+                    "hard": true,
+                    "apis": []
+                },                {
+                    "id": "cmc-pdf-service",
+                    "hard": true,
+                    "apis": []
+                },                {
+                    "id": "ccd-case-print-service",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "fees-register-api",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "dm-store",
+                    "hard": true,
+                    "apis": []
+                }
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "probate-business-service",
+            "name": "Probate Validation (Business) Service",
+            "group": "Probate",
+            "type": "api",
+            "description": "",
+            "repository": "https://github.com/hmcts/probate-business-service",
+            "spec": "https://hmcts.github.io/reform-api-docs/specs/probate-business-service.json",
+            "dependencies": [
+                {
+                    "id": "probate-persistence-service",
+                    "hard": true,
+                    "apis": []
+                }
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "sscs-tya-frontend",
+            "name": "SSCS Track Your Appeal Frontend",
+            "group": "SSCS",
+            "type": "web",
+            "description": "",
+            "repository": "https://github.com/hmcts/track-your-appeal-frontend",
+            "spec": "https://hmcts.github.io/reform-api-docs/specs/track-your-appeal-frontend.json",
+            "dependencies": [
+                {
+                    "id": "sscs-tribunals-api",
+                    "hard": true,
+                    "apis": []
+                }
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "sscs-tribunals-api",
+            "name": "SSCS Tribunial Case API",
+            "group": "SSCS",
+            "type": "api",
+            "description": "",
+            "repository": "https://github.com/hmcts/tribunals-case-api",
+            "spec": "https://hmcts.github.io/reform-api-docs/specs/tribunals-case-api.json",
+            "dependencies": [
+                {
+                    "id": "ccd-data-store-api",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "rpe-service-auth-provider",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "cmc-pdf-service",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "dm-store",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "idam",
+                    "hard": true,
+                    "apis": []
+                }            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "sscs-case-loader",
+            "name": "SSCS Case Loader",
+            "group": "SSCS",
+            "type": "api",
+            "description": "",
+            "repository": "https://github.com/hmcts/sscs-case-loader",
+            "spec": "https://hmcts.github.io/reform-api-docs/specs/sscs-case-loader.json",
+            "dependencies": [
+                {
+                    "id": "ccd-data-store-api",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "rpe-service-auth-provider",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "idam",
+                    "hard": true,
+                    "apis": []
+                }
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "sscs-tya-notif",
+            "name": "SSCS Track Your Appeal Nofiication",
+            "group": "SSCS",
+            "proType": "api",
+            "description": "",
+            "repository": "https://github.com/hmcts/track-your-appeal-notifications",
+            "spec": "https://hmcts.github.io/reform-api-docs/specs/track-your-appeal-notifications.json",
+            "dependencies": [
+                {
+                    "id": "ccd-data-store-api",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "rpe-service-auth-provider",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "sscs-tya-frontend",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "idam",
+                    "hard": true,
+                    "apis": []
+                }
+            ],
             "apis": [],
             "version": null
         }
