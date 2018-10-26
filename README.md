@@ -91,3 +91,32 @@ after_success:
 ```
 
 Script assumes you have configured `docker-compose.yml` and `.env` files as per example in [Spring Boot Template](https://github.com/hmcts/spring-boot-template) repository
+
+### Custom Swagger groups
+
+In a project, Swagger documentation can be split into independent groups (e.g. `v1`, `v2`,...).
+
+The approach described above for publishing Swagger docs is based on the default group and is not compatible with custom groups.
+
+As a remediation, a separate script can be used:
+
+```yaml
+before_install:
+  - curl https://raw.githubusercontent.com/hmcts/reform-api-docs/master/bin/publish-swagger-group-docs.sh > publish-swagger-docs.sh
+```
+
+This script requires group to be explicitly passed as arguments:
+
+```yaml
+after_success:
+  - test "$TRAVIS_BRANCH" = "master" && test "$TRAVIS_PULL_REQUEST" = "false" && sh ./publish-swagger-docs.sh <group...>
+```
+
+For example, given a Swagger configuration with groups `v1` and `v2`:
+
+```yaml
+after_success:
+  - test "$TRAVIS_BRANCH" = "master" && test "$TRAVIS_PULL_REQUEST" = "false" && sh ./publish-swagger-docs.sh v1 v2
+```
+
+A distinct doc file will be published for each group with a name following the pattern `docs/specs/<repo>.<group>.json`.

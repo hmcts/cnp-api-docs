@@ -1,6 +1,12 @@
 #!/usr/bin/env bash
-# Runs the api and backend db, grabs the generated swagger json spec and compares to what is in the
-# central reform-api-docs repo. Updates reform-api-docs spec if needed
+#
+# For each group passed as an argument, runs the api and backend db, grabs the
+# generated swagger json spec and compares to what is in the central
+# reform-api-docs repo. Updates reform-api-docs spec if needed
+#
+# Usage: ./publish-swagger-group-docs.sh <groups...>
+#   Params:
+#       - groups: Names of Swagger groups
 
 # assign environment variables
 # shellcheck disable=SC1091
