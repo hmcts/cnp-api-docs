@@ -785,12 +785,12 @@
         },
         {
             "id": "coh-cor",
-            "name": "COH Contious Online Resolution",
+            "name": "COH Continuous Online Resolution",
             "group": "COH",
             "type": "api",
             "description": "",
-            "repository": "https://github.com/hmcts/coh-continuous-online-resolution",
-            "spec": "https://hmcts.github.io/reform-api-docs/specs/coh-continuous-online-resolution.json",
+            "repository": "https://github.com/hmcts/rpa-coh-continuous-online-resolution",
+            "spec": "https://hmcts.github.io/reform-api-docs/specs/rpa-coh-continuous-online-resolution.json",
             "dependencies": [
                 {
                     "id": "idam-web",
