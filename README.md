@@ -94,7 +94,7 @@ Script assumes you have configured `docker-compose.yml` and `.env` files as per 
 
 ### Custom Swagger groups
 
-In a project, Swagger documentation can be split into independent groups (e.g. `v1`, `v2`,...).
+In a project, Swagger documentation can be split into independent groups (e.g. `group1`, `group2`,...).
 
 The approach described above for publishing Swagger docs is based on the default group and is not compatible with custom groups.
 
@@ -112,11 +112,11 @@ after_success:
   - test "$TRAVIS_BRANCH" = "master" && test "$TRAVIS_PULL_REQUEST" = "false" && sh ./publish-swagger-docs.sh <group...>
 ```
 
-For example, given a Swagger configuration with groups `v1` and `v2`:
+For example, given a Swagger configuration with groups `group1` and `group2`:
 
 ```yaml
 after_success:
-  - test "$TRAVIS_BRANCH" = "master" && test "$TRAVIS_PULL_REQUEST" = "false" && sh ./publish-swagger-docs.sh v1 v2
+  - test "$TRAVIS_BRANCH" = "master" && test "$TRAVIS_PULL_REQUEST" = "false" && sh ./publish-swagger-docs.sh group1 group2
 ```
 
 A distinct doc file will be published for each group with a name following the pattern `docs/specs/<repo>.<group>.json`.
