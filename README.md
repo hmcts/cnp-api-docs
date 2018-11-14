@@ -90,8 +90,6 @@ after_success:
   - test "$TRAVIS_BRANCH" = "master" && test "$TRAVIS_PULL_REQUEST" = "false" && sh ./publish-swagger-docs.sh
 ```
 
-Script assumes you have configured `docker-compose.yml` and `.env` files as per example in [Spring Boot Template](https://github.com/hmcts/spring-boot-template) repository
-
 ### Custom Swagger groups
 
 In a project, Swagger documentation can be split into independent groups (e.g. `group1`, `group2`,...).
@@ -120,3 +118,5 @@ after_success:
 ```
 
 A distinct doc file will be published for each group with a name following the pattern `docs/specs/<repo>.<group>.json`.
+
+Script assumes you have configured `docker-compose.yml` and `.env` files as per example in [Spring Boot Template](https://github.com/hmcts/spring-boot-template) repository
