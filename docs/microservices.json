@@ -597,6 +597,20 @@
             "version": null
         },
         {
+            "id": "snl-notes",
+            "name": "SNL Notes",
+            "group": "SNL",
+            "type": "api",
+            "description": "",
+            "repository": "https://github.com/hmcts/snl-notes",
+            "spec": "https://hmcts.github.io/reform-api-docs/specs/snl-notes.json",
+            "dependencies": [
+
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
             "id": "snl-api",
             "name": "SNL API",
             "group": "SNL",
@@ -625,6 +639,11 @@
             "dependencies": [
                 {
                     "id": "snl-api",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "snl-notes",
                     "hard": true,
                     "apis": []
                 }
