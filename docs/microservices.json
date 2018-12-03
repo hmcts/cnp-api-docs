@@ -65,6 +65,10 @@
         {
             "name": "FINREM",
             "colour": "#A4DD00"
+        },
+        {
+            "name": "IA",
+            "colour": "#FF5733"
         }
     ],
     "apis": [
@@ -1664,6 +1668,39 @@
                 },
                 {
                     "id": "sscs-tya-frontend",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "idam",
+                    "hard": true,
+                    "apis": []
+                }
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "ia-case-api",
+            "name": "Immigration & Asylum case API",
+            "group": "IA",
+            "type": "api",
+            "description": "",
+            "repository": "https://github.com/hmcts/ia-case-api",
+            "spec": "https://hmcts.github.io/reform-api-docs/specs/ia-case-api.json",
+            "dependencies": [
+                {
+                    "id": "ccd-data-store-api",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "rpe-service-auth-provider",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "cmc-pdf-service",
                     "hard": true,
                     "apis": []
                 },
