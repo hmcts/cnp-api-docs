@@ -1712,6 +1712,52 @@
             ],
             "apis": [],
             "version": null
+        },
+        {
+            "id": "rpa-em-stitching-api",
+            "name": "Stitching API",
+            "group": "Evidence",
+            "type": "api",
+            "description": "",
+            "repository": "https://github.com/hmcts/rpa-em-stitching-api",
+            "spec": "https://hmcts.github.io/reform-api-docs/specs/rpa-em-stitching-api.json",
+            "dependencies": [
+                {
+                    "id": "idam-web",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "rpe-service-auth-provider",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "dm-store",
+                    "hard": true,
+                    "apis": []
+                }
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "rpa-em-ccd-orchestrator",
+            "name": "CCD Bundle Orchestrator",
+            "group": "Evidence",
+            "type": "api",
+            "description": "",
+            "repository": "https://github.com/hmcts/rpa-em-ccd-orchestrator",
+            "spec": "https://hmcts.github.io/reform-api-docs/specs/rpa-em-ccd-orchestrator.json",
+            "dependencies": [
+                {
+                    "id": "rpa-em-stitching-api",
+                    "hard": true,
+                    "apis": []
+                }
+            ],
+            "apis": [],
+            "version": null
         }
     ]
 }
