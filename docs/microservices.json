@@ -1758,6 +1758,57 @@
             ],
             "apis": [],
             "version": null
+        },
+        {
+            "id": "rpa-dg-template-management-api",
+            "name": "DG Template Management API",
+            "group": "Evidence",
+            "type": "api",
+            "description": "",
+            "repository": "https://github.com/hmcts/rpa-dg-template-management-api",
+            "spec": "https://hmcts.github.io/reform-api-docs/specs/rpa-dg-template-management-api.json",
+            "dependencies": [
+              {
+                  "id": "idam-web",
+                  "hard": true,
+                  "apis": []
+              },
+              {
+                  "id": "rpe-service-auth-provider",
+                  "hard": true,
+                  "apis": []
+              }
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "rpa-dg-docassembly-api",
+            "name": "DG Document Assembly API",
+            "group": "Evidence",
+            "type": "api",
+            "description": "",
+            "repository": "https://github.com/hmcts/rpa-dg-docassembly-api",
+            "spec": "https://hmcts.github.io/reform-api-docs/specs/rpa-dg-docassembly-api.json",
+            "dependencies": [
+                {
+                    "id": "rpa-dg-template-management-api",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "idam-web",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "rpe-service-auth-provider",
+                    "hard": true,
+                    "apis": []
+                }
+            ],
+            "apis": [],
+            "version": null
         }
     ]
 }
