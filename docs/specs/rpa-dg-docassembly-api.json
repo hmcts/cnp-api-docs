@@ -1,0 +1,1 @@
+{"swagger":"2.0","info":{"description":"API to retrive UI definitions from templates and generate documents based those definitions","version":"0.0.1","title":"Document Assembly API"},"host":"localhost:8080","basePath":"/"}
