@@ -1670,6 +1670,11 @@
                     "apis": []
                 },
                 {
+                    "id": "dm-store",
+                    "hard": true,
+                    "apis": []
+                },
+                {
                     "id": "rpe-service-auth-provider",
                     "hard": true,
                     "apis": []
@@ -1737,6 +1742,62 @@
                 },
                 {
                     "id": "rpa-dg-docassembly-api",
+                    "hard": true,
+                    "apis": []
+                }
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "sscs-cor-frontend",
+            "name": "SSCS COR Frontend",
+            "group": "SSCS",
+            "type": "web",
+            "description": "",
+            "repository": "https://github.com/hmcts/sscs-cor-frontend",
+            "spec": null,
+            "dependencies": [
+                {
+                    "id": "sscs-cor-backend",
+                    "hard": true,
+                    "apis": []
+                }
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "sscs-cor-backend",
+            "name": "SSCS COR Backend",
+            "group": "SSCS",
+            "type": "api",
+            "description": "",
+            "repository": "https://github.com/hmcts/sscs-cor-backend",
+            "spec": null,
+            "dependencies": [
+                {
+                    "id": "ccd-data-store-api",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "dm-store",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "idam-api",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "rpa-dg-docassembly-api",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "coh-cor",
                     "hard": true,
                     "apis": []
                 }
