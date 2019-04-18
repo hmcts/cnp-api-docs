@@ -19,6 +19,10 @@
             "colour": "#000000"
         },
         {
+            "name": "SIDAM",
+            "colour": "#111111"
+        },
+        {
             "name": "RPE",
             "colour": "#999999"
         },
@@ -69,6 +73,10 @@
         {
             "name": "IA",
             "colour": "#FF5733"
+        },
+        {
+            "name": "Vedeo Hearing",
+            "colour": "#222222"
         }
     ],
     "apis": [
