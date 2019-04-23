@@ -1578,7 +1578,7 @@
             "group": "SSCS",
             "type": "web",
             "description": "",
-            "repository": "https://github.com/hmcts/track-your-appeal-frontend",
+            "repository": "https://github.com/hmcts/sscs-track-your-appeal-frontend",
             "spec": "https://hmcts.github.io/reform-api-docs/specs/track-your-appeal-frontend.json",
             "dependencies": [
                 {
@@ -1592,11 +1592,11 @@
         },
         {
             "id": "sscs-tribunals-api",
-            "name": "SSCS Tribunial Case API",
+            "name": "SSCS Tribunal Case API",
             "group": "SSCS",
             "type": "api",
             "description": "",
-            "repository": "https://github.com/hmcts/tribunals-case-api",
+            "repository": "https://github.com/hmcts/sscs-tribunals-case-api",
             "spec": "https://hmcts.github.io/reform-api-docs/specs/tribunals-case-api.json",
             "dependencies": [
                 {
@@ -1620,7 +1620,7 @@
                     "apis": []
                 },
                 {
-                    "id": "idam",
+                    "id": "idam-api",
                     "hard": true,
                     "apis": []
                 }            ],
@@ -1647,7 +1647,7 @@
                     "apis": []
                 },
                 {
-                    "id": "idam",
+                    "id": "idam-api",
                     "hard": true,
                     "apis": []
                 }
@@ -1659,13 +1659,18 @@
             "id": "sscs-tya-notif",
             "name": "SSCS Track Your Appeal Nofiication",
             "group": "SSCS",
-            "proType": "api",
+            "type": "api",
             "description": "",
-            "repository": "https://github.com/hmcts/track-your-appeal-notifications",
+            "repository": "https://github.com/hmcts/sscs-track-your-appeal-notifications",
             "spec": "https://hmcts.github.io/reform-api-docs/specs/track-your-appeal-notifications.json",
             "dependencies": [
                 {
                     "id": "ccd-data-store-api",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "dm-store",
                     "hard": true,
                     "apis": []
                 },
@@ -1675,12 +1680,124 @@
                     "apis": []
                 },
                 {
-                    "id": "sscs-tya-frontend",
+                    "id": "cmc-pdf-service",
                     "hard": true,
                     "apis": []
                 },
                 {
-                    "id": "idam",
+                    "id": "idam-api",
+                    "hard": true,
+                    "apis": []
+                }
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "sscs-submit-your-appeal",
+            "name": "SSCS Submit Your Appeal Frontend",
+            "group": "SSCS",
+            "type": "web",
+            "description": "",
+            "repository": "https://github.com/hmcts/sscs-submit-your-appeal",
+            "spec": null,
+            "dependencies": [
+                {
+                    "id": "sscs-tribunals-api",
+                    "hard": true,
+                    "apis": []
+                }
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "sscs-evidence-share",
+            "name": "SSCS Evidence Share Service",
+            "group": "SSCS",
+            "type": "api",
+            "description": "",
+            "repository": "https://github.com/hmcts/sscs-evidence-share",
+            "spec": null,
+            "dependencies": [
+                {
+                    "id": "ccd-data-store-api",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "dm-store",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "idam-api",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "rpe-send-letter-service",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "rpa-dg-docassembly-api",
+                    "hard": true,
+                    "apis": []
+                }
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "sscs-cor-frontend",
+            "name": "SSCS COR Frontend",
+            "group": "SSCS",
+            "type": "web",
+            "description": "",
+            "repository": "https://github.com/hmcts/sscs-cor-frontend",
+            "spec": null,
+            "dependencies": [
+                {
+                    "id": "sscs-cor-backend",
+                    "hard": true,
+                    "apis": []
+                }
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "sscs-cor-backend",
+            "name": "SSCS COR Backend",
+            "group": "SSCS",
+            "type": "api",
+            "description": "",
+            "repository": "https://github.com/hmcts/sscs-cor-backend",
+            "spec": null,
+            "dependencies": [
+                {
+                    "id": "ccd-data-store-api",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "dm-store",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "idam-api",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "rpa-dg-docassembly-api",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "coh-cor",
                     "hard": true,
                     "apis": []
                 }
