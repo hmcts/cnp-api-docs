@@ -532,7 +532,7 @@
         {
             "id": "dm-store",
             "name": "DM Store",
-            "group": "Evidence",
+            "group": "CDM",
             "type": "api",
             "description": "",
             "repository": "https://github.com/hmcts/document-management-store-app",
@@ -1885,29 +1885,6 @@
             "version": null
         },
         {
-            "id": "rpa-dg-template-management-api",
-            "name": "DG Template Management API",
-            "group": "Evidence",
-            "type": "api",
-            "description": "",
-            "repository": "https://github.com/hmcts/rpa-dg-template-management-api",
-            "spec": "https://hmcts.github.io/reform-api-docs/specs/rpa-dg-template-management-api.json",
-            "dependencies": [
-              {
-                  "id": "idam-web",
-                  "hard": true,
-                  "apis": []
-              },
-              {
-                  "id": "rpe-service-auth-provider",
-                  "hard": true,
-                  "apis": []
-              }
-            ],
-            "apis": [],
-            "version": null
-        },
-        {
             "id": "rpa-dg-docassembly-api",
             "name": "DG Document Assembly API",
             "group": "Evidence",
@@ -1917,7 +1894,7 @@
             "spec": "https://hmcts.github.io/reform-api-docs/specs/rpa-dg-docassembly-api.json",
             "dependencies": [
                 {
-                    "id": "rpa-dg-template-management-api",
+                    "id": "docmosis-tornado-api",
                     "hard": true,
                     "apis": []
                 },
@@ -1931,6 +1908,20 @@
                     "hard": true,
                     "apis": []
                 }
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "docmosis-tornado-api",
+            "name": "Docmosis Tornado API",
+            "group": "Evidence",
+            "type": "api",
+            "description": "Documentation can be found here https://www.docmosis.com/download/tornado2.7/Tornado-Web-Services-Guide2.7.pdf",
+            "repository": "",
+            "spec": "",
+            "dependencies": [
+
             ],
             "apis": [],
             "version": null
