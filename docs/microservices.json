@@ -1741,7 +1741,7 @@
                     "apis": []
                 },
                 {
-                    "id": "rpa-dg-docassembly-api",
+                    "id": "docmosis-tornado-api",
                     "hard": true,
                     "apis": []
                 }
@@ -1792,7 +1792,7 @@
                     "apis": []
                 },
                 {
-                    "id": "rpa-dg-docassembly-api",
+                    "id": "docmosis-tornado-api",
                     "hard": true,
                     "apis": []
                 },
