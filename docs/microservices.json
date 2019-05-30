@@ -227,7 +227,7 @@
             "type": "api",
             "description": "",
             "repository": "https://github.com/hmcts/ccpay-payment-app",
-            "spec": "https://hmcts.github.io/reform-api-docs/specs/ccpay-payment-app.json",
+            "spec": "https://hmcts.github.io/reform-api-docs/specs/ccpay-payment-app.payment2.json",
             "dependencies": [
                 {
                     "id": "rpe-service-auth-provider",
