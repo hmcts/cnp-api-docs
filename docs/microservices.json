@@ -19,10 +19,6 @@
       "colour": "#000000"
     },
     {
-      "name": "SIDAM",
-      "colour": "#111111"
-    },
-    {
       "name": "RPE",
       "colour": "#999999"
     },
@@ -80,25 +76,12 @@
     }
   ],
   "apis": [
-
-    {
-      "id": "idam-web",
-      "name": "IDAM (Tactical)",
-      "group": "IDAM",
-      "type": "api",
-      "description": null,
-      "repository": null,
-      "spec": null,
-      "dependencies": [],
-      "apis": [],
-      "version": null
-    },
     {
       "id": "idam-api",
-      "name": "IDAM (Strategic)",
+      "name": "IDAM API",
       "group": "IDAM",
       "type": "api",
-      "description": "",
+      "description": "Authentication APIs",
       "repository": "https://github.com/hmcts/idam-api",
       "spec": "https://hmcts.github.io/reform-api-docs/specs/idam-api.json",
       "dependencies": [
@@ -109,10 +92,10 @@
     },
     {
       "id": "idam-web-admin",
-      "name": "IDAM Web Admin",
+      "name": "IDAM Admin UI",
       "group": "IDAM",
       "type": "web",
-      "description": "",
+      "description": "Administrative interface for managing services and users within IDAM",
       "repository": "https://github.com/hmcts/idam-web-admin",
       "spec": "https://hmcts.github.io/reform-api-docs/specs/idam-web-admin.json",
       "dependencies": [
@@ -126,7 +109,7 @@
       "name": "IDAM Web",
       "group": "IDAM",
       "type": "web",
-      "description": "",
+      "description": "Login and singup pages",
       "repository": "https://github.com/hmcts/idam-web-public",
       "spec": "https://hmcts.github.io/reform-api-docs/specs/idam-web-public.json",
       "dependencies": [
