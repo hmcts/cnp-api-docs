@@ -267,11 +267,6 @@
           "id": "idam-web",
           "hard": true,
           "apis": []
-        },
-        {
-          "id": "rpe-service-auth-provider",
-          "hard": true,
-          "apis": []
         }
       ],
       "apis": [],
