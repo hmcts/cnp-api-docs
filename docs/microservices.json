@@ -73,6 +73,10 @@
     {
       "name": "Vedeo Hearing",
       "colour": "#222222"
+    },
+    {
+        "name": "FPLA",
+        "colour": "#64fc30"
     }
   ],
   "apis": [
@@ -118,9 +122,6 @@
       "apis": [],
       "version": null
     },
-
-
-
     {
       "id": "bar-web",
       "name": "Bar Web",
@@ -1994,6 +1995,39 @@
       "spec": "",
       "dependencies": [
 
+      ],
+      "apis": [],
+      "version": null
+    },
+    {
+      "id": "fpla-case-service",
+      "name": "FPLA Case Service",
+      "group": "FPLA",
+      "type": "api",
+      "description": "CCD callback service for FPLA cases",
+      "repository": "https://github.com/hmcts/fpl-ccd-configuration",
+      "spec": "https://hmcts.github.io/reform-api-docs/specs/fpla-case-service.json",
+      "dependencies": [
+        {
+          "id": "idam-api",
+          "hard": true,
+          "apis": []
+        },
+        {
+          "id": "rpe-service-auth-provider",
+          "hard": true,
+          "apis": []
+        },
+        {
+          "id": "dm-store",
+          "hard": true,
+          "apis": []
+        },
+        {
+          "id": "ccd-data-store-api",
+          "hard": true,
+          "apis": []
+        }
       ],
       "apis": [],
       "version": null
