@@ -511,17 +511,12 @@
     {
       "id": "dm-store",
       "name": "DM Store",
-      "group": "CDM",
+      "group": "Evidence",
       "type": "api",
       "description": "",
       "repository": "https://github.com/hmcts/document-management-store-app",
       "spec": "https://hmcts.github.io/reform-api-docs/specs/document-management-store-app.json",
       "dependencies": [
-        {
-          "id": "idam-web",
-          "hard": false,
-          "apis": []
-        },
         {
           "id": "rpe-service-auth-provider",
           "hard": true,
@@ -533,43 +528,15 @@
     },
     {
       "id": "em-anno",
-      "name": "EM Annotation",
+      "name": "EM Annotation API",
       "group": "Evidence",
       "type": "api",
       "description": "",
-      "repository": "https://github.com/hmcts/em-annotation-app",
-      "spec": "https://hmcts.github.io/reform-api-docs/specs/em-annotation-app.json",
+      "repository": "https://github.com/hmcts/rpa-em-annotation-api",
+      "spec": "https://hmcts.github.io/reform-api-docs/specs/em-annotation-api.json",
       "dependencies": [
         {
-          "id": "idam-web",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "rpe-service-auth-provider",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "dm-store",
-          "hard": true,
-          "apis": []
-        }
-      ],
-      "apis": [],
-      "version": null
-    },
-    {
-      "id": "em-redact",
-      "name": "EM Redaction",
-      "group": "Evidence",
-      "type": "api",
-      "description": "",
-      "repository": "https://github.com/hmcts/em-redaction-app",
-      "spec": "https://hmcts.github.io/reform-api-docs/specs/em-redaction-app.json",
-      "dependencies": [
-        {
-          "id": "idam-web",
+          "id": "idam-api",
           "hard": true,
           "apis": []
         },
@@ -1921,7 +1888,7 @@
       "spec": "https://hmcts.github.io/reform-api-docs/specs/rpa-em-stitching-api.json",
       "dependencies": [
         {
-          "id": "idam-web",
+          "id": "idam-api",
           "hard": true,
           "apis": []
         },
@@ -1952,6 +1919,16 @@
           "id": "rpa-em-stitching-api",
           "hard": true,
           "apis": []
+        },
+        {
+          "id": "idam-api",
+          "hard": true,
+          "apis": []
+        },
+        {
+          "id": "rpe-service-auth-provider",
+          "hard": true,
+          "apis": []
         }
       ],
       "apis": [],
@@ -1972,7 +1949,7 @@
           "apis": []
         },
         {
-          "id": "idam-web",
+          "id": "idam-api",
           "hard": true,
           "apis": []
         },
