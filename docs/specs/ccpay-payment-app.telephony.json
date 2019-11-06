@@ -1,0 +1,118 @@
+{
+    "openapi": "3.0.1",
+    "info": {
+        "title": "Telephony API",
+        "version": "1.0"
+    },
+    "servers": [
+        {
+            "url": "https://core-api-mgmt-demodata.azure-api.net/telephony-api"
+        }
+    ],
+    "paths": {
+        "/telephony/callback": {
+            "post": {
+                "summary": "pci-pal call back ",
+                "description": "Update payment status with pci-pal call back response",
+                "operationId": "callback",
+                "requestBody": {
+                    "description": "pci-pal call back payload in application/x-www-form-urlencoded format",
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "properties": {
+                                    "orderCurrency": {
+                                        "type": "string",
+                                        "description": "Order currency type (Example: GBP)"
+                                    },
+                                    "orderAmount": {
+                                        "type": "string",
+                                        "description": "Amount that was transacted in base units"
+                                    },
+                                    "orderReference": {
+                                        "type": "string",
+                                        "description": "A unique reference number for the transaction from the request "
+                                    },
+                                    "ppAccountID": {
+                                        "type": "string",
+                                        "description": "The PCI Pal account ID the transaction was performed on"
+                                    },
+                                    "transactionResult": {
+                                        "type": "string",
+                                        "description": "The outcome of the transaction (Example: SUCCESS) Note: (Values can be: SUCCESS,DECLINE,ERROR,CANCELLED)"
+                                    },
+                                    "transactionID": {
+                                        "type": "string",
+                                        "description": "The transaction ID from the payment gateway"
+                                    },
+                                    "transactionResponseMsg": {
+                                        "type": "string",
+                                        "description": "The response from the gateway (Example: Insufficient Funds) Note: Usually only passed back for declines or errors"
+                                    },
+                                    "cardExpiry": {
+                                        "type": "string",
+                                        "description": "The expiry date for the card used (Example: 0419)"
+                                    },
+                                    "cardType": {
+                                        "type": "string",
+                                        "description": "The card type detected from the bin check (Example: VISA)"
+                                    },
+                                    "ppCallID": {
+                                        "type": "string",
+                                        "description": "The unique PCI Pal call id used for debugging purposes"
+                                    },
+                                    "customData1": {
+                                        "type": "string",
+                                        "description": "Any custom values sent in the request"
+                                    },
+                                    "customData2": {
+                                        "type": "string",
+                                        "description": "Any custom values sent in the request"
+                                    },
+                                    "customData3": {
+                                        "type": "string",
+                                        "description": "Any custom values sent in the request"
+                                    }
+                                }
+                            },
+                            "example": "orderCurrency=&orderAmount=450&orderReference=MOJTest1&ppAccountID=1210&transactionResult=SUCCESS&transactionAuthCode=test123&transactionID=3045021106&transactionResponseMsg=&cardExpiry=1220&cardLast4=9999&cardType=MASTERCARD&ppCallID=820782890&customData1=MOJTest120190124123432&customData2=MASTERCARD&customData3=CreditCard"
+                        }
+                    }
+                },
+                "responses": {
+                    "204": {
+                        "description": "successful operation"
+                    },
+                    "403": {
+                        "description": "Invalid subscription-key"
+                    },
+                    "415": {
+                        "description": "Unsupported media-type should be application/x-www-form-urlencoded"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "apiKeyHeader": {
+                "type": "apiKey",
+                "name": "Ocp-Apim-Subscription-Key",
+                "in": "header"
+            },
+            "apiKeyQuery": {
+                "type": "apiKey",
+                "name": "subscription-key",
+                "in": "query"
+            }
+        }
+    },
+    "security": [
+        {
+            "apiKeyHeader": []
+        },
+        {
+            "apiKeyQuery": []
+        }
+    ]
+}
