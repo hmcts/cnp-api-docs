@@ -1,84 +1,123 @@
 {
-    "openapi": "3.0.0",
+    "swagger": "2.0",
     "info": {
         "title": "Telephony API",
         "version": "1.0"
     },
-    "servers": [
+    "host": "core-api-mgmt-demodata.azure-api.net",
+    "basePath": "/telephony-api",
+    "schemes": [
+        "https"
+    ],
+    "securityDefinitions": {
+        "apiKeyHeader": {
+            "type": "apiKey",
+            "name": "Ocp-Apim-Subscription-Key",
+            "in": "header"
+        },
+        "apiKeyQuery": {
+            "type": "apiKey",
+            "name": "subscription-key",
+            "in": "query"
+        }
+    },
+    "security": [
         {
-            "url": "https://core-api-mgmt-demodata.azure-api.net/telephony-api"
+            "apiKeyHeader": []
+        },
+        {
+            "apiKeyQuery": []
         }
     ],
     "paths": {
         "/telephony/callback": {
             "post": {
-                "summary": "pci-pal call back ",
                 "description": "Update payment status with pci-pal call back response",
                 "operationId": "callback",
-                "requestBody": {
-                    "description": "pci-pal call back payload in application/x-www-form-urlencoded format",
-                    "content": {
-                        "application/x-www-form-urlencoded": {
-                            "schema": {
-                                "properties": {
-                                    "orderCurrency": {
-                                        "type": "string",
-                                        "description": "Order currency type (Example: GBP)"
-                                    },
-                                    "orderAmount": {
-                                        "type": "string",
-                                        "description": "Amount that was transacted in base units"
-                                    },
-                                    "orderReference": {
-                                        "type": "string",
-                                        "description": "A unique reference number for the transaction from the request "
-                                    },
-                                    "ppAccountID": {
-                                        "type": "string",
-                                        "description": "The PCI Pal account ID the transaction was performed on"
-                                    },
-                                    "transactionResult": {
-                                        "type": "string",
-                                        "description": "The outcome of the transaction (Example: SUCCESS) Note: (Values can be: SUCCESS,DECLINE,ERROR,CANCELLED)"
-                                    },
-                                    "transactionID": {
-                                        "type": "string",
-                                        "description": "The transaction ID from the payment gateway"
-                                    },
-                                    "transactionResponseMsg": {
-                                        "type": "string",
-                                        "description": "The response from the gateway (Example: Insufficient Funds) Note: Usually only passed back for declines or errors"
-                                    },
-                                    "cardExpiry": {
-                                        "type": "string",
-                                        "description": "The expiry date for the card used (Example: 0419)"
-                                    },
-                                    "cardType": {
-                                        "type": "string",
-                                        "description": "The card type detected from the bin check (Example: VISA)"
-                                    },
-                                    "ppCallID": {
-                                        "type": "string",
-                                        "description": "The unique PCI Pal call id used for debugging purposes"
-                                    },
-                                    "customData1": {
-                                        "type": "string",
-                                        "description": "Any custom values sent in the request"
-                                    },
-                                    "customData2": {
-                                        "type": "string",
-                                        "description": "Any custom values sent in the request"
-                                    },
-                                    "customData3": {
-                                        "type": "string",
-                                        "description": "Any custom values sent in the request"
-                                    }
-                                }
-                            },
-                            "example": "orderCurrency=&orderAmount=450&orderReference=MOJTest1&ppAccountID=1210&transactionResult=SUCCESS&transactionAuthCode=test123&transactionID=3045021106&transactionResponseMsg=&cardExpiry=1220&cardLast4=9999&cardType=MASTERCARD&ppCallID=820782890&customData1=MOJTest120190124123432&customData2=MASTERCARD&customData3=CreditCard"
-                        }
+                "summary": "pci-pal call back ",
+                "parameters": [
+                    {
+                        "name": "orderCurrency",
+                        "in": "formData",
+                        "description": "Order currency type (Example: GBP)",
+                        "type": "string"
+                    },
+                    {
+                        "name": "orderAmount",
+                        "in": "formData",
+                        "description": "Amount that was transacted in base units",
+                        "type": "string"
+                    },
+                    {
+                        "name": "orderReference",
+                        "in": "formData",
+                        "description": "A unique reference number for the transaction from the request ",
+                        "type": "string"
+                    },
+                    {
+                        "name": "ppAccountID",
+                        "in": "formData",
+                        "description": "The PCI Pal account ID the transaction was performed on",
+                        "type": "string"
+                    },
+                    {
+                        "name": "transactionResult",
+                        "in": "formData",
+                        "description": "The outcome of the transaction (Example: SUCCESS) Note: (Values can be: SUCCESS,DECLINE,ERROR,CANCELLED)",
+                        "type": "string"
+                    },
+                    {
+                        "name": "transactionID",
+                        "in": "formData",
+                        "description": "The transaction ID from the payment gateway",
+                        "type": "string"
+                    },
+                    {
+                        "name": "transactionResponseMsg",
+                        "in": "formData",
+                        "description": "The response from the gateway (Example: Insufficient Funds) Note: Usually only passed back for declines or errors",
+                        "type": "string"
+                    },
+                    {
+                        "name": "cardExpiry",
+                        "in": "formData",
+                        "description": "The expiry date for the card used (Example: 0419)",
+                        "type": "string"
+                    },
+                    {
+                        "name": "cardType",
+                        "in": "formData",
+                        "description": "The card type detected from the bin check (Example: VISA)",
+                        "type": "string"
+                    },
+                    {
+                        "name": "ppCallID",
+                        "in": "formData",
+                        "description": "The unique PCI Pal call id used for debugging purposes",
+                        "type": "string"
+                    },
+                    {
+                        "name": "customData1",
+                        "in": "formData",
+                        "description": "Any custom values sent in the request",
+                        "type": "string"
+                    },
+                    {
+                        "name": "customData2",
+                        "in": "formData",
+                        "description": "Any custom values sent in the request",
+                        "type": "string"
+                    },
+                    {
+                        "name": "customData3",
+                        "in": "formData",
+                        "description": "Any custom values sent in the request",
+                        "type": "string"
                     }
-                },
+                ],
+                "consumes": [
+                    "application/x-www-form-urlencoded"
+                ],
                 "responses": {
                     "204": {
                         "description": "successful operation"
@@ -93,26 +132,5 @@
             }
         }
     },
-    "components": {
-        "securitySchemes": {
-            "apiKeyHeader": {
-                "type": "apiKey",
-                "name": "Ocp-Apim-Subscription-Key",
-                "in": "header"
-            },
-            "apiKeyQuery": {
-                "type": "apiKey",
-                "name": "subscription-key",
-                "in": "query"
-            }
-        }
-    },
-    "security": [
-        {
-            "apiKeyHeader": []
-        },
-        {
-            "apiKeyQuery": []
-        }
-    ]
+    "tags": []
 }
