@@ -1,0 +1,151 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "Payments API",
+        "version": "1.0"
+    },
+    "host": "core-api-mgmt-demodata.azure-api.net",
+    "basePath": "/payments-api",
+    "schemes": [
+        "https"
+    ],
+    "paths": {
+        "/payments": {
+            "get": {
+                "description": "Returns all payments that match filter criteria",
+                "operationId": "getPayments",
+                "summary": "Get list of payments",
+                "parameters": [
+                    {
+                        "name": "start_date",
+                        "in": "query",
+                        "description": "Format - date time (as full-date in RFC3339). The start date time to filter on. If the time is not supplied then it will be defaulted to 00:00:00",
+                        "type": "string"
+                    },
+                    {
+                        "name": "end_date",
+                        "in": "query",
+                        "description": "Format - date time (as full-date in RFC3339). The end date to filter on. If the time is not supplied then it will be defaulted to 00:00:00",
+                        "type": "string"
+                    },
+                    {
+                        "name": "payment_method",
+                        "in": "query",
+                        "description": "the method used for payment. Available values : CARD, PBA, CASH, CHEQUE, POSTAL_ORDER",
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "examples": {
+                            "application/json": {
+                                "payments": [
+                                    {
+                                        "_links": {
+                                            "cancel": {
+                                                "href": "string",
+                                                "method": "string"
+                                            },
+                                            "next_url": {
+                                                "href": "string",
+                                                "method": "string"
+                                            },
+                                            "self": {
+                                                "href": "string",
+                                                "method": "string"
+                                            }
+                                        },
+                                        "account_number": "string",
+                                        "amount": 0,
+                                        "case_reference": "string",
+                                        "ccd_case_number": "string",
+                                        "channel": "string",
+                                        "currency": "GBP",
+                                        "customer_reference": "string",
+                                        "date_created": "yyyy-MM-dd'T'HH:mm:ss.SSSZ",
+                                        "date_updated": "yyyy-MM-dd'T'HH:mm:ss.SSSZ",
+                                        "description": "string",
+                                        "external_provider": "string",
+                                        "external_reference": "string",
+                                        "fees": [
+                                            {
+                                                "calculated_amount": 0,
+                                                "ccd_case_number": "string",
+                                                "code": "string",
+                                                "memo_line": "string",
+                                                "natural_account_code": "string",
+                                                "reference": "string",
+                                                "version": "string",
+                                                "volume": 0
+                                            }
+                                        ],
+                                        "giro_slip_no": "string",
+                                        "id": "string",
+                                        "method": "string",
+                                        "organisation_name": "string",
+                                        "payment_group_reference": "string",
+                                        "payment_reference": "string",
+                                        "reference": "string",
+                                        "reported_date_offline": "string",
+                                        "service_name": "string",
+                                        "site_id": "string",
+                                        "status": "string",
+                                        "status_histories": [
+                                            {
+                                                "date_created": "yyyy-MM-dd'T'HH:mm:ss.SSSZ",
+                                                "date_updated": "yyyy-MM-dd'T'HH:mm:ss.SSSZ",
+                                                "external_status": "string",
+                                                "status": "string"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "403": {
+                        "description": "Probably invalid client certificate"
+                    }
+                },
+                "produces": [
+                    "application/json"
+                ]
+            }
+        },
+        "/payments/{payment_reference}": {
+            "get": {
+                "description": "Gets payment by reference",
+                "operationId": "paymentByReference",
+                "summary": "Gets payment by reference",
+                "parameters": [
+                    {
+                        "name": "payment_reference",
+                        "in": "path",
+                        "description": "Payment reference",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "403": {
+                        "description": "Invalid client certificate or unauthorised token"
+                    },
+                    "404": {
+                        "description": "Payment not found"
+                    }
+                },
+                "produces": [
+                    "application/json"
+                ]
+            }
+        }
+    },
+    "tags": []
+}
