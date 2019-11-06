@@ -1,0 +1,70 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "bulk-scanning payments API",
+        "version": "1.0"
+    },
+    "host": "core-api-mgmt-demodata.azure-api.net",
+    "basePath": "/bulk-scanning-payment",
+    "schemes": [
+        "https"
+    ],
+    "securityDefinitions": {
+        "apiKeyHeader": {
+            "type": "apiKey",
+            "name": "Ocp-Apim-Subscription-Key",
+            "in": "header"
+        },
+        "apiKeyQuery": {
+            "type": "apiKey",
+            "name": "subscription-key",
+            "in": "query"
+        }
+    },
+    "security": [
+        {
+            "apiKeyHeader": []
+        },
+        {
+            "apiKeyQuery": []
+        }
+    ],
+    "paths": {
+        "/bulk-scan-payment": {
+            "post": {
+                "description": "Insert payment data from scanning third party",
+                "operationId": "bulk-scanning-payments-api",
+                "summary": "bulk-scanning payments api ",
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "schema": {},
+                        "description": "Used by third party scanning service to insert payments data in Bulk-scanning service"
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created"
+                    },
+                    "400": {
+                        "description": "Request failed due to malformed syntax"
+                    },
+                    "401": {
+                        "description": "Failed authentication"
+                    },
+                    "403": {
+                        "description": "Failed authorisation"
+                    },
+                    "409": {
+                        "description": "Conflict"
+                    }
+                }
+            }
+        }
+    },
+    "tags": []
+}
