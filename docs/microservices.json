@@ -23,6 +23,10 @@
       "colour": "#999999"
     },
     {
+      "name": "BSP",
+      "colour": "#FFDFD3"
+    },
+    {
       "name": "CDM",
       "colour": "#AF9F2E"
     },
@@ -729,23 +733,131 @@
       "version": null
     },
     {
-      "id": "rpe-bulk-scan-processor",
-      "name": "RPE Bulk scan processor",
-      "group": "RPE",
+      "id": "bsp-blob-router",
+      "name": "Bulk scan router",
+      "group": "BSP",
       "type": "api",
       "description": "",
-      "repository": "https://github.com/hmcts/bulk-scan-processor",
-      "spec": "https://hmcts.github.io/reform-api-docs/specs/bulk-scan-processor.json",
+      "repository": "https://github.com/hmcts/blob-router-service",
+      "spec": "https://hmcts.github.io/reform-api-docs/specs/blob-router-service.json",
       "dependencies": [
-
       ],
       "apis": [],
       "version": null
     },
     {
-      "id": "rpe-send-letter-service",
-      "name": "RPE Bulk Prining (Send Letter)",
-      "group": "RPE",
+      "id": "bsp-bulk-scan-processor",
+      "name": "Bulk scan processor",
+      "group": "BSP",
+      "type": "api",
+      "description": "",
+      "repository": "https://github.com/hmcts/bulk-scan-processor",
+      "spec": "https://hmcts.github.io/reform-api-docs/specs/bulk-scan-processor.json",
+      "dependencies": [
+        {
+          "id": "bsp-blob-router",
+          "hard": false,
+          "apis": []
+        },
+        {
+          "id": "rpe-service-auth-provider",
+          "hard": true,
+          "apis": []
+        },
+        {
+          "id": "dm-store",
+          "hard": true,
+          "apis": []
+        },
+        {
+          "id": "probate-back-office",
+          "hard": false,
+          "apis": []
+        }
+      ],
+      "apis": [],
+      "version": null
+    },
+    {
+      "id": "bsp-bulk-scan-orchestrator",
+      "name": "Bulk scan orchestrator",
+      "group": "BSP",
+      "type": "api",
+      "description": "",
+      "repository": "https://github.com/hmcts/bulk-scan-orchestrator",
+      "spec": "https://hmcts.github.io/reform-api-docs/specs/bulk-scan-orchestrator.json",
+      "dependencies": [
+        {
+          "id": "bsp-bulk-scan-processor",
+          "hard": false,
+          "apis": []
+        },
+        {
+          "id": "rpe-service-auth-provider",
+          "hard": true,
+          "apis": []
+        },
+        {
+          "id": "idam-api",
+          "hard": true,
+          "apis": []
+        },
+        {
+          "id": "ccd-data-store-api",
+          "hard": true,
+          "apis": []
+        },
+        {
+          "id": "probate-back-office",
+          "hard": false,
+          "apis": []
+        }
+      ],
+      "apis": [],
+      "version": null
+    },
+    {
+      "id": "bsp-bulk-scan-payment-processor",
+      "name": "Bulk scan payment processor",
+      "group": "BSP",
+      "type": "api",
+      "description": "",
+      "repository": "https://github.com/hmcts/bulk-scan-payment-processor",
+      "spec": "https://hmcts.github.io/reform-api-docs/specs/bulk-scan-payment-processor.json",
+      "dependencies": [
+        {
+          "id": "bsp-bulk-scan-orchestrator",
+          "hard": false,
+          "apis": []
+        },
+        {
+          "id": "rpe-service-auth-provider",
+          "hard": true,
+          "apis": []
+        },
+        {
+          "id": "idam-api",
+          "hard": true,
+          "apis": []
+        },
+        {
+          "id": "ccd-data-store-api",
+          "hard": true,
+          "apis": []
+        },
+        {
+          "id": "payment-api",
+          "hard": true,
+          "apis": []
+        }
+      ],
+      "apis": [],
+      "version": null
+    },
+    {
+      "id": "bsp-send-letter-service",
+      "name": "Bulk Prining (Send Letter)",
+      "group": "BSP",
       "type": "api",
       "description": "",
       "repository": "https://github.com/hmcts/send-letter-service",
