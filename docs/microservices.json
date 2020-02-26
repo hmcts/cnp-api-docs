@@ -402,7 +402,7 @@
       "type": "api",
       "description": "",
       "repository": "https://github.com/hmcts/ccd-data-store-api",
-      "spec": "https://hmcts.github.io/reform-api-docs/specs/ccd-data-store-api.json",
+      "spec": "https://hmcts.github.io/reform-api-docs/specs/ccd-data-store-api.v1.json",
       "dependencies": [
         {
           "id": "ccd-definition-store-api",
