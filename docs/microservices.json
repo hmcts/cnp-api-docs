@@ -1982,10 +1982,76 @@
           "apis": []
         },
         {
-          "id": "idam",
+          "id": "idam-api",
           "hard": true,
           "apis": []
         }
+      ],
+      "apis": [],
+      "version": null
+    },
+    {
+      "id": "ia-case-documents-api",
+      "name": "IA case documents API",
+      "group": "IA",
+      "type": "api",
+      "description": "",
+      "repository": "https://github.com/hmcts/ia-case-documents-api",
+      "spec": "https://hmcts.github.io/reform-api-docs/specs/ia-case-documents-api.json",
+      "dependencies": [
+          {
+              "id": "ccd-data-store-api",
+              "hard": true,
+              "apis": []
+          },
+          {
+              "id": "rpe-service-auth-provider",
+              "hard": true,
+              "apis": []
+          },
+          {
+              "id": "cmc-pdf-service",
+              "hard": true,
+              "apis": []
+          },
+          {
+              "id": "idam-api",
+              "hard": true,
+              "apis": []
+          }
+      ],
+      "apis": [],
+      "version": null
+    },
+    {
+      "id": "ia-case-notifications-api",
+      "name": "IA case notifications API",
+      "group": "IA",
+      "type": "api",
+      "description": "",
+      "repository": "https://github.com/hmcts/ia-case-notifications-api",
+      "spec": "https://hmcts.github.io/reform-api-docs/specs/ia-case-notifications-api.json",
+      "dependencies": [
+          {
+              "id": "ccd-data-store-api",
+              "hard": true,
+              "apis": []
+          },
+          {
+              "id": "rpe-service-auth-provider",
+              "hard": true,
+              "apis": []
+          },
+          {
+              "id": "cmc-pdf-service",
+              "hard": true,
+              "apis": []
+          },
+          {
+              "id": "idam-api",
+              "hard": true,
+              "apis": []
+          }
       ],
       "apis": [],
       "version": null
