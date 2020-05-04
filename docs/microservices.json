@@ -81,6 +81,10 @@
     {
         "name": "FPLA",
         "colour": "#64fc30"
+    },
+    {
+      "name": "RD",
+      "colour":"#800020"
     }
   ],
   "apis": [
@@ -2183,6 +2187,90 @@
           "hard": true,
           "apis": []
         }
+      ],
+      "apis": [],
+      "version": null
+    },
+    {
+      "id": "rd-professional-api",
+      "name": "Professional reference data API",
+      "group": "RD",
+      "type": "api",
+      "description": "Provides APIs for managing professional reference data",
+      "repository": "https://github.com/hmcts/rd-professional-api",
+      "spec": "https://hmcts.github.io/reform-api-docs/specs/rd-professional-api.json",
+      "dependencies": [
+        {
+          "id": "idam-api",
+          "hard": true,
+          "apis": []
+        },
+        {
+          "id": "rpe-service-auth-provider",
+          "hard": true,
+          "apis": []
+        },
+        {
+          "id": "ccd-user-profile-api",
+          "hard": true,
+          "apis": []
+        },
+        {
+          "id": "rd-user-profile-api",
+          "hard": true,
+          "apis": []
+        }
+      ],
+      "apis": [],
+      "version": null
+    },
+    {
+      "id": "rd-user-profile-api",
+      "name": "Reference data user profile API",
+      "group": "RD",
+      "type": "api",
+      "description": "Provides APIs for reference data user profile",
+      "repository": "https://github.com/hmcts/rd-user-profile-api",
+      "spec": "https://hmcts.github.io/reform-api-docs/specs/rd-user-profile-api.json",
+      "dependencies": [
+        {
+          "id": "idam-api",
+          "hard": true,
+          "apis": []
+        },
+        {
+          "id": "rpe-service-auth-provider",
+          "hard": true,
+          "apis": []
+        }
+      ],
+      "apis": [],
+      "version": null
+    },
+    {
+      "id": "rd-profile-sync",
+      "name": "Professional user profile scheduler",
+      "group": "RD",
+      "type": "scheduler",
+      "description": "Scheduler for updating user profile info in ref data user profile api",
+      "repository": "https://github.com/hmcts/rd-profile-sync",
+      "spec": null,
+      "dependencies": [
+          {
+            "id": "idam-api",
+            "hard": true,
+            "apis": []
+          },
+          {
+            "id": "rpe-service-auth-provider",
+            "hard": true,
+            "apis": []
+          },
+          {
+            "id": "rd-user-profile-api",
+            "hard": true,
+            "apis": []
+          }
       ],
       "apis": [],
       "version": null
