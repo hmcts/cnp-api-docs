@@ -1,1 +1,976 @@
-{"swagger":"2.0","info":{"description":"API to burn annotations onto a PDF and facilitate Document Redaction","version":"1.0.0","title":"EM Native PDF Annotator App"},"host":"localhost:8080","basePath":"\/","tags":[{"name":"document-task-resource","description":"Document Task Resource"},{"name":"mark-up-resource","description":"Mark Up Resource"},{"name":"redaction-resource","description":"Redaction Resource"}],"paths":{"\/api\/document-tasks":{"get":{"tags":["document-task-resource"],"summary":"Get all documentTaskDTOs","description":"A GET request without a body is used to retrieve all documentTaskDTOs","operationId":"getAllDocumentTasksUsingGET","produces":["*\/*"],"parameters":[{"name":"offset","in":"query","required":false,"type":"integer","format":"int64"},{"name":"pageNumber","in":"query","required":false,"type":"integer","format":"int32"},{"name":"pageSize","in":"query","required":false,"type":"integer","format":"int32"},{"name":"paged","in":"query","required":false,"type":"boolean"},{"name":"sort.sorted","in":"query","required":false,"type":"boolean"},{"name":"sort.unsorted","in":"query","required":false,"type":"boolean"},{"name":"unpaged","in":"query","required":false,"type":"boolean"}],"responses":{"200":{"description":"Success","schema":{"type":"array","items":{"$ref":"#\/definitions\/DocumentTaskDTO"}}},"401":{"description":"Unauthorised"},"403":{"description":"Forbidden"},"404":{"description":"Not Found"}},"deprecated":false},"post":{"tags":["document-task-resource"],"summary":"Create a documentTaskDTO","description":"A POST request to create a documentTaskDTO","operationId":"createDocumentTaskUsingPOST","consumes":["application\/json"],"produces":["*\/*"],"parameters":[{"name":"Authorization","in":"header","description":"Authorization","required":false,"type":"string"},{"in":"body","name":"documentTaskDTO","description":"documentTaskDTO","required":true,"schema":{"$ref":"#\/definitions\/DocumentTaskDTO"}}],"responses":{"200":{"description":"OK","schema":{"$ref":"#\/definitions\/DocumentTaskDTO"}},"201":{"description":"Successfully created","schema":{"$ref":"#\/definitions\/DocumentTaskDTO"}},"400":{"description":"documentTaskDTO not valid, invalid id"},"401":{"description":"Unauthorised"},"403":{"description":"Forbidden"},"404":{"description":"Not Found"}},"deprecated":false},"put":{"tags":["document-task-resource"],"summary":"Update an existing documentTaskDTO","description":"A PUT request to update a documentTaskDTO","operationId":"updateDocumentTaskUsingPUT","consumes":["application\/json"],"produces":["*\/*"],"parameters":[{"name":"Authorization","in":"header","description":"Authorization","required":false,"type":"string"},{"in":"body","name":"documentTaskDTO","description":"documentTaskDTO","required":true,"schema":{"$ref":"#\/definitions\/DocumentTaskDTO"}}],"responses":{"200":{"description":"Success","schema":{"$ref":"#\/definitions\/DocumentTaskDTO"}},"201":{"description":"Created"},"400":{"description":"documentTaskDTO not valid"},"401":{"description":"Unauthorised"},"403":{"description":"Forbidden"},"404":{"description":"Not Found"},"500":{"description":"documentTaskDTO couldn't be updated"}},"deprecated":false}},"\/api\/document-tasks\/{id}":{"get":{"tags":["document-task-resource"],"summary":"Get an existing documentTaskDTO","description":"A GET request to retrieve a documentTaskDTO","operationId":"getDocumentTaskUsingGET","produces":["*\/*"],"parameters":[{"name":"id","in":"path","description":"id","required":true,"type":"integer","format":"int64"}],"responses":{"200":{"description":"Success","schema":{"$ref":"#\/definitions\/DocumentTaskDTO"}},"401":{"description":"Unauthorised"},"403":{"description":"Forbidden"},"404":{"description":"Not Found"}},"deprecated":false},"delete":{"tags":["document-task-resource"],"summary":"Delete a documentTaskDTO","description":"A DELETE request to delete a documentTaskDTO","operationId":"deleteDocumentTaskUsingDELETE","produces":["*\/*"],"parameters":[{"name":"id","in":"path","description":"id","required":true,"type":"integer","format":"int64"}],"responses":{"200":{"description":"Success"},"204":{"description":"No Content"},"401":{"description":"Unauthorised"},"403":{"description":"Forbidden"},"404":{"description":"Not Found"}},"deprecated":false}},"\/api\/markups":{"post":{"tags":["mark-up-resource"],"summary":"Create an RedactionDTO","description":"A POST request to create an RedactionDTO","operationId":"createMarkUpUsingPOST","consumes":["application\/json"],"produces":["*\/*"],"parameters":[{"in":"body","name":"redactionDTO","description":"redactionDTO","required":true,"schema":{"$ref":"#\/definitions\/RedactionDTO"}}],"responses":{"200":{"description":"OK","schema":{"$ref":"#\/definitions\/RedactionDTO"}},"201":{"description":"Successfully created","schema":{"$ref":"#\/definitions\/RedactionDTO"}},"401":{"description":"Unauthorised"},"403":{"description":"Forbidden"},"404":{"description":"Not Found"}},"deprecated":false},"put":{"tags":["mark-up-resource"],"summary":"Update an existing RedactionDTO","description":"A PUT request to update an RedactionDTO","operationId":"updateMarkUpUsingPUT","consumes":["application\/json"],"produces":["*\/*"],"parameters":[{"in":"body","name":"redactionDTO","description":"redactionDTO","required":true,"schema":{"$ref":"#\/definitions\/RedactionDTO"}}],"responses":{"200":{"description":"Success","schema":{"$ref":"#\/definitions\/RedactionDTO"}},"201":{"description":"Created"},"401":{"description":"Unauthorised"},"403":{"description":"Forbidden"},"404":{"description":"Not Found"},"500":{"description":"RedactionDTO couldn't be updated"}},"deprecated":false}},"\/api\/markups\/{documentId}":{"get":{"tags":["mark-up-resource"],"summary":"Get all markups for Document ID","operationId":"getAllDocumentMarkUpsUsingGET","produces":["*\/*"],"parameters":[{"name":"documentId","in":"path","description":"documentId","required":true,"type":"string","format":"uuid"},{"name":"offset","in":"query","required":false,"type":"integer","format":"int64"},{"name":"pageNumber","in":"query","required":false,"type":"integer","format":"int32"},{"name":"pageSize","in":"query","required":false,"type":"integer","format":"int32"},{"name":"paged","in":"query","required":false,"type":"boolean"},{"name":"sort.sorted","in":"query","required":false,"type":"boolean"},{"name":"sort.unsorted","in":"query","required":false,"type":"boolean"},{"name":"unpaged","in":"query","required":false,"type":"boolean"}],"responses":{"200":{"description":"Success","schema":{"type":"array","items":{"$ref":"#\/definitions\/RedactionDTO"}}},"401":{"description":"Unauthorised"},"403":{"description":"Forbidden"},"404":{"description":"Not Found"}},"deprecated":false},"delete":{"tags":["mark-up-resource"],"summary":"Delete all RedactionDTOs","description":"A DELETE request to delete all the markups of the document","operationId":"deleteMarkUpsUsingDELETE","produces":["*\/*"],"parameters":[{"name":"documentId","in":"path","description":"documentId","required":true,"type":"string","format":"uuid"}],"responses":{"200":{"description":"Success"},"204":{"description":"No Content"},"401":{"description":"Unauthorised"},"403":{"description":"Forbidden"},"404":{"description":"Not Found"}},"deprecated":false}},"\/api\/markups\/{documentId}\/{redactionId}":{"delete":{"tags":["mark-up-resource"],"summary":"Delete a RedactionDTO","description":"A DELETE request to delete the markup of the document","operationId":"deleteMarkUpUsingDELETE","produces":["*\/*"],"parameters":[{"name":"documentId","in":"path","description":"documentId","required":true,"type":"string","format":"uuid"},{"name":"redactionId","in":"path","description":"redactionId","required":true,"type":"string","format":"uuid"}],"responses":{"200":{"description":"Success"},"204":{"description":"No Content"},"401":{"description":"Unauthorised"},"403":{"description":"Forbidden"},"404":{"description":"Not Found"}},"deprecated":false}},"\/api\/redaction":{"post":{"tags":["redaction-resource"],"summary":"Burn markups onto Document","description":"A POST request to burn markups onto Document and return the newly redacted document","operationId":"saveUsingPOST","consumes":["application\/json"],"produces":["*\/*"],"parameters":[{"in":"body","name":"redactionRequest","description":"redactionRequest","required":true,"schema":{"$ref":"#\/definitions\/RedactionRequest"}}],"responses":{"200":{"description":"Successfully redacted","schema":{"$ref":"#\/definitions\/ResponseEntity"}},"201":{"description":"Created"},"400":{"description":"Invalid request"},"401":{"description":"Unauthorised"},"403":{"description":"Forbidden"},"404":{"description":"Not Found"},"500":{"description":"Server Error"}},"deprecated":false}}},"definitions":{"DocumentTaskDTO":{"type":"object","properties":{"createdBy":{"type":"string"},"createdDate":{"type":"string","format":"date-time"},"failureDescription":{"type":"string"},"id":{"type":"integer","format":"int64"},"inputDocumentId":{"type":"string"},"lastModifiedBy":{"type":"string"},"lastModifiedDate":{"type":"string","format":"date-time"},"outputDocumentId":{"type":"string"},"taskState":{"type":"string","enum":["NEW","IN_PROGRESS","DONE","FAILED"]}},"title":"DocumentTaskDTO"},"RectangleDTO":{"type":"object","properties":{"height":{"type":"number","format":"double"},"id":{"type":"string","format":"uuid"},"width":{"type":"number","format":"double"},"x":{"type":"number","format":"double"},"y":{"type":"number","format":"double"}},"title":"RectangleDTO"},"RedactionDTO":{"type":"object","properties":{"documentId":{"type":"string","format":"uuid"},"page":{"type":"integer","format":"int32"},"rectangles":{"type":"array","items":{"$ref":"#\/definitions\/RectangleDTO"}},"redactionId":{"type":"string","format":"uuid"}},"title":"RedactionDTO"},"RedactionRequest":{"type":"object","properties":{"caseId":{"type":"string"},"documentId":{"type":"string","format":"uuid"},"redactedFileName":{"type":"string"},"redactions":{"type":"array","items":{"$ref":"#\/definitions\/RedactionDTO"}}},"title":"RedactionRequest"},"ResponseEntity":{"type":"object","properties":{"body":{"type":"object"},"statusCode":{"type":"string","enum":["100 CONTINUE","101 SWITCHING_PROTOCOLS","102 PROCESSING","103 CHECKPOINT","200 OK","201 CREATED","202 ACCEPTED","203 NON_AUTHORITATIVE_INFORMATION","204 NO_CONTENT","205 RESET_CONTENT","206 PARTIAL_CONTENT","207 MULTI_STATUS","208 ALREADY_REPORTED","226 IM_USED","300 MULTIPLE_CHOICES","301 MOVED_PERMANENTLY","302 FOUND","302 MOVED_TEMPORARILY","303 SEE_OTHER","304 NOT_MODIFIED","305 USE_PROXY","307 TEMPORARY_REDIRECT","308 PERMANENT_REDIRECT","400 BAD_REQUEST","401 UNAUTHORIZED","402 PAYMENT_REQUIRED","403 FORBIDDEN","404 NOT_FOUND","405 METHOD_NOT_ALLOWED","406 NOT_ACCEPTABLE","407 PROXY_AUTHENTICATION_REQUIRED","408 REQUEST_TIMEOUT","409 CONFLICT","410 GONE","411 LENGTH_REQUIRED","412 PRECONDITION_FAILED","413 PAYLOAD_TOO_LARGE","413 REQUEST_ENTITY_TOO_LARGE","414 URI_TOO_LONG","414 REQUEST_URI_TOO_LONG","415 UNSUPPORTED_MEDIA_TYPE","416 REQUESTED_RANGE_NOT_SATISFIABLE","417 EXPECTATION_FAILED","418 I_AM_A_TEAPOT","419 INSUFFICIENT_SPACE_ON_RESOURCE","420 METHOD_FAILURE","421 DESTINATION_LOCKED","422 UNPROCESSABLE_ENTITY","423 LOCKED","424 FAILED_DEPENDENCY","426 UPGRADE_REQUIRED","428 PRECONDITION_REQUIRED","429 TOO_MANY_REQUESTS","431 REQUEST_HEADER_FIELDS_TOO_LARGE","451 UNAVAILABLE_FOR_LEGAL_REASONS","500 INTERNAL_SERVER_ERROR","501 NOT_IMPLEMENTED","502 BAD_GATEWAY","503 SERVICE_UNAVAILABLE","504 GATEWAY_TIMEOUT","505 HTTP_VERSION_NOT_SUPPORTED","506 VARIANT_ALSO_NEGOTIATES","507 INSUFFICIENT_STORAGE","508 LOOP_DETECTED","509 BANDWIDTH_LIMIT_EXCEEDED","510 NOT_EXTENDED","511 NETWORK_AUTHENTICATION_REQUIRED"]},"statusCodeValue":{"type":"integer","format":"int32"}},"title":"ResponseEntity"}}}
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "API to burn annotations onto a PDF and facilitate Document Redaction",
+    "version": "1.0.1",
+    "title": "EM Native PDF Annotator App"
+  },
+  "host": "localhost:8080",
+  "basePath": "/",
+  "tags": [
+    {
+      "name": "document-task-resource",
+      "description": "Document Task Resource"
+    },
+    {
+      "name": "mark-up-resource",
+      "description": "Mark Up Resource"
+    },
+    {
+      "name": "redaction-resource",
+      "description": "Redaction Resource"
+    }
+  ],
+  "paths": {
+    "/api/document-tasks": {
+      "get": {
+        "tags": [
+          "document-task-resource"
+        ],
+        "summary": "Get all documentTaskDTOs",
+        "description": "A GET request without a body is used to retrieve all documentTaskDTOs",
+        "operationId": "getAllDocumentTasksUsingGET",
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Keyword `Bearer` followed by a valid IDAM user token",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "ServiceAuthorization",
+            "in": "header",
+            "description": "Valid Service-to-Service JWT token for a whitelisted micro-service",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "pageNumber",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "paged",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "sort.sorted",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "sort.unsorted",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "unpaged",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/DocumentTaskDTO"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorised"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false
+      },
+      "post": {
+        "tags": [
+          "document-task-resource"
+        ],
+        "summary": "Create a documentTaskDTO",
+        "description": "A POST request to create a documentTaskDTO",
+        "operationId": "createDocumentTaskUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Authorization",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "ServiceAuthorization",
+            "in": "header",
+            "description": "Valid Service-to-Service JWT token for a whitelisted micro-service",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "documentTaskDTO",
+            "description": "documentTaskDTO",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DocumentTaskDTO"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/DocumentTaskDTO"
+            }
+          },
+          "201": {
+            "description": "Successfully created",
+            "schema": {
+              "$ref": "#/definitions/DocumentTaskDTO"
+            }
+          },
+          "400": {
+            "description": "documentTaskDTO not valid, invalid id"
+          },
+          "401": {
+            "description": "Unauthorised"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false
+      },
+      "put": {
+        "tags": [
+          "document-task-resource"
+        ],
+        "summary": "Update an existing documentTaskDTO",
+        "description": "A PUT request to update a documentTaskDTO",
+        "operationId": "updateDocumentTaskUsingPUT",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Authorization",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "ServiceAuthorization",
+            "in": "header",
+            "description": "Valid Service-to-Service JWT token for a whitelisted micro-service",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "documentTaskDTO",
+            "description": "documentTaskDTO",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DocumentTaskDTO"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/DocumentTaskDTO"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "documentTaskDTO not valid"
+          },
+          "401": {
+            "description": "Unauthorised"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "documentTaskDTO couldn't be updated"
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/api/document-tasks/{id}": {
+      "get": {
+        "tags": [
+          "document-task-resource"
+        ],
+        "summary": "Get an existing documentTaskDTO",
+        "description": "A GET request to retrieve a documentTaskDTO",
+        "operationId": "getDocumentTaskUsingGET",
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Keyword `Bearer` followed by a valid IDAM user token",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "ServiceAuthorization",
+            "in": "header",
+            "description": "Valid Service-to-Service JWT token for a whitelisted micro-service",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/DocumentTaskDTO"
+            }
+          },
+          "401": {
+            "description": "Unauthorised"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false
+      },
+      "delete": {
+        "tags": [
+          "document-task-resource"
+        ],
+        "summary": "Delete a documentTaskDTO",
+        "description": "A DELETE request to delete a documentTaskDTO",
+        "operationId": "deleteDocumentTaskUsingDELETE",
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Keyword `Bearer` followed by a valid IDAM user token",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "ServiceAuthorization",
+            "in": "header",
+            "description": "Valid Service-to-Service JWT token for a whitelisted micro-service",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorised"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/api/markups": {
+      "post": {
+        "tags": [
+          "mark-up-resource"
+        ],
+        "summary": "Create an RedactionDTO",
+        "description": "A POST request to create an RedactionDTO",
+        "operationId": "createMarkUpUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Keyword `Bearer` followed by a valid IDAM user token",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "ServiceAuthorization",
+            "in": "header",
+            "description": "Valid Service-to-Service JWT token for a whitelisted micro-service",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "redactionDTO",
+            "description": "redactionDTO",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/RedactionDTO"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/RedactionDTO"
+            }
+          },
+          "201": {
+            "description": "Successfully created",
+            "schema": {
+              "$ref": "#/definitions/RedactionDTO"
+            }
+          },
+          "401": {
+            "description": "Unauthorised"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false
+      },
+      "put": {
+        "tags": [
+          "mark-up-resource"
+        ],
+        "summary": "Update an existing RedactionDTO",
+        "description": "A PUT request to update an RedactionDTO",
+        "operationId": "updateMarkUpUsingPUT",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Keyword `Bearer` followed by a valid IDAM user token",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "ServiceAuthorization",
+            "in": "header",
+            "description": "Valid Service-to-Service JWT token for a whitelisted micro-service",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "redactionDTO",
+            "description": "redactionDTO",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/RedactionDTO"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/RedactionDTO"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorised"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "RedactionDTO couldn't be updated"
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/api/markups/{documentId}": {
+      "get": {
+        "tags": [
+          "mark-up-resource"
+        ],
+        "summary": "Get all markups for Document ID",
+        "operationId": "getAllDocumentMarkUpsUsingGET",
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Keyword `Bearer` followed by a valid IDAM user token",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "ServiceAuthorization",
+            "in": "header",
+            "description": "Valid Service-to-Service JWT token for a whitelisted micro-service",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "documentId",
+            "in": "path",
+            "description": "documentId",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "pageNumber",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "paged",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "sort.sorted",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "sort.unsorted",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "unpaged",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/RedactionDTO"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorised"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false
+      },
+      "delete": {
+        "tags": [
+          "mark-up-resource"
+        ],
+        "summary": "Delete all RedactionDTOs",
+        "description": "A DELETE request to delete all the markups of the document",
+        "operationId": "deleteMarkUpsUsingDELETE",
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Keyword `Bearer` followed by a valid IDAM user token",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "ServiceAuthorization",
+            "in": "header",
+            "description": "Valid Service-to-Service JWT token for a whitelisted micro-service",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "documentId",
+            "in": "path",
+            "description": "documentId",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorised"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/api/markups/{documentId}/{redactionId}": {
+      "delete": {
+        "tags": [
+          "mark-up-resource"
+        ],
+        "summary": "Delete a RedactionDTO",
+        "description": "A DELETE request to delete the markup of the document",
+        "operationId": "deleteMarkUpUsingDELETE",
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Keyword `Bearer` followed by a valid IDAM user token",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "ServiceAuthorization",
+            "in": "header",
+            "description": "Valid Service-to-Service JWT token for a whitelisted micro-service",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "documentId",
+            "in": "path",
+            "description": "documentId",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "name": "redactionId",
+            "in": "path",
+            "description": "redactionId",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorised"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/api/redaction": {
+      "post": {
+        "tags": [
+          "redaction-resource"
+        ],
+        "summary": "Burn markups onto Document",
+        "description": "A POST request to burn markups onto Document and return the newly redacted document",
+        "operationId": "saveUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Keyword `Bearer` followed by a valid IDAM user token",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "ServiceAuthorization",
+            "in": "header",
+            "description": "Valid Service-to-Service JWT token for a whitelisted micro-service",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "redactionRequest",
+            "description": "redactionRequest",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/RedactionRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully redacted",
+            "schema": {
+              "$ref": "#/definitions/ResponseEntity"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Invalid request"
+          },
+          "401": {
+            "description": "Unauthorised"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Server Error"
+          }
+        },
+        "deprecated": false
+      }
+    }
+  },
+  "definitions": {
+    "DocumentTaskDTO": {
+      "type": "object",
+      "properties": {
+        "createdBy": {
+          "type": "string"
+        },
+        "createdDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "failureDescription": {
+          "type": "string"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "inputDocumentId": {
+          "type": "string"
+        },
+        "lastModifiedBy": {
+          "type": "string"
+        },
+        "lastModifiedDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "outputDocumentId": {
+          "type": "string"
+        },
+        "taskState": {
+          "type": "string",
+          "enum": [
+            "NEW",
+            "IN_PROGRESS",
+            "DONE",
+            "FAILED"
+          ]
+        }
+      },
+      "title": "DocumentTaskDTO"
+    },
+    "RectangleDTO": {
+      "type": "object",
+      "properties": {
+        "height": {
+          "type": "number",
+          "format": "double"
+        },
+        "id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "width": {
+          "type": "number",
+          "format": "double"
+        },
+        "x": {
+          "type": "number",
+          "format": "double"
+        },
+        "y": {
+          "type": "number",
+          "format": "double"
+        }
+      },
+      "title": "RectangleDTO"
+    },
+    "RedactionDTO": {
+      "type": "object",
+      "properties": {
+        "documentId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "page": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "rectangles": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/RectangleDTO"
+          }
+        },
+        "redactionId": {
+          "type": "string",
+          "format": "uuid"
+        }
+      },
+      "title": "RedactionDTO"
+    },
+    "RedactionRequest": {
+      "type": "object",
+      "properties": {
+        "caseId": {
+          "type": "string"
+        },
+        "documentId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "redactedFileName": {
+          "type": "string"
+        },
+        "redactions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/RedactionDTO"
+          }
+        }
+      },
+      "title": "RedactionRequest"
+    },
+    "ResponseEntity": {
+      "type": "object",
+      "properties": {
+        "body": {
+          "type": "object"
+        },
+        "statusCode": {
+          "type": "string",
+          "enum": [
+            "100 CONTINUE",
+            "101 SWITCHING_PROTOCOLS",
+            "102 PROCESSING",
+            "103 CHECKPOINT",
+            "200 OK",
+            "201 CREATED",
+            "202 ACCEPTED",
+            "203 NON_AUTHORITATIVE_INFORMATION",
+            "204 NO_CONTENT",
+            "205 RESET_CONTENT",
+            "206 PARTIAL_CONTENT",
+            "207 MULTI_STATUS",
+            "208 ALREADY_REPORTED",
+            "226 IM_USED",
+            "300 MULTIPLE_CHOICES",
+            "301 MOVED_PERMANENTLY",
+            "302 FOUND",
+            "302 MOVED_TEMPORARILY",
+            "303 SEE_OTHER",
+            "304 NOT_MODIFIED",
+            "305 USE_PROXY",
+            "307 TEMPORARY_REDIRECT",
+            "308 PERMANENT_REDIRECT",
+            "400 BAD_REQUEST",
+            "401 UNAUTHORIZED",
+            "402 PAYMENT_REQUIRED",
+            "403 FORBIDDEN",
+            "404 NOT_FOUND",
+            "405 METHOD_NOT_ALLOWED",
+            "406 NOT_ACCEPTABLE",
+            "407 PROXY_AUTHENTICATION_REQUIRED",
+            "408 REQUEST_TIMEOUT",
+            "409 CONFLICT",
+            "410 GONE",
+            "411 LENGTH_REQUIRED",
+            "412 PRECONDITION_FAILED",
+            "413 PAYLOAD_TOO_LARGE",
+            "413 REQUEST_ENTITY_TOO_LARGE",
+            "414 URI_TOO_LONG",
+            "414 REQUEST_URI_TOO_LONG",
+            "415 UNSUPPORTED_MEDIA_TYPE",
+            "416 REQUESTED_RANGE_NOT_SATISFIABLE",
+            "417 EXPECTATION_FAILED",
+            "418 I_AM_A_TEAPOT",
+            "419 INSUFFICIENT_SPACE_ON_RESOURCE",
+            "420 METHOD_FAILURE",
+            "421 DESTINATION_LOCKED",
+            "422 UNPROCESSABLE_ENTITY",
+            "423 LOCKED",
+            "424 FAILED_DEPENDENCY",
+            "426 UPGRADE_REQUIRED",
+            "428 PRECONDITION_REQUIRED",
+            "429 TOO_MANY_REQUESTS",
+            "431 REQUEST_HEADER_FIELDS_TOO_LARGE",
+            "451 UNAVAILABLE_FOR_LEGAL_REASONS",
+            "500 INTERNAL_SERVER_ERROR",
+            "501 NOT_IMPLEMENTED",
+            "502 BAD_GATEWAY",
+            "503 SERVICE_UNAVAILABLE",
+            "504 GATEWAY_TIMEOUT",
+            "505 HTTP_VERSION_NOT_SUPPORTED",
+            "506 VARIANT_ALSO_NEGOTIATES",
+            "507 INSUFFICIENT_STORAGE",
+            "508 LOOP_DETECTED",
+            "509 BANDWIDTH_LIMIT_EXCEEDED",
+            "510 NOT_EXTENDED",
+            "511 NETWORK_AUTHENTICATION_REQUIRED"
+          ]
+        },
+        "statusCodeValue": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "ResponseEntity"
+    }
+  }
+}
