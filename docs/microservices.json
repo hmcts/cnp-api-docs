@@ -517,6 +517,39 @@
       "version": null
     },
     {
+      "id": "aac-manage-case-assignment",
+      "name": "Manage Case Assignment",
+      "group": "CDM",
+      "type": "api",
+      "description": "",
+      "repository": "https://github.com/hmcts/aac-manage-case-assignment",
+      "spec": "https://hmcts.github.io/reform-api-docs/specs/aac-manage-case-assignment.json",
+      "dependencies": [
+        {
+          "id": "ccd-data-store-api",
+          "hard": true,
+          "apis": []
+        },
+        {
+          "id": "rd-professional-api",
+          "hard": true,
+          "apis": []
+        },
+        {
+          "id": "idam-api",
+          "hard": true,
+          "apis": []
+        },  
+        {
+          "id": "rpe-service-auth-provider",
+          "hard": true,
+          "apis": []
+        }
+      ],
+      "apis": [],
+      "version": null
+    },      
+    {
       "id": "dm-store",
       "name": "DM Store",
       "group": "Evidence",
