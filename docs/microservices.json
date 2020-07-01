@@ -519,7 +519,7 @@
     {
       "id": "aac-manage-case-assignment",
       "name": "Manage Case Assignment",
-      "group": "AAC",
+      "group": "CDM",
       "type": "api",
       "description": "",
       "repository": "https://github.com/hmcts/aac-manage-case-assignment",
