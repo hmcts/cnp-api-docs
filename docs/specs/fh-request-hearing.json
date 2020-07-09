@@ -35,7 +35,7 @@
                     "name": "body-1",
                     "in": "body",
                     "schema": {
-                        "$ref": "#/definitions/Body-1"
+                        "$ref": "#/definitions/rh-sample"
                     }
                 }],
                 "consumes": ["application/json"],
@@ -58,7 +58,7 @@
         "Body": {
             "type": "string"
         },
-        "Body-1": {
+        "rh-sample": {
             "example": {
                 "name": "Name",
                 "place": "Place",
