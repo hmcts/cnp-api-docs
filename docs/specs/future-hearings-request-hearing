@@ -1,0 +1,70 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "fh-hmi-api",
+        "version": "1.0",
+        "description": "<API Description>"
+    },
+    "host": "fh-hmi-apim-svc.azure-api.net",
+    "basePath": "/future-hearings-api",
+    "schemes": ["http", "https"],
+    "securityDefinitions": {
+        "apiKeyHeader": {
+            "type": "apiKey",
+            "name": "Ocp-Apim-Subscription-Key",
+            "in": "header"
+        },
+        "apiKeyQuery": {
+            "type": "apiKey",
+            "name": "subscription-key",
+            "in": "query"
+        }
+    },
+    "security": [{
+        "apiKeyHeader": []
+    }, {
+        "apiKeyQuery": []
+    }],
+    "paths": {
+        "/hearings": {
+            "post": {
+                "description": "Request Hearing",
+                "operationId": "request-hearing",
+                "summary": "Request Hearing",
+                "parameters": [{
+                    "name": "body-1",
+                    "in": "body",
+                    "schema": {
+                        "$ref": "#/definitions/rh-sample"
+                    }
+                }],
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "examples": {
+                            "application/json": {
+                                "Name": "HMCTS",
+                                "Place": "London"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "Body": {
+            "type": "string"
+        },
+        "rh-sample": {
+            "example": {
+                "name": "Name",
+                "place": "Place",
+                "Time": "11:00"
+            }
+        }
+    },
+    "tags": []
+}
