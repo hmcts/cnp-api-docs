@@ -51,12 +51,20 @@
                     }
                 }
             }
+        },
+        "/": {
+            "get": {
+                "operationId": "health-check",
+                "summary": "Health-Check",
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                }
+            }
         }
     },
     "definitions": {
-        "Body": {
-            "type": "string"
-        },
         "rh-def": {
             "type": "object",
             "properties": {
@@ -103,7 +111,7 @@
                     "type": "string"
                 },
                 "Private Hearing": {
-                    "type": "string"
+                    "type": "boolean"
                 },
                 "Allocated Listing Team": {
                     "type": "string"
@@ -124,7 +132,7 @@
                 "Reason for STL change": "String",
                 "Estimated Duration of the Hearing ": 30,
                 "Hearing channel": "Online Streaming",
-                "Private Hearing": "Yes",
+                "Private Hearing": true,
                 "Allocated Listing Team": "Team A"
             }
         }
