@@ -5,7 +5,7 @@
         "version": "1.0"
     },
     "host": "hmi-apim-svc-test.azure-api.net",
-    "basePath": "/hmi-apim-api",
+    "basePath": "/hmi",
     "schemes": ["http", "https"],
     "securityDefinitions": {
         "apiKeyHeader": {
