@@ -4,7 +4,7 @@
         "title": "hmi-apim-api",
         "version": "1.0"
     },
-    "host": "hmi-apim-svc-test.azure-api.net",
+    "host": "hmi-apim-svc-sbox.azure-api.net",
     "basePath": "/hmi",
     "schemes": ["http", "https"],
     "securityDefinitions": {
@@ -54,6 +54,7 @@
         },
         "/": {
             "get": {
+                "description": "Health-Check",
                 "operationId": "health-check",
                 "summary": "Health-Check",
                 "responses": {
@@ -72,6 +73,9 @@
                     "type": "string"
                 },
                 "Case Id": {
+                    "type": "string"
+                },
+                "TransactionIDHMCTS": {
                     "type": "string"
                 },
                 "Venue": {
@@ -120,6 +124,7 @@
             "example": {
                 "Case Title": "Divorce",
                 "Case Id": "Div-24",
+                "TransactionIDHMCTS": "TR123456",
                 "Venue": "Manchester",
                 "Jurisdiction": "String",
                 "Service": "CFT",
