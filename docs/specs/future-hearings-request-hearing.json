@@ -31,11 +31,38 @@
                 "operationId": "request-hearing",
                 "summary": "Request Hearing",
                 "parameters": [{
+                    "name": "Source",
+                    "in": "header",
+                    "description": "soruce of the request initiation\n",
+                    "required": true,
+                    "type": "string",
+                    "enum": ["SnL"]
+                }, {
+                    "name": "Destination",
+                    "in": "header",
+                    "description": "Target/Backend system that is supposed to consume the request message.",
+                    "required": true,
+                    "type": "string",
+                    "enum": ["CFT"]
+                }, {
+                    "name": "DateTime",
+                    "in": "header",
+                    "description": "Date and time of request initiation.",
+                    "required": true,
+                    "type": "string"
+                }, {
+                    "name": "RequestType",
+                    "in": "header",
+                    "description": "Type of request",
+                    "required": true,
+                    "type": "string",
+                    "enum": ["TypeOfCase"]
+                }, {
                     "name": "rh-def",
                     "in": "body",
                     "schema": {
                         "$ref": "#/definitions/rh-def"
-                    }
+                   }
                 }],
                 "consumes": ["application/json"],
                 "produces": ["application/json"],
