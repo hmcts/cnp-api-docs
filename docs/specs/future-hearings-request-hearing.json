@@ -1,7 +1,7 @@
 {
     "swagger": "2.0",
     "info": {
-        "title": "hmi-apim-api",
+        "title": "hmi",
         "version": "1.0"
     },
     "host": "hmi-apim-svc-sbox.azure-api.net",
