@@ -1,12 +1,11 @@
 {
     "swagger": "2.0",
     "info": {
-        "title": "fh-hmi-api",
-        "version": "1.0",
-        "description": "<API Description>"
+        "title": "hmi-apim-api",
+        "version": "1.0"
     },
-    "host": "fh-hmi-apim-svc.azure-api.net",
-    "basePath": "/future-hearings-api",
+    "host": "hmi-apim-svc-sbox.azure-api.net",
+    "basePath": "/hmi",
     "schemes": ["http", "https"],
     "securityDefinitions": {
         "apiKeyHeader": {
@@ -32,11 +31,38 @@
                 "operationId": "request-hearing",
                 "summary": "Request Hearing",
                 "parameters": [{
-                    "name": "body-1",
+                    "name": "Source",
+                    "in": "header",
+                    "description": "soruce of the request initiation\n",
+                    "required": true,
+                    "type": "string",
+                    "enum": ["SnL"]
+                }, {
+                    "name": "Destination",
+                    "in": "header",
+                    "description": "Target/Backend system that is supposed to consume the request message.",
+                    "required": true,
+                    "type": "string",
+                    "enum": ["CFT"]
+                }, {
+                    "name": "DateTime",
+                    "in": "header",
+                    "description": "Date and time of request initiation.",
+                    "required": true,
+                    "type": "string"
+                }, {
+                    "name": "RequestType",
+                    "in": "header",
+                    "description": "Type of request",
+                    "required": true,
+                    "type": "string",
+                    "enum": ["TypeOfCase"]
+                }, {
+                    "name": "rh-def",
                     "in": "body",
                     "schema": {
-                        "$ref": "#/definitions/rh-sample"
-                    }
+                        "$ref": "#/definitions/rh-def"
+                   }
                 }],
                 "consumes": ["application/json"],
                 "produces": ["application/json"],
@@ -52,17 +78,94 @@
                     }
                 }
             }
+        },
+        "/": {
+            "get": {
+                "description": "Health-Check",
+                "operationId": "health-check",
+                "summary": "Health-Check",
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                }
+            }
         }
     },
     "definitions": {
-        "Body": {
-            "type": "string"
-        },
-        "rh-sample": {
+        "rh-def": {
+            "type": "object",
+            "properties": {
+                "Case Title": {
+                    "type": "string"
+                },
+                "Case Id": {
+                    "type": "string"
+                },
+                "TransactionIDHMCTS": {
+                    "type": "string"
+                },
+                "Venue": {
+                    "type": "string"
+                },
+                "Jurisdiction": {
+                    "type": "string"
+                },
+                "Service": {
+                    "type": "string"
+                },
+                "Case Type": {
+                    "type": "string"
+                },
+                "Hearing Type": {
+                    "type": "string"
+                },
+                "Priority": {
+                    "type": "string"
+                },
+                "Status of the Listing Request": {
+                    "type": "string"
+                },
+                "Ticket Type required ": {
+                    "type": "string"
+                },
+                "Waiting time KPI": {
+                    "type": "integer"
+                },
+                "Reason for STL change": {
+                    "type": "string"
+                },
+                "Estimated Duration of the Hearing ": {
+                    "type": "integer"
+                },
+                "Hearing channel": {
+                    "type": "string"
+                },
+                "Private Hearing": {
+                    "type": "boolean"
+                },
+                "Allocated Listing Team": {
+                    "type": "string"
+                }
+            },
             "example": {
-                "name": "Name",
-                "place": "Place",
-                "Time": "11:00"
+                "Case Title": "Divorce",
+                "Case Id": "Div-24",
+                "TransactionIDHMCTS": "TR123456",
+                "Venue": "Manchester",
+                "Jurisdiction": "String",
+                "Service": "CFT",
+                "Case Type": "Divore",
+                "Hearing Type": "Civil",
+                "Priority": "High",
+                "Status of the Listing Request": "String",
+                "Ticket Type required ": "String",
+                "Waiting time KPI": 55,
+                "Reason for STL change": "String",
+                "Estimated Duration of the Hearing ": 30,
+                "Hearing channel": "Online Streaming",
+                "Private Hearing": true,
+                "Allocated Listing Team": "Team A"
             }
         }
     },
