@@ -56,7 +56,7 @@
                     "description": "Type of request",
                     "required": true,
                     "type": "string",
-                    "enum": ["TypeOfCase"]
+                    "enum": ["THEFT", "ASSAULT"]
                 }, {
                     "name": "rh-def",
                     "in": "body",
