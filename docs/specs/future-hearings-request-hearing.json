@@ -83,6 +83,33 @@
                 "operationId": "update-hearing",
                 "summary": "Update Hearing",
                 "parameters": [{
+                    "name": "Source",
+                    "in": "header",
+                    "description": "soruce of the request initiation\n",
+                    "required": true,
+                    "type": "string",
+                    "enum": ["SnL"]
+                }, {
+                    "name": "Destination",
+                    "in": "header",
+                    "description": "Target/Backend system that is supposed to consume the request message.",
+                    "required": true,
+                    "type": "string",
+                    "enum": ["CFT"]
+                }, {
+                    "name": "DateTime",
+                    "in": "header",
+                    "description": "Date and time of request initiation.",
+                    "required": true,
+                    "type": "string"
+                }, {
+                    "name": "RequestType",
+                    "in": "header",
+                    "description": "Type of request",
+                    "required": true,
+                    "type": "string",
+                    "enum": ["THEFT", "ASSAULT"]
+                }, {
                     "name": "rh-upd-def",
                     "in": "body",
                     "schema": {
