@@ -120,7 +120,13 @@
                 "consumes": ["application/json"],
                 "responses": {
                     "201": {
-                        "description": "Successfully updated hearing"
+                        "description": "Successfully updated hearing",
+                        "examples": {
+                            "application/json": {
+                                "status": 201,
+                                "description": "Hearings updated successfully"
+                            }
+                        }
                     }
                 }
             }
