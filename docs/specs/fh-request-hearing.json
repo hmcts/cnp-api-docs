@@ -5,7 +5,7 @@
         "version": "1.0"
     },
     "host": "hmi-apim-svc-sbox.azure-api.net",
-    "basePath": "/hmi-apim-api",
+    "basePath": "/hmi",
     "schemes": ["http", "https"],
     "securityDefinitions": {
         "apiKeyHeader": {
@@ -62,7 +62,7 @@
                     "in": "body",
                     "schema": {
                         "$ref": "#/definitions/rh-def"
-                   }
+                    }
                 }],
                 "consumes": ["application/json"],
                 "produces": ["application/json"],
@@ -87,6 +87,60 @@
                 "responses": {
                     "200": {
                         "description": ""
+                    }
+                }
+            }
+        },
+        "/listing": {
+            "get": {
+                "operationId": "listing",
+                "summary": "Listing",
+                "parameters": [{
+                    "name": "type",
+                    "in": "query",
+                    "type": "string",
+                    "enum": ["hearing-schedule"]
+                }, {
+                    "name": "hearingIdCaseHQ",
+                    "in": "query",
+                    "type": "string",
+                    "enum": ["5f2bffce29c77b6fef1e7488"]
+                }],
+                "produces": ["application/json"],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/rh-res-hearing-schedule"
+                        },
+                        "examples": {
+                            "application/json": {
+                                "apiVersion": "V1.00103",
+                                "transactionIdCaseHQ": "5f2bffce09fb0feadaf7b906",
+                                "transactionIdHMCTS": "5f2bffcea47aedacc86d35cf",
+                                "timeStamp": "12:15:22",
+                                "listingId": "5f2bffcec0d5d73e929923fa",
+                                "hearingIdCaseHQ": "5f2bffce29c77b6fef1e7488",
+                                "hearingType": "Crime",
+                                "hearingPriority": "High",
+                                "hearingDate": "2020-01-28T07:57:08 -00:00",
+                                "hearingStartTime": "08:45",
+                                "hearingEndTime": "09:00",
+                                "hearingWelshLanguage": "No",
+                                "hearingPrivate": "Yes",
+                                "hearingCaseIdHMCTS": "5f2bffcee0b6aa870e82f007",
+                                "hearingSessionIdCaseHQ": "5f2bffceef36b0eaf339d884",
+                                "hearingTranslatorRequired": "No",
+                                "hearingTranslatorLanguage": "n/a",
+                                "hearingOutcome": "To be hanged till death",
+                                "hearingCreatedDate": "2019-12-28T07:57:08 -00:00",
+                                "hearingCreatedBy": "Dimitry Mascaranhus",
+                                "hearingParticipantId": "5f2bffce90a69eb81aaec725",
+                                "hearingVenueId": "V3455",
+                                "hearingRoomId": "R2345",
+                                "hearingJudgeId": "HJ123"
+                            }
+                        }
                     }
                 }
             }
@@ -166,6 +220,83 @@
                 "Hearing channel": "Online Streaming",
                 "Private Hearing": true,
                 "Allocated Listing Team": "Team A"
+            }
+        },
+        "rh-res-hearing-schedule": {
+            "type": "object",
+            "properties": {
+                "apiVersion": {
+                    "type": "string"
+                },
+                "transactionIdCaseHQ": {
+                    "type": "string"
+                },
+                "transactionIdHMCTS": {
+                    "type": "string"
+                },
+                "timeStamp": {
+                    "type": "string"
+                },
+                "listingId": {
+                    "type": "string"
+                },
+                "hearingIdCaseHQ": {
+                    "type": "string"
+                },
+                "hearingType": {
+                    "type": "string"
+                },
+                "hearingPriority": {
+                    "type": "string"
+                },
+                "hearingDate": {
+                    "type": "string"
+                },
+                "hearingStartTime": {
+                    "type": "string"
+                },
+                "hearingEndTime": {
+                    "type": "string"
+                },
+                "hearingWelshLanguage": {
+                    "type": "string"
+                },
+                "hearingPrivate": {
+                    "type": "string"
+                },
+                "hearingCaseIdHMCTS": {
+                    "type": "string"
+                },
+                "hearingSessionIdCaseHQ": {
+                    "type": "string"
+                },
+                "hearingTranslatorRequired": {
+                    "type": "string"
+                },
+                "hearingTranslatorLanguage": {
+                    "type": "string"
+                },
+                "hearingOutcome": {
+                    "type": "string"
+                },
+                "hearingCreatedDate": {
+                    "type": "string"
+                },
+                "hearingCreatedBy": {
+                    "type": "string"
+                },
+                "hearingParticipantId": {
+                    "type": "string"
+                },
+                "hearingVenueId": {
+                    "type": "string"
+                },
+                "hearingRoomId": {
+                    "type": "string"
+                },
+                "hearingJudgeId": {
+                    "type": "string"
+                }
             }
         }
     },
