@@ -150,23 +150,43 @@
                 "operationId": "session",
                 "summary": "Session",
                 "parameters": [{
-                    "name": "type",
+                    "name": "hearing_date ",
                     "in": "query",
                     "type": "string",
-                    "enum": ["hearing-schedule"]
+                    "enum": ["2020-12-31T07:57:08 -00:00"]
                 }, {
-                    "name": "hearingIdCaseHQ",
+                    "name": "hearing_venue_id",
                     "in": "query",
                     "type": "string",
                     "enum": ["5f2bffce29c77b6fef1e7488"]
                 }, {
+                    "name": "hearing_room_id",
+                    "in": "query",
+                    "type": "string",
+                    "enum": ["5f2bffce29c77b6fef1e7488"]
+                }, {
+                    "name": "hearing_session_id_casehq",
+                    "in": "query",
+                    "type": "string",
+                    "enum": ["5f2bffce29c77b6fef1e7488"]
+                }, {
+                    "name": "hearing_case_id_hmcts",
+                    "in": "query",
+                    "type": "string",
+                    "enum": ["5f2bffce29c77b6fef1e7488"]
+                }, {
+                    "name": "hearing_id_casehq",
+                    "in": "query",
+                    "type": "string",
+                    "enum": ["5f2bffce29c77b6fef1e7488"]
+                },{
                     "name": "Source-System",
                     "in": "header",
                     "description": "soruce of the request initiation\n",
                     "required": true,
                     "type": "string",
                     "enum": ["SnL"]
-                }, {
+                },{
                     "name": "Destination-System",
                     "in": "header",
                     "description": "Target/Backend system that is supposed to consume the request message.",
