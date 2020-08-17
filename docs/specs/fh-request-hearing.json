@@ -31,11 +31,11 @@
                 "operationId": "request-hearing",
                 "summary": "Request Hearing",
                 "parameters": [{
-                    "name": "Source",
+                    "name": "Source-System",
                     "in": "header",
                     "description": "soruce of the request initiation\n",
                     "required": true,
-                    "type": "Source-System",
+                    "type": "string",
                     "enum": ["SnL"]
                 }, {
                     "name": "Destination-System",
