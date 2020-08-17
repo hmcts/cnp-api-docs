@@ -163,17 +163,17 @@
                     "name": "hearing_room_id",
                     "in": "query",
                     "type": "string",
-                    "enum": ["5f2bffce29c77b6fef1e7488"]
+                    "enum": ["5f2bffce29c77b6fef1e7499"]
                 }, {
                     "name": "hearing_session_id_casehq",
                     "in": "query",
                     "type": "string",
-                    "enum": ["5f2bffce29c77b6fef1e7488"]
+                    "enum": ["5f2bffce29c77b6fef1e7400"]
                 }, {
                     "name": "hearing_case_id_hmcts",
                     "in": "query",
                     "type": "string",
-                    "enum": ["5f2bffce29c77b6fef1e7488"]
+                    "enum": ["5f2bffce29c77b6fef1e7411"]
                 }, {
                     "name": "hearing_id_casehq",
                     "in": "query",
