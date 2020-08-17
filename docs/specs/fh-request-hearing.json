@@ -144,11 +144,11 @@
                 }
             }
         },
-        "/listing": {
+        "/sessions": {
             "get": {
-                "description": "Listing",
-                "operationId": "listing",
-                "summary": "Listing",
+                "description": "Sessions",
+                "operationId": "session",
+                "summary": "Session",
                 "parameters": [{
                     "name": "type",
                     "in": "query",
