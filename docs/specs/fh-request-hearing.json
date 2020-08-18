@@ -77,12 +77,20 @@
                         }
                     }
                 }
-            },
+            }
+        },
+        "/hearings/{hearing-id}": {
             "put": {
                 "description": "Update Hearing",
                 "operationId": "update-hearing",
                 "summary": "Update Hearing",
                 "parameters": [{
+                    "name": "hearing-id",
+                    "in": "path",
+                    "required": true,
+                    "type": "string",
+                    "enum": ["CASE123432"]
+                }, {
                     "name": "Source-System",
                     "in": "header",
                     "description": "soruce of the request initiation\n",
