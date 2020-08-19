@@ -36,14 +36,14 @@
                     "description": "soruce of the request initiation\n",
                     "required": true,
                     "type": "string",
-                    "enum": ["SnL"]
+                    "enum": ["CFT"]
                 }, {
                     "name": "Destination-System",
                     "in": "header",
                     "description": "Target/Backend system that is supposed to consume the request message.",
                     "required": true,
                     "type": "string",
-                    "enum": ["CFT"]
+                    "enum": ["S&L"]
                 }, {
                     "name": "Request-Created-At",
                     "in": "header",
@@ -96,14 +96,14 @@
                     "description": "soruce of the request initiation\n",
                     "required": true,
                     "type": "string",
-                    "enum": ["SnL"]
+                    "enum": ["CFT"]
                 }, {
                     "name": "Destination-System",
                     "in": "header",
                     "description": "Target/Backend system that is supposed to consume the request message.",
                     "required": true,
                     "type": "string",
-                    "enum": ["CFT"]
+                    "enum": ["S&L"]
                 }, {
                     "name": "Request-Created-At",
                     "in": "header",
