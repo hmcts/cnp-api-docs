@@ -200,7 +200,8 @@ function getNodes(data, edgesData, groupOptions) {
             return micro.group !== idamGroup && micro.id !== s2sId;
         })
         .map(function(micro) {
-            let href = micro.spec ? `./swagger.html?url=${micro.spec}` : undefined;
+            let href = prepareLink(micro.urls, micro.spec);
+
             let idamDependencies = micro.dependencies.filter((item) => {
                 return item.id.substring(0, 4) === idamIdPrefix;
             });
@@ -256,6 +257,17 @@ function getNodes(data, edgesData, groupOptions) {
         });
 
     return nodes;
+}
+
+function prepareLink(urls, spec) {
+    let href = "";
+    if (typeof urls !== 'undefined') {
+        let apis = JSON.stringify(urls);
+        href = `./swagger.html?apis=${apis}`;
+    } else {
+        href = spec ? `./swagger.html?url=${spec}` : undefined;
+    }
+    return href;
 }
 
 function getToolTip(micro,idamDependencies) {

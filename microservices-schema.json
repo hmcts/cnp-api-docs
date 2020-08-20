@@ -95,6 +95,36 @@
                             "https://hmcts.github.io/reform-api-docs/specs/payments.json"
                         ]
                     },
+                    "urls": {
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "required": [
+                                "url",
+                                "name"
+                            ],
+                            "properties": {
+                                "url": {
+                                    "type": "string",
+                                    "title": "Versioned API url",
+                                    "description": "Link to API specification json file",
+                                    "default": "",
+                                    "examples": [
+                                        "https://hmcts.github.io/reform-api-docs/specs/ccd-data-store-api.v1_external.json"
+                                    ]
+                                },
+                                "name": {
+                                    "type": "string",
+                                    "title": "API version",
+                                    "description": "Version of the API if we want to support multiple API versions",
+                                    "default": "",
+                                    "examples": [
+                                        "v1_external"
+                                    ]
+                                }
+                            }
+                        }
+                    },
                     "group": {
                         "type": "string",
                         "title": "API group",
