@@ -261,7 +261,7 @@ function getNodes(data, edgesData, groupOptions) {
 
 function prepareLink(urls, spec) {
     let href = "";
-    if (typeof urls !== 'undefined') {
+    if (typeof urls !== 'undefined' && urls && Array.isArray(urls) && urls.length > 0) {
         let apis = JSON.stringify(urls);
         href = `./swagger.html?apis=${apis}`;
     } else {

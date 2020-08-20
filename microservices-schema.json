@@ -97,6 +97,7 @@
                     },
                     "urls": {
                         "type": "array",
+                        "required": false,
                         "items": {
                             "type": "object",
                             "required": [
