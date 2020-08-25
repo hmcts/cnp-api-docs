@@ -21,6 +21,7 @@ In order to populate one of the API in the network graph we need to enter the fo
     "description": null,
     "repository": null,
     "spec": null,
+    "urls": [],
     "dependencies": [
         {
             "id": "idam",
@@ -44,7 +45,7 @@ Full specification can be viewed in [json schema](microservices-schema.json).
 
 ### Swagger UI
 
-In case the `spec` field is present, API bubble represented in the graph will allow to click through to the API documentation.
+In case the `spec` field is present, API bubble represented in the graph will allow to click through to the API documentation. If `urls` array is present spec will not be used, but urls defined with `name` and `url` will be used instead.
 
 [How to publish swagger docs](#publish-swagger-docs) for your spring boot template application
 
