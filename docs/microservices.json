@@ -2324,8 +2324,7 @@
             "spec": "https://hmcts.github.io/reform-api-docs/specs/wa-workflow-api.json",
             "dependencies": [],
             "apis": [],
-            "version": null,
-
+            "version": null
         }
     ]
 }
