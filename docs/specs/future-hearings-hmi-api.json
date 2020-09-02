@@ -58,6 +58,24 @@
                     "type": "string",
                     "enum": ["THEFT", "ASSAULT"]
                 }, {
+                    "name": "Request-Processed-At",
+                    "in": "header",
+                    "description": "Date & Time of Request Processing",
+                    "required": true,
+                    "type": "string"
+                }, {
+                    "name": "Accept",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "enum": ["application/json"]
+                }, {
+                    "name": "Content-Type",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "enum": ["application/json"]
+                }, {
                     "name": "rh-def",
                     "in": "body",
                     "schema": {
@@ -117,6 +135,24 @@
                     "required": true,
                     "type": "string",
                     "enum": ["THEFT", "ASSAULT"]
+                }, {
+                    "name": "Request-Processed-At",
+                    "in": "header",
+                    "description": "Date and time of request processing",
+                    "required": true,
+                    "type": "string"
+                }, {
+                    "name": "Accept",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "enum": ["application/json"]
+                }, {
+                    "name": "Content-Type",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "enum": ["application/json"]
                 }, {
                     "name": "rh-upd-def",
                     "in": "body",
@@ -214,6 +250,24 @@
                     "required": true,
                     "type": "string",
                     "enum": ["THEFT", "ASSAULT"]
+                }, {
+                    "name": "Request-Processed-At",
+                    "in": "header",
+                    "description": "Date & Time of Request Processing",
+                    "required": true,
+                    "type": "string"
+                }, {
+                    "name": "Accept",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "enum": ["application/json"]
+                }, {
+                    "name": "Content-Type",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "enum": ["application/json"]
                 }],
                 "produces": ["application/json"],
                 "responses": {
@@ -224,6 +278,155 @@
                         },
                         "examples": {
                             "application/json": "[{\r\n  \"apiVersion\": \"V1.00103\",\r\n  \"transactionIdCaseHQ\": \"5f2bffce09fb0feadaf7b906\",\r\n  \"transactionIdHMCTS\": \"5f2bffcea47aedacc86d35cf\",\r\n  \"timeStamp\": \"12:15:22\",\r\n  \"listingId\": \"5f2bffcec0d5d73e929923fa\",\r\n  \"hearingIdCaseHQ\": \"5f2bffce29c77b6fef1e7488\",\r\n  \"hearingType\": \"Crime\",\r\n  \"hearingPriority\": \"High\",\r\n  \"hearingDate\": \"2020-01-28T07:57:08 -00:00\",\r\n  \"hearingStartTime\": \"08:45\",\r\n  \"hearingEndTime\": \"09:00\",\r\n  \"hearingWelshLanguage\": \"No\",\r\n  \"hearingPrivate\": \"Yes\",\r\n  \"hearingCaseIdHMCTS\": \"5f2bffcee0b6aa870e82f007\",\r\n  \"hearingSessionIdCaseHQ\": \"5f2bffceef36b0eaf339d884\",\r\n  \"hearingTranslatorRequired\": \"No\",\r\n  \"hearingTranslatorLanguage\": \"n/a\",\r\n  \"hearingOutcome\": \"To be hanged till death\",\r\n  \"hearingCreatedDate\": \"2019-12-28T07:57:08 -00:00\",\r\n  \"hearingCreatedBy\": \"Dimitry Mascaranhus\",\r\n  \"hearingParticipantId\": \"5f2bffce90a69eb81aaec725\",\r\n  \"hearingVenueId\": \"V3455\",\r\n  \"hearingRoomId\": \"R2345\",\r\n  \"hearingJudgeId\": \"HJ123\"\r\n}]"
+                        }
+                    }
+                }
+            }
+        },
+        "/listings": {
+            "get": {
+                "operationId": "listings",
+                "summary": "Listings",
+                "parameters": [{
+                    "name": "JoH",
+                    "in": "query",
+                    "type": "string",
+                    "enum": ["Justice,Dimiry,Mascaranhus,item1,item2"]
+                }, {
+                    "name": "panel",
+                    "in": "query",
+                    "type": "string",
+                    "enum": ["m1,m2,m3"]
+                }, {
+                    "name": "court",
+                    "in": "query",
+                    "type": "string",
+                    "enum": ["ch,cr,cl"]
+                }, {
+                    "name": "Source-System",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "enum": ["CFT"]
+                }, {
+                    "name": "Destination-System",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "enum": ["S&L"]
+                }, {
+                    "name": "Request-Created-At",
+                    "in": "header",
+                    "required": true,
+                    "type": "string"
+                }, {
+                    "name": "Request-Type",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "enum": ["THEFT", "ASSAULT"]
+                }, {
+                    "name": "Request-Processed-At",
+                    "in": "header",
+                    "description": "Date & Time of Request processing",
+                    "required": true,
+                    "type": "string"
+                }, {
+                    "name": "Accept",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "enum": ["application/json"]
+                }, {
+                    "name": "Content-Type",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "enum": ["application/json"]
+                }],
+                "produces": ["application/json"],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/rh-res-listings"
+                        },
+                        "examples": {
+                            "application/json": "[\n    {\n                    \"listingId\": \"5f2bffcec0d5d73e929923fa\",\n                    \"listingStartDate\": \"2015-01-02T05:29:13 -00:00\",\n                    \"listingEndDate\": \"2014-09-08T03:13:14 -01:00\",\n                    \"listingDuration\": 30,\n                    \"listingType\": \"new\",\n                    \"listingPriority\": \"High\",\n                    \"listingNumberAttendees\": 6,\n                    \"listingPartiesMethod\": \"In Person\"\n                }\n]"
+                        }
+                    }
+                }
+            }
+        },
+        "/listing/{listingId}": {
+            "get": {
+                "operationId": "listing-by-id",
+                "summary": "Listing By ID",
+                "parameters": [{
+                    "name": "listingId",
+                    "in": "path",
+                    "required": true,
+                    "type": "string"
+                }, {
+                    "name": "Source-System",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "enum": ["CFT"]
+                }, {
+                    "name": "Destination-System",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "enum": ["S&L"]
+                }, {
+                    "name": "Request-Created-At",
+                    "in": "header",
+                    "required": true,
+                    "type": "string"
+                }, {
+                    "name": "Request-Type",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "enum": ["THEFT", "ASSAULT"]
+                }, {
+                    "name": "Request-Processed-At",
+                    "in": "header",
+                    "description": "Date & Time of Request Processing",
+                    "required": true,
+                    "type": "string"
+                }, {
+                    "name": "Accept",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "enum": ["application/json"]
+                }, {
+                    "name": "Content-Type",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "enum": ["application/json"]
+                }],
+                "produces": ["application/json"],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/rh-res-listing"
+                        },
+                        "examples": {
+                            "application/json": {
+                                "listingId": "5f2bffcec0d5d73e929923fa",
+                                "listingStartDate": "2015-01-02T05:29:13 -00:00",
+                                "listingEndDate": "2014-09-08T03:13:14 -01:00",
+                                "listingDuration": 30,
+                                "listingType": "new",
+                                "listingPriority": "High",
+                                "listingNumberAttendees": 6,
+                                "listingPartiesMethod": "In Person"
+                            }
                         }
                     }
                 }
@@ -521,6 +724,68 @@
                     "listingPriority": "High",
                     "listingNumberAttendees": 6,
                     "listingPartiesMethod": "In Person"
+                }
+            }
+        },
+        "rh-res-listings": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "listingId": {
+                        "type": "string"
+                    },
+                    "listingStartDate": {
+                        "type": "string"
+                    },
+                    "listingEndDate": {
+                        "type": "string"
+                    },
+                    "listingDuration": {
+                        "type": "integer"
+                    },
+                    "listingType": {
+                        "type": "string"
+                    },
+                    "listingPriority": {
+                        "type": "string"
+                    },
+                    "listingNumberAttendees": {
+                        "type": "integer"
+                    },
+                    "listingPartiesMethod": {
+                        "type": "string"
+                    }
+                },
+                "required": ["listingId", "listingStartDate", "listingEndDate", "listingDuration", "listingType", "listingPriority", "listingNumberAttendees", "listingPartiesMethod"]
+            }
+        },
+        "rh-res-listing": {
+            "type": "object",
+            "properties": {
+                "listingId": {
+                    "type": "string"
+                },
+                "listingStartDate": {
+                    "type": "string"
+                },
+                "listingEndDate": {
+                    "type": "string"
+                },
+                "listingDuration": {
+                    "type": "integer"
+                },
+                "listingType": {
+                    "type": "string"
+                },
+                "listingPriority": {
+                    "type": "string"
+                },
+                "listingNumberAttendees": {
+                    "type": "integer"
+                },
+                "listingPartiesMethod": {
+                    "type": "string"
                 }
             }
         }
