@@ -58,6 +58,24 @@
                     "type": "string",
                     "enum": ["THEFT", "ASSAULT"]
                 }, {
+                    "name": "Request-Processed-At",
+                    "in": "header",
+                    "description": "Date & Time of Request Processing",
+                    "required": true,
+                    "type": "string"
+                }, {
+                    "name": "Accept",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "enum": ["application/json"]
+                }, {
+                    "name": "Content-Type",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "enum": ["application/json"]
+                }, {
                     "name": "rh-def",
                     "in": "body",
                     "schema": {
@@ -117,6 +135,24 @@
                     "required": true,
                     "type": "string",
                     "enum": ["THEFT", "ASSAULT"]
+                }, {
+                    "name": "Request-Processed-At",
+                    "in": "header",
+                    "description": "Date and time of request processing",
+                    "required": true,
+                    "type": "string"
+                }, {
+                    "name": "Accept",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "enum": ["application/json"]
+                }, {
+                    "name": "Content-Type",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "enum": ["application/json"]
                 }, {
                     "name": "rh-upd-def",
                     "in": "body",
@@ -214,6 +250,24 @@
                     "required": true,
                     "type": "string",
                     "enum": ["THEFT", "ASSAULT"]
+                }, {
+                    "name": "Request-Processed-At",
+                    "in": "header",
+                    "description": "Date & Time of Request Processing",
+                    "required": true,
+                    "type": "string"
+                }, {
+                    "name": "Accept",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "enum": ["application/json"]
+                }, {
+                    "name": "Content-Type",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "enum": ["application/json"]
                 }],
                 "produces": ["application/json"],
                 "responses": {
@@ -271,6 +325,24 @@
                     "required": true,
                     "type": "string",
                     "enum": ["THEFT", "ASSAULT"]
+                }, {
+                    "name": "Request-Processed-At",
+                    "in": "header",
+                    "description": "Date & Time of Request processing",
+                    "required": true,
+                    "type": "string"
+                }, {
+                    "name": "Accept",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "enum": ["application/json"]
+                }, {
+                    "name": "Content-Type",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "enum": ["application/json"]
                 }],
                 "produces": ["application/json"],
                 "responses": {
@@ -318,6 +390,24 @@
                     "required": true,
                     "type": "string",
                     "enum": ["THEFT", "ASSAULT"]
+                }, {
+                    "name": "Request-Processed-At",
+                    "in": "header",
+                    "description": "Date & Time of Request Processing",
+                    "required": true,
+                    "type": "string"
+                }, {
+                    "name": "Accept",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "enum": ["application/json"]
+                }, {
+                    "name": "Content-Type",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "enum": ["application/json"]
                 }],
                 "produces": ["application/json"],
                 "responses": {
