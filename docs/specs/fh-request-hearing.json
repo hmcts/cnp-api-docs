@@ -58,6 +58,24 @@
                     "type": "string",
                     "enum": ["THEFT", "ASSAULT"]
                 }, {
+                    "name": "Request-Processed-At",
+                    "in": "header",
+                    "description": "Date & Time of Request Processing",
+                    "required": true,
+                    "type": "string"
+                }, {
+                    "name": "Accept",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "enum": ["application/json"]
+                }, {
+                    "name": "Content-Type",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "enum": ["application/json"]
+                }, {
                     "name": "rh-def",
                     "in": "body",
                     "schema": {
@@ -117,6 +135,24 @@
                     "required": true,
                     "type": "string",
                     "enum": ["THEFT", "ASSAULT"]
+                }, {
+                    "name": "Request-Processed-At",
+                    "in": "header",
+                    "description": "Date and time of request processing",
+                    "required": true,
+                    "type": "string"
+                }, {
+                    "name": "Accept",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "enum": ["application/json"]
+                }, {
+                    "name": "Content-Type",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "enum": ["application/json"]
                 }, {
                     "name": "rh-upd-def",
                     "in": "body",
@@ -214,6 +250,24 @@
                     "required": true,
                     "type": "string",
                     "enum": ["THEFT", "ASSAULT"]
+                }, {
+                    "name": "Request-Processed-At",
+                    "in": "header",
+                    "description": "Date & Time of Request Processing",
+                    "required": true,
+                    "type": "string"
+                }, {
+                    "name": "Accept",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "enum": ["application/json"]
+                }, {
+                    "name": "Content-Type",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "enum": ["application/json"]
                 }],
                 "produces": ["application/json"],
                 "responses": {
@@ -248,6 +302,47 @@
                     "in": "query",
                     "type": "string",
                     "enum": ["ch,cr,cl"]
+                }, {
+                    "name": "Source-System",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "enum": ["CFT"]
+                }, {
+                    "name": "Destination-System",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "enum": ["S&L"]
+                }, {
+                    "name": "Request-Created-At",
+                    "in": "header",
+                    "required": true,
+                    "type": "string"
+                }, {
+                    "name": "Request-Type",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "enum": ["THEFT", "ASSAULT"]
+                }, {
+                    "name": "Request-Processed-At",
+                    "in": "header",
+                    "description": "Date & Time of Request processing",
+                    "required": true,
+                    "type": "string"
+                }, {
+                    "name": "Accept",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "enum": ["application/json"]
+                }, {
+                    "name": "Content-Type",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "enum": ["application/json"]
                 }],
                 "produces": ["application/json"],
                 "responses": {
@@ -257,7 +352,7 @@
                             "$ref": "#/definitions/rh-res-listings"
                         },
                         "examples": {
-                            "application/json": "[{\n                \"apiVersion\": \"V1.00103\",\n                \"transactionIdHmcts\": \"5f2bffce6962d03e8b73e76f\",\n                \"timeStamp\": \"12:15:22\",\n                \"source\": \"CR\",\n                \"Destination\": \"SL\",\n                \"apiKey\": \"c712b357-aaa2-4129-8394-68faa217e02d\",\n                \"apiAuthToken\": \"kjlhsdg74iah2894648>IUH8hs@39Hi\",\n                \"corrolationID\": \"5f2bffceb3f102a67269f969\",\n                \"caseObject\": {\n                    \"caseIdHmcts\": 1.9830463505746397e+24,\n                    \"caseTitle\": \"Lori Clements \\\"vs\\\" Dawson Suarez\",\n                    \"caseJurisdiction\": \"this.source\",\n                    \"caseService\": \"MatterCat3\",\n                    \"CaseType\": \"MatterCode1\",\n                    \"caseSubType\": \"MatterType1\",\n                    \"caseCourt\": \"Peterborough,Cambridgeshire,England\",\n                    \"caseRegistered\": \"2014-06-23T02:49:41 -01:00\",\n                    \"caseComments\": \"Amet irure ea consequat non exercitation est est qui commodo. Laborum officia ullamco exercitation laborum id dolor reprehenderit ullamco. Ut qui deserunt duis aliqua et reprehenderit magna laborum ullamco cillum.\\r\\nAnim ipsum exercitation cillum quis exercitation aliqua culpa dolor nostrud. Fugiat ut laboris dolore laborum excepteur. Do eu qui proident cillum.\\r\\nCillum est ullamco veniam nulla aliqua enim. Aliqua velit ipsum nulla anim reprehenderit. Sit est ex incididunt exercitation. Et et esse laborum incididunt non.\\r\\n\",\n                    \"caseSource\": \"\",\n                    \"caseKind\": \"Kind_1\",\n                    \"caseRelatedCaseIdHmcts\": \"\",\n                    \"UpdateObject\": \"Update is to close hearing as ressolved\"\n                },\n                \"listing\": {\n                    \"listingId\": \"5f2bffcec0d5d73e929923fa\",\n                    \"listingStartDate\": \"2015-01-02T05:29:13 -00:00\",\n                    \"listingEndDate\": \"2014-09-08T03:13:14 -01:00\",\n                    \"listingDuration\": 30,\n                    \"listingType\": \"new\",\n                    \"listingPriority\": \"High\",\n                    \"listingNumberAttendees\": 6,\n                    \"listingPartiesMethod\": \"In Person\"\n                }\n            }\n        ]"
+                            "application/json": "[\n    {\n                    \"listingId\": \"5f2bffcec0d5d73e929923fa\",\n                    \"listingStartDate\": \"2015-01-02T05:29:13 -00:00\",\n                    \"listingEndDate\": \"2014-09-08T03:13:14 -01:00\",\n                    \"listingDuration\": 30,\n                    \"listingType\": \"new\",\n                    \"listingPriority\": \"High\",\n                    \"listingNumberAttendees\": 6,\n                    \"listingPartiesMethod\": \"In Person\"\n                }\n]"
                         }
                     }
                 }
@@ -272,6 +367,47 @@
                     "in": "path",
                     "required": true,
                     "type": "string"
+                }, {
+                    "name": "Source-System",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "enum": ["CFT"]
+                }, {
+                    "name": "Destination-System",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "enum": ["S&L"]
+                }, {
+                    "name": "Request-Created-At",
+                    "in": "header",
+                    "required": true,
+                    "type": "string"
+                }, {
+                    "name": "Request-Type",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "enum": ["THEFT", "ASSAULT"]
+                }, {
+                    "name": "Request-Processed-At",
+                    "in": "header",
+                    "description": "Date & Time of Request Processing",
+                    "required": true,
+                    "type": "string"
+                }, {
+                    "name": "Accept",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "enum": ["application/json"]
+                }, {
+                    "name": "Content-Type",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "enum": ["application/json"]
                 }],
                 "produces": ["application/json"],
                 "responses": {
@@ -282,39 +418,14 @@
                         },
                         "examples": {
                             "application/json": {
-                                "apiVersion": "V1.00103",
-                                "transactionIdHmcts": "5f2bffce6962d03e8b73e76f",
-                                "timeStamp": "12:15:22",
-                                "source": "CR",
-                                "Destination": "SL",
-                                "apiKey": "c712b357-aaa2-4129-8394-68faa217e02d",
-                                "apiAuthToken": "kjlhsdg74iah2894648>IUH8hs@39Hi",
-                                "corrolationID": "5f2bffceb3f102a67269f969",
-                                "caseObject": {
-                                    "caseIdHmcts": 1.9830463505746397e+24,
-                                    "caseTitle": "Lori Clements \"vs\" Dawson Suarez",
-                                    "caseJurisdiction": "this.source",
-                                    "caseService": "MatterCat3",
-                                    "CaseType": "MatterCode1",
-                                    "caseSubType": "MatterType1",
-                                    "caseCourt": "Peterborough,Cambridgeshire,England",
-                                    "caseRegistered": "2014-06-23T02:49:41 -01:00",
-                                    "caseComments": "Amet irure ea consequat non exercitation est est qui commodo. Laborum officia ullamco exercitation laborum id dolor reprehenderit ullamco. Ut qui deserunt duis aliqua et reprehenderit magna laborum ullamco cillum.\r\nAnim ipsum exercitation cillum quis exercitation aliqua culpa dolor nostrud. Fugiat ut laboris dolore laborum excepteur. Do eu qui proident cillum.\r\nCillum est ullamco veniam nulla aliqua enim. Aliqua velit ipsum nulla anim reprehenderit. Sit est ex incididunt exercitation. Et et esse laborum incididunt non.\r\n",
-                                    "caseSource": "",
-                                    "caseKind": "Kind_1",
-                                    "caseRelatedCaseIdHmcts": "",
-                                    "UpdateObject": "Update is to close hearing as ressolved"
-                                },
-                                "listing": {
-                                    "listingId": "5f2bffcec0d5d73e929923fa",
-                                    "listingStartDate": "2015-01-02T05:29:13 -00:00",
-                                    "listingEndDate": "2014-09-08T03:13:14 -01:00",
-                                    "listingDuration": 30,
-                                    "listingType": "new",
-                                    "listingPriority": "High",
-                                    "listingNumberAttendees": 6,
-                                    "listingPartiesMethod": "In Person"
-                                }
+                                "listingId": "5f2bffcec0d5d73e929923fa",
+                                "listingStartDate": "2015-01-02T05:29:13 -00:00",
+                                "listingEndDate": "2014-09-08T03:13:14 -01:00",
+                                "listingDuration": 30,
+                                "listingType": "new",
+                                "listingPriority": "High",
+                                "listingNumberAttendees": 6,
+                                "listingPartiesMethod": "In Person"
                             }
                         }
                     }
@@ -621,206 +732,60 @@
             "items": {
                 "type": "object",
                 "properties": {
-                    "apiVersion": {
+                    "listingId": {
                         "type": "string"
                     },
-                    "transactionIdHmcts": {
+                    "listingStartDate": {
                         "type": "string"
                     },
-                    "timeStamp": {
+                    "listingEndDate": {
                         "type": "string"
                     },
-                    "source": {
+                    "listingDuration": {
+                        "type": "integer"
+                    },
+                    "listingType": {
                         "type": "string"
                     },
-                    "Destination": {
+                    "listingPriority": {
                         "type": "string"
                     },
-                    "apiKey": {
+                    "listingNumberAttendees": {
+                        "type": "integer"
+                    },
+                    "listingPartiesMethod": {
                         "type": "string"
-                    },
-                    "apiAuthToken": {
-                        "type": "string"
-                    },
-                    "corrolationID": {
-                        "type": "string"
-                    },
-                    "caseObject": {
-                        "type": "object",
-                        "properties": {
-                            "caseIdHmcts": {
-                                "type": "integer"
-                            },
-                            "caseTitle": {
-                                "type": "string"
-                            },
-                            "caseJurisdiction": {
-                                "type": "string"
-                            },
-                            "caseService": {
-                                "type": "string"
-                            },
-                            "CaseType": {
-                                "type": "string"
-                            },
-                            "caseSubType": {
-                                "type": "string"
-                            },
-                            "caseCourt": {
-                                "type": "string"
-                            },
-                            "caseRegistered": {
-                                "type": "string"
-                            },
-                            "caseComments": {
-                                "type": "string"
-                            },
-                            "caseSource": {
-                                "type": "string"
-                            },
-                            "caseKind": {
-                                "type": "string"
-                            },
-                            "caseRelatedCaseIdHmcts": {
-                                "type": "string"
-                            },
-                            "UpdateObject": {
-                                "type": "string"
-                            }
-                        }
-                    },
-                    "listing": {
-                        "type": "object",
-                        "properties": {
-                            "listingId": {
-                                "type": "string"
-                            },
-                            "listingStartDate": {
-                                "type": "string"
-                            },
-                            "listingEndDate": {
-                                "type": "string"
-                            },
-                            "listingDuration": {
-                                "type": "integer"
-                            },
-                            "listingType": {
-                                "type": "string"
-                            },
-                            "listingPriority": {
-                                "type": "string"
-                            },
-                            "listingNumberAttendees": {
-                                "type": "integer"
-                            },
-                            "listingPartiesMethod": {
-                                "type": "string"
-                            }
-                        }
                     }
                 },
-                "required": ["apiVersion", "transactionIdHmcts", "timeStamp", "source", "Destination", "apiKey", "apiAuthToken", "corrolationID", "caseObject", "listing"]
+                "required": ["listingId", "listingStartDate", "listingEndDate", "listingDuration", "listingType", "listingPriority", "listingNumberAttendees", "listingPartiesMethod"]
             }
         },
         "rh-res-listing": {
             "type": "object",
             "properties": {
-                "apiVersion": {
+                "listingId": {
                     "type": "string"
                 },
-                "transactionIdHmcts": {
+                "listingStartDate": {
                     "type": "string"
                 },
-                "timeStamp": {
+                "listingEndDate": {
                     "type": "string"
                 },
-                "source": {
+                "listingDuration": {
+                    "type": "integer"
+                },
+                "listingType": {
                     "type": "string"
                 },
-                "Destination": {
+                "listingPriority": {
                     "type": "string"
                 },
-                "apiKey": {
+                "listingNumberAttendees": {
+                    "type": "integer"
+                },
+                "listingPartiesMethod": {
                     "type": "string"
-                },
-                "apiAuthToken": {
-                    "type": "string"
-                },
-                "corrolationID": {
-                    "type": "string"
-                },
-                "caseObject": {
-                    "type": "object",
-                    "properties": {
-                        "caseIdHmcts": {
-                            "type": "integer"
-                        },
-                        "caseTitle": {
-                            "type": "string"
-                        },
-                        "caseJurisdiction": {
-                            "type": "string"
-                        },
-                        "caseService": {
-                            "type": "string"
-                        },
-                        "CaseType": {
-                            "type": "string"
-                        },
-                        "caseSubType": {
-                            "type": "string"
-                        },
-                        "caseCourt": {
-                            "type": "string"
-                        },
-                        "caseRegistered": {
-                            "type": "string"
-                        },
-                        "caseComments": {
-                            "type": "string"
-                        },
-                        "caseSource": {
-                            "type": "string"
-                        },
-                        "caseKind": {
-                            "type": "string"
-                        },
-                        "caseRelatedCaseIdHmcts": {
-                            "type": "string"
-                        },
-                        "UpdateObject": {
-                            "type": "string"
-                        }
-                    }
-                },
-                "listing": {
-                    "type": "object",
-                    "properties": {
-                        "listingId": {
-                            "type": "string"
-                        },
-                        "listingStartDate": {
-                            "type": "string"
-                        },
-                        "listingEndDate": {
-                            "type": "string"
-                        },
-                        "listingDuration": {
-                            "type": "integer"
-                        },
-                        "listingType": {
-                            "type": "string"
-                        },
-                        "listingPriority": {
-                            "type": "string"
-                        },
-                        "listingNumberAttendees": {
-                            "type": "integer"
-                        },
-                        "listingPartiesMethod": {
-                            "type": "string"
-                        }
-                    }
                 }
             }
         }
