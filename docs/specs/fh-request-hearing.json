@@ -95,6 +95,80 @@
                         }
                     }
                 }
+            },
+            "get": {
+                "description": "Listings",
+                "operationId": "listings",
+                "summary": "Listings",
+                "parameters": [{
+                    "name": "JoH",
+                    "in": "query",
+                    "type": "string",
+                    "enum": ["Justice,Dimiry,Mascaranhus,item1,item2"]
+                }, {
+                    "name": "panel",
+                    "in": "query",
+                    "type": "string",
+                    "enum": ["m1,m2,m3"]
+                }, {
+                    "name": "court",
+                    "in": "query",
+                    "type": "string",
+                    "enum": ["ch,cr,cl"]
+                }, {
+                    "name": "Source-System",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "enum": ["CFT"]
+                }, {
+                    "name": "Destination-System",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "enum": ["S&L"]
+                }, {
+                    "name": "Request-Created-At",
+                    "in": "header",
+                    "required": true,
+                    "type": "string"
+                }, {
+                    "name": "Request-Type",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "enum": ["THEFT", "ASSAULT"]
+                }, {
+                    "name": "Request-Processed-At",
+                    "in": "header",
+                    "description": "Date & Time of Request processing",
+                    "required": true,
+                    "type": "string"
+                }, {
+                    "name": "Accept",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "enum": ["application/json"]
+                }, {
+                    "name": "Content-Type",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "enum": ["application/json"]
+                }],
+                "produces": ["application/json"],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/rh-res-listings"
+                        },
+                        "examples": {
+                            "application/json": "[\n    {\n                    \"listingId\": \"5f2bffcec0d5d73e929923fa\",\n                    \"listingStartDate\": \"2015-01-02T05:29:13 -00:00\",\n                    \"listingEndDate\": \"2014-09-08T03:13:14 -01:00\",\n                    \"listingDuration\": 30,\n                    \"listingType\": \"new\",\n                    \"listingPriority\": \"High\",\n                    \"listingNumberAttendees\": 6,\n                    \"listingPartiesMethod\": \"In Person\"\n                }\n]"
+                        }
+                    }
+                }
             }
         },
         "/hearings/{hearing-id}": {
@@ -283,83 +357,9 @@
                 }
             }
         },
-        "/listings": {
+        "/hearings/{listingId}": {
             "get": {
-                "operationId": "listings",
-                "summary": "Listings",
-                "parameters": [{
-                    "name": "JoH",
-                    "in": "query",
-                    "type": "string",
-                    "enum": ["Justice,Dimiry,Mascaranhus,item1,item2"]
-                }, {
-                    "name": "panel",
-                    "in": "query",
-                    "type": "string",
-                    "enum": ["m1,m2,m3"]
-                }, {
-                    "name": "court",
-                    "in": "query",
-                    "type": "string",
-                    "enum": ["ch,cr,cl"]
-                }, {
-                    "name": "Source-System",
-                    "in": "header",
-                    "required": true,
-                    "type": "string",
-                    "enum": ["CFT"]
-                }, {
-                    "name": "Destination-System",
-                    "in": "header",
-                    "required": true,
-                    "type": "string",
-                    "enum": ["S&L"]
-                }, {
-                    "name": "Request-Created-At",
-                    "in": "header",
-                    "required": true,
-                    "type": "string"
-                }, {
-                    "name": "Request-Type",
-                    "in": "header",
-                    "required": true,
-                    "type": "string",
-                    "enum": ["THEFT", "ASSAULT"]
-                }, {
-                    "name": "Request-Processed-At",
-                    "in": "header",
-                    "description": "Date & Time of Request processing",
-                    "required": true,
-                    "type": "string"
-                }, {
-                    "name": "Accept",
-                    "in": "header",
-                    "required": true,
-                    "type": "string",
-                    "enum": ["application/json"]
-                }, {
-                    "name": "Content-Type",
-                    "in": "header",
-                    "required": true,
-                    "type": "string",
-                    "enum": ["application/json"]
-                }],
-                "produces": ["application/json"],
-                "responses": {
-                    "200": {
-                        "description": "",
-                        "schema": {
-                            "$ref": "#/definitions/rh-res-listings"
-                        },
-                        "examples": {
-                            "application/json": "[\n    {\n                    \"listingId\": \"5f2bffcec0d5d73e929923fa\",\n                    \"listingStartDate\": \"2015-01-02T05:29:13 -00:00\",\n                    \"listingEndDate\": \"2014-09-08T03:13:14 -01:00\",\n                    \"listingDuration\": 30,\n                    \"listingType\": \"new\",\n                    \"listingPriority\": \"High\",\n                    \"listingNumberAttendees\": 6,\n                    \"listingPartiesMethod\": \"In Person\"\n                }\n]"
-                        }
-                    }
-                }
-            }
-        },
-        "/listing/{listingId}": {
-            "get": {
+                "description": "Listing By ID",
                 "operationId": "listing-by-id",
                 "summary": "Listing By ID",
                 "parameters": [{
