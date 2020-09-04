@@ -283,7 +283,7 @@
                 }
             }
         },
-        "/resource": {
+        "/resources": {
             "get": {
                 "description": "Retrieve list of resources",
                 "operationId": "resources",
@@ -344,7 +344,7 @@
                 }
             }
         },
-        "/resource/{resourceId}": {
+        "/resources/{resourceId}": {
             "get": {
                 "description": "Retrieve resource by id",
                 "operationId": "resource-by-id",
