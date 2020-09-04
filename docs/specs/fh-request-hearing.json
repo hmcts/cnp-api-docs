@@ -289,21 +289,6 @@
                 "operationId": "resources",
                 "summary": "Resources",
                 "parameters": [{
-                    "name": "JoH",
-                    "in": "query",
-                    "type": "string",
-                    "enum": ["Justice,Dimiry,Mascaranhus,item1,item2"]
-                }, {
-                    "name": "panel",
-                    "in": "query",
-                    "type": "string",
-                    "enum": ["m1,m2,m3"]
-                }, {
-                    "name": "court",
-                    "in": "query",
-                    "type": "string",
-                    "enum": ["ch,cr,cl"]
-                }, {
                     "name": "Source-System",
                     "in": "header",
                     "required": true,
