@@ -335,10 +335,10 @@
                     "200": {
                         "description": "",
                         "schema": {
-                            "$ref": "#/definitions/rh-res-listings"
+                            "$ref": "#/definitions/rh-res-resources"
                         },
                         "examples": {
-                            "application/json": "[\n    {\n                    \"listingId\": \"5f2bffcec0d5d73e929923fa\",\n                    \"listingStartDate\": \"2015-01-02T05:29:13 -00:00\",\n                    \"listingEndDate\": \"2014-09-08T03:13:14 -01:00\",\n                    \"listingDuration\": 30,\n                    \"listingType\": \"new\",\n                    \"listingPriority\": \"High\",\n                    \"listingNumberAttendees\": 6,\n                    \"listingPartiesMethod\": \"In Person\"\n                }\n]"
+                            "application/json": "[\n\t{\n\t\t\"VenueID\": \"V123\",\n\t\t\"JurisdictionID\": \"J123\",\n\t\t\"FacilityID\": \"F123\",\n\t\t\"LocationID\": \"L123\",\n\t\t\"RegionID\": \"R123\",\n\t\t\"AddressID\": \"A123\",\n\t\t\"UPRN\": \"djksfxzcdas\",\n\t\t\"ePIMs\": \"djfsdads\",\n\t\t\"VenueName\": \"VName\",\n\t\t\"VenueType\": \"Vtype\",\n\t\t\"FacilityServiceLead\": \"asdjkfahjd\",\n\t\t\"ReportingSIteName\": \"asfdhahjks\",\n\t\t\"CourtType\": \"Civil\",\n\t\t\"JoinedBuildingYN\": \"Y\",\n\t\t\"OtherAgenciesAtSite\": \"N\",\n\t\t\"FlexibleOpsHours\":\"Y\",\n\t\t\"Cluster\": \"CCC123\",\n\t\t\"JudicialLead\": \"asdkjfhd\",\n\t\t\"DCJLCJLJArea\": \"dsfhj\",\n\t\t\"Status\": \"Open\",\n\t\t\"OpeningTimes\": \"0800 - 1600\",\n\t\t\"OpenToPublic\": \"N\"\n\t}\n]"
                         }
                     }
                 }
@@ -401,18 +401,32 @@
                     "200": {
                         "description": "",
                         "schema": {
-                            "$ref": "#/definitions/rh-res-listing"
+                            "$ref": "#/definitions/rh-res-resource"
                         },
                         "examples": {
                             "application/json": {
-                                "listingId": "5f2bffcec0d5d73e929923fa",
-                                "listingStartDate": "2015-01-02T05:29:13 -00:00",
-                                "listingEndDate": "2014-09-08T03:13:14 -01:00",
-                                "listingDuration": 30,
-                                "listingType": "new",
-                                "listingPriority": "High",
-                                "listingNumberAttendees": 6,
-                                "listingPartiesMethod": "In Person"
+                                "VenueID": "V123",
+                                "JurisdictionID": "J123",
+                                "FacilityID": "F123",
+                                "LocationID": "L123",
+                                "RegionID": "R123",
+                                "AddressID": "A123",
+                                "UPRN": "djksfxzcdas",
+                                "ePIMs": "djfsdads",
+                                "VenueName": "VName",
+                                "VenueType": "Vtype",
+                                "FacilityServiceLead": "asdjkfahjd",
+                                "ReportingSIteName": "asfdhahjks",
+                                "CourtType": "Civil",
+                                "JoinedBuildingYN": "Y",
+                                "OtherAgenciesAtSite": "N",
+                                "FlexibleOpsHours": "Y",
+                                "Cluster": "CCC123",
+                                "JudicialLead": "asdkjfhd",
+                                "DCJLCJLJArea": "dsfhj",
+                                "Status": "Open",
+                                "OpeningTimes": "0800 - 1600",
+                                "OpenToPublic": "N"
                             }
                         }
                     }
@@ -714,64 +728,148 @@
                 }
             }
         },
-        "rh-res-listings": {
+        "rh-res-resources": {
             "type": "array",
             "items": {
                 "type": "object",
                 "properties": {
-                    "listingId": {
+                    "VenueID": {
                         "type": "string"
                     },
-                    "listingStartDate": {
+                    "JurisdictionID": {
                         "type": "string"
                     },
-                    "listingEndDate": {
+                    "FacilityID": {
                         "type": "string"
                     },
-                    "listingDuration": {
-                        "type": "integer"
-                    },
-                    "listingType": {
+                    "LocationID": {
                         "type": "string"
                     },
-                    "listingPriority": {
+                    "RegionID": {
                         "type": "string"
                     },
-                    "listingNumberAttendees": {
-                        "type": "integer"
+                    "AddressID": {
+                        "type": "string"
                     },
-                    "listingPartiesMethod": {
+                    "UPRN": {
+                        "type": "string"
+                    },
+                    "ePIMs": {
+                        "type": "string"
+                    },
+                    "VenueName": {
+                        "type": "string"
+                    },
+                    "VenueType": {
+                        "type": "string"
+                    },
+                    "FacilityServiceLead": {
+                        "type": "string"
+                    },
+                    "ReportingSIteName": {
+                        "type": "string"
+                    },
+                    "CourtType": {
+                        "type": "string"
+                    },
+                    "JoinedBuildingYN": {
+                        "type": "string"
+                    },
+                    "OtherAgenciesAtSite": {
+                        "type": "string"
+                    },
+                    "FlexibleOpsHours": {
+                        "type": "string"
+                    },
+                    "Cluster": {
+                        "type": "string"
+                    },
+                    "JudicialLead": {
+                        "type": "string"
+                    },
+                    "DCJLCJLJArea": {
+                        "type": "string"
+                    },
+                    "Status": {
+                        "type": "string"
+                    },
+                    "OpeningTimes": {
+                        "type": "string"
+                    },
+                    "OpenToPublic": {
                         "type": "string"
                     }
                 },
-                "required": ["listingId", "listingStartDate", "listingEndDate", "listingDuration", "listingType", "listingPriority", "listingNumberAttendees", "listingPartiesMethod"]
+                "required": ["VenueID", "JurisdictionID", "FacilityID", "LocationID", "RegionID", "AddressID", "UPRN", "ePIMs", "VenueName", "VenueType", "FacilityServiceLead", "ReportingSIteName", "CourtType", "JoinedBuildingYN", "OtherAgenciesAtSite", "FlexibleOpsHours", "Cluster", "JudicialLead", "DCJLCJLJArea", "Status", "OpeningTimes", "OpenToPublic"]
             }
         },
-        "rh-res-listing": {
+        "rh-res-resource": {
             "type": "object",
             "properties": {
-                "listingId": {
+                "VenueID": {
                     "type": "string"
                 },
-                "listingStartDate": {
+                "JurisdictionID": {
                     "type": "string"
                 },
-                "listingEndDate": {
+                "FacilityID": {
                     "type": "string"
                 },
-                "listingDuration": {
-                    "type": "integer"
-                },
-                "listingType": {
+                "LocationID": {
                     "type": "string"
                 },
-                "listingPriority": {
+                "RegionID": {
                     "type": "string"
                 },
-                "listingNumberAttendees": {
-                    "type": "integer"
+                "AddressID": {
+                    "type": "string"
                 },
-                "listingPartiesMethod": {
+                "UPRN": {
+                    "type": "string"
+                },
+                "ePIMs": {
+                    "type": "string"
+                },
+                "VenueName": {
+                    "type": "string"
+                },
+                "VenueType": {
+                    "type": "string"
+                },
+                "FacilityServiceLead": {
+                    "type": "string"
+                },
+                "ReportingSIteName": {
+                    "type": "string"
+                },
+                "CourtType": {
+                    "type": "string"
+                },
+                "JoinedBuildingYN": {
+                    "type": "string"
+                },
+                "OtherAgenciesAtSite": {
+                    "type": "string"
+                },
+                "FlexibleOpsHours": {
+                    "type": "string"
+                },
+                "Cluster": {
+                    "type": "string"
+                },
+                "JudicialLead": {
+                    "type": "string"
+                },
+                "DCJLCJLJArea": {
+                    "type": "string"
+                },
+                "Status": {
+                    "type": "string"
+                },
+                "OpeningTimes": {
+                    "type": "string"
+                },
+                "OpenToPublic": {
                     "type": "string"
                 }
             }
