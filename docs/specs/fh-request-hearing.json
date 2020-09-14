@@ -155,6 +155,58 @@
                         }
                     }
                 }
+            },
+            "get": {
+                "description": "Retrieve hearings",
+                "operationId": "retrieve-hearings",
+                "summary": "Retrieve Hearings",
+                "parameters": [{
+                    "name": "Source-System",
+                    "in": "header",
+                    "type": "string",
+                    "enum": ["CFT"]
+                }, {
+                    "name": "Destination-System",
+                    "in": "header",
+                    "type": "string",
+                    "enum": ["S&L"]
+                }, {
+                    "name": "Request-Created-At",
+                    "in": "header",
+                    "type": "string",
+                    "enum": ["2018-01-29 20:36:01Z"]
+                }, {
+                    "name": "Request-Type",
+                    "in": "header",
+                    "type": "string",
+                    "enum": ["THEFT"]
+                }, {
+                    "name": "Content-Type",
+                    "in": "header",
+                    "type": "string",
+                    "enum": ["application/json"]
+                }, {
+                    "name": "Accept",
+                    "in": "header",
+                    "type": "string",
+                    "enum": ["application/json"]
+                }, {
+                    "name": "Request-Processed-At",
+                    "in": "header",
+                    "type": "string",
+                    "enum": ["2018-01-29 20:36:01Z"]
+                }],
+                "produces": ["application/json"],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "examples": {
+                            "application/json": {
+                                "key": "value"
+                            }
+                        }
+                    }
+                }
             }
         },
         "/hearings/{hearing-id}": {
