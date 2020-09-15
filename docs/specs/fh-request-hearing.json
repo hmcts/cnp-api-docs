@@ -89,8 +89,8 @@
                         "description": "",
                         "examples": {
                             "application/json": {
-                                "Name": "HMCTS",
-                                "Place": "London"
+                                "statusCode": 200,
+                                "message": "The hearing has been updated successfully"
                             }
                         }
                     }
@@ -228,8 +228,8 @@
                         "description": "Successfully updated hearing",
                         "examples": {
                             "application/json": {
-                                "status": 201,
-                                "description": "Hearings updated successfully"
+                                "statusCode": 201,
+                                "message": "Hearings updated successfully"
                             }
                         }
                     }
