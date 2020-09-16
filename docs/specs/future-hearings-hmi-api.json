@@ -90,7 +90,7 @@
                         "examples": {
                             "application/json": {
                                 "response code": 200,
-                                "description": "The hearing has been updated successfully"
+                                "description": "The request was received successfully."
                             }
                         }
                     }
@@ -229,7 +229,7 @@
                         "examples": {
                             "application/json": {
                                 "response code": 201,
-                                "description": "Hearings updated successfully"
+                                "description": "The request was received successfully."
                             }
                         }
                     }
