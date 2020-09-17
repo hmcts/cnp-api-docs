@@ -150,7 +150,7 @@
                         "examples": {
                             "application/json": {
                                 "statusCode": 200,
-                                "message": "Hearing successfully deleted"
+                                "message": "The request was received successfully."
                             }
                         }
                     }
