@@ -149,8 +149,8 @@
                         "description": "",
                         "examples": {
                             "application/json": {
-                                "statusCode": 200,
-                                "message": "The request was received successfully."
+                                "response code": 200,
+                                "description": "The request was received successfully."
                             }
                         }
                     }
