@@ -4,7 +4,7 @@
         "title": "hmi-apim-api",
         "version": "1.0"
     },
-    "host": "hmi-apim-svc-sbox.azure-api.net",
+    "host": "hmi-apim-svc-dev.azure-api.net",
     "basePath": "/hmi",
     "schemes": ["http", "https"],
     "securityDefinitions": {
@@ -359,66 +359,6 @@
                         }
                     }
                 }
-            },
-            "delete": {
-                "description": "Delete Resource",
-                "operationId": "delete-resource",
-                "summary": "Delete Resource",
-                "parameters": [{
-                    "name": "Source-System",
-                    "in": "header",
-                    "type": "string",
-                    "enum": ["CFT"]
-                }, {
-                    "name": "Destination-System",
-                    "in": "header",
-                    "type": "string",
-                    "enum": ["S&L"]
-                }, {
-                    "name": "Request-Created-At",
-                    "in": "header",
-                    "type": "string",
-                    "enum": ["2018-01-29 20:36:01Z"]
-                }, {
-                    "name": "Request-Type",
-                    "in": "header",
-                    "type": "string",
-                    "enum": ["THEFT"]
-                }, {
-                    "name": "Content-Type",
-                    "in": "header",
-                    "type": "string",
-                    "enum": ["application/json"]
-                }, {
-                    "name": "Accept",
-                    "in": "header",
-                    "type": "string",
-                    "enum": ["application/json"]
-                }, {
-                    "name": "Request-Processed-At",
-                    "in": "header",
-                    "type": "string",
-                    "enum": ["2018-01-29 20:36:01Z"]
-                }, {
-                    "name": "rh-del-def",
-                    "in": "body",
-                    "schema": {
-                        "$ref": "#/definitions/rh-del-def"
-                    }
-                }],
-                "consumes": ["application/json"],
-                "produces": ["application/json"],
-                "responses": {
-                    "200": {
-                        "description": "",
-                        "examples": {
-                            "application/json": {
-                                "response code": 200,
-                                "description": "The request was received successfully."
-                            }
-                        }
-                    }
-                }
             }
         },
         "/resources/{resourceId}": {
@@ -504,6 +444,85 @@
                                 "Status": "Open",
                                 "OpeningTimes": "0800 - 1600",
                                 "OpenToPublic": "N"
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "Delete Resource",
+                "operationId": "delete-resource",
+                "summary": "Delete Resource",
+                "parameters": [{
+                    "name": "resourceId",
+                    "in": "path",
+                    "description": "Resource Identifier",
+                    "required": true,
+                    "type": "string",
+                    "enum": ["RESOURCE123"]
+                }, {
+                    "name": "Source-System",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "enum": ["CFT"]
+                }, {
+                    "name": "Destination-System",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "enum": ["S&L"]
+                }, {
+                    "name": "Request-Created-At",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "enum": ["2020-09-29 20:36:01Z"]
+                }, {
+                    "name": "Request-Type",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "enum": ["THEFT"]
+                }, {
+                    "name": "Content-Type",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "enum": ["application/json"]
+                }, {
+                    "name": "Accept",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "enum": ["application/json"]
+                }, {
+                    "name": "Request-Processed-At",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "enum": ["2020-09-29 20:36:01Z"]
+                }, {
+                    "name": "rh-del-def",
+                    "in": "body",
+                    "schema": {
+                        "$ref": "#/definitions/rh-del-def"
+                    }
+                }],
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/rh-del-def"
+                        },
+                        "examples": {
+                            "application/json": {
+                                "deleteMethod": "C",
+                                "deleteMessage": "Cancel the request as no longer needed settled out of court",
+                                "listingRequestId": "lrq123",
+                                "hearingIdCaseHQ": "hidchq123"
                             }
                         }
                     }
