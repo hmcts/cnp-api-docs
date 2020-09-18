@@ -4,9 +4,9 @@
         "title": "hmi-apim-api",
         "version": "1.0"
     },
-    "host": "hmi-apim-sbox.sandbox.platform.hmcts.net",
+    "host": "hmi-apim-svc-sbox.azure-api.net",
     "basePath": "/hmi",
-    "schemes": ["http"],
+    "schemes": ["http", "https"],
     "securityDefinitions": {
         "apiKeyHeader": {
             "type": "apiKey",
@@ -356,6 +356,66 @@
                         },
                         "examples": {
                             "application/json": "[\n\t{\n\t\t\"VenueID\": \"V123\",\n\t\t\"JurisdictionID\": \"J123\",\n\t\t\"FacilityID\": \"F123\",\n\t\t\"LocationID\": \"L123\",\n\t\t\"RegionID\": \"R123\",\n\t\t\"AddressID\": \"A123\",\n\t\t\"UPRN\": \"djksfxzcdas\",\n\t\t\"ePIMs\": \"djfsdads\",\n\t\t\"VenueName\": \"VName\",\n\t\t\"VenueType\": \"Vtype\",\n\t\t\"FacilityServiceLead\": \"asdjkfahjd\",\n\t\t\"ReportingSIteName\": \"asfdhahjks\",\n\t\t\"CourtType\": \"Civil\",\n\t\t\"JoinedBuildingYN\": \"Y\",\n\t\t\"OtherAgenciesAtSite\": \"N\",\n\t\t\"FlexibleOpsHours\":\"Y\",\n\t\t\"Cluster\": \"CCC123\",\n\t\t\"JudicialLead\": \"asdkjfhd\",\n\t\t\"DCJLCJLJArea\": \"dsfhj\",\n\t\t\"Status\": \"Open\",\n\t\t\"OpeningTimes\": \"0800 - 1600\",\n\t\t\"OpenToPublic\": \"N\"\n\t}\n]"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "Delete Resource",
+                "operationId": "delete-resource",
+                "summary": "Delete Resource",
+                "parameters": [{
+                    "name": "Source-System",
+                    "in": "header",
+                    "type": "string",
+                    "enum": ["CFT"]
+                }, {
+                    "name": "Destination-System",
+                    "in": "header",
+                    "type": "string",
+                    "enum": ["S&L"]
+                }, {
+                    "name": "Request-Created-At",
+                    "in": "header",
+                    "type": "string",
+                    "enum": ["2018-01-29 20:36:01Z"]
+                }, {
+                    "name": "Request-Type",
+                    "in": "header",
+                    "type": "string",
+                    "enum": ["THEFT"]
+                }, {
+                    "name": "Content-Type",
+                    "in": "header",
+                    "type": "string",
+                    "enum": ["application/json"]
+                }, {
+                    "name": "Accept",
+                    "in": "header",
+                    "type": "string",
+                    "enum": ["application/json"]
+                }, {
+                    "name": "Request-Processed-At",
+                    "in": "header",
+                    "type": "string",
+                    "enum": ["2018-01-29 20:36:01Z"]
+                }, {
+                    "name": "rh-del-def",
+                    "in": "body",
+                    "schema": {
+                        "$ref": "#/definitions/rh-del-def"
+                    }
+                }],
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "examples": {
+                            "application/json": {
+                                "response code": 200,
+                                "description": "The request was received successfully."
+                            }
                         }
                     }
                 }
