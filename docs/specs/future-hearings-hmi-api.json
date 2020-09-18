@@ -519,10 +519,8 @@
                         },
                         "examples": {
                             "application/json": {
-                                "deleteMethod": "C",
-                                "deleteMessage": "Cancel the request as no longer needed settled out of court",
-                                "listingRequestId": "lrq123",
-                                "hearingIdCaseHQ": "hidchq123"
+                                "response code": 200,
+                                "description": "The request was received successfully."
                             }
                         }
                     }
