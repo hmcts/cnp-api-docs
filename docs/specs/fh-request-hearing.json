@@ -757,7 +757,7 @@
                         "description": "",
                         "examples": {
                             "application/json": {
-                                "response code": 201,
+                                "response code": 200,
                                 "description": "The request was received successfully."
                             }
                         }
