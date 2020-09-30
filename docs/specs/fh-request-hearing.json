@@ -690,11 +690,21 @@
                         }
                     }
                 }
-            },
+            }
+        },
+        "/sessions/{sessionIdCaseHQ}": {
             "put": {
+                "description": "Update Session",
                 "operationId": "update-session",
                 "summary": "Update Session",
                 "parameters": [{
+                    "name": "sessionIdCaseHQ",
+                    "in": "path",
+                    "required": true,
+                    "type": "string",
+                    "default": "SS123",
+                    "enum": ["SS123"]
+                }, {
                     "name": "Source-System",
                     "in": "header",
                     "required": true,
@@ -1279,9 +1289,6 @@
         "rh-def-upd-sessions": {
             "type": "object",
             "properties": {
-                "sessionIdCaseHQ": {
-                    "type": "string"
-                },
                 "sessionStartDate": {
                     "type": "string"
                 },
@@ -1322,7 +1329,6 @@
                 }
             },
             "example": {
-                "sessionIdCaseHQ": "SS123",
                 "sessionStartDate": "2018-01-29 20:36:01Z",
                 "sessionEndDate": "2018-01-29 20:36:01Z",
                 "caseCourt": "Milton Keynes",
