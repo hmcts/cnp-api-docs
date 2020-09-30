@@ -780,6 +780,7 @@
                 }
             },
             "get": {
+                "description": "Get Session By ID",
                 "operationId": "get-session-by-id",
                 "summary": "Get Session By ID",
                 "parameters": [{
@@ -790,36 +791,42 @@
                 }, {
                     "name": "Source-System",
                     "in": "header",
+                    "required": true,
                     "type": "string",
                     "default": "CFT",
                     "enum": ["CFT"]
                 }, {
                     "name": "Destination-System",
                     "in": "header",
+                    "required": true,
                     "type": "string",
                     "default": "S&L",
                     "enum": ["S&L"]
                 }, {
                     "name": "Request-Created-At",
                     "in": "header",
+                    "required": true,
                     "type": "string",
                     "default": "2018-01-29 20:36:01Z",
                     "enum": ["2018-01-29 20:36:01Z"]
                 }, {
                     "name": "Request-Processed-At",
                     "in": "header",
+                    "required": true,
                     "type": "string",
                     "default": "2018-01-29 20:36:01Z",
                     "enum": ["2018-01-29 20:36:01Z"]
                 }, {
                     "name": "Request-Type",
                     "in": "header",
+                    "required": true,
                     "type": "string",
                     "default": "THEFT",
                     "enum": ["THEFT", "ASSAULT"]
                 }, {
                     "name": "Accept",
                     "in": "header",
+                    "required": true,
                     "type": "string",
                     "default": "application/json",
                     "enum": ["application/json"]
