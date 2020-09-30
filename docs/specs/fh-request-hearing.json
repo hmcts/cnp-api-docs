@@ -841,7 +841,27 @@
                 "produces": ["application/json"],
                 "responses": {
                     "200": {
-                        "description": ""
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/rh-def-res-session"
+                        },
+                        "examples": {
+                            "application/json": {
+                                "sessionStartDate": "2018-01-29 20:36:01Z",
+                                "sessionEndDate": "2018-01-29 20:36:01Z",
+                                "caseCourt": "Milton Keynes",
+                                "room-Name": "RM012",
+                                "JoH": {
+                                    "PersonRoleID": "PR012",
+                                    "PersonID": "P012",
+                                    "PersonRole": "Judge",
+                                    "personName": "Marcus Trescothic",
+                                    "TicketName": ""
+                                },
+                                "SessionType": "DS",
+                                "SessionIDCaseHQ": "SID012"
+                            }
+                        }
                     }
                 }
             }
@@ -1413,6 +1433,49 @@
                 },
                 "SessionType": "DS",
                 "SessionIDCaseHQ": "SID012"
+            }
+        },
+        "rh-def-res-session": {
+            "type": "object",
+            "properties": {
+                "sessionStartDate": {
+                    "type": "string"
+                },
+                "sessionEndDate": {
+                    "type": "string"
+                },
+                "caseCourt": {
+                    "type": "string"
+                },
+                "room-Name": {
+                    "type": "string"
+                },
+                "JoH": {
+                    "type": "object",
+                    "properties": {
+                        "PersonRoleID": {
+                            "type": "string"
+                        },
+                        "PersonID": {
+                            "type": "string"
+                        },
+                        "PersonRole": {
+                            "type": "string"
+                        },
+                        "personName": {
+                            "type": "string"
+                        },
+                        "TicketName": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "SessionType": {
+                    "type": "string"
+                },
+                "SessionIDCaseHQ": {
+                    "type": "string"
+                }
             }
         }
     },
