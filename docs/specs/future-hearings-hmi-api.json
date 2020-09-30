@@ -865,6 +865,166 @@
                     }
                 }
             }
+        },
+        "/resources/location": {
+            "put": {
+                "description": "Update Resource Location",
+                "operationId": "update-resource-location",
+                "summary": "Update Resource Location",
+                "parameters": [{
+                    "name": "sessionIdCaseHQ",
+                    "in": "query",
+                    "type": "string",
+                    "enum": ["44727474"]
+                }, {
+                    "name": "Source-System",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "enum": ["CFT"]
+                }, {
+                    "name": "Destination-System",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "enum": ["S&L"]
+                }, {
+                    "name": "Request-Created-At",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "enum": ["2018-01-29 20:36:01Z"]
+                }, {
+                    "name": "Request-Type",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "enum": ["THEFT"]
+                }, {
+                    "name": "Content-Type",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "enum": ["application/json"]
+                }, {
+                    "name": "Accept",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "enum": ["application/json"]
+                }, {
+                    "name": "Request-Processed-At",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "enum": ["2018-01-29 20:36:01Z"]
+                }, {
+                    "name": "body",
+                    "in": "body",
+                    "schema": {
+                        "example": "{}"
+                    }
+                }],
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "responses": {
+                    "201": {
+                        "description": "",
+                        "examples": {
+                            "application/json": {
+                                "response code": 201,
+                                "description": "The request was received successfully."
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/listings": {
+            "get": {
+                "operationId": "get-listings",
+                "summary": "Get Listings",
+                "parameters": [{
+                    "name": "listing_id_casehq",
+                    "in": "query",
+                    "type": "string",
+                    "default": "L0123",
+                    "enum": ["L0123"]
+                }, {
+                    "name": "date_of_listing",
+                    "in": "query",
+                    "type": "string",
+                    "default": "2018-01-29 20:36:01Z",
+                    "enum": ["2018-01-29 20:36:01Z"]
+                }, {
+                    "name": "hearing_type",
+                    "in": "query",
+                    "type": "string",
+                    "default": "Civil",
+                    "enum": ["Civil"]
+                }, {
+                    "name": "Source-System",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "default": "CFT",
+                    "enum": ["CFT"]
+                }, {
+                    "name": "Destination-System",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "default": "S&L",
+                    "enum": ["S&L"]
+                }, {
+                    "name": "Request-Created-At",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "default": "2018-01-29 20:36:01Z",
+                    "enum": ["2018-01-29 20:36:01Z"]
+                }, {
+                    "name": "Request-Processed-At",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "default": "2018-01-29 20:36:01Z",
+                    "enum": ["2018-01-29 20:36:01Z"]
+                }, {
+                    "name": "Request-Type",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "default": "THEFT",
+                    "enum": ["THEFT", "ASSAULT"]
+                }, {
+                    "name": "Accept",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "default": "application/json",
+                    "enum": ["application/json"]
+                }, {
+                    "name": "Content-Type",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "default": "application/json",
+                    "enum": ["application/json"]
+                }],
+                "produces": ["application/json"],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/rh-def-res-listing"
+                        },
+                        "examples": {
+                            "application/json": "[\n    {\n        \"listingId\":\"L012\",\n        \"listingAutoCreateFlag\":\"f\",\n        \"listingStartDate\":\"2018-01-29 20:36:01Z\",\n        \"listingEndDate\":\"2018-01-29 20:36:01Z\",\n        \"listingDuration\":\"30\",\n        \"listingType\":\"Civil\",\n        \"listingPriority\":\"High\",\n        \"sessionIdCaseHQ\":\"SID012\"\n    } \n]"
+                        }
+                    }
+                }
+            }
         }
     },
     "definitions": {
@@ -1476,6 +1636,39 @@
                 "SessionIDCaseHQ": {
                     "type": "string"
                 }
+            }
+        },
+        "rh-def-res-listing": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "listingId": {
+                        "type": "string"
+                    },
+                    "listingAutoCreateFlag": {
+                        "type": "string"
+                    },
+                    "listingStartDate": {
+                        "type": "string"
+                    },
+                    "listingEndDate": {
+                        "type": "string"
+                    },
+                    "listingDuration": {
+                        "type": "string"
+                    },
+                    "listingType": {
+                        "type": "string"
+                    },
+                    "listingPriority": {
+                        "type": "string"
+                    },
+                    "sessionIdCaseHQ": {
+                        "type": "string"
+                    }
+                },
+                "required": ["listingId", "listingAutoCreateFlag", "listingStartDate", "listingEndDate", "listingDuration", "listingType", "listingPriority", "sessionIdCaseHQ"]
             }
         }
     },
