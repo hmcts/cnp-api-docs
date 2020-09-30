@@ -36,6 +36,7 @@
                     "description": "soruce of the request initiation\n",
                     "required": true,
                     "type": "string",
+                    "default": "CFT",
                     "enum": ["CFT"]
                 }, {
                     "name": "Destination-System",
@@ -43,6 +44,7 @@
                     "description": "Target/Backend system that is supposed to consume the request message.",
                     "required": true,
                     "type": "string",
+                    "default": "S&L",
                     "enum": ["S&L"]
                 }, {
                     "name": "Request-Created-At",
@@ -56,6 +58,7 @@
                     "description": "Type of request",
                     "required": true,
                     "type": "string",
+                    "default": "THEFT",
                     "enum": ["THEFT", "ASSAULT"]
                 }, {
                     "name": "Request-Processed-At",
@@ -68,12 +71,14 @@
                     "in": "header",
                     "required": true,
                     "type": "string",
+                    "default": "application/json",
                     "enum": ["application/json"]
                 }, {
                     "name": "Content-Type",
                     "in": "header",
                     "required": true,
                     "type": "string",
+                    "default": "application/json",
                     "enum": ["application/json"]
                 }, {
                     "name": "rh-def",
@@ -771,6 +776,64 @@
                                 "description": "The request was received successfully."
                             }
                         }
+                    }
+                }
+            },
+            "get": {
+                "operationId": "get-session-by-id",
+                "summary": "Get Session By ID",
+                "parameters": [{
+                    "name": "sessionIdCaseHQ",
+                    "in": "path",
+                    "required": true,
+                    "type": "string"
+                }, {
+                    "name": "Source-System",
+                    "in": "header",
+                    "type": "string",
+                    "default": "CFT",
+                    "enum": ["CFT"]
+                }, {
+                    "name": "Destination-System",
+                    "in": "header",
+                    "type": "string",
+                    "default": "S&L",
+                    "enum": ["S&L"]
+                }, {
+                    "name": "Request-Created-At",
+                    "in": "header",
+                    "type": "string",
+                    "default": "2018-01-29 20:36:01Z",
+                    "enum": ["2018-01-29 20:36:01Z"]
+                }, {
+                    "name": "Request-Processed-At",
+                    "in": "header",
+                    "type": "string",
+                    "default": "2018-01-29 20:36:01Z",
+                    "enum": ["2018-01-29 20:36:01Z"]
+                }, {
+                    "name": "Request-Type",
+                    "in": "header",
+                    "type": "string",
+                    "default": "THEFT",
+                    "enum": ["THEFT", "ASSAULT"]
+                }, {
+                    "name": "Accept",
+                    "in": "header",
+                    "type": "string",
+                    "default": "application/json",
+                    "enum": ["application/json"]
+                }, {
+                    "name": "Content-Type",
+                    "in": "header",
+                    "type": "string",
+                    "default": "application/json",
+                    "enum": ["application/json"]
+                }],
+                "produces": ["application/json"],
+                "responses": {
+                    "200": {
+                        "description": ""
                     }
                 }
             }
