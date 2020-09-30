@@ -833,6 +833,7 @@
                 }, {
                     "name": "Content-Type",
                     "in": "header",
+                    "required": true,
                     "type": "string",
                     "default": "application/json",
                     "enum": ["application/json"]
