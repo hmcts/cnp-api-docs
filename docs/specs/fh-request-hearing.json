@@ -758,6 +758,80 @@
                     }
                 }
             }
+        },
+        "/resources/location": {
+            "put": {
+                "description": "Update Resource Location",
+                "operationId": "update-resource-location",
+                "summary": "Update Resource Location",
+                "parameters": [{
+                    "name": "sessionIdCaseHQ",
+                    "in": "query",
+                    "type": "string",
+                    "enum": ["44727474"]
+                }, {
+                    "name": "Source-System",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "enum": ["CFT"]
+                }, {
+                    "name": "Destination-System",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "enum": ["S&L"]
+                }, {
+                    "name": "Request-Created-At",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "enum": ["2018-01-29 20:36:01Z"]
+                }, {
+                    "name": "Request-Type",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "enum": ["THEFT"]
+                }, {
+                    "name": "Content-Type",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "enum": ["application/json"]
+                }, {
+                    "name": "Accept",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "enum": ["application/json"]
+                }, {
+                    "name": "Request-Processed-At",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "enum": ["2018-01-29 20:36:01Z"]
+                }, {
+                    "name": "body",
+                    "in": "body",
+                    "schema": {
+                        "example": "{}"
+                    }
+                }],
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "responses": {
+                    "201": {
+                        "description": "",
+                        "examples": {
+                            "application/json": {
+                                "response code": 201,
+                                "description": "The request was received successfully."
+                            }
+                        }
+                    }
+                }
+            }
         }
     },
     "definitions": {
@@ -1198,14 +1272,6 @@
                 "OpenToPublic": {
                     "type": "string"
                 }
-            },
-            "example": {
-                "userIdCaseHQ": "",
-                "personFirstName": "",
-                "personLastName": "",
-                "personSalutation": "",
-                "personRoleId": "",
-                "personVenueId": 40
             }
         },
         "rh-del-def": {
