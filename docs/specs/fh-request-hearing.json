@@ -51,7 +51,9 @@
                     "in": "header",
                     "description": "Date and time of request initiation.",
                     "required": true,
-                    "type": "string"
+                    "type": "string",
+                    "default": "2018-01-29 20:36:01Z",
+                    "enum": ["2018-01-29 20:36:01Z"]
                 }, {
                     "name": "Request-Type",
                     "in": "header",
@@ -65,7 +67,9 @@
                     "in": "header",
                     "description": "Date & Time of Request Processing",
                     "required": true,
-                    "type": "string"
+                    "type": "string",
+                    "default": "2018-01-29 20:36:01Z",
+                    "enum": ["2018-01-29 20:36:01Z"]
                 }, {
                     "name": "Accept",
                     "in": "header",
@@ -108,37 +112,51 @@
                 "parameters": [{
                     "name": "Source-System",
                     "in": "header",
+                    "required": true,
                     "type": "string",
+                    "default": "CFT",
                     "enum": ["CFT"]
                 }, {
                     "name": "Destination-System",
                     "in": "header",
+                    "required": true,
                     "type": "string",
+                    "default": "S&L",
                     "enum": ["S&L"]
                 }, {
                     "name": "Request-Created-At",
                     "in": "header",
+                    "required": true,
                     "type": "string",
+                    "default": "2018-01-29 20:36:01Z",
                     "enum": ["2018-01-29 20:36:01Z"]
                 }, {
                     "name": "Request-Type",
                     "in": "header",
+                    "required": true,
                     "type": "string",
+                    "default": "THEFT",
                     "enum": ["THEFT"]
                 }, {
                     "name": "Content-Type",
                     "in": "header",
+                    "required": true,
                     "type": "string",
+                    "default": "application/json",
                     "enum": ["application/json"]
                 }, {
                     "name": "Accept",
                     "in": "header",
+                    "required": true,
                     "type": "string",
+                    "default": "application/json",
                     "enum": ["application/json"]
                 }, {
                     "name": "Request-Processed-At",
                     "in": "header",
+                    "required": true,
                     "type": "string",
+                    "default": "2018-01-29 20:36:01Z",
                     "enum": ["2018-01-29 20:36:01Z"]
                 }, {
                     "name": "rh-del-def",
@@ -168,37 +186,51 @@
                 "parameters": [{
                     "name": "Source-System",
                     "in": "header",
+                    "required": true,
                     "type": "string",
+                    "default": "CFT",
                     "enum": ["CFT"]
                 }, {
                     "name": "Destination-System",
                     "in": "header",
+                    "required": true,
                     "type": "string",
+                    "default": "S&L",
                     "enum": ["S&L"]
                 }, {
                     "name": "Request-Created-At",
                     "in": "header",
+                    "required": true,
                     "type": "string",
+                    "default": "2018-01-29 20:36:01Z",
                     "enum": ["2018-01-29 20:36:01Z"]
                 }, {
                     "name": "Request-Type",
                     "in": "header",
+                    "required": true,
                     "type": "string",
+                    "default": "THEFT",
                     "enum": ["THEFT"]
                 }, {
                     "name": "Content-Type",
                     "in": "header",
+                    "required": true,
                     "type": "string",
+                    "default": "application/json",
                     "enum": ["application/json"]
                 }, {
                     "name": "Accept",
                     "in": "header",
+                    "required": true,
                     "type": "string",
+                    "default": "application/json",
                     "enum": ["application/json"]
                 }, {
                     "name": "Request-Processed-At",
                     "in": "header",
+                    "required": true,
                     "type": "string",
+                    "default": "2018-01-29 20:36:01Z",
                     "enum": ["2018-01-29 20:36:01Z"]
                 }],
                 "produces": ["application/json"],
@@ -866,80 +898,6 @@
                 }
             }
         },
-         "/resources/user": {
-            "put": {
-                "description": "Update user details for given session",
-                "operationId": "update-resource-user",
-                "summary": "Update Resource User",
-                "parameters": [{
-                    "name": "sessionIdCaseHQ",
-                    "in": "query",
-                    "type": "string",
-                    "enum": ["44727474"]
-                }, {
-                    "name": "Source-System",
-                    "in": "header",
-                    "required": true,
-                    "type": "string",
-                    "enum": ["CFT"]
-                }, {
-                    "name": "Destination-System",
-                    "in": "header",
-                    "required": true,
-                    "type": "string",
-                    "enum": ["S&L"]
-                }, {
-                    "name": "Request-Created-At",
-                    "in": "header",
-                    "required": true,
-                    "type": "string",
-                    "enum": ["2018-01-29 20:36:01Z"]
-                }, {
-                    "name": "Request-Processed-At",
-                    "in": "header",
-                    "required": true,
-                    "type": "string",
-                    "enum": ["2018-01-29 20:36:01Z"]
-                }, {
-                    "name": "Request-Type",
-                    "in": "header",
-                    "required": true,
-                    "type": "string",
-                    "enum": ["THEFT", "ASSAULT"]
-                }, {
-                    "name": "Accept",
-                    "in": "header",
-                    "required": true,
-                    "type": "string",
-                    "enum": ["application/json"]
-                }, {
-                    "name": "Content-Type",
-                    "in": "header",
-                    "required": true,
-                    "type": "string",
-                    "enum": ["application/json"]
-                }, {
-                    "name": "rh-res-resource",
-                    "in": "body",
-                    "schema": {
-                        "$ref": "#/definitions/rh-res-resource"
-                    }
-                }],
-                "consumes": ["application/json"],
-                "produces": ["application/json"],
-                "responses": {
-                    "201": {
-                        "description": "",
-                        "examples": {
-                            "application/json": {
-                                "response code": 201,
-                                "description": "The request was received successfully."
-                            }
-                        }
-                    }
-                }
-            }
-        },
         "/resources/location": {
             "put": {
                 "description": "Update Resource Location",
@@ -996,7 +954,7 @@
                     "name": "body",
                     "in": "body",
                     "schema": {
-                        "example": "{}"
+                        "$ref": "#/definitions/Body"
                     }
                 }],
                 "consumes": ["application/json"],
@@ -1016,6 +974,7 @@
         },
         "/listings": {
             "get": {
+                "description": "Get Listings",
                 "operationId": "get-listings",
                 "summary": "Get Listings",
                 "parameters": [{
@@ -1095,6 +1054,80 @@
                         },
                         "examples": {
                             "application/json": "[\n    {\n        \"listingId\":\"L012\",\n        \"listingAutoCreateFlag\":\"f\",\n        \"listingStartDate\":\"2018-01-29 20:36:01Z\",\n        \"listingEndDate\":\"2018-01-29 20:36:01Z\",\n        \"listingDuration\":\"30\",\n        \"listingType\":\"Civil\",\n        \"listingPriority\":\"High\",\n        \"sessionIdCaseHQ\":\"SID012\"\n    } \n]"
+                        }
+                    }
+                }
+            }
+        },
+        "/resources/user": {
+            "put": {
+                "description": "Update Resource User",
+                "operationId": "update-resource-user",
+                "summary": "Update Resource User",
+                "parameters": [{
+                    "name": "sessionIdCaseHQ",
+                    "in": "query",
+                    "type": "string",
+                    "enum": ["44727474"]
+                }, {
+                    "name": "Source-System",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "enum": ["CFT"]
+                }, {
+                    "name": "Destination-System",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "enum": ["S&L"]
+                }, {
+                    "name": "Request-Created-At",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "enum": ["2018-01-29 20:36:01Z"]
+                }, {
+                    "name": "Request-Type",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "enum": ["THEFT"]
+                }, {
+                    "name": "Content-Type",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "enum": ["application/json"]
+                }, {
+                    "name": "Accept",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "enum": ["application/json"]
+                }, {
+                    "name": "Request-Processed-At",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "enum": ["2018-01-29 20:36:01Z"]
+                }, {
+                    "name": "body",
+                    "in": "body",
+                    "schema": {
+                        "$ref": "#/definitions/Body"
+                    }
+                }],
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "responses": {
+                    "201": {
+                        "description": "",
+                        "examples": {
+                            "application/json": {
+                                "response code": 201,
+                                "description": "The request was received successfully."
+                            }
                         }
                     }
                 }
@@ -1744,6 +1777,9 @@
                 },
                 "required": ["listingId", "listingAutoCreateFlag", "listingStartDate", "listingEndDate", "listingDuration", "listingType", "listingPriority", "sessionIdCaseHQ"]
             }
+        },
+        "Body": {
+            "example": {}
         }
     },
     "tags": []
