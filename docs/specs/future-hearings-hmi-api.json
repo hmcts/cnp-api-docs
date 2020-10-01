@@ -36,6 +36,7 @@
                     "description": "soruce of the request initiation\n",
                     "required": true,
                     "type": "string",
+                    "default": "CFT",
                     "enum": ["CFT"]
                 }, {
                     "name": "Destination-System",
@@ -43,6 +44,7 @@
                     "description": "Target/Backend system that is supposed to consume the request message.",
                     "required": true,
                     "type": "string",
+                    "default": "S&L",
                     "enum": ["S&L"]
                 }, {
                     "name": "Request-Created-At",
@@ -56,6 +58,7 @@
                     "description": "Type of request",
                     "required": true,
                     "type": "string",
+                    "default": "THEFT",
                     "enum": ["THEFT", "ASSAULT"]
                 }, {
                     "name": "Request-Processed-At",
@@ -68,12 +71,14 @@
                     "in": "header",
                     "required": true,
                     "type": "string",
+                    "default": "application/json",
                     "enum": ["application/json"]
                 }, {
                     "name": "Content-Type",
                     "in": "header",
                     "required": true,
                     "type": "string",
+                    "default": "application/json",
                     "enum": ["application/json"]
                 }, {
                     "name": "rh-def",
@@ -568,14 +573,14 @@
                     "description": "soruce of the request initiation\n",
                     "required": true,
                     "type": "string",
-                    "enum": ["SnL"]
+                    "enum": ["CFT"]
                 }, {
                     "name": "Destination-System",
                     "in": "header",
                     "description": "Target/Backend system that is supposed to consume the request message.",
                     "required": true,
                     "type": "string",
-                    "enum": ["CFT"]
+                    "enum": ["S&L"]
                 }, {
                     "name": "Request-Created-At",
                     "in": "header",
@@ -626,6 +631,7 @@
         },
         "/sessions": {
             "get": {
+                "description": "Get Sessions",
                 "operationId": "get-sessions",
                 "summary": "Get Sessions",
                 "parameters": [{
@@ -633,36 +639,42 @@
                     "in": "header",
                     "required": true,
                     "type": "string",
+                    "default": "CFT",
                     "enum": ["CFT"]
                 }, {
                     "name": "Destination-System",
                     "in": "header",
                     "required": true,
                     "type": "string",
+                    "default": "S&L",
                     "enum": ["S&L"]
                 }, {
                     "name": "Request-Created-At",
                     "in": "header",
                     "required": true,
                     "type": "string",
+                    "default": "2018-01-29 20:36:01Z",
                     "enum": ["2018-01-29 20:36:01Z"]
                 }, {
                     "name": "Request-Processed-At",
                     "in": "header",
                     "required": true,
                     "type": "string",
+                    "default": "2018-01-29 20:36:01Z",
                     "enum": ["2018-01-29 20:36:01Z"]
                 }, {
                     "name": "Request-Type",
                     "in": "header",
                     "required": true,
                     "type": "string",
+                    "default": "THEFT",
                     "enum": ["THEFT", "ASSAULT"]
                 }, {
                     "name": "Accept",
                     "in": "header",
                     "required": true,
                     "type": "string",
+                    "default": "application/json",
                     "enum": ["application/json"]
                 }, {
                     "name": "Content-Type",
@@ -685,7 +697,176 @@
                 }
             }
         },
-        "/resources/user": {
+        "/sessions/{sessionIdCaseHQ}": {
+            "put": {
+                "description": "Update Session",
+                "operationId": "update-session",
+                "summary": "Update Session",
+                "parameters": [{
+                    "name": "sessionIdCaseHQ",
+                    "in": "path",
+                    "required": true,
+                    "type": "string",
+                    "default": "SS123",
+                    "enum": ["SS123"]
+                }, {
+                    "name": "Source-System",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "default": "CFT",
+                    "enum": ["CFT"]
+                }, {
+                    "name": "Destination-System",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "default": "S&L",
+                    "enum": ["S&L"]
+                }, {
+                    "name": "Request-Created-At",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "default": "2018-01-29 20:36:01Z",
+                    "enum": ["2018-01-29 20:36:01Z"]
+                }, {
+                    "name": "Request-Processed-At",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "default": "2018-01-29 20:36:01Z",
+                    "enum": ["2018-01-29 20:36:01Z"]
+                }, {
+                    "name": "Request-Type",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "default": "THEFT",
+                    "enum": ["THEFT", "ASSAULT"]
+                }, {
+                    "name": "Accept",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "default": "application/json",
+                    "enum": ["application/json"]
+                }, {
+                    "name": "Content-Type",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "default": "application/json",
+                    "enum": ["application/json"]
+                }, {
+                    "name": "rh-def-upd-sessions",
+                    "in": "body",
+                    "schema": {
+                        "$ref": "#/definitions/rh-def-upd-sessions"
+                    }
+                }],
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "examples": {
+                            "application/json": {
+                                "response code": 200,
+                                "description": "The request was received successfully."
+                            }
+                        }
+                    }
+                }
+            },
+            "get": {
+                "description": "Get Session By ID",
+                "operationId": "get-session-by-id",
+                "summary": "Get Session By ID",
+                "parameters": [{
+                    "name": "sessionIdCaseHQ",
+                    "in": "path",
+                    "required": true,
+                    "type": "string"
+                }, {
+                    "name": "Source-System",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "default": "CFT",
+                    "enum": ["CFT"]
+                }, {
+                    "name": "Destination-System",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "default": "S&L",
+                    "enum": ["S&L"]
+                }, {
+                    "name": "Request-Created-At",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "default": "2018-01-29 20:36:01Z",
+                    "enum": ["2018-01-29 20:36:01Z"]
+                }, {
+                    "name": "Request-Processed-At",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "default": "2018-01-29 20:36:01Z",
+                    "enum": ["2018-01-29 20:36:01Z"]
+                }, {
+                    "name": "Request-Type",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "default": "THEFT",
+                    "enum": ["THEFT", "ASSAULT"]
+                }, {
+                    "name": "Accept",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "default": "application/json",
+                    "enum": ["application/json"]
+                }, {
+                    "name": "Content-Type",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "default": "application/json",
+                    "enum": ["application/json"]
+                }],
+                "produces": ["application/json"],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/rh-def-res-session"
+                        },
+                        "examples": {
+                            "application/json": {
+                                "sessionStartDate": "2018-01-29 20:36:01Z",
+                                "sessionEndDate": "2018-01-29 20:36:01Z",
+                                "caseCourt": "Milton Keynes",
+                                "room-Name": "RM012",
+                                "JoH": {
+                                    "PersonRoleID": "PR012",
+                                    "PersonID": "P012",
+                                    "PersonRole": "Judge",
+                                    "personName": "Marcus Trescothic",
+                                    "TicketName": ""
+                                },
+                                "SessionType": "DS",
+                                "SessionIDCaseHQ": "SID012"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+         "/resources/user": {
             "put": {
                 "description": "Update user details for given session",
                 "operationId": "update-resource-user",
@@ -828,6 +1009,92 @@
                                 "response code": 201,
                                 "description": "The request was received successfully."
                             }
+                        }
+                    }
+                }
+            }
+        },
+        "/listings": {
+            "get": {
+                "operationId": "get-listings",
+                "summary": "Get Listings",
+                "parameters": [{
+                    "name": "listing_id_casehq",
+                    "in": "query",
+                    "type": "string",
+                    "default": "L0123",
+                    "enum": ["L0123"]
+                }, {
+                    "name": "date_of_listing",
+                    "in": "query",
+                    "type": "string",
+                    "default": "2018-01-29 20:36:01Z",
+                    "enum": ["2018-01-29 20:36:01Z"]
+                }, {
+                    "name": "hearing_type",
+                    "in": "query",
+                    "type": "string",
+                    "default": "Civil",
+                    "enum": ["Civil"]
+                }, {
+                    "name": "Source-System",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "default": "CFT",
+                    "enum": ["CFT"]
+                }, {
+                    "name": "Destination-System",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "default": "S&L",
+                    "enum": ["S&L"]
+                }, {
+                    "name": "Request-Created-At",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "default": "2018-01-29 20:36:01Z",
+                    "enum": ["2018-01-29 20:36:01Z"]
+                }, {
+                    "name": "Request-Processed-At",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "default": "2018-01-29 20:36:01Z",
+                    "enum": ["2018-01-29 20:36:01Z"]
+                }, {
+                    "name": "Request-Type",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "default": "THEFT",
+                    "enum": ["THEFT", "ASSAULT"]
+                }, {
+                    "name": "Accept",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "default": "application/json",
+                    "enum": ["application/json"]
+                }, {
+                    "name": "Content-Type",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "default": "application/json",
+                    "enum": ["application/json"]
+                }],
+                "produces": ["application/json"],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/rh-def-res-listing"
+                        },
+                        "examples": {
+                            "application/json": "[\n    {\n        \"listingId\":\"L012\",\n        \"listingAutoCreateFlag\":\"f\",\n        \"listingStartDate\":\"2018-01-29 20:36:01Z\",\n        \"listingEndDate\":\"2018-01-29 20:36:01Z\",\n        \"listingDuration\":\"30\",\n        \"listingType\":\"Civil\",\n        \"listingPriority\":\"High\",\n        \"sessionIdCaseHQ\":\"SID012\"\n    } \n]"
                         }
                     }
                 }
@@ -1342,6 +1609,140 @@
                     }
                 },
                 "required": ["sessionStartDate", "sessionEndDate", "caseCourt", "room-Name", "JoH", "SessionType", "SessionIDCaseHQ"]
+            }
+        },
+        "rh-def-upd-sessions": {
+            "type": "object",
+            "properties": {
+                "sessionStartDate": {
+                    "type": "string"
+                },
+                "sessionEndDate": {
+                    "type": "string"
+                },
+                "caseCourt": {
+                    "type": "string"
+                },
+                "room-Name": {
+                    "type": "string"
+                },
+                "JoH": {
+                    "type": "object",
+                    "properties": {
+                        "PersonRoleID": {
+                            "type": "string"
+                        },
+                        "PersonID": {
+                            "type": "string"
+                        },
+                        "PersonRole": {
+                            "type": "string"
+                        },
+                        "personName": {
+                            "type": "string"
+                        },
+                        "TicketName": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "SessionType": {
+                    "type": "string"
+                },
+                "SessionIDCaseHQ": {
+                    "type": "string"
+                }
+            },
+            "example": {
+                "sessionStartDate": "2018-01-29 20:36:01Z",
+                "sessionEndDate": "2018-01-29 20:36:01Z",
+                "caseCourt": "Milton Keynes",
+                "room-Name": "RM012",
+                "JoH": {
+                    "PersonRoleID": "PR012",
+                    "PersonID": "P012",
+                    "PersonRole": "Judge",
+                    "personName": "Marcus Trescothic",
+                    "TicketName": "T123"
+                },
+                "SessionType": "DS",
+                "SessionIDCaseHQ": "SID012"
+            }
+        },
+        "rh-def-res-session": {
+            "type": "object",
+            "properties": {
+                "sessionStartDate": {
+                    "type": "string"
+                },
+                "sessionEndDate": {
+                    "type": "string"
+                },
+                "caseCourt": {
+                    "type": "string"
+                },
+                "room-Name": {
+                    "type": "string"
+                },
+                "JoH": {
+                    "type": "object",
+                    "properties": {
+                        "PersonRoleID": {
+                            "type": "string"
+                        },
+                        "PersonID": {
+                            "type": "string"
+                        },
+                        "PersonRole": {
+                            "type": "string"
+                        },
+                        "personName": {
+                            "type": "string"
+                        },
+                        "TicketName": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "SessionType": {
+                    "type": "string"
+                },
+                "SessionIDCaseHQ": {
+                    "type": "string"
+                }
+            }
+        },
+        "rh-def-res-listing": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "listingId": {
+                        "type": "string"
+                    },
+                    "listingAutoCreateFlag": {
+                        "type": "string"
+                    },
+                    "listingStartDate": {
+                        "type": "string"
+                    },
+                    "listingEndDate": {
+                        "type": "string"
+                    },
+                    "listingDuration": {
+                        "type": "string"
+                    },
+                    "listingType": {
+                        "type": "string"
+                    },
+                    "listingPriority": {
+                        "type": "string"
+                    },
+                    "sessionIdCaseHQ": {
+                        "type": "string"
+                    }
+                },
+                "required": ["listingId", "listingAutoCreateFlag", "listingStartDate", "listingEndDate", "listingDuration", "listingType", "listingPriority", "sessionIdCaseHQ"]
             }
         }
     },
