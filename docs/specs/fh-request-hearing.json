@@ -1059,63 +1059,72 @@
                 }
             }
         },
-        "/resources/user": {
+        "/resources/user/{userIdCaseHQ}": {
             "put": {
                 "description": "Update Resource User",
                 "operationId": "update-resource-user",
                 "summary": "Update Resource User",
                 "parameters": [{
-                    "name": "sessionIdCaseHQ",
-                    "in": "query",
+                    "name": "userIdCaseHQ",
+                    "in": "path",
+                    "required": true,
                     "type": "string",
-                    "enum": ["44727474"]
+                    "default": "donald.duck@disney.com",
+                    "enum": ["donald.duck@disney.com"]
                 }, {
                     "name": "Source-System",
                     "in": "header",
                     "required": true,
                     "type": "string",
+                    "default": "CFT",
                     "enum": ["CFT"]
                 }, {
                     "name": "Destination-System",
                     "in": "header",
                     "required": true,
                     "type": "string",
+                    "default": "S&L",
                     "enum": ["S&L"]
                 }, {
                     "name": "Request-Created-At",
                     "in": "header",
                     "required": true,
                     "type": "string",
+                    "default": "2018-01-29 20:36:01Z",
                     "enum": ["2018-01-29 20:36:01Z"]
                 }, {
                     "name": "Request-Type",
                     "in": "header",
                     "required": true,
                     "type": "string",
-                    "enum": ["THEFT"]
-                }, {
-                    "name": "Content-Type",
-                    "in": "header",
-                    "required": true,
-                    "type": "string",
-                    "enum": ["application/json"]
-                }, {
-                    "name": "Accept",
-                    "in": "header",
-                    "required": true,
-                    "type": "string",
-                    "enum": ["application/json"]
+                    "default": "THEFT",
+                    "enum": ["THEFT", "ASSAULT"]
                 }, {
                     "name": "Request-Processed-At",
                     "in": "header",
                     "required": true,
                     "type": "string",
+                    "default": "2018-01-29 20:36:01Z",
                     "enum": ["2018-01-29 20:36:01Z"]
                 }, {
-                    "name": "body",
+                    "name": "Accept",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "default": "application/json",
+                    "enum": ["application/json"]
+                }, {
+                    "name": "Content-Type",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "default": "application/json",
+                    "enum": ["application/json"]
+                }, {
+                    "name": "rh-def-req-resource-user",
                     "in": "body",
                     "schema": {
-                        "$ref": "#/definitions/Body"
+                        "$ref": "#/definitions/rh-def-req-resource-user"
                     }
                 }],
                 "consumes": ["application/json"],
@@ -1780,6 +1789,125 @@
         },
         "Body": {
             "example": {}
+        },
+        "rh-def-req-resource-user": {
+            "type": "object",
+            "properties": {
+                "apiVersion": {
+                    "type": "string"
+                },
+                "transactionIdHMCTS": {
+                    "type": "string"
+                },
+                "timeStamp": {
+                    "type": "string"
+                },
+                "personIdHMCTSc": {
+                    "type": "string"
+                },
+                "userIdCaseHQ": {
+                    "type": "string"
+                },
+                "personFirstName": {
+                    "type": "string"
+                },
+                "personLastName": {
+                    "type": "string"
+                },
+                "personSalutation": {
+                    "type": "string"
+                },
+                "personRoleId": {
+                    "type": "string"
+                },
+                "personVenueId": {
+                    "type": "string"
+                },
+                "personContactPhone": {
+                    "type": "string"
+                },
+                "personContactEmail": {
+                    "type": "string"
+                },
+                "personActiveDate": {
+                    "type": "string"
+                },
+                "personInactiveDate": {
+                    "type": "string"
+                },
+                "personPrimaryLocation": {
+                    "type": "string"
+                },
+                "personPrimaryCluster": {
+                    "type": "string"
+                },
+                "personSecondaryCluster": {
+                    "type": "string"
+                },
+                "personPosition": {
+                    "type": "string"
+                },
+                "personPositionFrom": {
+                    "type": "string"
+                },
+                "personAuthorisedSessionTypes": {
+                    "type": "string"
+                },
+                "personFeePaidFlag": {
+                    "type": "string"
+                },
+                "personOfficeTypes": {
+                    "type": "string"
+                },
+                "personEmployeeNo": {
+                    "type": "string"
+                },
+                "personPrimaryPositionTitle": {
+                    "type": "string"
+                },
+                "personJurisdiction": {
+                    "type": "string"
+                },
+                "errCode": {
+                    "type": "string"
+                },
+                "errDesc": {
+                    "type": "string"
+                },
+                "errLinkId": {
+                    "type": "string"
+                }
+            },
+            "example": {
+                "apiVersion": "0.2",
+                "transactionIdHMCTS": "H_C9840CEE-8C93-4CD2-8330-859C1A86932D",
+                "timeStamp": "2020-06-29 13:34:58.253",
+                "personIdHMCTSc": "P001",
+                "userIdCaseHQ": "Joe.Doe@hmcts.net",
+                "personFirstName": "Je",
+                "personLastName": "Doe",
+                "personSalutation": "Mr",
+                "personRoleId": "RHSSH123",
+                "personVenueId": "VEN_001",
+                "personContactPhone": "+44 0 8945 565656",
+                "personContactEmail": "Joe.Doe@hmcts.net",
+                "personActiveDate": "2020-06-29 13:34:58.253",
+                "personInactiveDate": "2021-06-29 13:34:58.253",
+                "personPrimaryLocation": "TV",
+                "personPrimaryCluster": "NORTH",
+                "personSecondaryCluster": "WEST",
+                "personPosition": "MAG",
+                "personPositionFrom": "2020-06-29 13:34:58.253",
+                "personAuthorisedSessionTypes": "Family",
+                "personFeePaidFlag": "false",
+                "personOfficeTypes": "Example",
+                "personEmployeeNo": "E1234567",
+                "personPrimaryPositionTitle": "Judge",
+                "personJurisdiction": "FAM",
+                "errCode": "",
+                "errDesc": "",
+                "errLinkId": ""
+            }
         }
     },
     "tags": []
