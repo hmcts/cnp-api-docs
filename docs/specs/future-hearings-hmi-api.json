@@ -898,21 +898,24 @@
                 }
             }
         },
-        "/resources/location": {
+        "/resources/location/{locationCaseHQId}": {
             "put": {
                 "description": "Update Resource Location",
                 "operationId": "update-resource-location",
                 "summary": "Update Resource Location",
                 "parameters": [{
-                    "name": "sessionIdCaseHQ",
-                    "in": "query",
+                    "name": "locationCaseHQId",
+                    "in": "path",
+                    "required": true,
                     "type": "string",
-                    "enum": ["44727474"]
+                    "default": "LCID0123",
+                    "enum": ["LCID0123"]
                 }, {
                     "name": "Source-System",
                     "in": "header",
                     "required": true,
                     "type": "string",
+                    "default": "CFT",
                     "enum": ["CFT"]
                 }, {
                     "name": "Destination-System",
@@ -925,36 +928,41 @@
                     "in": "header",
                     "required": true,
                     "type": "string",
+                    "default": "2018-01-29 20:36:01Z",
                     "enum": ["2018-01-29 20:36:01Z"]
                 }, {
                     "name": "Request-Type",
                     "in": "header",
                     "required": true,
                     "type": "string",
+                    "default": "THEFT",
                     "enum": ["THEFT"]
                 }, {
                     "name": "Content-Type",
                     "in": "header",
                     "required": true,
                     "type": "string",
+                    "default": "application/json",
                     "enum": ["application/json"]
                 }, {
                     "name": "Accept",
                     "in": "header",
                     "required": true,
                     "type": "string",
+                    "default": "application/json",
                     "enum": ["application/json"]
                 }, {
                     "name": "Request-Processed-At",
                     "in": "header",
                     "required": true,
                     "type": "string",
+                    "default": "2018-01-29 20:36:01Z",
                     "enum": ["2018-01-29 20:36:01Z"]
                 }, {
-                    "name": "body",
+                    "name": "rh-def-req-resource-location",
                     "in": "body",
                     "schema": {
-                        "$ref": "#/definitions/Body"
+                        "$ref": "#/definitions/rh-def-req-resource-location"
                     }
                 }],
                 "consumes": ["application/json"],
@@ -1788,7 +1796,7 @@
             }
         },
         "Body": {
-            "example": {}
+            "example": "{}"
         },
         "rh-def-req-resource-user": {
             "type": "object",
@@ -1904,6 +1912,121 @@
                 "personEmployeeNo": "E1234567",
                 "personPrimaryPositionTitle": "Judge",
                 "personJurisdiction": "FAM",
+                "errCode": "",
+                "errDesc": "",
+                "errLinkId": ""
+            }
+        },
+        "rh-def-req-resource-location": {
+            "type": "object",
+            "properties": {
+                "apiVersion": {
+                    "type": "string"
+                },
+                "transactionIdHMCTS": {
+                    "type": "string"
+                },
+                "timeStamp": {
+                    "type": "string"
+                },
+                "locationHMCTSId": {
+                    "type": "string"
+                },
+                "locationCaseHQId": {
+                    "type": "string"
+                },
+                "locationVenueId": {
+                    "type": "string"
+                },
+                "locationRoomId": {
+                    "type": "string"
+                },
+                "locationDescription": {
+                    "type": "string"
+                },
+                "locationAddress": {
+                    "type": "string"
+                },
+                "locationCluster": {
+                    "type": "string"
+                },
+                "locationPostCode": {
+                    "type": "string"
+                },
+                "locationPrimaryFlag": {
+                    "type": "string"
+                },
+                "locationParentCode": {
+                    "type": "string"
+                },
+                "locationActiveFrom": {
+                    "type": "string"
+                },
+                "locationActiveTo": {
+                    "type": "string"
+                },
+                "locationSecurityGuardFlag": {
+                    "type": "string"
+                },
+                "locationVideoConfFlag": {
+                    "type": "string"
+                },
+                "locationSeatingCapacity": {
+                    "type": "string"
+                },
+                "locationRecordingEqFlag": {
+                    "type": "string"
+                },
+                "locationVCSite": {
+                    "type": "string"
+                },
+                "locationVCSiteAddress": {
+                    "type": "string"
+                },
+                "locationVCNumber": {
+                    "type": "string"
+                },
+                "locationVCContactPhone": {
+                    "type": "string"
+                },
+                "locationVCEmail": {
+                    "type": "string"
+                },
+                "errCode": {
+                    "type": "string"
+                },
+                "errDesc": {
+                    "type": "string"
+                },
+                "errLinkId": {
+                    "type": "string"
+                }
+            },
+            "example": {
+                "apiVersion": "0.2",
+                "transactionIdHMCTS": "H_C9840CEE-8C93-4CD2-8330-859C1A86932D",
+                "timeStamp": "2020-06-29 13:34:58.253",
+                "locationHMCTSId": "OXFD_RM4",
+                "locationCaseHQId": "320",
+                "locationVenueId": "COURT",
+                "locationRoomId": "ROOM",
+                "locationDescription": "Milton Keynes County Court and Family Court",
+                "locationAddress": "351 Silbury Boulevard, Witan Gate East, Central Milton Keynes",
+                "locationCluster": "TV",
+                "locationPostCode": "MK92DT",
+                "locationPrimaryFlag": "1",
+                "locationParentCode": "OXFD_CRT77",
+                "locationActiveFrom": "2020-06-29 13:34:58.253",
+                "locationActiveTo": "2021-06-29 13:34:58.253",
+                "locationSecurityGuardFlag": "true",
+                "locationVideoConfFlag": "true",
+                "locationSeatingCapacity": "",
+                "locationRecordingEqFlag": "false",
+                "locationVCSite": "VC_SITE",
+                "locationVCSiteAddress": "VC_SITE_ADDRESS",
+                "locationVCNumber": "VC_DIAL_IN_NUMBER",
+                "locationVCContactPhone": "VC_CONTACT_PHONE",
+                "locationVCEmail": "VC_CONTACT_EMAIL",
                 "errCode": "",
                 "errDesc": "",
                 "errLinkId": ""
