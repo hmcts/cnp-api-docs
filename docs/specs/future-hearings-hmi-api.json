@@ -184,6 +184,24 @@
                 "operationId": "retrieve-hearings",
                 "summary": "Retrieve Hearings",
                 "parameters": [{
+                    "name": "hearingIdCaseHQ",
+                    "in": "query",
+                    "type": "string",
+                    "default": "5f2bffce29c77b6fef1e7499",
+                    "enum": ["5f2bffce29c77b6fef1e7499"]
+                }, {
+                    "name": "hearingDate",
+                    "in": "query",
+                    "type": "string",
+                    "default": "2018-01-29 20:36:01Z",
+                    "enum": ["2018-01-29 20:36:01Z"]
+                }, {
+                    "name": "hearingType",
+                    "in": "query",
+                    "type": "string",
+                    "default": "Traffic",
+                    "enum": ["Traffic"]
+                }, {
                     "name": "Source-System",
                     "in": "header",
                     "required": true,
@@ -667,6 +685,30 @@
                 "operationId": "get-sessions",
                 "summary": "Get Sessions",
                 "parameters": [{
+                    "name": "sessionStartDate",
+                    "in": "query",
+                    "type": "string",
+                    "default": "2018-01-29T20:36:01Z",
+                    "enum": ["2018-01-29T20:36:01Z"]
+                }, {
+                    "name": "sessionEndDate",
+                    "in": "query",
+                    "type": "string",
+                    "default": "2018-01-29T20:36:01Z",
+                    "enum": ["2018-01-29T20:36:01Z"]
+                }, {
+                    "name": "caseCourt",
+                    "in": "query",
+                    "type": "string",
+                    "default": "Milton Keynes",
+                    "enum": ["Milton Keynes"]
+                }, {
+                    "name": "room-Name",
+                    "in": "query",
+                    "type": "string",
+                    "default": "R012",
+                    "enum": ["R012"]
+                }, {
                     "name": "Source-System",
                     "in": "header",
                     "required": true,
