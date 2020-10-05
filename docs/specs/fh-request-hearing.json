@@ -1025,12 +1025,6 @@
                 "operationId": "get-listings",
                 "summary": "Get Listings",
                 "parameters": [{
-                    "name": "listing_id_casehq",
-                    "in": "query",
-                    "type": "string",
-                    "default": "L0123",
-                    "enum": ["L0123"]
-                }, {
                     "name": "date_of_listing",
                     "in": "query",
                     "type": "string",
@@ -1191,6 +1185,7 @@
         },
         "/listings/{listing_id}": {
             "get": {
+                "description": "Get listing by id",
                 "operationId": "get-listing-by-id",
                 "summary": "Get listing by id",
                 "parameters": [{
