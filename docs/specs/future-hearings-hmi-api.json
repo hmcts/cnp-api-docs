@@ -688,19 +688,16 @@
                     "name": "sessionStartDate",
                     "in": "query",
                     "type": "string",
-                    "default": "2018-01-29T20:36:01Z",
                     "enum": ["2018-01-29T20:36:01Z"]
                 }, {
                     "name": "sessionEndDate",
                     "in": "query",
                     "type": "string",
-                    "default": "2018-01-29T20:36:01Z",
                     "enum": ["2018-01-29T20:36:01Z"]
                 }, {
                     "name": "caseCourt",
                     "in": "query",
                     "type": "string",
-                    "default": "Milton Keynes",
                     "enum": ["Milton Keynes"]
                 }, {
                     "name": "room-Name",
