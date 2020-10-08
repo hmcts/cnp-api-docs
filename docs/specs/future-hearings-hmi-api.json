@@ -766,6 +766,79 @@
                         }
                     }
                 }
+            },
+            "post": {
+                "operationId": "create-session",
+                "summary": "Create Session",
+                "parameters": [{
+                    "name": "Source-System",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "default": "CFT",
+                    "enum": ["CFT"]
+                }, {
+                    "name": "Destination-System",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "default": "S&L",
+                    "enum": ["S&L"]
+                }, {
+                    "name": "Request-Created-At",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "default": "2018-01-29 20:36:01Z",
+                    "enum": ["2018-01-29 20:36:01Z"]
+                }, {
+                    "name": "Request-Processed-At",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "default": "2018-01-29 20:36:01Z",
+                    "enum": ["2018-01-29 20:36:01Z"]
+                }, {
+                    "name": "Request-Type",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "default": "THEFT",
+                    "enum": ["THEFT", "ASSAULT"]
+                }, {
+                    "name": "Accept",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "default": "application/json",
+                    "enum": ["application/json"]
+                }, {
+                    "name": "Content-Type",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "default": "application/json",
+                    "enum": ["application/json"]
+                }, {
+                    "name": "rh-def-res-session",
+                    "in": "body",
+                    "schema": {
+                        "$ref": "#/definitions/rh-def-res-session"
+                    }
+                }],
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "examples": {
+                            "application/json": {
+                                "response code": 200,
+                                "description": "The request was received successfully."
+                            }
+                        }
+                    }
+                }
             }
         },
         "/sessions/{sessionIdCaseHQ}": {
@@ -1878,6 +1951,21 @@
                 "SessionIDCaseHQ": {
                     "type": "string"
                 }
+            },
+            "example": {
+                "sessionStartDate": "2018-01-29 20:36:01Z",
+                "sessionEndDate": "2018-01-29 20:36:01Z",
+                "caseCourt": "Milton Keynes",
+                "room-Name": "RM012",
+                "JoH": {
+                    "PersonRoleID": "PR012",
+                    "PersonID": "P012",
+                    "PersonRole": "Judge",
+                    "personName": "Marcus Trescothic",
+                    "TicketName": ""
+                },
+                "SessionType": "DS",
+                "SessionIDCaseHQ": "SID012"
             }
         },
         "rh-def-res-listing": {
