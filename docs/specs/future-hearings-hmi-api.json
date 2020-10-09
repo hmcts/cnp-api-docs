@@ -768,6 +768,7 @@
                 }
             },
             "post": {
+                "description": "Create Session",
                 "operationId": "create-session",
                 "summary": "Create Session",
                 "parameters": [{
@@ -1335,6 +1336,88 @@
                                 "listingType": "Civil",
                                 "listingPriority": "High",
                                 "sessionIdCaseHQ": "SID012"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/sessions/{sessionIDCaseHQ}": {
+            "delete": {
+                "operationId": "delete-session",
+                "summary": "Delete Session",
+                "parameters": [{
+                    "name": "SessionIDCaseHQ",
+                    "in": "path",
+                    "required": true,
+                    "type": "string",
+                    "default": "SID012",
+                    "enum": ["SID012"]
+                }, {
+                    "name": "Source-System",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "default": "CFT",
+                    "enum": ["CFT"]
+                }, {
+                    "name": "Destination-System",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "default": "S&L",
+                    "enum": ["S&L"]
+                }, {
+                    "name": "Request-Created-At",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "default": "2018-01-29 20:36:01Z",
+                    "enum": ["2018-01-29 20:36:01Z"]
+                }, {
+                    "name": "Request-Processed-At",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "default": "2018-01-29 20:36:01Z",
+                    "enum": ["2018-01-29 20:36:01Z"]
+                }, {
+                    "name": "Request-Type",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "default": "THEFT",
+                    "enum": ["THEFT", "ASSAULT"]
+                }, {
+                    "name": "Accept",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "default": "application/json",
+                    "enum": ["application/json"]
+                }, {
+                    "name": "Content-Type",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "default": "application/json",
+                    "enum": ["application/json"]
+                }, {
+                    "name": "body",
+                    "in": "body",
+                    "schema": {
+                        "example": "{\n  \"deleteMethod\": \"C\",\n  \"deleteMessage\": \"Cancel the request as no longer needed settled out of court\"\n}"
+                    }
+                }],
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "examples": {
+                            "application/json": {
+                                "response code": 200,
+                                "description": "The request was received successfully."
                             }
                         }
                     }
