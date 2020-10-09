@@ -1342,7 +1342,7 @@
                 }
             }
         },
-        "/sessions/{SessionIDCaseHQ}": {
+        "/sessions/{sessionIDCaseHQ}": {
             "delete": {
                 "operationId": "delete-session",
                 "summary": "Delete Session",
