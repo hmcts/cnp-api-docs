@@ -331,11 +331,11 @@
                 "consumes": ["application/json"],
                 "produces": ["application/json"],
                 "responses": {
-                    "201": {
-                        "description": "Successfully updated hearing",
+                    "200": {
+                        "description": "",
                         "examples": {
                             "application/json": {
-                                "response code": 201,
+                                "response code": 200,
                                 "description": "The request was received successfully."
                             }
                         }
@@ -1081,11 +1081,11 @@
                 "consumes": ["application/json"],
                 "produces": ["application/json"],
                 "responses": {
-                    "201": {
+                    "200": {
                         "description": "",
                         "examples": {
                             "application/json": {
-                                "response code": 201,
+                                "response code": 200,
                                 "description": "The request was received successfully."
                             }
                         }
@@ -1245,11 +1245,11 @@
                 "consumes": ["application/json"],
                 "produces": ["application/json"],
                 "responses": {
-                    "201": {
+                    "200": {
                         "description": "",
                         "examples": {
                             "application/json": {
-                                "response code": 201,
+                                "response code": 200,
                                 "description": "The request was received successfully."
                             }
                         }
@@ -1344,6 +1344,7 @@
         },
         "/sessions/{sessionIDCaseHQ}": {
             "delete": {
+                "description": "Delete Session",
                 "operationId": "delete-session",
                 "summary": "Delete Session",
                 "parameters": [{
@@ -1403,10 +1404,10 @@
                     "default": "application/json",
                     "enum": ["application/json"]
                 }, {
-                    "name": "body",
+                    "name": "body-1",
                     "in": "body",
                     "schema": {
-                        "example": "{\n  \"deleteMethod\": \"C\",\n  \"deleteMessage\": \"Cancel the request as no longer needed settled out of court\"\n}"
+                        "$ref": "#/definitions/Body-1"
                     }
                 }],
                 "consumes": ["application/json"],
@@ -2348,6 +2349,12 @@
                 "sessionIdCaseHQ": {
                     "type": "string"
                 }
+            }
+        },
+        "Body-1": {
+            "example": {
+                "deleteMethod": "C",
+                "deleteMessage": "Cancel the request as no longer needed settled out of court"
             }
         }
     },
