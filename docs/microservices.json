@@ -2335,7 +2335,7 @@
             "id": "wa-task-management-api",
             "name": "WA Task Management API",
             "group": "WA",
-            "description": "API to integrate with camunda engine",
+            "description": "API that helps you manage and perform operations on tasks",
             "repository": "https://github.com/hmcts/wa-task-management-api",
             "spec": "https://hmcts.github.io/reform-api-docs/specs/wa-task-management-api.json",
             "dependencies": [],
