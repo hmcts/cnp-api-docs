@@ -4,7 +4,7 @@
         "title": "hmi-apim-api",
         "version": "1.0"
     },
-    "host": "hmi-apim-svc-dev.azure-api.net",
+    "host": "hmi-apim.sandbox.platform.hmcts.net",
     "basePath": "/hmi",
     "schemes": ["http", "https"],
     "securityDefinitions": {
@@ -657,6 +657,7 @@
                     "in": "header",
                     "required": true,
                     "type": "string",
+                    "default": "application/json",
                     "enum": ["application/json"]
                 }, {
                     "name": "Content-Type",
@@ -1421,6 +1422,61 @@
                                 "description": "The request was received successfully."
                             }
                         }
+                    }
+                }
+            }
+        },
+        "/p0001": {
+            "get": {
+                "description": "Test-Wiremock",
+                "operationId": "test-wiremock",
+                "summary": "Test-Wiremock",
+                "parameters": [{
+                    "name": "Source-System",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "enum": ["CFT"]
+                }, {
+                    "name": "Destination-System",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "enum": ["S&L"]
+                }, {
+                    "name": "Request-Created-At",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "enum": ["01/29/2018 20:36:01"]
+                }, {
+                    "name": "Request-Processed-At",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "enum": ["01/29/2018 20:36:01"]
+                }, {
+                    "name": "Request-Type",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "enum": ["THEFT"]
+                }, {
+                    "name": "Accept",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "enum": ["application/json"]
+                }, {
+                    "name": "Content-Type",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "enum": ["application/json"]
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Successfully connected to wiremock"
                     }
                 }
             }
