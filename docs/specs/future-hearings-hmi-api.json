@@ -1424,6 +1424,80 @@
                     }
                 }
             }
+        },
+        "/secure": {
+            "get": {
+                "description": "Secure",
+                "operationId": "secure",
+                "summary": "Secure",
+                "produces": ["application/json"],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "examples": {
+                            "application/json": {
+                                "responseCode": 200,
+                                "message": "Hello"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/p0001": {
+            "get": {
+                "description": "Test Wiremock Connection",
+                "operationId": "test-wiremock-connection",
+                "summary": "Test Wiremock Connection",
+                "parameters": [{
+                    "name": "Source-System",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "enum": ["CFT"]
+                }, {
+                    "name": "Destination-System",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "enum": ["S&L"]
+                }, {
+                    "name": "Request-Created-At",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "enum": ["2018-01-29T20:36:01Z"]
+                }, {
+                    "name": "Request-Processed-At",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "enum": ["2018-01-29T20:36:01Z"]
+                }, {
+                    "name": "Request-Type",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "enum": ["THEFT"]
+                }, {
+                    "name": "Accept",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "enum": ["application/json"]
+                }, {
+                    "name": "Content-Type",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "enum": ["application/json"]
+                }],
+                "responses": {
+                    "200": {
+                        "description": "null"
+                    }
+                }
+            }
         }
     },
     "definitions": {
