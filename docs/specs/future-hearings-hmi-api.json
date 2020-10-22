@@ -4,7 +4,7 @@
         "title": "hmi-apim-api",
         "version": "1.0"
     },
-    "host": "hmi-apim-svc-dev.azure-api.net",
+    "host": "hmi-apim.sandbox.platform.hmcts.net",
     "basePath": "/hmi",
     "schemes": ["http", "https"],
     "securityDefinitions": {
@@ -1466,13 +1466,13 @@
                     "in": "header",
                     "required": true,
                     "type": "string",
-                    "enum": ["2018-01-29T20:36:01Z"]
+                    "enum": ["01/29/2018 20:36:01"]
                 }, {
                     "name": "Request-Processed-At",
                     "in": "header",
                     "required": true,
                     "type": "string",
-                    "enum": ["2018-01-29T20:36:01Z"]
+                    "enum": ["01/29/2018 20:36:01"]
                 }, {
                     "name": "Request-Type",
                     "in": "header",
@@ -1495,6 +1495,156 @@
                 "responses": {
                     "200": {
                         "description": "null"
+                    }
+                }
+            }
+        },
+        "/resource/location/{locationCaseHQId}": {
+            "post": {
+                "operationId": "create-resource-location",
+                "summary": "Create Resource Location",
+                "parameters": [{
+                    "name": "locationCaseHQId",
+                    "in": "path",
+                    "required": true,
+                    "type": "string",
+                    "default": "L012",
+                    "enum": ["L012"]
+                }, {
+                    "name": "Source-System",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "default": "CFT",
+                    "enum": ["CFT"]
+                }, {
+                    "name": "Destination-System",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "default": "S&L",
+                    "enum": ["S&L"]
+                }, {
+                    "name": "Request-Created-At",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "default": "2018-01-29 20:36:01Z",
+                    "enum": ["2018-01-29 20:36:01Z"]
+                }, {
+                    "name": "Request-Type",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "default": "THEFT",
+                    "enum": ["THEFT"]
+                }, {
+                    "name": "Content-Type",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "default": "application/json",
+                    "enum": ["application/json"]
+                }, {
+                    "name": "Accept",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "default": "application/json",
+                    "enum": ["application/json"]
+                }, {
+                    "name": "Request-Processed-At",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "default": "2018-01-29 20:36:01Z",
+                    "enum": ["2018-01-29 20:36:01Z"]
+                }],
+                "produces": ["application/json"],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "examples": {
+                            "application/json": {
+                                "response code": 200,
+                                "description": "The request was received successfully."
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/resource/user/{userIdCaseHQ}": {
+            "post": {
+                "operationId": "create-resource-user",
+                "summary": "Create Resource User",
+                "parameters": [{
+                    "name": "userIdCaseHQ",
+                    "in": "path",
+                    "required": true,
+                    "type": "string",
+                    "default": "U012",
+                    "enum": ["U012"]
+                }, {
+                    "name": "Source-System",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "default": "CFT",
+                    "enum": ["CFT"]
+                }, {
+                    "name": "Destination-System",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "default": "S&L",
+                    "enum": ["S&L"]
+                }, {
+                    "name": "Request-Created-At",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "default": "2018-01-29 20:36:01Z",
+                    "enum": ["2018-01-29 20:36:01Z"]
+                }, {
+                    "name": "Request-Processed-At",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "default": "2018-01-29 20:36:01Z",
+                    "enum": ["2018-01-29 20:36:01Z"]
+                }, {
+                    "name": "Request-Type",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "default": "THEFT",
+                    "enum": ["THEFT", "ASSAULT"]
+                }, {
+                    "name": "Accept",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "default": "application/json",
+                    "enum": ["application/json"]
+                }, {
+                    "name": "Content-Type",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "default": "application/json",
+                    "enum": ["application/json"]
+                }],
+                "produces": ["application/json"],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "examples": {
+                            "application/json": {
+                                "response code": 200,
+                                "description": "The request was received successfully."
+                            }
+                        }
                     }
                 }
             }
