@@ -1466,13 +1466,13 @@
                     "in": "header",
                     "required": true,
                     "type": "string",
-                    "enum": ["2018-01-29T20:36:01Z"]
+                    "enum": ["01/29/2018 20:36:01"]
                 }, {
                     "name": "Request-Processed-At",
                     "in": "header",
                     "required": true,
                     "type": "string",
-                    "enum": ["2018-01-29T20:36:01Z"]
+                    "enum": ["01/29/2018 20:36:01"]
                 }, {
                     "name": "Request-Type",
                     "in": "header",
@@ -1559,7 +1559,14 @@
                     "type": "string",
                     "default": "2018-01-29 20:36:01Z",
                     "enum": ["2018-01-29 20:36:01Z"]
+                }, {
+                    "name": "body",
+                    "in": "body",
+                    "schema": {
+                        "example": "{\n\t\"locationHMCTSId\":\"LHMCTS0012\",\n\t\"locationCaseHQId\":\"LC012\",\n\t\"locationId\":\"L012\",\n\t\"locationDescription\":\"MK\",\n\t\"locationAddress\":\"Milton Keynes\",\n\t\"locationCluster\":\"MKC\",\n\t\"LocationPostCode\":\"MK04 2AZ\",\n\t\"locationPrimaryFlag\":\"T\",\n\t\"locationParentCode\":\"L0\",\n\t\"locationActiveFrom\":\"2018-01-29T20:36:01Z\",\n\t\"locationActiveTo\":\"2018-01-29T20:36:01Z\",\n\t\"locationSecurityGuardFlag\":\"F\",\n\t\"locationVideoConfFlag\":\"T\",\n\t\"locationSeatingCapacity\":\"20\",\n\t\"locationRecordingEqFlag\":\"F\",\n\t\"locationVCSite\":\"VC012\",\n\t\"locationVCSiteAddress\":\"VC Address\",\n\t\"locationVCNumber\":\"VC000\",\n\t\"locationVCContactPhone\":\"777222777222\",\n\t\"locationVCEmail\":\"location@email.com\"\n}"
+                    }
                 }],
+                "consumes": ["application/json"],
                 "produces": ["application/json"],
                 "responses": {
                     "200": {
@@ -1634,7 +1641,14 @@
                     "type": "string",
                     "default": "application/json",
                     "enum": ["application/json"]
+                }, {
+                    "name": "body",
+                    "in": "body",
+                    "schema": {
+                        "example": "{\n\t\"personIdHMCTS\":\"PIDHMCTS012\",\n\t\"personFirstName\":\"Marcus\",\n\t\"personLastName\":\"Aurelius\",\n\t\"personSalutation\":\"Emperor\",\n\t\"personRoleId\":\"E012\",\n\t\"personVenueId\":\"V012\",\n\t\"personActiveDate\":\"2018-01-29T20:36:01Z\",\n\t\"personInactiveDate\":\"2018-01-29T20:36:01Z\",\n\t\"personRegistry\":\"PRG012\"\n}"
+                    }
                 }],
+                "consumes": ["application/json"],
                 "produces": ["application/json"],
                 "responses": {
                     "200": {
