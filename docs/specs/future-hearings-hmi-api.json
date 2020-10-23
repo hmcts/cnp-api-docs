@@ -1091,6 +1091,87 @@
                         }
                     }
                 }
+            },
+            "post": {
+                "description": "Create Resource Location",
+                "operationId": "create-resource-location",
+                "summary": "Create Resource Location",
+                "parameters": [{
+                    "name": "locationCaseHQId",
+                    "in": "path",
+                    "required": true,
+                    "type": "string",
+                    "default": "L012",
+                    "enum": ["L012"]
+                }, {
+                    "name": "Source-System",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "default": "CFT",
+                    "enum": ["CFT"]
+                }, {
+                    "name": "Destination-System",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "default": "S&L",
+                    "enum": ["S&L"]
+                }, {
+                    "name": "Request-Created-At",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "default": "2018-01-29 20:36:01Z",
+                    "enum": ["2018-01-29 20:36:01Z"]
+                }, {
+                    "name": "Request-Type",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "default": "THEFT",
+                    "enum": ["THEFT"]
+                }, {
+                    "name": "Content-Type",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "default": "application/json",
+                    "enum": ["application/json"]
+                }, {
+                    "name": "Accept",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "default": "application/json",
+                    "enum": ["application/json"]
+                }, {
+                    "name": "Request-Processed-At",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "default": "2018-01-29 20:36:01Z",
+                    "enum": ["2018-01-29 20:36:01Z"]
+                }, {
+                    "name": "body-2",
+                    "in": "body",
+                    "schema": {
+                        "$ref": "#/definitions/Body-2"
+                    }
+                }],
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "examples": {
+                            "application/json": {
+                                "response code": 200,
+                                "description": "The request was received successfully."
+                            }
+                        }
+                    }
+                }
             }
         },
         "/listings": {
@@ -1240,6 +1321,87 @@
                     "in": "body",
                     "schema": {
                         "$ref": "#/definitions/rh-def-req-resource-user"
+                    }
+                }],
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "examples": {
+                            "application/json": {
+                                "response code": 200,
+                                "description": "The request was received successfully."
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "Create Resource User",
+                "operationId": "create-resource-user",
+                "summary": "Create Resource User",
+                "parameters": [{
+                    "name": "userIdCaseHQ",
+                    "in": "path",
+                    "required": true,
+                    "type": "string",
+                    "default": "U012",
+                    "enum": ["U012"]
+                }, {
+                    "name": "Source-System",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "default": "CFT",
+                    "enum": ["CFT"]
+                }, {
+                    "name": "Destination-System",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "default": "S&L",
+                    "enum": ["S&L"]
+                }, {
+                    "name": "Request-Created-At",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "default": "2018-01-29 20:36:01Z",
+                    "enum": ["2018-01-29 20:36:01Z"]
+                }, {
+                    "name": "Request-Processed-At",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "default": "2018-01-29 20:36:01Z",
+                    "enum": ["2018-01-29 20:36:01Z"]
+                }, {
+                    "name": "Request-Type",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "default": "THEFT",
+                    "enum": ["THEFT", "ASSAULT"]
+                }, {
+                    "name": "Accept",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "default": "application/json",
+                    "enum": ["application/json"]
+                }, {
+                    "name": "Content-Type",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "default": "application/json",
+                    "enum": ["application/json"]
+                }, {
+                    "name": "body-3",
+                    "in": "body",
+                    "schema": {
+                        "$ref": "#/definitions/Body-3"
                     }
                 }],
                 "consumes": ["application/json"],
@@ -1499,174 +1661,9 @@
                 }
             }
         },
-        "/resource/location/{locationCaseHQId}": {
-            "post": {
-                "description": "Create Resource Location",
-                "operationId": "create-resource-location",
-                "summary": "Create Resource Location",
-                "parameters": [{
-                    "name": "locationCaseHQId",
-                    "in": "path",
-                    "required": true,
-                    "type": "string",
-                    "default": "L012",
-                    "enum": ["L012"]
-                }, {
-                    "name": "Source-System",
-                    "in": "header",
-                    "required": true,
-                    "type": "string",
-                    "default": "CFT",
-                    "enum": ["CFT"]
-                }, {
-                    "name": "Destination-System",
-                    "in": "header",
-                    "required": true,
-                    "type": "string",
-                    "default": "S&L",
-                    "enum": ["S&L"]
-                }, {
-                    "name": "Request-Created-At",
-                    "in": "header",
-                    "required": true,
-                    "type": "string",
-                    "default": "2018-01-29 20:36:01Z",
-                    "enum": ["2018-01-29 20:36:01Z"]
-                }, {
-                    "name": "Request-Type",
-                    "in": "header",
-                    "required": true,
-                    "type": "string",
-                    "default": "THEFT",
-                    "enum": ["THEFT"]
-                }, {
-                    "name": "Content-Type",
-                    "in": "header",
-                    "required": true,
-                    "type": "string",
-                    "default": "application/json",
-                    "enum": ["application/json"]
-                }, {
-                    "name": "Accept",
-                    "in": "header",
-                    "required": true,
-                    "type": "string",
-                    "default": "application/json",
-                    "enum": ["application/json"]
-                }, {
-                    "name": "Request-Processed-At",
-                    "in": "header",
-                    "required": true,
-                    "type": "string",
-                    "default": "2018-01-29 20:36:01Z",
-                    "enum": ["2018-01-29 20:36:01Z"]
-                }, {
-                    "name": "body-2",
-                    "in": "body",
-                    "schema": {
-                        "$ref": "#/definitions/Body-2"
-                    }
-                }],
-                "consumes": ["application/json"],
-                "produces": ["application/json"],
-                "responses": {
-                    "200": {
-                        "description": "",
-                        "examples": {
-                            "application/json": {
-                                "response code": 200,
-                                "description": "The request was received successfully."
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/resource/user/{userIdCaseHQ}": {
-            "post": {
-                "description": "Create Resource User",
-                "operationId": "create-resource-user",
-                "summary": "Create Resource User",
-                "parameters": [{
-                    "name": "userIdCaseHQ",
-                    "in": "path",
-                    "required": true,
-                    "type": "string",
-                    "default": "U012",
-                    "enum": ["U012"]
-                }, {
-                    "name": "Source-System",
-                    "in": "header",
-                    "required": true,
-                    "type": "string",
-                    "default": "CFT",
-                    "enum": ["CFT"]
-                }, {
-                    "name": "Destination-System",
-                    "in": "header",
-                    "required": true,
-                    "type": "string",
-                    "default": "S&L",
-                    "enum": ["S&L"]
-                }, {
-                    "name": "Request-Created-At",
-                    "in": "header",
-                    "required": true,
-                    "type": "string",
-                    "default": "2018-01-29 20:36:01Z",
-                    "enum": ["2018-01-29 20:36:01Z"]
-                }, {
-                    "name": "Request-Processed-At",
-                    "in": "header",
-                    "required": true,
-                    "type": "string",
-                    "default": "2018-01-29 20:36:01Z",
-                    "enum": ["2018-01-29 20:36:01Z"]
-                }, {
-                    "name": "Request-Type",
-                    "in": "header",
-                    "required": true,
-                    "type": "string",
-                    "default": "THEFT",
-                    "enum": ["THEFT", "ASSAULT"]
-                }, {
-                    "name": "Accept",
-                    "in": "header",
-                    "required": true,
-                    "type": "string",
-                    "default": "application/json",
-                    "enum": ["application/json"]
-                }, {
-                    "name": "Content-Type",
-                    "in": "header",
-                    "required": true,
-                    "type": "string",
-                    "default": "application/json",
-                    "enum": ["application/json"]
-                }, {
-                    "name": "body-3",
-                    "in": "body",
-                    "schema": {
-                        "$ref": "#/definitions/Body-3"
-                    }
-                }],
-                "consumes": ["application/json"],
-                "produces": ["application/json"],
-                "responses": {
-                    "200": {
-                        "description": "",
-                        "examples": {
-                            "application/json": {
-                                "response code": 200,
-                                "description": "The request was received successfully."
-                            }
-                        }
-                    }
-                }
-            }
-        },
         "/update-listing/{caseListingRequestId}": {
             "put": {
+                "description": "Update Listing",
                 "operationId": "update-listing",
                 "summary": "Update Listing",
                 "parameters": [{
@@ -1726,10 +1723,10 @@
                     "default": "application/json",
                     "enum": ["application/json"]
                 }, {
-                    "name": "body",
+                    "name": "body-4",
                     "in": "body",
                     "schema": {
-                        "example": "{\t\n\t\"_Case\": {\n\t\t\"caseIdHMCTS\": \"CHMCTS012\",\n\t\t\"caseListingRequestId\": \"CLR012\",\n\t\t\"caseTitle\": \"CT012\",\n\t\t\"caseJurisdiction\": \"CJ012\",\n\t\t\"caseCourt\": \"CC012\",\n\t\t\"caseRegistered\": \"CR012\",\n\t\t\"caseComments\": \"COMMENT\",\n\t\t\"caseAdditionalSecurityFlag\": \"F\",\n\t\t\"caseRestrictedFlag\": \"T\",\n\t \t\"caseInterpreterRequiredFlag\": \"F\"\n\t},\n\t\"Entity\": {\n\t\t\"entityHmiId\": \"EH012\",\n\t \t\"entityTypeCode\": \"ETC012\",\n\t \t\"entityRoleCode\": \"ERC012\"\n\t},\n\t\"Subtype\": {\n\t\t\"entityClassCode\": \"ECC012\",\n\t \t\"entityTitle\": \"ET012\",\n\t \t\"entityFirstName\": \"FIRST\",\n\t \t\"entityLastName\": \"SURNAME\",\n\t \t\"entityCompanyName\": \"HMCTS\"\n\t},\t\n\t\"Listing\": {\n\t\t\"listingAutoCreateFlag\": \"T\",\n\t\t\"listingStartDate\": \"2018-01-29T20:36:01Z\",\n\t\t\"listingEndDate\": \"2018-01-29T20:36:01Z\",\n\t\t\"listingDuration\": \"2H\",\n\t\t\"listingSessionType\": \"Crime\",\n\t\t\"listingType\": \"LT012\",\n\t\t\"listingPriority\": \"High\",\n\t\t\"listingNumberAttendees\": \"20\",\n\t\t\"listingComment\": \"comment\",\n\t\t\"listingCourt\": \"LC012\"\n\t}\n}"
+                        "$ref": "#/definitions/Body-4"
                     }
                 }],
                 "consumes": ["application/json"],
@@ -2714,6 +2711,46 @@
                 "personActiveDate": "2018-01-29T20:36:01Z",
                 "personInactiveDate": "2018-01-29T20:36:01Z",
                 "personRegistry": "PRG012"
+            }
+        },
+        "Body-4": {
+            "example": {
+                "_Case": {
+                    "caseIdHMCTS": "CHMCTS012",
+                    "caseListingRequestId": "CLR012",
+                    "caseTitle": "CT012",
+                    "caseJurisdiction": "CJ012",
+                    "caseCourt": "CC012",
+                    "caseRegistered": "CR012",
+                    "caseComments": "COMMENT",
+                    "caseAdditionalSecurityFlag": "F",
+                    "caseRestrictedFlag": "T",
+                    "caseInterpreterRequiredFlag": "F"
+                },
+                "Entity": {
+                    "entityHmiId": "EH012",
+                    "entityTypeCode": "ETC012",
+                    "entityRoleCode": "ERC012"
+                },
+                "Subtype": {
+                    "entityClassCode": "ECC012",
+                    "entityTitle": "ET012",
+                    "entityFirstName": "FIRST",
+                    "entityLastName": "SURNAME",
+                    "entityCompanyName": "HMCTS"
+                },
+                "Listing": {
+                    "listingAutoCreateFlag": "T",
+                    "listingStartDate": "2018-01-29T20:36:01Z",
+                    "listingEndDate": "2018-01-29T20:36:01Z",
+                    "listingDuration": "2H",
+                    "listingSessionType": "Crime",
+                    "listingType": "LT012",
+                    "listingPriority": "High",
+                    "listingNumberAttendees": "20",
+                    "listingComment": "comment",
+                    "listingCourt": "LC012"
+                }
             }
         }
     },
