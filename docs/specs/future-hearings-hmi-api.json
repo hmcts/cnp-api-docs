@@ -1499,7 +1499,7 @@
                 }
             }
         },
-        "/resources/location/{locationCaseHQId}": {
+        "/resource/location/{locationCaseHQId}": {
             "post": {
                 "description": "Create Resource Location",
                 "operationId": "create-resource-location",
@@ -1582,7 +1582,7 @@
                 }
             }
         },
-        "/resources/user/{userIdCaseHQ}": {
+        "/resource/user/{userIdCaseHQ}": {
             "post": {
                 "description": "Create Resource User",
                 "operationId": "create-resource-user",
