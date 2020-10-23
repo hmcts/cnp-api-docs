@@ -1499,8 +1499,9 @@
                 }
             }
         },
-        "/resource/location/{locationCaseHQId}": {
+        "/resources/location/{locationCaseHQId}": {
             "post": {
+                "description": "Create Resource Location",
                 "operationId": "create-resource-location",
                 "summary": "Create Resource Location",
                 "parameters": [{
@@ -1560,10 +1561,10 @@
                     "default": "2018-01-29 20:36:01Z",
                     "enum": ["2018-01-29 20:36:01Z"]
                 }, {
-                    "name": "body",
+                    "name": "body-2",
                     "in": "body",
                     "schema": {
-                        "example": "{\n\t\"locationHMCTSId\":\"LHMCTS0012\",\n\t\"locationCaseHQId\":\"LC012\",\n\t\"locationId\":\"L012\",\n\t\"locationDescription\":\"MK\",\n\t\"locationAddress\":\"Milton Keynes\",\n\t\"locationCluster\":\"MKC\",\n\t\"LocationPostCode\":\"MK04 2AZ\",\n\t\"locationPrimaryFlag\":\"T\",\n\t\"locationParentCode\":\"L0\",\n\t\"locationActiveFrom\":\"2018-01-29T20:36:01Z\",\n\t\"locationActiveTo\":\"2018-01-29T20:36:01Z\",\n\t\"locationSecurityGuardFlag\":\"F\",\n\t\"locationVideoConfFlag\":\"T\",\n\t\"locationSeatingCapacity\":\"20\",\n\t\"locationRecordingEqFlag\":\"F\",\n\t\"locationVCSite\":\"VC012\",\n\t\"locationVCSiteAddress\":\"VC Address\",\n\t\"locationVCNumber\":\"VC000\",\n\t\"locationVCContactPhone\":\"777222777222\",\n\t\"locationVCEmail\":\"location@email.com\"\n}"
+                        "$ref": "#/definitions/Body-2"
                     }
                 }],
                 "consumes": ["application/json"],
@@ -1581,8 +1582,9 @@
                 }
             }
         },
-        "/resource/user/{userIdCaseHQ}": {
+        "/resources/user/{userIdCaseHQ}": {
             "post": {
+                "description": "Create Resource User",
                 "operationId": "create-resource-user",
                 "summary": "Create Resource User",
                 "parameters": [{
@@ -1642,10 +1644,92 @@
                     "default": "application/json",
                     "enum": ["application/json"]
                 }, {
+                    "name": "body-3",
+                    "in": "body",
+                    "schema": {
+                        "$ref": "#/definitions/Body-3"
+                    }
+                }],
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "examples": {
+                            "application/json": {
+                                "response code": 200,
+                                "description": "The request was received successfully."
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/update-listing/{caseListingRequestId}": {
+            "put": {
+                "operationId": "update-listing",
+                "summary": "Update Listing",
+                "parameters": [{
+                    "name": "caseListingRequestId",
+                    "in": "path",
+                    "required": true,
+                    "type": "string",
+                    "default": "C012",
+                    "enum": ["C012"]
+                }, {
+                    "name": "Source-System",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "default": "CFT",
+                    "enum": ["CFT"]
+                }, {
+                    "name": "Destination-System",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "default": "S&L",
+                    "enum": ["S&L"]
+                }, {
+                    "name": "Request-Created-At",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "default": "2018-01-29 20:36:01Z",
+                    "enum": ["2018-01-29 20:36:01Z"]
+                }, {
+                    "name": "Request-Processed-At",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "default": "2018-01-29 20:36:01Z",
+                    "enum": ["2018-01-29 20:36:01Z"]
+                }, {
+                    "name": "Request-Type",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "default": "THEFT",
+                    "enum": ["THEFT", "ASSAULT"]
+                }, {
+                    "name": "Accept",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "default": "application/json",
+                    "enum": ["application/json"]
+                }, {
+                    "name": "Content-Type",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "default": "application/json",
+                    "enum": ["application/json"]
+                }, {
                     "name": "body",
                     "in": "body",
                     "schema": {
-                        "example": "{\n\t\"personIdHMCTS\":\"PIDHMCTS012\",\n\t\"personFirstName\":\"Marcus\",\n\t\"personLastName\":\"Aurelius\",\n\t\"personSalutation\":\"Emperor\",\n\t\"personRoleId\":\"E012\",\n\t\"personVenueId\":\"V012\",\n\t\"personActiveDate\":\"2018-01-29T20:36:01Z\",\n\t\"personInactiveDate\":\"2018-01-29T20:36:01Z\",\n\t\"personRegistry\":\"PRG012\"\n}"
+                        "example": "{\t\n\t\"_Case\": {\n\t\t\"caseIdHMCTS\": \"CHMCTS012\",\n\t\t\"caseListingRequestId\": \"CLR012\",\n\t\t\"caseTitle\": \"CT012\",\n\t\t\"caseJurisdiction\": \"CJ012\",\n\t\t\"caseCourt\": \"CC012\",\n\t\t\"caseRegistered\": \"CR012\",\n\t\t\"caseComments\": \"COMMENT\",\n\t\t\"caseAdditionalSecurityFlag\": \"F\",\n\t\t\"caseRestrictedFlag\": \"T\",\n\t \t\"caseInterpreterRequiredFlag\": \"F\"\n\t},\n\t\"Entity\": {\n\t\t\"entityHmiId\": \"EH012\",\n\t \t\"entityTypeCode\": \"ETC012\",\n\t \t\"entityRoleCode\": \"ERC012\"\n\t},\n\t\"Subtype\": {\n\t\t\"entityClassCode\": \"ECC012\",\n\t \t\"entityTitle\": \"ET012\",\n\t \t\"entityFirstName\": \"FIRST\",\n\t \t\"entityLastName\": \"SURNAME\",\n\t \t\"entityCompanyName\": \"HMCTS\"\n\t},\t\n\t\"Listing\": {\n\t\t\"listingAutoCreateFlag\": \"T\",\n\t\t\"listingStartDate\": \"2018-01-29T20:36:01Z\",\n\t\t\"listingEndDate\": \"2018-01-29T20:36:01Z\",\n\t\t\"listingDuration\": \"2H\",\n\t\t\"listingSessionType\": \"Crime\",\n\t\t\"listingType\": \"LT012\",\n\t\t\"listingPriority\": \"High\",\n\t\t\"listingNumberAttendees\": \"20\",\n\t\t\"listingComment\": \"comment\",\n\t\t\"listingCourt\": \"LC012\"\n\t}\n}"
                     }
                 }],
                 "consumes": ["application/json"],
@@ -2593,6 +2677,43 @@
             "example": {
                 "deleteMethod": "C",
                 "deleteMessage": "Cancel the request as no longer needed settled out of court"
+            }
+        },
+        "Body-2": {
+            "example": {
+                "locationHMCTSId": "LHMCTS0012",
+                "locationCaseHQId": "LC012",
+                "locationId": "L012",
+                "locationDescription": "MK",
+                "locationAddress": "Milton Keynes",
+                "locationCluster": "MKC",
+                "LocationPostCode": "MK04 2AZ",
+                "locationPrimaryFlag": "T",
+                "locationParentCode": "L0",
+                "locationActiveFrom": "2018-01-29T20:36:01Z",
+                "locationActiveTo": "2018-01-29T20:36:01Z",
+                "locationSecurityGuardFlag": "F",
+                "locationVideoConfFlag": "T",
+                "locationSeatingCapacity": "20",
+                "locationRecordingEqFlag": "F",
+                "locationVCSite": "VC012",
+                "locationVCSiteAddress": "VC Address",
+                "locationVCNumber": "VC000",
+                "locationVCContactPhone": "777222777222",
+                "locationVCEmail": "location@email.com"
+            }
+        },
+        "Body-3": {
+            "example": {
+                "personIdHMCTS": "PIDHMCTS012",
+                "personFirstName": "Marcus",
+                "personLastName": "Aurelius",
+                "personSalutation": "Emperor",
+                "personRoleId": "E012",
+                "personVenueId": "V012",
+                "personActiveDate": "2018-01-29T20:36:01Z",
+                "personInactiveDate": "2018-01-29T20:36:01Z",
+                "personRegistry": "PRG012"
             }
         }
     },
