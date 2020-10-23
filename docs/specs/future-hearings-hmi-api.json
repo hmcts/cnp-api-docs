@@ -1466,13 +1466,13 @@
                     "in": "header",
                     "required": true,
                     "type": "string",
-                    "enum": ["01/29/2018 20:36:01"]
+                    "enum": ["2018-01-29T20:36:01Z"]
                 }, {
                     "name": "Request-Processed-At",
                     "in": "header",
                     "required": true,
                     "type": "string",
-                    "enum": ["01/29/2018 20:36:01"]
+                    "enum": ["2018-01-29T20:36:01Z"]
                 }, {
                     "name": "Request-Type",
                     "in": "header",
@@ -1499,7 +1499,7 @@
                 }
             }
         },
-        "/resource/location/{locationCaseHQId}": {
+        "/resources/location/{locationCaseHQId}": {
             "post": {
                 "description": "Create Resource Location",
                 "operationId": "create-resource-location",
@@ -1582,7 +1582,7 @@
                 }
             }
         },
-        "/resource/user/{userIdCaseHQ}": {
+        "/resources/user/{userIdCaseHQ}": {
             "post": {
                 "description": "Create Resource User",
                 "operationId": "create-resource-user",
