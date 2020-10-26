@@ -1628,13 +1628,13 @@
                     "in": "header",
                     "required": true,
                     "type": "string",
-                    "enum": ["01/29/2018 20:36:01"]
+                    "enum": ["2018-01-29T20:36:01Z"]
                 }, {
                     "name": "Request-Processed-At",
                     "in": "header",
                     "required": true,
                     "type": "string",
-                    "enum": ["01/29/2018 20:36:01"]
+                    "enum": ["2018-01-29T20:36:01Z"]
                 }, {
                     "name": "Request-Type",
                     "in": "header",
