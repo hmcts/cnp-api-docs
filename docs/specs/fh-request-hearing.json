@@ -1661,7 +1661,7 @@
                 }
             }
         },
-        "/update-listing/{caseListingRequestId}": {
+        "/listings/{caseListingRequestId}": {
             "put": {
                 "description": "Update Listing",
                 "operationId": "update-listing",
