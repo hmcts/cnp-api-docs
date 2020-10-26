@@ -1628,13 +1628,13 @@
                     "in": "header",
                     "required": true,
                     "type": "string",
-                    "enum": ["2018-01-29T20:36:01Z"]
+                    "enum": ["01/29/2018 20:36:01"]
                 }, {
                     "name": "Request-Processed-At",
                     "in": "header",
                     "required": true,
                     "type": "string",
-                    "enum": ["2018-01-29T20:36:01Z"]
+                    "enum": ["01/29/2018 20:36:01"]
                 }, {
                     "name": "Request-Type",
                     "in": "header",
@@ -1661,7 +1661,7 @@
                 }
             }
         },
-        "/update-listing/{caseListingRequestId}": {
+        "/listings/{caseListingRequestId}": {
             "put": {
                 "description": "Update Listing",
                 "operationId": "update-listing",
