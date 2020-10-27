@@ -1091,19 +1091,14 @@
                         }
                     }
                 }
-            },
+            }
+        },
+        "/resources/location": {
             "post": {
                 "description": "Create Resource Location",
                 "operationId": "create-resource-location",
                 "summary": "Create Resource Location",
                 "parameters": [{
-                    "name": "locationCaseHQId",
-                    "in": "path",
-                    "required": true,
-                    "type": "string",
-                    "default": "L012",
-                    "enum": ["L012"]
-                }, {
                     "name": "Source-System",
                     "in": "header",
                     "required": true,
@@ -1336,19 +1331,14 @@
                         }
                     }
                 }
-            },
+            }
+        },
+        "/resources/user": {
             "post": {
                 "description": "Create Resource User",
                 "operationId": "create-resource-user",
                 "summary": "Create Resource User",
                 "parameters": [{
-                    "name": "userIdCaseHQ",
-                    "in": "path",
-                    "required": true,
-                    "type": "string",
-                    "default": "U012",
-                    "enum": ["U012"]
-                }, {
                     "name": "Source-System",
                     "in": "header",
                     "required": true,
