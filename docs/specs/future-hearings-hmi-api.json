@@ -4,7 +4,7 @@
         "title": "hmi-apim-api",
         "version": "1.0"
     },
-    "host": "hmi-apim.sandbox.platform.hmcts.net",
+    "host": "hmi-apim.preview.platform.hmcts.net",
     "basePath": "/hmi",
     "schemes": ["http", "https"],
     "securityDefinitions": {
@@ -1618,13 +1618,13 @@
                     "in": "header",
                     "required": true,
                     "type": "string",
-                    "enum": ["2018-01-29T20:36:01Z"]
+                    "enum": ["01/29/2018 20:36:01"]
                 }, {
                     "name": "Request-Processed-At",
                     "in": "header",
                     "required": true,
                     "type": "string",
-                    "enum": ["2018-01-29T20:36:01Z"]
+                    "enum": ["01/29/2018 20:36:01"]
                 }, {
                     "name": "Request-Type",
                     "in": "header",
@@ -1717,6 +1717,88 @@
                     "in": "body",
                     "schema": {
                         "$ref": "#/definitions/Body-4"
+                    }
+                }],
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "examples": {
+                            "application/json": {
+                                "response code": 200,
+                                "description": "The request was received successfully."
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/listings/{listingRequestId}": {
+            "delete": {
+                "operationId": "delete-listing",
+                "summary": "Delete Listing",
+                "parameters": [{
+                    "name": "listingRequestId",
+                    "in": "path",
+                    "required": true,
+                    "type": "string",
+                    "default": "L012",
+                    "enum": ["L012"]
+                }, {
+                    "name": "Source-System",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "default": "CFT",
+                    "enum": ["CFT"]
+                }, {
+                    "name": "Destination-System",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "default": "S&L",
+                    "enum": ["S&L"]
+                }, {
+                    "name": "Request-Created-At",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "default": "2018-01-29 20:36:01Z",
+                    "enum": ["2018-01-29 20:36:01Z"]
+                }, {
+                    "name": "Request-Processed-At",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "default": "2018-01-29 20:36:01Z",
+                    "enum": ["2018-01-29 20:36:01Z"]
+                }, {
+                    "name": "Request-Type",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "default": "THEFT",
+                    "enum": ["THEFT", "ASSAULT"]
+                }, {
+                    "name": "Accept",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "default": "application/json",
+                    "enum": ["application/json"]
+                }, {
+                    "name": "Content-Type",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "default": "application/json",
+                    "enum": ["application/json"]
+                }, {
+                    "name": "body",
+                    "in": "body",
+                    "schema": {
+                        "example": "{\n  \"deleteMethod\": \"C\",\n  \"deleteMessage\": \"Cancel the request as no longer needed settled out of court\",\n}"
                     }
                 }],
                 "consumes": ["application/json"],
