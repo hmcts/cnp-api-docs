@@ -1085,7 +1085,7 @@
                         "description": "",
                         "examples": {
                             "application/json": {
-                                "response code": 200,
+                                "response code": 204,
                                 "description": "The request was received successfully."
                             }
                         }
@@ -1161,7 +1161,7 @@
                         "description": "",
                         "examples": {
                             "application/json": {
-                                "response code": 200,
+                                "response code": 201,
                                 "description": "The request was received successfully."
                             }
                         }
@@ -1325,7 +1325,7 @@
                         "description": "",
                         "examples": {
                             "application/json": {
-                                "response code": 200,
+                                "response code": 204,
                                 "description": "The request was received successfully."
                             }
                         }
@@ -1401,7 +1401,7 @@
                         "description": "",
                         "examples": {
                             "application/json": {
-                                "response code": 200,
+                                "response code": 201,
                                 "description": "The request was received successfully."
                             }
                         }
@@ -1618,13 +1618,13 @@
                     "in": "header",
                     "required": true,
                     "type": "string",
-                    "enum": ["2018-01-29T20:36:01Z"]
+                    "enum": ["01/29/2018 20:36:01"]
                 }, {
                     "name": "Request-Processed-At",
                     "in": "header",
                     "required": true,
                     "type": "string",
-                    "enum": ["2018-01-29T20:36:01Z"]
+                    "enum": ["01/29/2018 20:36:01"]
                 }, {
                     "name": "Request-Type",
                     "in": "header",
@@ -1717,6 +1717,89 @@
                     "in": "body",
                     "schema": {
                         "$ref": "#/definitions/Body-4"
+                    }
+                }],
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "examples": {
+                            "application/json": {
+                                "response code": 202,
+                                "description": "The request was received successfully."
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/listings/{listingRequestId}": {
+            "delete": {
+                "description": "Delete Listing",
+                "operationId": "delete-listing",
+                "summary": "Delete Listing",
+                "parameters": [{
+                    "name": "listingRequestId",
+                    "in": "path",
+                    "required": true,
+                    "type": "string",
+                    "default": "L012",
+                    "enum": ["L012"]
+                }, {
+                    "name": "Source-System",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "default": "CFT",
+                    "enum": ["CFT"]
+                }, {
+                    "name": "Destination-System",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "default": "S&L",
+                    "enum": ["S&L"]
+                }, {
+                    "name": "Request-Created-At",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "default": "2018-01-29 20:36:01Z",
+                    "enum": ["2018-01-29 20:36:01Z"]
+                }, {
+                    "name": "Request-Processed-At",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "default": "2018-01-29 20:36:01Z",
+                    "enum": ["2018-01-29 20:36:01Z"]
+                }, {
+                    "name": "Request-Type",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "default": "THEFT",
+                    "enum": ["THEFT", "ASSAULT"]
+                }, {
+                    "name": "Accept",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "default": "application/json",
+                    "enum": ["application/json"]
+                }, {
+                    "name": "Content-Type",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "default": "application/json",
+                    "enum": ["application/json"]
+                }, {
+                    "name": "body-5",
+                    "in": "body",
+                    "schema": {
+                        "$ref": "#/definitions/Body-5"
                     }
                 }],
                 "consumes": ["application/json"],
@@ -2741,6 +2824,12 @@
                     "listingComment": "comment",
                     "listingCourt": "LC012"
                 }
+            }
+        },
+        "Body-5": {
+            "example": {
+                "deleteMethod": "C",
+                "deleteMessage": "Cancel the request as no longer needed settled out of court"
             }
         }
     },
