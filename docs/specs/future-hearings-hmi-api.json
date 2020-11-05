@@ -4,7 +4,7 @@
         "title": "hmi-apim-api",
         "version": "1.0"
     },
-    "host": "hmi-apim.preview.platform.hmcts.net",
+    "host": "hmi-apim.sandbox.platform.hmcts.net",
     "basePath": "/hmi",
     "schemes": ["http", "https"],
     "securityDefinitions": {
@@ -1618,13 +1618,13 @@
                     "in": "header",
                     "required": true,
                     "type": "string",
-                    "enum": ["01/29/2018 20:36:01"]
+                    "enum": ["2018-01-29T20:36:01Z"]
                 }, {
                     "name": "Request-Processed-At",
                     "in": "header",
                     "required": true,
                     "type": "string",
-                    "enum": ["01/29/2018 20:36:01"]
+                    "enum": ["2018-01-29T20:36:01Z"]
                 }, {
                     "name": "Request-Type",
                     "in": "header",
