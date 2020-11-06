@@ -4,7 +4,7 @@
         "title": "hmi-apim-api",
         "version": "1.0"
     },
-    "host": "hmi-apim.preview.platform.hmcts.net",
+    "host": "hmi-apim.sandbox.platform.hmcts.net",
     "basePath": "/hmi",
     "schemes": ["http", "https"],
     "securityDefinitions": {
@@ -1736,6 +1736,7 @@
         },
         "/listings/{listingRequestId}": {
             "delete": {
+                "description": "Delete Listing",
                 "operationId": "delete-listing",
                 "summary": "Delete Listing",
                 "parameters": [{
@@ -1795,10 +1796,10 @@
                     "default": "application/json",
                     "enum": ["application/json"]
                 }, {
-                    "name": "body",
+                    "name": "body-5",
                     "in": "body",
                     "schema": {
-                        "example": "{\n  \"deleteMethod\": \"C\",\n  \"deleteMessage\": \"Cancel the request as no longer needed settled out of court\",\n}"
+                        "$ref": "#/definitions/Body-5"
                     }
                 }],
                 "consumes": ["application/json"],
@@ -2823,6 +2824,12 @@
                     "listingComment": "comment",
                     "listingCourt": "LC012"
                 }
+            }
+        },
+        "Body-5": {
+            "example": {
+                "deleteMethod": "C",
+                "deleteMessage": "Cancel the request as no longer needed settled out of court"
             }
         }
     },
