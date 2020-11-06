@@ -1079,16 +1079,9 @@
                     }
                 }],
                 "consumes": ["application/json"],
-                "produces": ["application/json"],
                 "responses": {
                     "204": {
-                        "description": "",
-                        "examples": {
-                            "application/json": {
-                                "response code": 204,
-                                "description": "The request was received successfully."
-                            }
-                        }
+                        "description": ""
                     }
                 }
             }
@@ -1319,16 +1312,9 @@
                     }
                 }],
                 "consumes": ["application/json"],
-                "produces": ["application/json"],
                 "responses": {
                     "204": {
-                        "description": "",
-                        "examples": {
-                            "application/json": {
-                                "response code": 204,
-                                "description": "The request was received successfully."
-                            }
-                        }
+                        "description": ""
                     }
                 }
             }
@@ -1720,16 +1706,9 @@
                     }
                 }],
                 "consumes": ["application/json"],
-                "produces": ["application/json"],
                 "responses": {
-                    "200": {
-                        "description": "",
-                        "examples": {
-                            "application/json": {
-                                "response code": 200,
-                                "description": "The request was received successfully."
-                            }
-                        }
+                    "204": {
+                        "description": ""
                     }
                 }
             }
