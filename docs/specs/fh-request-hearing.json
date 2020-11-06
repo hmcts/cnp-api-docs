@@ -4,7 +4,7 @@
         "title": "hmi-apim-api",
         "version": "1.0"
     },
-    "host": "hmi-apim.sandbox.platform.hmcts.net",
+    "host": "hmi-apim.preview.platform.hmcts.net",
     "basePath": "/hmi",
     "schemes": ["http", "https"],
     "securityDefinitions": {
@@ -94,11 +94,11 @@
                 "consumes": ["application/json"],
                 "produces": ["application/json"],
                 "responses": {
-                    "200": {
+                    "202": {
                         "description": "",
                         "examples": {
                             "application/json": {
-                                "response code": 200,
+                                "response code": 202,
                                 "description": "The request was received successfully."
                             }
                         }
@@ -331,11 +331,11 @@
                 "consumes": ["application/json"],
                 "produces": ["application/json"],
                 "responses": {
-                    "200": {
+                    "202": {
                         "description": "",
                         "examples": {
                             "application/json": {
-                                "response code": 200,
+                                "response code": 202,
                                 "description": "The request was received successfully."
                             }
                         }
@@ -1081,7 +1081,7 @@
                 "consumes": ["application/json"],
                 "produces": ["application/json"],
                 "responses": {
-                    "200": {
+                    "204": {
                         "description": "",
                         "examples": {
                             "application/json": {
@@ -1157,7 +1157,7 @@
                 "consumes": ["application/json"],
                 "produces": ["application/json"],
                 "responses": {
-                    "200": {
+                    "201": {
                         "description": "",
                         "examples": {
                             "application/json": {
@@ -1321,7 +1321,7 @@
                 "consumes": ["application/json"],
                 "produces": ["application/json"],
                 "responses": {
-                    "200": {
+                    "204": {
                         "description": "",
                         "examples": {
                             "application/json": {
@@ -1397,7 +1397,7 @@
                 "consumes": ["application/json"],
                 "produces": ["application/json"],
                 "responses": {
-                    "200": {
+                    "201": {
                         "description": "",
                         "examples": {
                             "application/json": {
@@ -1726,7 +1726,7 @@
                         "description": "",
                         "examples": {
                             "application/json": {
-                                "response code": 202,
+                                "response code": 200,
                                 "description": "The request was received successfully."
                             }
                         }
@@ -1736,7 +1736,6 @@
         },
         "/listings/{listingRequestId}": {
             "delete": {
-                "description": "Delete Listing",
                 "operationId": "delete-listing",
                 "summary": "Delete Listing",
                 "parameters": [{
@@ -1796,10 +1795,10 @@
                     "default": "application/json",
                     "enum": ["application/json"]
                 }, {
-                    "name": "body-5",
+                    "name": "body",
                     "in": "body",
                     "schema": {
-                        "$ref": "#/definitions/Body-5"
+                        "example": "{\n  \"deleteMethod\": \"C\",\n  \"deleteMessage\": \"Cancel the request as no longer needed settled out of court\",\n}"
                     }
                 }],
                 "consumes": ["application/json"],
@@ -2906,12 +2905,6 @@
                     "listingComment": "comment",
                     "listingCourt": "LC012"
                 }
-            }
-        },
-        "Body-5": {
-            "example": {
-                "deleteMethod": "C",
-                "deleteMessage": "Cancel the request as no longer needed settled out of court"
             }
         }
     },
