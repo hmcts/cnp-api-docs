@@ -4,7 +4,7 @@
         "title": "hmi-apim-api",
         "version": "1.0"
     },
-    "host": "hmi-apim.sandbox.platform.hmcts.net",
+    "host": "hmi-apim.dev.platform.hmcts.net",
     "basePath": "/hmi",
     "schemes": ["http", "https"],
     "securityDefinitions": {
@@ -1775,10 +1775,10 @@
                     "default": "application/json",
                     "enum": ["application/json"]
                 }, {
-                    "name": "body-5",
+                    "name": "body-6",
                     "in": "body",
                     "schema": {
-                        "$ref": "#/definitions/Body-5"
+                        "$ref": "#/definitions/Body-6"
                     }
                 }],
                 "consumes": ["application/json"],
@@ -1796,82 +1796,101 @@
                 }
             }
         },
-        "/listings/{listingRequestId}": {
-            "delete": {
-                "operationId": "delete-listing",
-                "summary": "Delete Listing",
+        "/people/{id}": {
+            "get": {
+                "operationId": "get-people",
+                "summary": "Get People",
                 "parameters": [{
-                    "name": "listingRequestId",
+                    "name": "id",
                     "in": "path",
                     "required": true,
                     "type": "string",
-                    "default": "L012",
-                    "enum": ["L012"]
+                    "enum": ["2959d456-cee3-4011-bf16-e028025ca775"]
                 }, {
                     "name": "Source-System",
                     "in": "header",
-                    "required": true,
                     "type": "string",
                     "default": "CFT",
                     "enum": ["CFT"]
                 }, {
                     "name": "Destination-System",
                     "in": "header",
-                    "required": true,
                     "type": "string",
-                    "default": "S&L",
-                    "enum": ["S&L"]
+                    "default": "E",
+                    "enum": ["E"]
                 }, {
                     "name": "Request-Created-At",
                     "in": "header",
-                    "required": true,
                     "type": "string",
                     "default": "2018-01-29 20:36:01Z",
                     "enum": ["2018-01-29 20:36:01Z"]
                 }, {
                     "name": "Request-Processed-At",
                     "in": "header",
-                    "required": true,
                     "type": "string",
                     "default": "2018-01-29 20:36:01Z",
                     "enum": ["2018-01-29 20:36:01Z"]
                 }, {
-                    "name": "Request-Type",
+                    "name": "Request-Type ",
                     "in": "header",
-                    "required": true,
                     "type": "string",
                     "default": "THEFT",
-                    "enum": ["THEFT", "ASSAULT"]
-                }, {
-                    "name": "Accept",
-                    "in": "header",
-                    "required": true,
-                    "type": "string",
-                    "default": "application/json",
-                    "enum": ["application/json"]
+                    "enum": ["THEFT"]
                 }, {
                     "name": "Content-Type",
                     "in": "header",
-                    "required": true,
                     "type": "string",
                     "default": "application/json",
                     "enum": ["application/json"]
                 }, {
-                    "name": "body",
-                    "in": "body",
-                    "schema": {
-                        "example": "{\n  \"deleteMethod\": \"C\",\n  \"deleteMessage\": \"Cancel the request as no longer needed settled out of court\",\n}"
-                    }
+                    "name": "Accept",
+                    "in": "header",
+                    "type": "string",
+                    "default": "application/json",
+                    "enum": ["application/json"]
                 }],
-                "consumes": ["application/json"],
                 "produces": ["application/json"],
                 "responses": {
                     "200": {
                         "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/def-get-people-elinks"
+                        },
                         "examples": {
                             "application/json": {
-                                "response code": 200,
-                                "description": "The request was received successfully."
+                                "id": "2959d456-cee3-4011-bf16-e028025ca775",
+                                "personal_code": "4925359",
+                                "title": "Ms",
+                                "known_as": "Michelle",
+                                "surname": "McKeown",
+                                "fullname": "Ms Michelle McKeown",
+                                "email": "DDJ.Michelle.McKeown@railsdxw.onmicrosoft.com",
+                                "appointments": [{
+                                    "role": "District Judge",
+                                    "type": "Courts",
+                                    "court_name": "Liverpool County Court",
+                                    "court_type": "County Court",
+                                    "circuit": "North West",
+                                    "location": null,
+                                    "bench": null,
+                                    "is_principal": true
+                                }, {
+                                    "role": "Tribunal Judge",
+                                    "type": "Tribunals",
+                                    "court_name": "Social Entitlement",
+                                    "court_type": "First Tier Tribunal",
+                                    "circuit": null,
+                                    "location": null,
+                                    "bench": null,
+                                    "is_principal": false
+                                }],
+                                "authorisations": [{
+                                    "jurisdiction": "Tribunals",
+                                    "tickets": ["04 - Incapacity Benefit Employment Support", "03 - Disability Living Allowance", "Social Security and Child Support"]
+                                }, {
+                                    "jurisdiction": "Family",
+                                    "tickets": ["Private Law"]
+                                }]
                             }
                         }
                     }
@@ -2891,6 +2910,85 @@
             "example": {
                 "deleteMethod": "C",
                 "deleteMessage": "Cancel the request as no longer needed settled out of court"
+            }
+        },
+        "Body-6": {
+            "example": {
+                "deleteMethod": "C",
+                "deleteMessage": "Cancel the request as no longer needed settled out of court"
+            }
+        },
+        "def-get-people-elinks": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "personal_code": {
+                    "type": "string"
+                },
+                "title": {
+                    "type": "string"
+                },
+                "known_as": {
+                    "type": "string"
+                },
+                "surname": {
+                    "type": "string"
+                },
+                "fullname": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "appointments": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "role": {
+                                "type": "string"
+                            },
+                            "type": {
+                                "type": "string"
+                            },
+                            "court_name": {
+                                "type": "string"
+                            },
+                            "court_type": {
+                                "type": "string"
+                            },
+                            "circuit": {
+                                "type": "string"
+                            },
+                            "location": {},
+                            "bench": {},
+                            "is_principal": {
+                                "type": "boolean"
+                            }
+                        },
+                        "required": ["role", "type", "court_name", "court_type", "circuit", "location", "bench", "is_principal"]
+                    }
+                },
+                "authorisations": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "jurisdiction": {
+                                "type": "string"
+                            },
+                            "tickets": {
+                                "type": "array",
+                                "items": {
+                                    "type": "string"
+                                }
+                            }
+                        },
+                        "required": ["jurisdiction", "tickets"]
+                    }
+                }
             }
         }
     },
