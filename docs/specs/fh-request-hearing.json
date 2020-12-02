@@ -1799,7 +1799,7 @@
         "/people/{id}": {
             "get": {
                 "operationId": "get-people",
-                "summary": "Get People",
+                "summary": "Get People By ID",
                 "parameters": [{
                     "name": "id",
                     "in": "path",
@@ -1892,6 +1892,84 @@
                                     "tickets": ["Private Law"]
                                 }]
                             }
+                        }
+                    }
+                }
+            }
+        },
+        "/people": {
+            "get": {
+                "operationId": "get-people-by-params",
+                "summary": "Get People By Params",
+                "parameters": [{
+                    "name": "updated_since",
+                    "in": "query",
+                    "type": "string",
+                    "default": "2018-04-10",
+                    "enum": ["2018-04-10"]
+                }, {
+                    "name": "per_page",
+                    "in": "query",
+                    "type": "string",
+                    "default": "2",
+                    "enum": ["2"]
+                }, {
+                    "name": "page",
+                    "in": "query",
+                    "type": "string",
+                    "default": "100",
+                    "enum": ["100"]
+                }, {
+                    "name": "Source-System",
+                    "in": "header",
+                    "type": "string",
+                    "default": "CFT",
+                    "enum": ["CFT"]
+                }, {
+                    "name": "Destination-System",
+                    "in": "header",
+                    "type": "string",
+                    "default": "E",
+                    "enum": ["E"]
+                }, {
+                    "name": "Request-Created-At",
+                    "in": "header",
+                    "type": "string",
+                    "default": "2018-01-29 20:36:01Z",
+                    "enum": ["2018-01-29 20:36:01Z"]
+                }, {
+                    "name": "Request-Processed-At",
+                    "in": "header",
+                    "type": "string",
+                    "enum": ["2018-01-29 20:36:01Z"]
+                }, {
+                    "name": "Request-Type",
+                    "in": "header",
+                    "type": "string",
+                    "default": "THEFT",
+                    "enum": ["THEFT"]
+                }, {
+                    "name": "Content-Type",
+                    "in": "header",
+                    "type": "string",
+                    "default": "application/json",
+                    "enum": ["application/json"]
+                }, {
+                    "name": "Accept",
+                    "in": "header",
+                    "type": "string",
+                    "default": "application/json",
+                    "enum": ["application/json"]
+                }],
+                "produces": ["application/json"],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/get-people-by-param-def"
+                        },
+                        "examples": {
+                            "application/json": "[\n    {\n\t\t\"id\": \"2959d456-cee3-4011-bf16-e028025ca775\",\n\t\t\"personal_code\": \"4925359\",\n\t\t\"title\": \"Ms\",\n\t\t\"known_as\": \"Michelle\",\n\t\t\"surname\": \"McKeown\",\n\t\t\"fullname\": \"Ms Michelle McKeown\",\n\t\t\"email\": \"DDJ.Michelle.McKeown@railsdxw.onmicrosoft.com\",\n\t\t\"appointments\": [\n\t\t\t{\n\t\t\t\t\"role\": \"District Judge\",\n\t\t\t\t\"type\": \"Courts\",\n\t\t\t\t\"court_name\": \"Liverpool County Court\",\n\t\t\t\t\"court_type\": \"County Court\",\n\t\t\t\t\"circuit\": \"North West\",\n\t\t\t\t\"location\": null,\n\t\t\t\t\"bench\": null,\n\t\t\t\t\"is_principal\": true\n\t\t\t},\n\t\t\t{\n\t\t\t\t\"role\": \"Tribunal Judge\",\n\t\t\t\t\"type\": \"Tribunals\",\n\t\t\t\t\"court_name\": \"Social Entitlement\",\n\t\t\t\t\"court_type\": \"First Tier Tribunal\",\n\t\t\t\t\"circuit\": null,\n\t\t\t\t\"location\": null,\n\t\t\t\t\"bench\": null,\n\t\t\t\t\"is_principal\": false\n\t\t\t}\n\t\t],\n\t\t\"authorisations\": [\n\t\t\t{\n\t\t\t\t\"jurisdiction\": \"Tribunals\",\n\t\t\t\t\"tickets\": [\n\t\t\t\t\t\"04 - Incapacity Benefit Employment Support\",\n\t\t\t\t\t\"03 - Disability Living Allowance\",\n\t\t\t\t\t\"Social Security and Child Support\"\n\t\t\t\t]\n\t\t\t},\n\t\t\t{\n\t\t\t\t\"jurisdiction\": \"Family\",\n\t\t\t\t\"tickets\": [\n\t\t\t\t\t\"Private Law\"\n\t\t\t\t]\n\t\t\t\n\t\t\t}\n\t\t]\n\t}\n]"
                         }
                     }
                 }
@@ -2989,6 +3067,83 @@
                         "required": ["jurisdiction", "tickets"]
                     }
                 }
+            }
+        },
+        "get-people-by-param-def": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "personal_code": {
+                        "type": "string"
+                    },
+                    "title": {
+                        "type": "string"
+                    },
+                    "known_as": {
+                        "type": "string"
+                    },
+                    "surname": {
+                        "type": "string"
+                    },
+                    "fullname": {
+                        "type": "string"
+                    },
+                    "email": {
+                        "type": "string"
+                    },
+                    "appointments": {
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "role": {
+                                    "type": "string"
+                                },
+                                "type": {
+                                    "type": "string"
+                                },
+                                "court_name": {
+                                    "type": "string"
+                                },
+                                "court_type": {
+                                    "type": "string"
+                                },
+                                "circuit": {
+                                    "type": "string"
+                                },
+                                "location": {},
+                                "bench": {},
+                                "is_principal": {
+                                    "type": "boolean"
+                                }
+                            },
+                            "required": ["role", "type", "court_name", "court_type", "circuit", "location", "bench", "is_principal"]
+                        }
+                    },
+                    "authorisations": {
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "jurisdiction": {
+                                    "type": "string"
+                                },
+                                "tickets": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "string"
+                                    }
+                                }
+                            },
+                            "required": ["jurisdiction", "tickets"]
+                        }
+                    }
+                },
+                "required": ["id", "personal_code", "title", "known_as", "surname", "fullname", "email", "appointments", "authorisations"]
             }
         }
     },
