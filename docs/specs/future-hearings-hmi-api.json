@@ -1805,46 +1805,54 @@
                     "in": "path",
                     "required": true,
                     "type": "string",
-                    "enum": ["2959d456-cee3-4011-bf16-e028025ca775"]
+                    "default": "PID012",
+                    "enum": ["PID012"]
                 }, {
                     "name": "Source-System",
                     "in": "header",
+                    "required": true,
                     "type": "string",
                     "default": "CFT",
                     "enum": ["CFT"]
                 }, {
                     "name": "Destination-System",
                     "in": "header",
+                    "required": true,
                     "type": "string",
-                    "default": "E",
-                    "enum": ["E"]
+                    "default": "MOCK",
+                    "enum": ["E", "MOCK"]
                 }, {
                     "name": "Request-Created-At",
                     "in": "header",
+                    "required": true,
                     "type": "string",
                     "default": "2018-01-29 20:36:01Z",
                     "enum": ["2018-01-29 20:36:01Z"]
                 }, {
                     "name": "Request-Processed-At",
                     "in": "header",
+                    "required": true,
                     "type": "string",
                     "default": "2018-01-29 20:36:01Z",
                     "enum": ["2018-01-29 20:36:01Z"]
                 }, {
-                    "name": "Request-Type ",
+                    "name": "Request-Type",
                     "in": "header",
+                    "required": true,
                     "type": "string",
                     "default": "THEFT",
                     "enum": ["THEFT"]
                 }, {
                     "name": "Content-Type",
                     "in": "header",
+                    "required": true,
                     "type": "string",
                     "default": "application/json",
                     "enum": ["application/json"]
                 }, {
                     "name": "Accept",
                     "in": "header",
+                    "required": true,
                     "type": "string",
                     "default": "application/json",
                     "enum": ["application/json"]
@@ -1922,41 +1930,48 @@
                 }, {
                     "name": "Source-System",
                     "in": "header",
+                    "required": true,
                     "type": "string",
                     "default": "CFT",
                     "enum": ["CFT"]
                 }, {
                     "name": "Destination-System",
                     "in": "header",
+                    "required": true,
                     "type": "string",
-                    "default": "E",
-                    "enum": ["E"]
+                    "default": "MOCK",
+                    "enum": ["E", "MOCK"]
                 }, {
                     "name": "Request-Created-At",
                     "in": "header",
+                    "required": true,
                     "type": "string",
                     "default": "2018-01-29 20:36:01Z",
                     "enum": ["2018-01-29 20:36:01Z"]
                 }, {
                     "name": "Request-Processed-At",
                     "in": "header",
+                    "required": true,
                     "type": "string",
                     "enum": ["2018-01-29 20:36:01Z"]
                 }, {
                     "name": "Request-Type",
                     "in": "header",
+                    "required": true,
                     "type": "string",
                     "default": "THEFT",
                     "enum": ["THEFT"]
                 }, {
                     "name": "Content-Type",
                     "in": "header",
+                    "required": true,
                     "type": "string",
                     "default": "application/json",
                     "enum": ["application/json"]
                 }, {
                     "name": "Accept",
                     "in": "header",
+                    "required": true,
                     "type": "string",
                     "default": "application/json",
                     "enum": ["application/json"]
