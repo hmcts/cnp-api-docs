@@ -2053,6 +2053,131 @@
                     }
                 }
             }
+        },
+        "/resources/video-hearing": {
+            "post": {
+                "operationId": "request-video-hearing",
+                "summary": "Request Video Hearing",
+                "parameters": [{
+                    "name": "Source-System",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "default": "CFT",
+                    "enum": ["CFT"]
+                }, {
+                    "name": "Destination-System",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "default": "MOCK",
+                    "enum": ["MOCK", "VH"]
+                }, {
+                    "name": "Request-Created-At",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "default": "2018-01-29 20:36:01Z",
+                    "enum": ["2018-01-29 20:36:01Z"]
+                }, {
+                    "name": "Request-Processed-At",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "default": "2018-01-29 20:36:01Z",
+                    "enum": ["2018-01-29 20:36:01Z"]
+                }, {
+                    "name": "Request-Type",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "default": "THEFT",
+                    "enum": ["THEFT", "ASSAULT"]
+                }, {
+                    "name": "Content-Type",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "default": "application/json",
+                    "enum": ["application/json"]
+                }, {
+                    "name": "Accept",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "default": "application/json",
+                    "enum": ["application/json"]
+                }, {
+                    "name": "Authorization",
+                    "in": "header",
+                    "required": true,
+                    "type": "string"
+                }, {
+                    "name": "def-request-video-hearing",
+                    "in": "body",
+                    "schema": {
+                        "$ref": "#/definitions/def-request-video-hearing"
+                    }
+                }],
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "responses": {
+                    "201": {
+                        "description": "",
+                        "examples": {
+                            "application/json": {
+                                "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+                                "scheduled_date_time": "2020-12-11T10:01:00.155Z",
+                                "scheduled_duration": 0,
+                                "hearing_venue_name": "string",
+                                "case_type_name": "string",
+                                "hearing_type_name": "string",
+                                "cases": [{
+                                    "number": "string",
+                                    "name": "string",
+                                    "is_lead_case": true
+                                }],
+                                "participants": [{
+                                    "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+                                    "display_name": "string",
+                                    "case_role_name": "string",
+                                    "hearing_role_name": "string",
+                                    "user_role_name": "string",
+                                    "title": "string",
+                                    "first_name": "string",
+                                    "middle_names": "string",
+                                    "last_name": "string",
+                                    "contact_email": "string",
+                                    "telephone_number": "string",
+                                    "username": "string",
+                                    "organisation": "string",
+                                    "representee": "string"
+                                }],
+                                "hearing_room_name": "string",
+                                "other_information": "string",
+                                "created_date": "2020-12-11T10:01:00.155Z",
+                                "created_by": "string",
+                                "updated_by": "string",
+                                "updated_date": "2020-12-11T10:01:00.155Z",
+                                "confirmed_by": "string",
+                                "confirmed_date": "2020-12-11T10:01:00.155Z",
+                                "status": "Booked",
+                                "questionnaire_not_required": true,
+                                "audio_recording_required": true,
+                                "cancel_reason": "string",
+                                "endpoints": [{
+                                    "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+                                    "display_name": "string",
+                                    "sip": "string",
+                                    "pin": "string",
+                                    "defence_advocate_id": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
+                                }],
+                                "group_id": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
+                            }
+                        }
+                    }
+                }
+            }
         }
     },
     "definitions": {
@@ -3223,6 +3348,154 @@
                     }
                 },
                 "required": ["id", "personal_code", "title", "known_as", "surname", "fullname", "email", "appointments", "authorisations"]
+            }
+        },
+        "def-request-video-hearing": {
+            "type": "object",
+            "properties": {
+                "scheduled_date_time": {
+                    "type": "string"
+                },
+                "scheduled_duration": {
+                    "type": "integer"
+                },
+                "hearing_venue_name": {
+                    "type": "string"
+                },
+                "case_type_name": {
+                    "type": "string"
+                },
+                "hearing_type_name": {
+                    "type": "string"
+                },
+                "cases": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "number": {
+                                "type": "string"
+                            },
+                            "name": {
+                                "type": "string"
+                            },
+                            "is_lead_case": {
+                                "type": "boolean"
+                            }
+                        },
+                        "required": ["number", "name", "is_lead_case"]
+                    }
+                },
+                "participants": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "title": {
+                                "type": "string"
+                            },
+                            "first_name": {
+                                "type": "string"
+                            },
+                            "middle_names": {
+                                "type": "string"
+                            },
+                            "last_name": {
+                                "type": "string"
+                            },
+                            "contact_email": {
+                                "type": "string"
+                            },
+                            "telephone_number": {
+                                "type": "string"
+                            },
+                            "username": {
+                                "type": "string"
+                            },
+                            "display_name": {
+                                "type": "string"
+                            },
+                            "case_role_name": {
+                                "type": "string"
+                            },
+                            "hearing_role_name": {
+                                "type": "string"
+                            },
+                            "representee": {
+                                "type": "string"
+                            },
+                            "organisation_name": {
+                                "type": "string"
+                            }
+                        },
+                        "required": ["title", "first_name", "middle_names", "last_name", "contact_email", "telephone_number", "username", "display_name", "case_role_name", "hearing_role_name", "representee", "organisation_name"]
+                    }
+                },
+                "hearing_room_name": {
+                    "type": "string"
+                },
+                "other_information": {
+                    "type": "string"
+                },
+                "created_by": {
+                    "type": "string"
+                },
+                "questionnaire_not_required": {
+                    "type": "boolean"
+                },
+                "audio_recording_required": {
+                    "type": "boolean"
+                },
+                "endpoints": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "display_name": {
+                                "type": "string"
+                            },
+                            "defence_advocate_username": {
+                                "type": "string"
+                            }
+                        },
+                        "required": ["display_name", "defence_advocate_username"]
+                    }
+                }
+            },
+            "example": {
+                "scheduled_date_time": "2020-12-11T10:01:00.153Z",
+                "scheduled_duration": 0,
+                "hearing_venue_name": "string",
+                "case_type_name": "string",
+                "hearing_type_name": "string",
+                "cases": [{
+                    "number": "string",
+                    "name": "string",
+                    "is_lead_case": true
+                }],
+                "participants": [{
+                    "title": "string",
+                    "first_name": "string",
+                    "middle_names": "string",
+                    "last_name": "string",
+                    "contact_email": "string",
+                    "telephone_number": "string",
+                    "username": "string",
+                    "display_name": "string",
+                    "case_role_name": "string",
+                    "hearing_role_name": "string",
+                    "representee": "string",
+                    "organisation_name": "string"
+                }],
+                "hearing_room_name": "string",
+                "other_information": "string",
+                "created_by": "string",
+                "questionnaire_not_required": true,
+                "audio_recording_required": true,
+                "endpoints": [{
+                    "display_name": "string",
+                    "defence_advocate_username": "string"
+                }]
             }
         }
     },
