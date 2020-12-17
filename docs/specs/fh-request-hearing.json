@@ -695,17 +695,6 @@
                     "type": "string",
                     "enum": ["01/29/2018 20:36:01"]
                 }, {
-                    "name": "caseCourt",
-                    "in": "query",
-                    "type": "string",
-                    "enum": ["Milton Keynes"]
-                }, {
-                    "name": "room-Name",
-                    "in": "query",
-                    "type": "string",
-                    "default": "R012",
-                    "enum": ["R012"]
-                }, {
                     "name": "Source-System",
                     "in": "header",
                     "required": true,
