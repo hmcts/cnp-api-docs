@@ -1798,6 +1798,7 @@
         },
         "/people/{id}": {
             "get": {
+                "description": "Get People By ID",
                 "operationId": "get-people",
                 "summary": "Get People By ID",
                 "parameters": [{
@@ -1905,6 +1906,7 @@
                 }
             },
             "put": {
+                "description": "Update People",
                 "operationId": "update-people",
                 "summary": "Update People",
                 "parameters": [{
@@ -1971,6 +1973,7 @@
         },
         "/people": {
             "get": {
+                "description": "Get People By Params",
                 "operationId": "get-people-by-params",
                 "summary": "Get People By Params",
                 "parameters": [{
@@ -2056,6 +2059,7 @@
         },
         "/resources/video-hearing": {
             "post": {
+                "description": "Request Video Hearing",
                 "operationId": "request-video-hearing",
                 "summary": "Request Video Hearing",
                 "parameters": [{
@@ -2177,10 +2181,80 @@
                         }
                     }
                 }
+            },
+            "get": {
+                "operationId": "retrieve-video-hering-by-user",
+                "summary": "Retrieve Video Hering By User",
+                "parameters": [{
+                    "name": "username",
+                    "in": "query",
+                    "type": "string",
+                    "default": "VHU012",
+                    "enum": ["VHU012"]
+                }, {
+                    "name": "Source-System",
+                    "in": "header",
+                    "type": "string",
+                    "default": "CFT",
+                    "enum": ["CFT"]
+                }, {
+                    "name": "Destination-System",
+                    "in": "header",
+                    "type": "string",
+                    "default": "MOCK",
+                    "enum": ["MOCK", "VH"]
+                }, {
+                    "name": "Request-Created-At",
+                    "in": "header",
+                    "type": "string",
+                    "default": "2018-01-29 20:36:01Z",
+                    "enum": ["2018-01-29 20:36:01Z"]
+                }, {
+                    "name": "Request-Processed-At",
+                    "in": "header",
+                    "type": "string",
+                    "default": "2018-01-29 20:36:01Z",
+                    "enum": ["2018-01-29 20:36:01Z"]
+                }, {
+                    "name": "Request-Type",
+                    "in": "header",
+                    "type": "string",
+                    "default": "THEFT",
+                    "enum": ["THEFT", "ASSAULT"]
+                }, {
+                    "name": "Content-Type",
+                    "in": "header",
+                    "type": "string",
+                    "default": "application/json",
+                    "enum": ["application/json"]
+                }, {
+                    "name": "Accept",
+                    "in": "header",
+                    "type": "string",
+                    "default": "application/json",
+                    "enum": ["application/json"]
+                }, {
+                    "name": "Authorization",
+                    "in": "header",
+                    "type": "string"
+                }],
+                "produces": ["application/json"],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/def-res-vh-by-user"
+                        },
+                        "examples": {
+                            "application/json": "[\n  {\n    \"id\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\",\n    \"scheduled_date_time\": \"2020-12-17T10:08:13.060Z\",\n    \"scheduled_duration\": 0,\n    \"hearing_venue_name\": \"string\",\n    \"case_type_name\": \"string\",\n    \"hearing_type_name\": \"string\",\n    \"cases\": [\n      {\n        \"number\": \"string\",\n        \"name\": \"string\",\n        \"is_lead_case\": true\n      }\n    ],\n    \"participants\": [\n      {\n        \"id\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\",\n        \"display_name\": \"string\",\n        \"case_role_name\": \"string\",\n        \"hearing_role_name\": \"string\",\n        \"user_role_name\": \"string\",\n        \"title\": \"string\",\n        \"first_name\": \"string\",\n        \"middle_names\": \"string\",\n        \"last_name\": \"string\",\n        \"contact_email\": \"string\",\n        \"telephone_number\": \"string\",\n        \"username\": \"string\",\n        \"organisation\": \"string\",\n        \"representee\": \"string\"\n      }\n    ],\n    \"hearing_room_name\": \"string\",\n    \"other_information\": \"string\",\n    \"created_date\": \"2020-12-17T10:08:13.060Z\",\n    \"created_by\": \"string\",\n    \"updated_by\": \"string\",\n    \"updated_date\": \"2020-12-17T10:08:13.060Z\",\n    \"confirmed_by\": \"string\",\n    \"confirmed_date\": \"2020-12-17T10:08:13.060Z\",\n    \"status\": \"Booked\",\n    \"questionnaire_not_required\": true,\n    \"audio_recording_required\": true,\n    \"cancel_reason\": \"string\",\n    \"endpoints\": [\n      {\n        \"id\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\",\n        \"display_name\": \"string\",\n        \"sip\": \"string\",\n        \"pin\": \"string\",\n        \"defence_advocate_id\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\"\n      }\n    ],\n    \"group_id\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\"\n  }\n]"
+                        }
+                    }
+                }
             }
         },
         "/resources/video-hearing/{hearingId}": {
             "get": {
+                "description": "Retrieve Video Hearings",
                 "operationId": "retrieve-video-hearings",
                 "summary": "Retrieve Video Hearings",
                 "parameters": [{
@@ -3772,6 +3846,165 @@
                 "group_id": {
                     "type": "string"
                 }
+            }
+        },
+        "def-res-vh-by-user": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "scheduled_date_time": {
+                        "type": "string"
+                    },
+                    "scheduled_duration": {
+                        "type": "integer"
+                    },
+                    "hearing_venue_name": {
+                        "type": "string"
+                    },
+                    "case_type_name": {
+                        "type": "string"
+                    },
+                    "hearing_type_name": {
+                        "type": "string"
+                    },
+                    "cases": {
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "number": {
+                                    "type": "string"
+                                },
+                                "name": {
+                                    "type": "string"
+                                },
+                                "is_lead_case": {
+                                    "type": "boolean"
+                                }
+                            },
+                            "required": ["number", "name", "is_lead_case"]
+                        }
+                    },
+                    "participants": {
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "id": {
+                                    "type": "string"
+                                },
+                                "display_name": {
+                                    "type": "string"
+                                },
+                                "case_role_name": {
+                                    "type": "string"
+                                },
+                                "hearing_role_name": {
+                                    "type": "string"
+                                },
+                                "user_role_name": {
+                                    "type": "string"
+                                },
+                                "title": {
+                                    "type": "string"
+                                },
+                                "first_name": {
+                                    "type": "string"
+                                },
+                                "middle_names": {
+                                    "type": "string"
+                                },
+                                "last_name": {
+                                    "type": "string"
+                                },
+                                "contact_email": {
+                                    "type": "string"
+                                },
+                                "telephone_number": {
+                                    "type": "string"
+                                },
+                                "username": {
+                                    "type": "string"
+                                },
+                                "organisation": {
+                                    "type": "string"
+                                },
+                                "representee": {
+                                    "type": "string"
+                                }
+                            },
+                            "required": ["id", "display_name", "case_role_name", "hearing_role_name", "user_role_name", "title", "first_name", "middle_names", "last_name", "contact_email", "telephone_number", "username", "organisation", "representee"]
+                        }
+                    },
+                    "hearing_room_name": {
+                        "type": "string"
+                    },
+                    "other_information": {
+                        "type": "string"
+                    },
+                    "created_date": {
+                        "type": "string"
+                    },
+                    "created_by": {
+                        "type": "string"
+                    },
+                    "updated_by": {
+                        "type": "string"
+                    },
+                    "updated_date": {
+                        "type": "string"
+                    },
+                    "confirmed_by": {
+                        "type": "string"
+                    },
+                    "confirmed_date": {
+                        "type": "string"
+                    },
+                    "status": {
+                        "type": "string"
+                    },
+                    "questionnaire_not_required": {
+                        "type": "boolean"
+                    },
+                    "audio_recording_required": {
+                        "type": "boolean"
+                    },
+                    "cancel_reason": {
+                        "type": "string"
+                    },
+                    "endpoints": {
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "id": {
+                                    "type": "string"
+                                },
+                                "display_name": {
+                                    "type": "string"
+                                },
+                                "sip": {
+                                    "type": "string"
+                                },
+                                "pin": {
+                                    "type": "string"
+                                },
+                                "defence_advocate_id": {
+                                    "type": "string"
+                                }
+                            },
+                            "required": ["id", "display_name", "sip", "pin", "defence_advocate_id"]
+                        }
+                    },
+                    "group_id": {
+                        "type": "string"
+                    }
+                },
+                "required": ["id", "scheduled_date_time", "scheduled_duration", "hearing_venue_name", "case_type_name", "hearing_type_name", "cases", "participants", "hearing_room_name", "other_information", "created_date", "created_by", "updated_by", "updated_date", "confirmed_by", "confirmed_date", "status", "questionnaire_not_required", "audio_recording_required", "cancel_reason", "endpoints", "group_id"]
             }
         }
     },
