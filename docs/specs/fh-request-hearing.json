@@ -685,15 +685,37 @@
                 "operationId": "get-sessions",
                 "summary": "Get Sessions",
                 "parameters": [{
-                    "name": "sessionStartDate",
+                    "name": "requestStartDate",
                     "in": "query",
                     "type": "string",
                     "enum": ["01/29/2018 20:36:01"]
                 }, {
-                    "name": "sessionEndDate",
+                    "name": "requestEndDate",
                     "in": "query",
                     "type": "string",
                     "enum": ["01/29/2018 20:36:01"]
+                }, {
+                    "name": "requestSessionType",
+                    "in": "query",
+                    "required": true,
+                    "type": "string",
+                    "default": "ADHOC",
+                    "enum": ["ADHOC"]
+                }, {
+                    "name": "requestJudgeType",
+                    "in": "query",
+                    "type": "string",
+                    "enum": ["AC"]
+                }, {
+                    "name": "requestLocationId",
+                    "in": "query",
+                    "type": "string",
+                    "enum": ["354"]
+                }, {
+                    "name": "requestDuration",
+                    "in": "query",
+                    "type": "string",
+                    "enum": ["360"]
                 }, {
                     "name": "Source-System",
                     "in": "header",
@@ -2172,6 +2194,7 @@
                 }
             },
             "get": {
+                "description": "Retrieve Video Hering By User",
                 "operationId": "retrieve-video-hering-by-user",
                 "summary": "Retrieve Video Hering By User",
                 "parameters": [{
