@@ -2085,8 +2085,8 @@
                     "in": "header",
                     "required": true,
                     "type": "string",
-                    "default": "MOCK",
-                    "enum": ["MOCK", "VH"]
+                    "default": "VHMOCK",
+                    "enum": ["VHMOCK", "VH"]
                 }, {
                     "name": "Request-Created-At",
                     "in": "header",
@@ -2215,8 +2215,8 @@
                     "in": "header",
                     "required": true,
                     "type": "string",
-                    "default": "MOCK",
-                    "enum": ["MOCK", "VH"]
+                    "default": "VHMOCK",
+                    "enum": ["VHMOCK", "VH"]
                 }, {
                     "name": "Request-Created-At",
                     "in": "header",
@@ -2297,8 +2297,8 @@
                     "in": "header",
                     "required": true,
                     "type": "string",
-                    "default": "MOCK",
-                    "enum": ["MOCK", "VH"]
+                    "default": "VHMOCK",
+                    "enum": ["VHMOCK", "VH"]
                 }, {
                     "name": "Request-Created-At",
                     "in": "header",
