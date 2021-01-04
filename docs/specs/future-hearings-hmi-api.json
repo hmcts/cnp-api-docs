@@ -4,7 +4,7 @@
         "title": "hmi-apim-api",
         "version": "1.0"
     },
-    "host": "hmi-apim.dev.platform.hmcts.net",
+    "host": "hmi-apim.test.platform.hmcts.net",
     "basePath": "/hmi",
     "schemes": ["http", "https"],
     "securityDefinitions": {
@@ -695,13 +695,6 @@
                     "type": "string",
                     "enum": ["01/29/2018 20:36:01"]
                 }, {
-                    "name": "requestSessionType",
-                    "in": "query",
-                    "required": true,
-                    "type": "string",
-                    "default": "ADHOC",
-                    "enum": ["ADHOC"]
-                }, {
                     "name": "requestJudgeType",
                     "in": "query",
                     "type": "string",
@@ -716,6 +709,13 @@
                     "in": "query",
                     "type": "string",
                     "enum": ["360"]
+                }, {
+                    "name": "requestSessionType",
+                    "in": "query",
+                    "required": true,
+                    "type": "string",
+                    "default": "ADHOC",
+                    "enum": ["ADHOC"]
                 }, {
                     "name": "Source-System",
                     "in": "header",
