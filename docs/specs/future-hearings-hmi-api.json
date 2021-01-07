@@ -712,7 +712,6 @@
                 }, {
                     "name": "requestSessionType",
                     "in": "query",
-                    "required": true,
                     "type": "string",
                     "default": "ADHOC",
                     "enum": ["ADHOC"]
