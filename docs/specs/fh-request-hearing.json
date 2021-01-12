@@ -2400,6 +2400,17 @@
                     }
                 }
             }
+        },
+        "/emulator-health": {
+            "get": {
+                "operationId": "emulator-health",
+                "summary": "Emulator-Health",
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                }
+            }
         }
     },
     "definitions": {
