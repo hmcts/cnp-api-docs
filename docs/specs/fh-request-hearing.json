@@ -343,18 +343,6 @@
                 }
             }
         },
-        "/": {
-            "get": {
-                "description": "Health-Check",
-                "operationId": "health-check",
-                "summary": "Health-Check",
-                "responses": {
-                    "200": {
-                        "description": ""
-                    }
-                }
-            }
-        },
         "/resources": {
             "get": {
                 "description": "Retrieve list of resources",
@@ -2397,6 +2385,17 @@
                                 "group_id": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
                             }
                         }
+                    }
+                }
+            }
+        },
+        "/emulator-health": {
+            "get": {
+                "operationId": "emulator-health",
+                "summary": "Emulator-Health",
+                "responses": {
+                    "200": {
+                        "description": ""
                     }
                 }
             }
