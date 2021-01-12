@@ -343,6 +343,18 @@
                 }
             }
         },
+        "/": {
+            "get": {
+                "description": "Health-Check",
+                "operationId": "health-check",
+                "summary": "Health-Check",
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                }
+            }
+        },
         "/resources": {
             "get": {
                 "description": "Retrieve list of resources",
