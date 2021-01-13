@@ -4,7 +4,7 @@
         "title": "hmi-apim-api",
         "version": "1.0"
     },
-    "host": "hmi-apim.dev.platform.hmcts.net",
+    "host": "hmi-apim-svc-dev.azure-api.net",
     "basePath": "/hmi",
     "schemes": ["http", "https"],
     "securityDefinitions": {
@@ -2403,8 +2403,20 @@
         },
         "/emulator-health": {
             "get": {
+                "description": "Emulator-Health",
                 "operationId": "emulator-health",
                 "summary": "Emulator-Health",
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                }
+            }
+        },
+        "/pact-health": {
+            "get": {
+                "operationId": "pact-health",
+                "summary": "Pact-Health",
                 "responses": {
                     "200": {
                         "description": ""
