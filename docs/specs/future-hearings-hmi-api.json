@@ -4,26 +4,9 @@
         "title": "hmi-apim-api",
         "version": "1.0"
     },
-    "host": "hmi-apim-svc-dev.azure-api.net",
+    "host": "hmi-apim.dev.platform.hmcts.net",
     "basePath": "/hmi",
     "schemes": ["http", "https"],
-    "securityDefinitions": {
-        "apiKeyHeader": {
-            "type": "apiKey",
-            "name": "Ocp-Apim-Subscription-Key",
-            "in": "header"
-        },
-        "apiKeyQuery": {
-            "type": "apiKey",
-            "name": "subscription-key",
-            "in": "query"
-        }
-    },
-    "security": [{
-        "apiKeyHeader": []
-    }, {
-        "apiKeyQuery": []
-    }],
     "paths": {
         "/hearings": {
             "post": {
@@ -348,9 +331,15 @@
                 "description": "Health-Check",
                 "operationId": "health-check",
                 "summary": "Health-Check",
+                "produces": ["application/json"],
                 "responses": {
                     "200": {
-                        "description": ""
+                        "description": "",
+                        "examples": {
+                            "application/json": {
+                                "status": "Up"
+                            }
+                        }
                     }
                 }
             }
@@ -2415,6 +2404,7 @@
         },
         "/pact-health": {
             "get": {
+                "description": "Pact-Health",
                 "operationId": "pact-health",
                 "summary": "Pact-Health",
                 "responses": {
