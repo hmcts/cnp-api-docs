@@ -2413,6 +2413,23 @@
                     }
                 }
             }
+        },
+        "/direct-hearing/{hearing-id}": {
+            "post": {
+                "operationId": "direct-hearing",
+                "summary": "Direct Hearing",
+                "parameters": [{
+                    "name": "hearing-id",
+                    "in": "path",
+                    "required": true,
+                    "type": "string"
+                }],
+                "responses": {
+                    "202": {
+                        "description": ""
+                    }
+                }
+            }
         }
     },
     "definitions": {
