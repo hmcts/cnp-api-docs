@@ -161,17 +161,14 @@
                         }
                     }
                 }
-            }
-        },
-        "/hearings/{hearingIdCaseHQ}": {
+            },
             "get": {
                 "description": "Retrieve hearings",
                 "operationId": "retrieve-hearings",
                 "summary": "Retrieve Hearings",
                 "parameters": [{
                     "name": "hearingIdCaseHQ",
-                    "in": "path",
-                    "required": true,
+                    "in": "query",
                     "type": "string",
                     "default": "5f2bffce29c77b6fef1e7499",
                     "enum": ["5f2bffce29c77b6fef1e7499"]
