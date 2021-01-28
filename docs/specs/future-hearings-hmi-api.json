@@ -2421,7 +2421,7 @@
             "post": {
                 "description": "Direct Hearing",
                 "operationId": "direct-hearing",
-                "summary": "Direct Hearing",
+                "summary": "Direct Hearings",
                 "parameters": [{
                     "name": "hearingId",
                     "in": "path",
