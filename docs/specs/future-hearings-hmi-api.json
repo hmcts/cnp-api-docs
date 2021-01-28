@@ -2481,6 +2481,43 @@
                     }
                 }
             }
+        },
+        "/hearings/{hearingIdCaseHQ}": {
+            "get": {
+                "operationId": "retrieve-hearing-by-id",
+                "summary": "Retrieve Hearing By Id",
+                "parameters": [{
+                    "name": "hearingIdCaseHQ",
+                    "in": "path",
+                    "required": true,
+                    "type": "string",
+                    "default": "5f2bffce29c77b6fef1e7499",
+                    "enum": ["5f2bffce29c77b6fef1e7499"]
+                }],
+                "produces": ["application/json"],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "examples": {
+                            "application/json": {
+                                "listingRequestId": "5f2bffce29c77b6fef1e7488",
+                                "hearingIdCaseHQ": "5f2bffce29c77b6fef1e7499",
+                                "hearingType": "Crime",
+                                "hearingDate": "2020-01-28",
+                                "hearingStartTime": "08:45",
+                                "hearingEndTime": "10:45",
+                                "hearingCaseIdHMCTS": "5f2bffcee0b6aa870e82f007",
+                                "hearingSessionIdCaseHQ": "5f2bffceef36b0eaf339d884",
+                                "hearingTranslatorRequired": "No",
+                                "hearingCreatedDate": "2020-09-16",
+                                "hearingCreatedBy": "Donald Duck",
+                                "hearingVenueId": "V3455",
+                                "hearingRoomId": "R2345"
+                            }
+                        }
+                    }
+                }
+            }
         }
     },
     "definitions": {
