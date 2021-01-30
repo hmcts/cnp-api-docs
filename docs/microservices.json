@@ -15,6 +15,10 @@
     ],
     "groups": [
         {
+            "name": "HMI Gateway",
+            "colour": "#cc3300"
+        },
+        {
             "name": "IDAM",
             "colour": "#000000"
         },
@@ -92,6 +96,19 @@
         }
     ],
     "apis": [
+        {
+            "id": "hmi-gateway-api",
+            "name": "HMI API",
+            "group": "HMI Gateway",
+            "type": "api",
+            "description": "Future Hearings Gateway",
+            "repository": "https://github.com/hmcts/hmi-api-gateway-fh",
+            "spec": "https://hmcts.github.io/reform-api-docs/specs/fh-request-hearing.json",
+            "dependencies": [
+            ],
+            "apis": [],
+            "version": null
+        },
         {
             "id": "idam-api",
             "name": "IDAM API",
