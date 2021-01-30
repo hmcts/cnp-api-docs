@@ -161,21 +161,12 @@
                         }
                     }
                 }
-            }
-        },
-        "/hearings/{hearingIdCaseHQ}": {
+            },
             "get": {
                 "description": "Retrieve hearings",
                 "operationId": "retrieve-hearings",
                 "summary": "Retrieve Hearings",
                 "parameters": [{
-                    "name": "hearingIdCaseHQ",
-                    "in": "path",
-                    "required": true,
-                    "type": "string",
-                    "default": "5f2bffce29c77b6fef1e7499",
-                    "enum": ["5f2bffce29c77b6fef1e7499"]
-                }, {
                     "name": "hearingDate",
                     "in": "query",
                     "type": "string",
@@ -2417,17 +2408,12 @@
                 }
             }
         },
-        "/hearings/{hearingId}/sessions/{sessionId}": {
+        "/hearings/sessions/{sessionId}": {
             "post": {
                 "description": "Direct Hearing",
                 "operationId": "direct-hearing",
                 "summary": "Direct Hearings",
                 "parameters": [{
-                    "name": "hearingId",
-                    "in": "path",
-                    "required": true,
-                    "type": "string"
-                }, {
                     "name": "sessionId",
                     "in": "path",
                     "required": true,
