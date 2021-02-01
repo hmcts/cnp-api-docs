@@ -27,8 +27,8 @@
                     "description": "Target/Backend system that is supposed to consume the request message.",
                     "required": true,
                     "type": "string",
-                    "default": "S&L",
-                    "enum": ["S&L"]
+                    "default": "SNL",
+                    "enum": ["SNL"]
                 }, {
                     "name": "Request-Created-At",
                     "in": "header",
@@ -104,8 +104,8 @@
                     "in": "header",
                     "required": true,
                     "type": "string",
-                    "default": "S&L",
-                    "enum": ["S&L"]
+                    "default": "SNL",
+                    "enum": ["SNL"]
                 }, {
                     "name": "Request-Created-At",
                     "in": "header",
@@ -190,8 +190,8 @@
                     "in": "header",
                     "required": true,
                     "type": "string",
-                    "default": "S&L",
-                    "enum": ["S&L"]
+                    "default": "SNL",
+                    "enum": ["SNL"]
                 }, {
                     "name": "Request-Created-At",
                     "in": "header",
@@ -265,7 +265,7 @@
                     "description": "Target/Backend system that is supposed to consume the request message.",
                     "required": true,
                     "type": "string",
-                    "enum": ["S&L"]
+                    "enum": ["SNL"]
                 }, {
                     "name": "Request-Created-At",
                     "in": "header",
@@ -354,7 +354,7 @@
                     "in": "header",
                     "required": true,
                     "type": "string",
-                    "enum": ["S&L"]
+                    "enum": ["SNL"]
                 }, {
                     "name": "Request-Created-At",
                     "in": "header",
@@ -509,7 +509,7 @@
                     "in": "header",
                     "required": true,
                     "type": "string",
-                    "enum": ["S&L"]
+                    "enum": ["SNL"]
                 }, {
                     "name": "Request-Created-At",
                     "in": "header",
@@ -613,7 +613,7 @@
                     "description": "Target/Backend system that is supposed to consume the request message.",
                     "required": true,
                     "type": "string",
-                    "enum": ["S&L"]
+                    "enum": ["SNL"]
                 }, {
                     "name": "Request-Created-At",
                     "in": "header",
@@ -710,8 +710,8 @@
                     "in": "header",
                     "required": true,
                     "type": "string",
-                    "default": "S&L",
-                    "enum": ["S&L"]
+                    "default": "SNL",
+                    "enum": ["SNL"]
                 }, {
                     "name": "Request-Created-At",
                     "in": "header",
@@ -776,8 +776,8 @@
                     "in": "header",
                     "required": true,
                     "type": "string",
-                    "default": "S&L",
-                    "enum": ["S&L"]
+                    "default": "SNL",
+                    "enum": ["SNL"]
                 }, {
                     "name": "Request-Created-At",
                     "in": "header",
@@ -859,8 +859,8 @@
                     "in": "header",
                     "required": true,
                     "type": "string",
-                    "default": "S&L",
-                    "enum": ["S&L"]
+                    "default": "SNL",
+                    "enum": ["SNL"]
                 }, {
                     "name": "Request-Created-At",
                     "in": "header",
@@ -938,8 +938,8 @@
                     "in": "header",
                     "required": true,
                     "type": "string",
-                    "default": "S&L",
-                    "enum": ["S&L"]
+                    "default": "SNL",
+                    "enum": ["SNL"]
                 }, {
                     "name": "Request-Created-At",
                     "in": "header",
@@ -1028,7 +1028,7 @@
                     "in": "header",
                     "required": true,
                     "type": "string",
-                    "enum": ["S&L"]
+                    "enum": ["SNL"]
                 }, {
                     "name": "Request-Created-At",
                     "in": "header",
@@ -1096,8 +1096,8 @@
                     "in": "header",
                     "required": true,
                     "type": "string",
-                    "default": "S&L",
-                    "enum": ["S&L"]
+                    "default": "SNL",
+                    "enum": ["SNL"]
                 }, {
                     "name": "Request-Created-At",
                     "in": "header",
@@ -1184,8 +1184,8 @@
                     "in": "header",
                     "required": true,
                     "type": "string",
-                    "default": "S&L",
-                    "enum": ["S&L"]
+                    "default": "SNL",
+                    "enum": ["SNL"]
                 }, {
                     "name": "Request-Created-At",
                     "in": "header",
@@ -1260,8 +1260,8 @@
                     "in": "header",
                     "required": true,
                     "type": "string",
-                    "default": "S&L",
-                    "enum": ["S&L"]
+                    "default": "SNL",
+                    "enum": ["SNL"]
                 }, {
                     "name": "Request-Created-At",
                     "in": "header",
@@ -1329,8 +1329,8 @@
                     "in": "header",
                     "required": true,
                     "type": "string",
-                    "default": "S&L",
-                    "enum": ["S&L"]
+                    "default": "SNL",
+                    "enum": ["SNL"]
                 }, {
                     "name": "Request-Created-At",
                     "in": "header",
@@ -1412,8 +1412,8 @@
                     "in": "header",
                     "required": true,
                     "type": "string",
-                    "default": "S&L",
-                    "enum": ["S&L"]
+                    "default": "SNL",
+                    "enum": ["SNL"]
                 }, {
                     "name": "Request-Created-At",
                     "in": "header",
@@ -1497,8 +1497,8 @@
                     "in": "header",
                     "required": true,
                     "type": "string",
-                    "default": "S&L",
-                    "enum": ["S&L"]
+                    "default": "SNL",
+                    "enum": ["SNL"]
                 }, {
                     "name": "Request-Created-At",
                     "in": "header",
@@ -1654,8 +1654,8 @@
                     "in": "header",
                     "required": true,
                     "type": "string",
-                    "default": "S&L",
-                    "enum": ["S&L"]
+                    "default": "SNL",
+                    "enum": ["SNL"]
                 }, {
                     "name": "Request-Created-At",
                     "in": "header",
@@ -1730,8 +1730,8 @@
                     "in": "header",
                     "required": true,
                     "type": "string",
-                    "default": "S&L",
-                    "enum": ["S&L"]
+                    "default": "SNL",
+                    "enum": ["SNL"]
                 }, {
                     "name": "Request-Created-At",
                     "in": "header",
@@ -2279,8 +2279,8 @@
                     "in": "header",
                     "required": true,
                     "type": "string",
-                    "default": "VHMOCK",
-                    "enum": ["VHMOCK", "VH"]
+                    "default": "MOCK",
+                    "enum": ["MOCK", "VH"]
                 }, {
                     "name": "Request-Created-At",
                     "in": "header",
