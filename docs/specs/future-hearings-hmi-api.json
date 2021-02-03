@@ -320,7 +320,7 @@
                 }
             }
         },
-        "/health/liveness": {
+        "/": {
             "get": {
                 "description": "Health-Check",
                 "operationId": "health-check",
