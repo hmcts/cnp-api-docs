@@ -320,7 +320,7 @@
                 }
             }
         },
-        "/": {
+        "/health/liveness": {
             "get": {
                 "description": "Health-Check",
                 "operationId": "health-check",
@@ -2380,6 +2380,173 @@
                                 "group_id": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
                             }
                         }
+                    }
+                }
+            },
+            "put": {
+                "operationId": "update-video-hearing",
+                "summary": "Update Video Hearing",
+                "parameters": [{
+                    "name": "hearingId",
+                    "in": "path",
+                    "required": true,
+                    "type": "string",
+                    "default": "VH1234",
+                    "enum": ["VH1234"]
+                }, {
+                    "name": "Source-System",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "default": "CFT",
+                    "enum": ["CFT"]
+                }, {
+                    "name": "Destination-System",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "default": "MOCK",
+                    "enum": ["MOCK", "VH"]
+                }, {
+                    "name": "Request-Created-At",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "default": "2018-01-29 20:36:01Z",
+                    "enum": ["2018-01-29 20:36:01Z"]
+                }, {
+                    "name": "Request-Processed-At",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "default": "2018-01-29 20:36:01Z",
+                    "enum": ["2018-01-29 20:36:01Z"]
+                }, {
+                    "name": "Request-Type",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "default": "THEFT",
+                    "enum": ["THEFT", "ASSAULT"]
+                }, {
+                    "name": "Content-Type",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "default": "application/json",
+                    "enum": ["application/json"]
+                }, {
+                    "name": "Accept",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "default": "application/json",
+                    "enum": ["application/json"]
+                }, {
+                    "name": "Authorization",
+                    "in": "header",
+                    "required": true,
+                    "type": "string"
+                }, {
+                    "name": "body",
+                    "in": "body",
+                    "schema": {
+                        "example": "{\n  \"id\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\",\n  \"scheduled_date_time\": \"2021-02-02T11:08:02.603Z\",\n  \"scheduled_duration\": 0,\n  \"hearing_venue_name\": \"string\",\n  \"case_type_name\": \"string\",\n  \"hearing_type_name\": \"string\",\n  \"cases\": [\n    {\n      \"number\": \"string\",\n      \"name\": \"string\",\n      \"is_lead_case\": true\n    }\n  ],\n  \"participants\": [\n    {\n      \"id\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\",\n      \"display_name\": \"string\",\n      \"case_role_name\": \"string\",\n      \"hearing_role_name\": \"string\",\n      \"user_role_name\": \"string\",\n      \"title\": \"string\",\n      \"first_name\": \"string\",\n      \"middle_names\": \"string\",\n      \"last_name\": \"string\",\n      \"contact_email\": \"string\",\n      \"telephone_number\": \"string\",\n      \"username\": \"string\",\n      \"organisation\": \"string\",\n      \"representee\": \"string\"\n    }\n  ],\n  \"hearing_room_name\": \"string\",\n  \"other_information\": \"string\",\n  \"created_date\": \"2021-02-02T11:08:02.603Z\",\n  \"created_by\": \"string\",\n  \"updated_by\": \"string\",\n  \"updated_date\": \"2021-02-02T11:08:02.603Z\",\n  \"confirmed_by\": \"string\",\n  \"confirmed_date\": \"2021-02-02T11:08:02.603Z\",\n  \"status\": \"Booked\",\n  \"questionnaire_not_required\": true,\n  \"audio_recording_required\": true,\n  \"cancel_reason\": \"string\",\n  \"endpoints\": [\n    {\n      \"id\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\",\n      \"display_name\": \"string\",\n      \"sip\": \"string\",\n      \"pin\": \"string\",\n      \"defence_advocate_id\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\"\n    }\n  ],\n  \"group_id\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\"\n}"
+                    }
+                }],
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "examples": {
+                            "application/json": {
+                                "scheduled_date_time": "2021-02-02T11:08:02.565Z",
+                                "scheduled_duration": 0,
+                                "hearing_venue_name": "VenueName",
+                                "hearing_room_name": "RoomName",
+                                "other_information": "Other",
+                                "cases": [{
+                                    "number": "123456",
+                                    "name": "Ben Stokes",
+                                    "is_lead_case": true
+                                }],
+                                "updated_by": "Marcus Trescothick",
+                                "questionnaire_not_required": true,
+                                "audio_recording_required": true
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "operationId": "delete-video-hearing",
+                "summary": "Delete Video Hearing",
+                "parameters": [{
+                    "name": "hearingId",
+                    "in": "path",
+                    "required": true,
+                    "type": "string",
+                    "default": "VH1234",
+                    "enum": ["VH1234"]
+                }, {
+                    "name": "Source-System",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "default": "CFT",
+                    "enum": ["CFT"]
+                }, {
+                    "name": "Destination-System",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "default": "MOCK",
+                    "enum": ["MOCK", "VH"]
+                }, {
+                    "name": "Request-Created-At",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "default": "2018-01-29 20:36:01Z",
+                    "enum": ["2018-01-29 20:36:01Z"]
+                }, {
+                    "name": "Request-Processed-At",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "default": "2018-01-29 20:36:01Z",
+                    "enum": ["2018-01-29 20:36:01Z"]
+                }, {
+                    "name": "Request-Type",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "default": "THEFT",
+                    "enum": ["THEFT", "ASSAULT"]
+                }, {
+                    "name": "Content-Type",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "default": "application/json",
+                    "enum": ["application/json"]
+                }, {
+                    "name": "Accept",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "default": "application/json",
+                    "enum": ["application/json"]
+                }, {
+                    "name": "Authorization",
+                    "in": "header",
+                    "required": true,
+                    "type": "string"
+                }],
+                "responses": {
+                    "204": {
+                        "description": ""
                     }
                 }
             }
