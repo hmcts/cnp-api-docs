@@ -1,0 +1,33 @@
+{
+    "openapi": "3.0.1",
+    "info": {
+        "title": "hmi-apim-api-health",
+        "description": "",
+        "version": "1.0"
+    },
+    "servers": [{
+        "url": "http://hmi-apim.dev.platform.hmcts.net/hmi-api-health"
+    }, {
+        "url": "https://hmi-apim.dev.platform.hmcts.net/hmi-api-health"
+    }],
+    "paths": {},
+    "components": {
+        "securitySchemes": {
+            "apiKeyHeader": {
+                "type": "apiKey",
+                "name": "Ocp-Apim-Subscription-Key",
+                "in": "header"
+            },
+            "apiKeyQuery": {
+                "type": "apiKey",
+                "name": "subscription-key",
+                "in": "query"
+            }
+        }
+    },
+    "security": [{
+        "apiKeyHeader": []
+    }, {
+        "apiKeyQuery": []
+    }]
+}
