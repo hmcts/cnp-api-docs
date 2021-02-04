@@ -10,7 +10,19 @@
     }, {
         "url": "https://hmi-apim.dev.platform.hmcts.net/hmi-api-health"
     }],
-    "paths": {},
+    "paths": {
+        "/liveness": {
+            "get": {
+                "summary": "Liveness",
+                "operationId": "liveness",
+                "responses": {
+                    "200": {
+                        "description": null
+                    }
+                }
+            }
+        }
+    },
     "components": {
         "securitySchemes": {
             "apiKeyHeader": {
