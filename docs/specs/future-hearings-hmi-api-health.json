@@ -1,44 +1,32 @@
 {
     "swagger": "2.0",
     "info": {
-        "title": "hmi-apim-api-health",
+        "title": "hmi-apim-health-api",
         "version": "1.0"
     },
-    "servers": [{
-        "url": "http://hmi-apim.dev.platform.hmcts.net/hmi-api-health"
-    }, {
-        "url": "https://hmi-apim.dev.platform.hmcts.net/hmi-api-health"
-    }],
+    "host": "hmi-apim.dev.platform.hmcts.net",
+    "basePath": "/health",
+    "schemes": ["http", "https"],
     "paths": {
         "/liveness": {
             "get": {
-                "summary": "Liveness",
-                "operationId": "liveness",
+                "description": "Liveness Check",
+                "operationId": "liveness-check",
+                "summary": "Liveness Check",
+                "parameters": [],
+                "produces": ["application/json"],
                 "responses": {
                     "200": {
-                        "description": null
+                        "description": "",
+                        "examples": {
+                            "application/json": {
+                                "key": "value"
+                            }
+                        }
                     }
                 }
             }
         }
     },
-    "components": {
-        "securitySchemes": {
-            "apiKeyHeader": {
-                "type": "apiKey",
-                "name": "Ocp-Apim-Subscription-Key",
-                "in": "header"
-            },
-            "apiKeyQuery": {
-                "type": "apiKey",
-                "name": "subscription-key",
-                "in": "query"
-            }
-        }
-    },
-    "security": [{
-        "apiKeyHeader": []
-    }, {
-        "apiKeyQuery": []
-    }]
+    "tags": []
 }
