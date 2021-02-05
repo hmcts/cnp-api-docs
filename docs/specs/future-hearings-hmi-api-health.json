@@ -1,0 +1,32 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "hmi-apim-health-api",
+        "version": "1.0"
+    },
+    "host": "hmi-apim.dev.platform.hmcts.net",
+    "basePath": "/health",
+    "schemes": ["http", "https"],
+    "paths": {
+        "/liveness": {
+            "get": {
+                "description": "Liveness Check",
+                "operationId": "liveness-check",
+                "summary": "Liveness Check",
+                "parameters": [],
+                "produces": ["application/json"],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "examples": {
+                            "application/json": {
+                                "key": "value"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "tags": []
+}
