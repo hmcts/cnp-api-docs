@@ -103,7 +103,7 @@
             "type": "api",
             "description": "Future Hearings Gateway",
             "repository": "https://github.com/hmcts/hmi-api-gateway-fh",
-            "spec": "https://hmcts.github.io/reform-api-docs/specs/fh-request-hearing.json",
+            "spec": "https://hmcts.github.io/reform-api-docs/specs/hmi-gateway.json",
             "dependencies": [
             ],
             "apis": [],
