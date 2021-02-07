@@ -577,6 +577,7 @@
                 "description": "Schedules",
                 "operationId": "schedule",
                 "summary": "Schedule",
+                "tags":["schedule"],
                 "parameters": [{
                     "name": "hearing_date",
                     "in": "query",
@@ -1579,6 +1580,7 @@
                 "description": "Secure",
                 "operationId": "secure",
                 "summary": "Secure",
+                "tags":["util"],
                 "produces": ["application/json"],
                 "responses": {
                     "200": {
@@ -1598,6 +1600,7 @@
                 "description": "Test Wiremock Connection",
                 "operationId": "test-wiremock-connection",
                 "summary": "Test Wiremock Connection",
+                "tags":["util"],
                 "parameters": [{
                     "name": "Source-System",
                     "in": "header",
@@ -2584,6 +2587,7 @@
                 "description": "Emulator-Health",
                 "operationId": "emulator-health",
                 "summary": "Emulator-Health",
+                "tags":["util"],
                 "responses": {
                     "200": {
                         "description": ""
@@ -2596,6 +2600,7 @@
                 "description": "Pact-Health",
                 "operationId": "pact-health",
                 "summary": "Pact-Health",
+                "tags":["util"],
                 "responses": {
                     "200": {
                         "description": ""
@@ -4617,6 +4622,14 @@
         {
             "name":"video-hearing",
             "description":"Everything about Video Hearings"
+        },
+        {
+            "name":"schedule",
+            "description":"Everything about Schedles for Hearings"
+        },
+        {
+            "name":"util",
+            "description":"Utility endpoints"
         }
     ]
 }
