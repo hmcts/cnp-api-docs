@@ -329,6 +329,7 @@
                 "description": "Health-Check",
                 "operationId": "health-check",
                 "summary": "Health-Check",
+                "tags":["util"],
                 "produces": ["application/json"],
                 "responses": {
                     "200": {
