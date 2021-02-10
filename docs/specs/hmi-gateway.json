@@ -282,7 +282,9 @@
                     "name": "Request-Created-At",
                     "in": "header",
                     "required": true,
-                    "type": "string"
+                    "type": "string",
+                    "default": "2018-01-29 20:36:01Z",
+                    "enum": ["2018-01-29 20:36:01Z"]
                 }, {
                     "name": "Content-Type",
                     "in": "header",
@@ -331,7 +333,9 @@
                     "name": "Request-Created-At",
                     "in": "header",
                     "required": true,
-                    "type": "string"
+                    "type": "string",
+                    "default": "2018-01-29 20:36:01Z",
+                    "enum": ["2018-01-29 20:36:01Z"]
                 }, {
                     "name": "Content-Type",
                     "in": "header",
@@ -1391,7 +1395,7 @@
                     "required": true,
                     "type": "string",
                     "default": "MOCK",
-                    "enum": ["E", "MOCK"]
+                    "enum": ["MOCK"]
                 }, {
                     "name": "Request-Created-At",
                     "in": "header",
@@ -1476,8 +1480,8 @@
                     "in": "header",
                     "required": true,
                     "type": "string",
-                    "default": "ELINKS",
-                    "enum": ["ELINKS", "MOCK"]
+                    "default": "MOCK",
+                    "enum": ["MOCK"]
                 }, {
                     "name": "Request-Created-At",
                     "in": "header",
@@ -1537,7 +1541,7 @@
                     "required": true,
                     "type": "string",
                     "default": "MOCK",
-                    "enum": ["E", "MOCK"]
+                    "enum": ["MOCK"]
                 }, {
                     "name": "Request-Created-At",
                     "in": "header",
@@ -1586,7 +1590,7 @@
                     "required": true,
                     "type": "string",
                     "default": "MOCK",
-                    "enum": ["MOCK", "VH"]
+                    "enum": ["MOCK"]
                 }, {
                     "name": "Request-Created-At",
                     "in": "header",
@@ -1691,7 +1695,7 @@
                     "required": true,
                     "type": "string",
                     "default": "MOCK",
-                    "enum": ["MOCK", "VH"]
+                    "enum": ["MOCK"]
                 }, {
                     "name": "Request-Created-At",
                     "in": "header",
@@ -1748,7 +1752,7 @@
                     "required": true,
                     "type": "string",
                     "default": "MOCK",
-                    "enum": ["MOCK", "VH"]
+                    "enum": ["MOCK"]
                 }, {
                     "name": "Request-Created-At",
                     "in": "header",
@@ -1849,7 +1853,7 @@
                     "required": true,
                     "type": "string",
                     "default": "MOCK",
-                    "enum": ["MOCK", "VH"]
+                    "enum": ["MOCK"]
                 }, {
                     "name": "Request-Created-At",
                     "in": "header",
@@ -1920,7 +1924,7 @@
                     "required": true,
                     "type": "string",
                     "default": "MOCK",
-                    "enum": ["MOCK", "VH"]
+                    "enum": ["MOCK"]
                 }, {
                     "name": "Request-Created-At",
                     "in": "header",
