@@ -651,19 +651,17 @@
                 }
             }
         },
-        "/sessions/{sessionIdCaseHQ}": {
+        "/sessions/{sessionCaseHQId}": {
             "put": {
                 "description": "Update Session",
                 "operationId": "update-session",
                 "summary": "Update Session",
                 "tags":["sessions"],
                 "parameters": [{
-                    "name": "sessionIdCaseHQ",
+                    "name": "sessionCaseHQId",
                     "in": "path",
                     "required": true,
-                    "type": "string",
-                    "default": "SS123",
-                    "enum": ["SS123"]
+                    "type": "string"
                 }, {
                     "name": "Source-System",
                     "in": "header",
