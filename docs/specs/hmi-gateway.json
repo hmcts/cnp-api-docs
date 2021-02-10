@@ -13,6 +13,7 @@
                 "description": "Request Hearing",
                 "operationId": "request-hearing",
                 "summary": "Request Hearing",
+                "tags":["hearings"],
                 "parameters": [{
                     "name": "Source-System",
                     "in": "header",
@@ -76,6 +77,7 @@
                 "description": "Delete a Hearing",
                 "operationId": "delete-hearing",
                 "summary": "Delete Hearing",
+                "tags":["hearings"],
                 "parameters": [{
                     "name": "Source-System",
                     "in": "header",
@@ -136,6 +138,7 @@
                 "description": "Retrieve hearings",
                 "operationId": "retrieve-hearings",
                 "summary": "Retrieve Hearings",
+                "tags":["hearings"],
                 "parameters": [{
                     "name": "hearingDate",
                     "in": "query",
@@ -202,6 +205,7 @@
                 "description": "Update Hearing",
                 "operationId": "update-hearing",
                 "summary": "Update Hearing",
+                "tags":["hearings"],
                 "parameters": [{
                     "name": "hearing-id",
                     "in": "path",
@@ -268,6 +272,7 @@
                 "description": "Health-Check",
                 "operationId": "health-check",
                 "summary": "Health-Check",
+                "tags":["utils"],
                 "produces": ["application/json"],
                 "responses": {
                     "200": {
@@ -286,6 +291,7 @@
                 "description": "Retrieve list of resources",
                 "operationId": "resources",
                 "summary": "Resources",
+                "tags":["resources"],
                 "parameters": [{
                     "name": "Source-System",
                     "in": "header",
@@ -335,6 +341,7 @@
                 "description": "Retrieve resource by id",
                 "operationId": "resource-by-id",
                 "summary": "Resorce By ID",
+                "tags":["resources"],
                 "parameters": [{
                     "name": "resourceId",
                     "in": "path",
@@ -410,6 +417,7 @@
                 "description": "Delete Resource",
                 "operationId": "delete-resource",
                 "summary": "Delete Resource",
+                "tags":["resources"],
                 "parameters": [{
                     "name": "resourceId",
                     "in": "path",
@@ -477,6 +485,7 @@
                 "description": "Schedules",
                 "operationId": "schedule",
                 "summary": "Schedule",
+                "tags":["schedules"],
                 "parameters": [{
                     "name": "hearing_date",
                     "in": "query",
@@ -560,6 +569,7 @@
                 "description": "Get Sessions",
                 "operationId": "get-sessions",
                 "summary": "Get Sessions",
+                "tags":["sessions"],
                 "parameters": [{
                     "name": "requestStartDate",
                     "in": "query",
@@ -643,6 +653,7 @@
                 "description": "Create Session",
                 "operationId": "create-session",
                 "summary": "Create Session",
+                "tags":["sessions"],
                 "parameters": [{
                     "name": "Source-System",
                     "in": "header",
@@ -705,6 +716,7 @@
                 "description": "Update Session",
                 "operationId": "update-session",
                 "summary": "Update Session",
+                "tags":["sessions"],
                 "parameters": [{
                     "name": "sessionIdCaseHQ",
                     "in": "path",
@@ -772,6 +784,7 @@
                 "description": "Get Session By ID",
                 "operationId": "get-session-by-id",
                 "summary": "Get Session By ID",
+                "tags":["sessions"],
                 "parameters": [{
                     "name": "sessionIdCaseHQ",
                     "in": "path",
@@ -846,6 +859,7 @@
                 "description": "Update Resource Location",
                 "operationId": "update-resource-location",
                 "summary": "Update Resource Location",
+                "tags":["resources"],
                 "parameters": [{
                     "name": "locationCaseHQId",
                     "in": "path",
@@ -907,6 +921,7 @@
                 "description": "Create Resource Location",
                 "operationId": "create-resource-location",
                 "summary": "Create Resource Location",
+                "tags":["resources"],
                 "parameters": [{
                     "name": "Source-System",
                     "in": "header",
@@ -969,6 +984,7 @@
                 "description": "Get Listings",
                 "operationId": "get-listings",
                 "summary": "Get Listings",
+                "tags":["listings"],
                 "parameters": [{
                     "name": "date_of_listing",
                     "in": "query",
@@ -1036,6 +1052,7 @@
                 "description": "Update Resource User",
                 "operationId": "update-resource-user",
                 "summary": "Update Resource User",
+                "tags":["resources"],
                 "parameters": [{
                     "name": "userIdCaseHQ",
                     "in": "path",
@@ -1098,6 +1115,7 @@
                 "description": "Create Resource User",
                 "operationId": "create-resource-user",
                 "summary": "Create Resource User",
+                "tags":["resources"],
                 "parameters": [{
                     "name": "Source-System",
                     "in": "header",
@@ -1160,6 +1178,7 @@
                 "description": "Get listing by id",
                 "operationId": "get-listing-by-id",
                 "summary": "Get listing by id",
+                "tags":["listings"],
                 "parameters": [{
                     "name": "listing_id",
                     "in": "path",
@@ -1231,6 +1250,7 @@
                 "description": "Delete Session",
                 "operationId": "delete-session",
                 "summary": "Delete Session",
+                "tags":["sessions"],
                 "parameters": [{
                     "name": "SessionIDCaseHQ",
                     "in": "path",
@@ -1300,6 +1320,7 @@
                 "description": "Secure",
                 "operationId": "secure",
                 "summary": "Secure",
+                "tags":["utils"],
                 "produces": ["application/json"],
                 "responses": {
                     "200": {
@@ -1319,6 +1340,7 @@
                 "description": "Test Wiremock Connection",
                 "operationId": "test-wiremock-connection",
                 "summary": "Test Wiremock Connection",
+                "tags":["utils"],
                 "parameters": [{
                     "name": "Source-System",
                     "in": "header",
@@ -1362,6 +1384,7 @@
                 "description": "Update Listing",
                 "operationId": "update-listing",
                 "summary": "Update Listing",
+                "tags":["listings"],
                 "parameters": [{
                     "name": "caseListingRequestId",
                     "in": "path",
@@ -1424,6 +1447,7 @@
                 "description": "Delete Listing",
                 "operationId": "delete-listing",
                 "summary": "Delete Listing",
+                "tags":["listings"],
                 "parameters": [{
                     "name": "listingRequestId",
                     "in": "path",
@@ -1493,6 +1517,7 @@
                 "description": "Get People By ID",
                 "operationId": "get-people",
                 "summary": "Get People By ID",
+                "tags":["eLinks"],
                 "parameters": [{
                     "name": "id",
                     "in": "path",
@@ -1587,6 +1612,7 @@
                 "description": "Update People",
                 "operationId": "update-people",
                 "summary": "Update People",
+                "tags":["eLinks"],
                 "parameters": [{
                     "name": "id",
                     "in": "path",
@@ -1640,6 +1666,7 @@
                 "description": "Get People By Params",
                 "operationId": "get-people-by-params",
                 "summary": "Get People By Params",
+                "tags":["eLinks"],
                 "parameters": [{
                     "name": "updated_since",
                     "in": "query",
@@ -1713,6 +1740,7 @@
                 "description": "Request Video Hearing",
                 "operationId": "request-video-hearing",
                 "summary": "Request Video Hearing",
+                "tags":["video-hearings"],
                 "parameters": [{
                     "name": "Source-System",
                     "in": "header",
@@ -1823,6 +1851,7 @@
                 "description": "Retrieve Video Hering By User",
                 "operationId": "retrieve-video-hering-by-user",
                 "summary": "Retrieve Video Hering By User",
+                "tags":["video-hearings"],
                 "parameters": [{
                     "name": "username",
                     "in": "query",
@@ -1889,6 +1918,7 @@
                 "description": "Retrieve Video Hearings",
                 "operationId": "retrieve-video-hearings",
                 "summary": "Retrieve Video Hearings",
+                "tags":["video-hearings"],
                 "parameters": [{
                     "name": "hearingId",
                     "in": "path",
@@ -2002,6 +2032,7 @@
             "put": {
                 "operationId": "update-video-hearing",
                 "summary": "Update Video Hearing",
+                "tags":["video-hearings"],
                 "parameters": [{
                     "name": "hearingId",
                     "in": "path",
@@ -2084,6 +2115,7 @@
             "delete": {
                 "operationId": "delete-video-hearing",
                 "summary": "Delete Video Hearing",
+                "tags":["video-hearings"],
                 "parameters": [{
                     "name": "hearingId",
                     "in": "path",
@@ -2144,6 +2176,7 @@
                 "description": "Emulator-Health",
                 "operationId": "emulator-health",
                 "summary": "Emulator-Health",
+                "tags":["utils"],
                 "responses": {
                     "200": {
                         "description": ""
@@ -2156,6 +2189,7 @@
                 "description": "Pact-Health",
                 "operationId": "pact-health",
                 "summary": "Pact-Health",
+                "tags":["utils"],
                 "responses": {
                     "200": {
                         "description": ""
@@ -2168,6 +2202,7 @@
                 "description": "Direct Hearing",
                 "operationId": "direct-hearing",
                 "summary": "Direct Hearings",
+                "tags":["hearings"],
                 "parameters": [{
                     "name": "sessionId",
                     "in": "path",
@@ -2228,6 +2263,7 @@
                 "description": "Retrieve Hearing By Id",
                 "operationId": "retrieve-hearing-by-id",
                 "summary": "Retrieve Hearing By Id",
+                "tags":["hearings"],
                 "parameters": [{
                     "name": "hearingIdCaseHQ",
                     "in": "path",
