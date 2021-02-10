@@ -6,7 +6,7 @@
     },
     "host": "hmi-apim.dev.platform.hmcts.net",
     "basePath": "/hmi",
-    "schemes": ["http", "https"],
+    "schemes": ["https"],
     "paths": {
         "/hearings": {
             "post": {
@@ -100,13 +100,6 @@
                     "default": "application/json",
                     "enum": ["application/json"]
                 }, {
-                    "name": "Accept",
-                    "in": "header",
-                    "required": true,
-                    "type": "string",
-                    "default": "application/json",
-                    "enum": ["application/json"]
-                }, {
                     "name": "rh-del-def",
                     "in": "body",
                     "schema": {
@@ -172,13 +165,6 @@
                     "type": "string",
                     "default": "application/json",
                     "enum": ["application/json"]
-                }, {
-                    "name": "Accept",
-                    "in": "header",
-                    "required": true,
-                    "type": "string",
-                    "default": "application/json",
-                    "enum": ["application/json"]
                 }],
                 "produces": ["application/json"],
                 "responses": {
@@ -225,12 +211,6 @@
                     "description": "Date and time of request initiation.",
                     "required": true,
                     "type": "string"
-                }, {
-                    "name": "Accept",
-                    "in": "header",
-                    "required": true,
-                    "type": "string",
-                    "enum": ["application/json"]
                 }, {
                     "name": "Content-Type",
                     "in": "header",
@@ -303,12 +283,6 @@
                     "required": true,
                     "type": "string"
                 }, {
-                    "name": "Accept",
-                    "in": "header",
-                    "required": true,
-                    "type": "string",
-                    "enum": ["application/json"]
-                }, {
                     "name": "Content-Type",
                     "in": "header",
                     "required": true,
@@ -357,12 +331,6 @@
                     "in": "header",
                     "required": true,
                     "type": "string"
-                }, {
-                    "name": "Accept",
-                    "in": "header",
-                    "required": true,
-                    "type": "string",
-                    "enum": ["application/json"]
                 }, {
                     "name": "Content-Type",
                     "in": "header",
@@ -438,12 +406,6 @@
                     "enum": ["2020-09-29 20:36:01Z"]
                 }, {
                     "name": "Content-Type",
-                    "in": "header",
-                    "required": true,
-                    "type": "string",
-                    "enum": ["application/json"]
-                }, {
-                    "name": "Accept",
                     "in": "header",
                     "required": true,
                     "type": "string",
@@ -531,12 +493,6 @@
                     "type": "string",
                     "enum": ["2018-01-29 20:36:01Z"]
                 }, {
-                    "name": "Accept",
-                    "in": "header",
-                    "required": true,
-                    "type": "string",
-                    "enum": ["application/json"]
-                }, {
                     "name": "Content-Type",
                     "in": "header",
                     "required": true,
@@ -615,14 +571,7 @@
                     "type": "string",
                     "default": "2018-01-29 20:36:01Z",
                     "enum": ["2018-01-29 20:36:01Z"]
-                }, {
-                    "name": "Accept",
-                    "in": "header",
-                    "required": true,
-                    "type": "string",
-                    "default": "application/json",
-                    "enum": ["application/json"]
-                }, {
+                },{
                     "name": "Content-Type",
                     "in": "header",
                     "required": true,
@@ -668,13 +617,6 @@
                     "type": "string",
                     "default": "2018-01-29 20:36:01Z",
                     "enum": ["2018-01-29 20:36:01Z"]
-                }, {
-                    "name": "Accept",
-                    "in": "header",
-                    "required": true,
-                    "type": "string",
-                    "default": "application/json",
-                    "enum": ["application/json"]
                 }, {
                     "name": "Content-Type",
                     "in": "header",
@@ -739,13 +681,6 @@
                     "default": "2018-01-29 20:36:01Z",
                     "enum": ["2018-01-29 20:36:01Z"]
                 }, {
-                    "name": "Accept",
-                    "in": "header",
-                    "required": true,
-                    "type": "string",
-                    "default": "application/json",
-                    "enum": ["application/json"]
-                }, {
                     "name": "Content-Type",
                     "in": "header",
                     "required": true,
@@ -804,13 +739,6 @@
                     "type": "string",
                     "default": "2018-01-29 20:36:01Z",
                     "enum": ["2018-01-29 20:36:01Z"]
-                }, {
-                    "name": "Accept",
-                    "in": "header",
-                    "required": true,
-                    "type": "string",
-                    "default": "application/json",
-                    "enum": ["application/json"]
                 }, {
                     "name": "Content-Type",
                     "in": "header",
@@ -888,13 +816,6 @@
                     "default": "application/json",
                     "enum": ["application/json"]
                 }, {
-                    "name": "Accept",
-                    "in": "header",
-                    "required": true,
-                    "type": "string",
-                    "default": "application/json",
-                    "enum": ["application/json"]
-                }, {
                     "name": "rh-def-req-resource-location",
                     "in": "body",
                     "schema": {
@@ -938,13 +859,6 @@
                     "enum": ["2018-01-29 20:36:01Z"]
                 }, {
                     "name": "Content-Type",
-                    "in": "header",
-                    "required": true,
-                    "type": "string",
-                    "default": "application/json",
-                    "enum": ["application/json"]
-                }, {
-                    "name": "Accept",
                     "in": "header",
                     "required": true,
                     "type": "string",
@@ -1012,13 +926,6 @@
                     "default": "2018-01-29 20:36:01Z",
                     "enum": ["2018-01-29 20:36:01Z"]
                 }, {
-                    "name": "Accept",
-                    "in": "header",
-                    "required": true,
-                    "type": "string",
-                    "default": "application/json",
-                    "enum": ["application/json"]
-                }, {
                     "name": "Content-Type",
                     "in": "header",
                     "required": true,
@@ -1075,13 +982,6 @@
                     "default": "2018-01-29 20:36:01Z",
                     "enum": ["2018-01-29 20:36:01Z"]
                 }, {
-                    "name": "Accept",
-                    "in": "header",
-                    "required": true,
-                    "type": "string",
-                    "default": "application/json",
-                    "enum": ["application/json"]
-                }, {
                     "name": "Content-Type",
                     "in": "header",
                     "required": true,
@@ -1130,13 +1030,6 @@
                     "type": "string",
                     "default": "2018-01-29 20:36:01Z",
                     "enum": ["2018-01-29 20:36:01Z"]
-                }, {
-                    "name": "Accept",
-                    "in": "header",
-                    "required": true,
-                    "type": "string",
-                    "default": "application/json",
-                    "enum": ["application/json"]
                 }, {
                     "name": "Content-Type",
                     "in": "header",
@@ -1200,13 +1093,6 @@
                     "type": "string",
                     "default": "2018-01-29 20:36:01Z",
                     "enum": ["2018-01-29 20:36:01Z"]
-                }, {
-                    "name": "Accept",
-                    "in": "header",
-                    "required": true,
-                    "type": "string",
-                    "default": "application/json",
-                    "enum": ["application/json"]
                 }, {
                     "name": "Content-Type",
                     "in": "header",
@@ -1272,13 +1158,6 @@
                     "type": "string",
                     "default": "2018-01-29 20:36:01Z",
                     "enum": ["2018-01-29 20:36:01Z"]
-                }, {
-                    "name": "Accept",
-                    "in": "header",
-                    "required": true,
-                    "type": "string",
-                    "default": "application/json",
-                    "enum": ["application/json"]
                 }, {
                     "name": "Content-Type",
                     "in": "header",
@@ -1353,12 +1232,6 @@
                     "type": "string",
                     "enum": ["01/29/2018 20:36:01"]
                 }, {
-                    "name": "Accept",
-                    "in": "header",
-                    "required": true,
-                    "type": "string",
-                    "enum": ["application/json"]
-                }, {
                     "name": "Content-Type",
                     "in": "header",
                     "required": true,
@@ -1406,13 +1279,6 @@
                     "type": "string",
                     "default": "2018-01-29 20:36:01Z",
                     "enum": ["2018-01-29 20:36:01Z"]
-                }, {
-                    "name": "Accept",
-                    "in": "header",
-                    "required": true,
-                    "type": "string",
-                    "default": "application/json",
-                    "enum": ["application/json"]
                 }, {
                     "name": "Content-Type",
                     "in": "header",
@@ -1469,13 +1335,6 @@
                     "type": "string",
                     "default": "2018-01-29 20:36:01Z",
                     "enum": ["2018-01-29 20:36:01Z"]
-                }, {
-                    "name": "Accept",
-                    "in": "header",
-                    "required": true,
-                    "type": "string",
-                    "default": "application/json",
-                    "enum": ["application/json"]
                 }, {
                     "name": "Content-Type",
                     "in": "header",
@@ -1541,13 +1400,6 @@
                     "enum": ["2018-01-29 20:36:01Z"]
                 }, {
                     "name": "Content-Type",
-                    "in": "header",
-                    "required": true,
-                    "type": "string",
-                    "default": "application/json",
-                    "enum": ["application/json"]
-                }, {
-                    "name": "Accept",
                     "in": "header",
                     "required": true,
                     "type": "string",
@@ -1639,13 +1491,6 @@
                     "type": "string",
                     "default": "application/json",
                     "enum": ["application/json"]
-                }, {
-                    "name": "Accept",
-                    "in": "header",
-                    "required": true,
-                    "type": "string",
-                    "default": "application/json",
-                    "enum": ["application/json"]
                 }],
                 "responses": {
                     "204": {
@@ -1706,13 +1551,6 @@
                     "type": "string",
                     "default": "application/json",
                     "enum": ["application/json"]
-                }, {
-                    "name": "Accept",
-                    "in": "header",
-                    "required": true,
-                    "type": "string",
-                    "default": "application/json",
-                    "enum": ["application/json"]
                 }],
                 "produces": ["application/json"],
                 "responses": {
@@ -1757,13 +1595,6 @@
                     "enum": ["2018-01-29 20:36:01Z"]
                 }, {
                     "name": "Content-Type",
-                    "in": "header",
-                    "required": true,
-                    "type": "string",
-                    "default": "application/json",
-                    "enum": ["application/json"]
-                }, {
-                    "name": "Accept",
                     "in": "header",
                     "required": true,
                     "type": "string",
@@ -1880,13 +1711,6 @@
                     "default": "application/json",
                     "enum": ["application/json"]
                 }, {
-                    "name": "Accept",
-                    "in": "header",
-                    "required": true,
-                    "type": "string",
-                    "default": "application/json",
-                    "enum": ["application/json"]
-                }, {
                     "name": "Authorization",
                     "in": "header",
                     "required": true,
@@ -1943,13 +1767,6 @@
                     "enum": ["2018-01-29 20:36:01Z"]
                 }, {
                     "name": "Content-Type",
-                    "in": "header",
-                    "required": true,
-                    "type": "string",
-                    "default": "application/json",
-                    "enum": ["application/json"]
-                }, {
-                    "name": "Accept",
                     "in": "header",
                     "required": true,
                     "type": "string",
@@ -2062,13 +1879,6 @@
                     "default": "application/json",
                     "enum": ["application/json"]
                 }, {
-                    "name": "Accept",
-                    "in": "header",
-                    "required": true,
-                    "type": "string",
-                    "default": "application/json",
-                    "enum": ["application/json"]
-                }, {
                     "name": "Authorization",
                     "in": "header",
                     "required": true,
@@ -2139,13 +1949,6 @@
                     "enum": ["2018-01-29 20:36:01Z"]
                 }, {
                     "name": "Content-Type",
-                    "in": "header",
-                    "required": true,
-                    "type": "string",
-                    "default": "application/json",
-                    "enum": ["application/json"]
-                }, {
-                    "name": "Accept",
                     "in": "header",
                     "required": true,
                     "type": "string",
@@ -2223,13 +2026,6 @@
                     "default": "2021-01-29 20:36:01Z",
                     "enum": ["2021-01-29 20:36:01Z"]
                 }, {
-                    "name": "Accept",
-                    "in": "header",
-                    "required": true,
-                    "type": "string",
-                    "default": "application/json",
-                    "enum": ["application/json"]
-                }, {
                     "name": "Content-Type",
                     "in": "header",
                     "required": true,
@@ -2287,13 +2083,6 @@
                     "enum": ["2018-01-29 20:36:01Z"]
                 }, {
                     "name": "Content-Type",
-                    "in": "header",
-                    "required": true,
-                    "type": "string",
-                    "default": "application/json",
-                    "enum": ["application/json"]
-                }, {
-                    "name": "Accept",
                     "in": "header",
                     "required": true,
                     "type": "string",
