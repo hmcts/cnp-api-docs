@@ -45,12 +45,6 @@
                     "type": "string",
                     "default": "application/json",
                     "enum": ["application/json"]
-                }, {
-                    "name": "rh-def",
-                    "in": "body",
-                    "schema": {
-                        "$ref": "#/definitions/rh-def"
-                    }
                 }],
                 "consumes": ["application/json"],
                 "produces": ["application/json"],
@@ -99,12 +93,6 @@
                     "type": "string",
                     "default": "application/json",
                     "enum": ["application/json"]
-                }, {
-                    "name": "rh-del-def",
-                    "in": "body",
-                    "schema": {
-                        "$ref": "#/definitions/rh-del-def"
-                    }
                 }],
                 "consumes": ["application/json"],
                 "produces": ["application/json"],
@@ -180,6 +168,71 @@
             }
         },
         "/hearings/{hearing-id}": {
+            "get": {
+                "description": "Retrieve Hearing By Id",
+                "operationId": "retrieve-hearing-by-id",
+                "summary": "Retrieve Hearing By Id",
+                "tags":["hearings"],
+                "parameters": [{
+                    "name": "hearing-id",
+                    "in": "path",
+                    "required": true,
+                    "type": "string",
+                    "default": "5f2bffce29c77b6fef1e7499",
+                    "enum": ["5f2bffce29c77b6fef1e7499"]
+                }, {
+                    "name": "Source-System",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "default": "CFT",
+                    "enum": ["CFT"]
+                }, {
+                    "name": "Destination-System",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "default": "MOCK",
+                    "enum": ["MOCK"]
+                }, {
+                    "name": "Request-Created-At",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "default": "2018-01-29 20:36:01Z",
+                    "enum": ["2018-01-29 20:36:01Z"]
+                }, {
+                    "name": "Content-Type",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "default": "application/json",
+                    "enum": ["application/json"]
+                }],
+                "produces": ["application/json"],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "examples": {
+                            "application/json": {
+                                "listingRequestId": "5f2bffce29c77b6fef1e7488",
+                                "hearingIdCaseHQ": "5f2bffce29c77b6fef1e7499",
+                                "hearingType": "Crime",
+                                "hearingDate": "2018-01-29%2020:36:01Z",
+                                "hearingStartTime": "08:45",
+                                "hearingEndTime": "10:45",
+                                "hearingCaseIdHMCTS": "5f2bffcee0b6aa870e82f007",
+                                "hearingSessionIdCaseHQ": "5f2bffceef36b0eaf339d884",
+                                "hearingTranslatorRequired": "No",
+                                "hearingCreatedDate": "2020-09-16",
+                                "hearingCreatedBy": "Donald Duck",
+                                "hearingVenueId": "V3455",
+                                "hearingRoomId": "R2345"
+                            }
+                        }
+                    }
+                }
+            },
             "put": {
                 "description": "Update Hearing",
                 "operationId": "update-hearing",
@@ -218,13 +271,6 @@
                     "required": true,
                     "type": "string",
                     "enum": ["application/json"]
-                }, {
-                    "name": "rh-upd-def",
-                    "in": "body",
-                    "schema": {
-                        "$ref": "#/definitions/rh-upd-def"
-                    },
-                    "description": ""
                 }],
                 "consumes": ["application/json"],
                 "produces": ["application/json"],
@@ -296,9 +342,6 @@
                 "responses": {
                     "200": {
                         "description": "",
-                        "schema": {
-                            "$ref": "#/definitions/rh-res-resources"
-                        },
                         "examples": {
                             "application/json": "[\n\t{\n\t\t\"VenueID\": \"V123\",\n\t\t\"JurisdictionID\": \"J123\",\n\t\t\"FacilityID\": \"F123\",\n\t\t\"LocationID\": \"L123\",\n\t\t\"RegionID\": \"R123\",\n\t\t\"AddressID\": \"A123\",\n\t\t\"UPRN\": \"djksfxzcdas\",\n\t\t\"ePIMs\": \"djfsdads\",\n\t\t\"VenueName\": \"VName\",\n\t\t\"VenueType\": \"Vtype\",\n\t\t\"FacilityServiceLead\": \"asdjkfahjd\",\n\t\t\"ReportingSIteName\": \"asfdhahjks\",\n\t\t\"CourtType\": \"Civil\",\n\t\t\"JoinedBuildingYN\": \"Y\",\n\t\t\"OtherAgenciesAtSite\": \"N\",\n\t\t\"FlexibleOpsHours\":\"Y\",\n\t\t\"Cluster\": \"CCC123\",\n\t\t\"JudicialLead\": \"asdkjfhd\",\n\t\t\"DCJLCJLJArea\": \"dsfhj\",\n\t\t\"Status\": \"Open\",\n\t\t\"OpeningTimes\": \"0800 - 1600\",\n\t\t\"OpenToPublic\": \"N\"\n\t}\n]"
                         }
@@ -347,9 +390,6 @@
                 "responses": {
                     "200": {
                         "description": "",
-                        "schema": {
-                            "$ref": "#/definitions/rh-res-resource"
-                        },
                         "examples": {
                             "application/json": {
                                 "VenueID": "V123",
@@ -415,21 +455,12 @@
                     "required": true,
                     "type": "string",
                     "enum": ["application/json"]
-                }, {
-                    "name": "rh-del-def",
-                    "in": "body",
-                    "schema": {
-                        "$ref": "#/definitions/rh-del-def"
-                    }
                 }],
                 "consumes": ["application/json"],
                 "produces": ["application/json"],
                 "responses": {
                     "200": {
                         "description": "",
-                        "schema": {
-                            "$ref": "#/definitions/rh-del-def"
-                        },
                         "examples": {
                             "application/json": {
                                 "response code": 200,
@@ -508,9 +539,6 @@
                 "responses": {
                     "200": {
                         "description": "",
-                        "schema": {
-                            "$ref": "#/definitions/rh-res-hearing-schedule"
-                        },
                         "examples": {
                             "application/json": "[{\r\n  \"apiVersion\": \"V1.00103\",\r\n  \"transactionIdCaseHQ\": \"5f2bffce09fb0feadaf7b906\",\r\n  \"transactionIdHMCTS\": \"5f2bffcea47aedacc86d35cf\",\r\n  \"timeStamp\": \"12:15:22\",\r\n  \"listingId\": \"5f2bffcec0d5d73e929923fa\",\r\n  \"hearingIdCaseHQ\": \"5f2bffce29c77b6fef1e7488\",\r\n  \"hearingType\": \"Crime\",\r\n  \"hearingPriority\": \"High\",\r\n  \"hearingDate\": \"2020-01-28T07:57:08 -00:00\",\r\n  \"hearingStartTime\": \"08:45\",\r\n  \"hearingEndTime\": \"09:00\",\r\n  \"hearingWelshLanguage\": \"No\",\r\n  \"hearingPrivate\": \"Yes\",\r\n  \"hearingCaseIdHMCTS\": \"5f2bffcee0b6aa870e82f007\",\r\n  \"hearingSessionIdCaseHQ\": \"5f2bffceef36b0eaf339d884\",\r\n  \"hearingTranslatorRequired\": \"No\",\r\n  \"hearingTranslatorLanguage\": \"n/a\",\r\n  \"hearingOutcome\": \"To be hanged till death\",\r\n  \"hearingCreatedDate\": \"2019-12-28T07:57:08 -00:00\",\r\n  \"hearingCreatedBy\": \"Dimitry Mascaranhus\",\r\n  \"hearingParticipantId\": \"5f2bffce90a69eb81aaec725\",\r\n  \"hearingVenueId\": \"V3455\",\r\n  \"hearingRoomId\": \"R2345\",\r\n  \"hearingJudgeId\": \"HJ123\"\r\n}]"
                         }
@@ -587,9 +615,6 @@
                 "responses": {
                     "200": {
                         "description": "",
-                        "schema": {
-                            "$ref": "#/definitions/rh-def-res-sessions"
-                        },
                         "examples": {
                             "application/json": "[\n    {\n    \"sessionStartDate\" : \"2018-01-29 20:36:01Z\", \n    \"sessionEndDate\": \"2018-01-29 20:36:01Z\",\n    \"caseCourt\": \"Milton Keynes\",\n    \"room-Name\" : \"RM012\",\n    \"JoH\": {\n        \"PersonRoleID\": \"PR012\",\n        \"PersonID\": \"P012\",\n        \"PersonRole\": \"Judge\",\n        \"personName\": \"Marcus Trescothic\",\n        \"TicketName\": \"\"\n    },\n    \"SessionType\": \"DS\", \n    \"SessionIDCaseHQ\": \"SID012\"\n}\n]\n"
                         }
@@ -629,12 +654,6 @@
                     "type": "string",
                     "default": "application/json",
                     "enum": ["application/json"]
-                }, {
-                    "name": "rh-def-res-session",
-                    "in": "body",
-                    "schema": {
-                        "$ref": "#/definitions/rh-def-res-session"
-                    }
                 }],
                 "consumes": ["application/json"],
                 "produces": ["application/json"],
@@ -651,14 +670,14 @@
                 }
             }
         },
-        "/sessions/{sessionCaseHQId}": {
+        "/sessions/{sessionIdCaseHQ}": {
             "put": {
                 "description": "Update Session",
                 "operationId": "update-session",
                 "summary": "Update Session",
                 "tags":["sessions"],
                 "parameters": [{
-                    "name": "sessionCaseHQId",
+                    "name": "sessionIdCaseHQ",
                     "in": "path",
                     "required": true,
                     "type": "string"
@@ -690,12 +709,61 @@
                     "type": "string",
                     "default": "application/json",
                     "enum": ["application/json"]
-                }, {
-                    "name": "rh-def-upd-sessions",
-                    "in": "body",
-                    "schema": {
-                        "$ref": "#/definitions/rh-def-upd-sessions"
+                }],
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "examples": {
+                            "application/json": {
+                                "response code": 200,
+                                "description": "The request was received successfully."
+                            }
+                        }
                     }
+                }
+            },
+            "delete": {
+                "description": "Delete Session",
+                "operationId": "delete-session",
+                "summary": "Delete Session",
+                "tags":["sessions"],
+                "parameters": [{
+                    "name": "sessionIdCaseHQ",
+                    "in": "path",
+                    "required": true,
+                    "type": "string",
+                    "default": "SID012",
+                    "enum": ["SID012"]
+                }, {
+                    "name": "Source-System",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "default": "CFT",
+                    "enum": ["CFT"]
+                }, {
+                    "name": "Destination-System",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "default": "MOCK",
+                    "enum": ["MOCK"]
+                }, {
+                    "name": "Request-Created-At",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "default": "2018-01-29 20:36:01Z",
+                    "enum": ["2018-01-29 20:36:01Z"]
+                }, {
+                    "name": "Content-Type",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "default": "application/json",
+                    "enum": ["application/json"]
                 }],
                 "consumes": ["application/json"],
                 "produces": ["application/json"],
@@ -754,9 +822,6 @@
                 "responses": {
                     "200": {
                         "description": "",
-                        "schema": {
-                            "$ref": "#/definitions/rh-def-res-session"
-                        },
                         "examples": {
                             "application/json": {
                                 "sessionStartDate": "2018-01-29 20:36:01Z",
@@ -818,12 +883,6 @@
                     "type": "string",
                     "default": "application/json",
                     "enum": ["application/json"]
-                }, {
-                    "name": "rh-def-req-resource-location",
-                    "in": "body",
-                    "schema": {
-                        "$ref": "#/definitions/rh-def-req-resource-location"
-                    }
                 }],
                 "consumes": ["application/json"],
                 "responses": {
@@ -867,12 +926,6 @@
                     "type": "string",
                     "default": "application/json",
                     "enum": ["application/json"]
-                }, {
-                    "name": "body-2",
-                    "in": "body",
-                    "schema": {
-                        "$ref": "#/definitions/Body-2"
-                    }
                 }],
                 "consumes": ["application/json"],
                 "produces": ["application/json"],
@@ -940,9 +993,6 @@
                 "responses": {
                     "200": {
                         "description": "",
-                        "schema": {
-                            "$ref": "#/definitions/rh-def-res-listing"
-                        },
                         "examples": {
                             "application/json": "[\n    {\n        \"listingId\":\"L012\",\n        \"listingAutoCreateFlag\":\"f\",\n        \"listingStartDate\":\"2018-01-29 20:36:01Z\",\n        \"listingEndDate\":\"2018-01-29 20:36:01Z\",\n        \"listingDuration\":\"30\",\n        \"listingType\":\"Civil\",\n        \"listingPriority\":\"High\",\n        \"sessionIdCaseHQ\":\"SID012\"\n    } \n]"
                         }
@@ -991,12 +1041,6 @@
                     "type": "string",
                     "default": "application/json",
                     "enum": ["application/json"]
-                }, {
-                    "name": "rh-def-req-resource-user",
-                    "in": "body",
-                    "schema": {
-                        "$ref": "#/definitions/rh-def-req-resource-user"
-                    }
                 }],
                 "consumes": ["application/json"],
                 "responses": {
@@ -1040,12 +1084,6 @@
                     "type": "string",
                     "default": "application/json",
                     "enum": ["application/json"]
-                }, {
-                    "name": "body-3",
-                    "in": "body",
-                    "schema": {
-                        "$ref": "#/definitions/Body-3"
-                    }
                 }],
                 "consumes": ["application/json"],
                 "produces": ["application/json"],
@@ -1063,6 +1101,109 @@
             }
         },
         "/listings/{listing_id}": {
+            "put": {
+                "description": "Update Listing",
+                "operationId": "update-listing",
+                "summary": "Update Listing",
+                "tags":["listings"],
+                "parameters": [{
+                    "name": "listing_id",
+                    "in": "path",
+                    "required": true,
+                    "type": "string",
+                    "default": "C012",
+                    "enum": ["C012"]
+                }, {
+                    "name": "Source-System",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "default": "CFT",
+                    "enum": ["CFT"]
+                }, {
+                    "name": "Destination-System",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "default": "MOCK",
+                    "enum": ["MOCK"]
+                }, {
+                    "name": "Request-Created-At",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "default": "2018-01-29 20:36:01Z",
+                    "enum": ["2018-01-29 20:36:01Z"]
+                }, {
+                    "name": "Content-Type",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "default": "application/json",
+                    "enum": ["application/json"]
+                }],
+                "consumes": ["application/json"],
+                "responses": {
+                    "204": {
+                        "description": ""
+                    }
+                }
+            },
+            "delete": {
+                "description": "Delete Listing",
+                "operationId": "delete-listing",
+                "summary": "Delete Listing",
+                "tags":["listings"],
+                "parameters": [{
+                    "name": "listing_id",
+                    "in": "path",
+                    "required": true,
+                    "type": "string",
+                    "default": "L012",
+                    "enum": ["L012"]
+                }, {
+                    "name": "Source-System",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "default": "CFT",
+                    "enum": ["CFT"]
+                }, {
+                    "name": "Destination-System",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "default": "MOCK",
+                    "enum": ["MOCK"]
+                }, {
+                    "name": "Request-Created-At",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "default": "2018-01-29 20:36:01Z",
+                    "enum": ["2018-01-29 20:36:01Z"]
+                }, {
+                    "name": "Content-Type",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "default": "application/json",
+                    "enum": ["application/json"]
+                }],
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "examples": {
+                            "application/json": {
+                                "response code": 200,
+                                "description": "The request was received successfully."
+                            }
+                        }
+                    }
+                }
+            },
             "get": {
                 "description": "Get listing by id",
                 "operationId": "get-listing-by-id",
@@ -1108,9 +1249,6 @@
                 "responses": {
                     "200": {
                         "description": "",
-                        "schema": {
-                            "$ref": "#/definitions/rh-def-res-listing-by-id"
-                        },
                         "examples": {
                             "application/json": {
                                 "listingId": "L012",
@@ -1121,69 +1259,6 @@
                                 "listingType": "Civil",
                                 "listingPriority": "High",
                                 "sessionIdCaseHQ": "SID012"
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/sessions/{sessionIDCaseHQ}": {
-            "delete": {
-                "description": "Delete Session",
-                "operationId": "delete-session",
-                "summary": "Delete Session",
-                "tags":["sessions"],
-                "parameters": [{
-                    "name": "SessionIDCaseHQ",
-                    "in": "path",
-                    "required": true,
-                    "type": "string",
-                    "default": "SID012",
-                    "enum": ["SID012"]
-                }, {
-                    "name": "Source-System",
-                    "in": "header",
-                    "required": true,
-                    "type": "string",
-                    "default": "CFT",
-                    "enum": ["CFT"]
-                }, {
-                    "name": "Destination-System",
-                    "in": "header",
-                    "required": true,
-                    "type": "string",
-                    "default": "MOCK",
-                    "enum": ["MOCK"]
-                }, {
-                    "name": "Request-Created-At",
-                    "in": "header",
-                    "required": true,
-                    "type": "string",
-                    "default": "2018-01-29 20:36:01Z",
-                    "enum": ["2018-01-29 20:36:01Z"]
-                }, {
-                    "name": "Content-Type",
-                    "in": "header",
-                    "required": true,
-                    "type": "string",
-                    "default": "application/json",
-                    "enum": ["application/json"]
-                }, {
-                    "name": "body-1",
-                    "in": "body",
-                    "schema": {
-                        "$ref": "#/definitions/Body-1"
-                    }
-                }],
-                "consumes": ["application/json"],
-                "produces": ["application/json"],
-                "responses": {
-                    "200": {
-                        "description": "",
-                        "examples": {
-                            "application/json": {
-                                "response code": 200,
-                                "description": "The request was received successfully."
                             }
                         }
                     }
@@ -1249,125 +1324,6 @@
                 }
             }
         },
-        "/listings/{caseListingRequestId}": {
-            "put": {
-                "description": "Update Listing",
-                "operationId": "update-listing",
-                "summary": "Update Listing",
-                "tags":["listings"],
-                "parameters": [{
-                    "name": "caseListingRequestId",
-                    "in": "path",
-                    "required": true,
-                    "type": "string",
-                    "default": "C012",
-                    "enum": ["C012"]
-                }, {
-                    "name": "Source-System",
-                    "in": "header",
-                    "required": true,
-                    "type": "string",
-                    "default": "CFT",
-                    "enum": ["CFT"]
-                }, {
-                    "name": "Destination-System",
-                    "in": "header",
-                    "required": true,
-                    "type": "string",
-                    "default": "MOCK",
-                    "enum": ["MOCK"]
-                }, {
-                    "name": "Request-Created-At",
-                    "in": "header",
-                    "required": true,
-                    "type": "string",
-                    "default": "2018-01-29 20:36:01Z",
-                    "enum": ["2018-01-29 20:36:01Z"]
-                }, {
-                    "name": "Content-Type",
-                    "in": "header",
-                    "required": true,
-                    "type": "string",
-                    "default": "application/json",
-                    "enum": ["application/json"]
-                }, {
-                    "name": "body-4",
-                    "in": "body",
-                    "schema": {
-                        "$ref": "#/definitions/Body-4"
-                    }
-                }],
-                "consumes": ["application/json"],
-                "responses": {
-                    "204": {
-                        "description": ""
-                    }
-                }
-            }
-        },
-        "/listings/{listingRequestId}": {
-            "delete": {
-                "description": "Delete Listing",
-                "operationId": "delete-listing",
-                "summary": "Delete Listing",
-                "tags":["listings"],
-                "parameters": [{
-                    "name": "listingRequestId",
-                    "in": "path",
-                    "required": true,
-                    "type": "string",
-                    "default": "L012",
-                    "enum": ["L012"]
-                }, {
-                    "name": "Source-System",
-                    "in": "header",
-                    "required": true,
-                    "type": "string",
-                    "default": "CFT",
-                    "enum": ["CFT"]
-                }, {
-                    "name": "Destination-System",
-                    "in": "header",
-                    "required": true,
-                    "type": "string",
-                    "default": "MOCK",
-                    "enum": ["MOCK"]
-                }, {
-                    "name": "Request-Created-At",
-                    "in": "header",
-                    "required": true,
-                    "type": "string",
-                    "default": "2018-01-29 20:36:01Z",
-                    "enum": ["2018-01-29 20:36:01Z"]
-                }, {
-                    "name": "Content-Type",
-                    "in": "header",
-                    "required": true,
-                    "type": "string",
-                    "default": "application/json",
-                    "enum": ["application/json"]
-                }, {
-                    "name": "body-6",
-                    "in": "body",
-                    "schema": {
-                        "$ref": "#/definitions/Body-6"
-                    }
-                }],
-                "consumes": ["application/json"],
-                "produces": ["application/json"],
-                "responses": {
-                    "200": {
-                        "description": "",
-                        "examples": {
-                            "application/json": {
-                                "response code": 200,
-                                "description": "The request was received successfully."
-                            }
-                        }
-                    }
-                }
-            }
-        },
         "/people/{id}": {
             "get": {
                 "description": "Get People By ID",
@@ -1414,9 +1370,6 @@
                 "responses": {
                     "200": {
                         "description": "",
-                        "schema": {
-                            "$ref": "#/definitions/def-get-people-elinks"
-                        },
                         "examples": {
                             "application/json": {
                                 "id": "2959d456-cee3-4011-bf16-e028025ca775",
@@ -1560,9 +1513,6 @@
                 "responses": {
                     "200": {
                         "description": "",
-                        "schema": {
-                            "$ref": "#/definitions/get-people-by-param-def"
-                        },
                         "examples": {
                             "application/json": "[\n    {\n\t\t\"id\": \"2959d456-cee3-4011-bf16-e028025ca775\",\n\t\t\"personal_code\": \"4925359\",\n\t\t\"title\": \"Ms\",\n\t\t\"known_as\": \"Michelle\",\n\t\t\"surname\": \"McKeown\",\n\t\t\"fullname\": \"Ms Michelle McKeown\",\n\t\t\"email\": \"DDJ.Michelle.McKeown@railsdxw.onmicrosoft.com\",\n\t\t\"appointments\": [\n\t\t\t{\n\t\t\t\t\"role\": \"District Judge\",\n\t\t\t\t\"type\": \"Courts\",\n\t\t\t\t\"court_name\": \"Liverpool County Court\",\n\t\t\t\t\"court_type\": \"County Court\",\n\t\t\t\t\"circuit\": \"North West\",\n\t\t\t\t\"location\": null,\n\t\t\t\t\"bench\": null,\n\t\t\t\t\"is_principal\": true\n\t\t\t},\n\t\t\t{\n\t\t\t\t\"role\": \"Tribunal Judge\",\n\t\t\t\t\"type\": \"Tribunals\",\n\t\t\t\t\"court_name\": \"Social Entitlement\",\n\t\t\t\t\"court_type\": \"First Tier Tribunal\",\n\t\t\t\t\"circuit\": null,\n\t\t\t\t\"location\": null,\n\t\t\t\t\"bench\": null,\n\t\t\t\t\"is_principal\": false\n\t\t\t}\n\t\t],\n\t\t\"authorisations\": [\n\t\t\t{\n\t\t\t\t\"jurisdiction\": \"Tribunals\",\n\t\t\t\t\"tickets\": [\n\t\t\t\t\t\"04 - Incapacity Benefit Employment Support\",\n\t\t\t\t\t\"03 - Disability Living Allowance\",\n\t\t\t\t\t\"Social Security and Child Support\"\n\t\t\t\t]\n\t\t\t},\n\t\t\t{\n\t\t\t\t\"jurisdiction\": \"Family\",\n\t\t\t\t\"tickets\": [\n\t\t\t\t\t\"Private Law\"\n\t\t\t\t]\n\t\t\t\n\t\t\t}\n\t\t]\n\t}\n]"
                         }
@@ -1604,12 +1554,6 @@
                     "type": "string",
                     "default": "application/json",
                     "enum": ["application/json"]
-                }, {
-                    "name": "def-request-video-hearing",
-                    "in": "body",
-                    "schema": {
-                        "$ref": "#/definitions/def-request-video-hearing"
-                    }
                 }],
                 "consumes": ["application/json"],
                 "produces": ["application/json"],
@@ -1714,9 +1658,6 @@
                 "responses": {
                     "200": {
                         "description": "",
-                        "schema": {
-                            "$ref": "#/definitions/def-res-vh-by-user"
-                        },
                         "examples": {
                             "application/json": "[\n  {\n    \"id\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\",\n    \"scheduled_date_time\": \"2020-12-17T10:08:13.060Z\",\n    \"scheduled_duration\": 0,\n    \"hearing_venue_name\": \"string\",\n    \"case_type_name\": \"string\",\n    \"hearing_type_name\": \"string\",\n    \"cases\": [\n      {\n        \"number\": \"string\",\n        \"name\": \"string\",\n        \"is_lead_case\": true\n      }\n    ],\n    \"participants\": [\n      {\n        \"id\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\",\n        \"display_name\": \"string\",\n        \"case_role_name\": \"string\",\n        \"hearing_role_name\": \"string\",\n        \"user_role_name\": \"string\",\n        \"title\": \"string\",\n        \"first_name\": \"string\",\n        \"middle_names\": \"string\",\n        \"last_name\": \"string\",\n        \"contact_email\": \"string\",\n        \"telephone_number\": \"string\",\n        \"username\": \"string\",\n        \"organisation\": \"string\",\n        \"representee\": \"string\"\n      }\n    ],\n    \"hearing_room_name\": \"string\",\n    \"other_information\": \"string\",\n    \"created_date\": \"2020-12-17T10:08:13.060Z\",\n    \"created_by\": \"string\",\n    \"updated_by\": \"string\",\n    \"updated_date\": \"2020-12-17T10:08:13.060Z\",\n    \"confirmed_by\": \"string\",\n    \"confirmed_date\": \"2020-12-17T10:08:13.060Z\",\n    \"status\": \"Booked\",\n    \"questionnaire_not_required\": true,\n    \"audio_recording_required\": true,\n    \"cancel_reason\": \"string\",\n    \"endpoints\": [\n      {\n        \"id\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\",\n        \"display_name\": \"string\",\n        \"sip\": \"string\",\n        \"pin\": \"string\",\n        \"defence_advocate_id\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\"\n      }\n    ],\n    \"group_id\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\"\n  }\n]"
                         }
@@ -1771,9 +1712,6 @@
                 "responses": {
                     "200": {
                         "description": "",
-                        "schema": {
-                            "$ref": "#/definitions/def-res-get-vh-by-id"
-                        },
                         "examples": {
                             "application/json": {
                                 "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
@@ -1867,12 +1805,6 @@
                     "type": "string",
                     "default": "application/json",
                     "enum": ["application/json"]
-                }, {
-                    "name": "body",
-                    "in": "body",
-                    "schema": {
-                        "example": "{\n  \"id\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\",\n  \"scheduled_date_time\": \"2021-02-02T11:08:02.603Z\",\n  \"scheduled_duration\": 0,\n  \"hearing_venue_name\": \"string\",\n  \"case_type_name\": \"string\",\n  \"hearing_type_name\": \"string\",\n  \"cases\": [\n    {\n      \"number\": \"string\",\n      \"name\": \"string\",\n      \"is_lead_case\": true\n    }\n  ],\n  \"participants\": [\n    {\n      \"id\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\",\n      \"display_name\": \"string\",\n      \"case_role_name\": \"string\",\n      \"hearing_role_name\": \"string\",\n      \"user_role_name\": \"string\",\n      \"title\": \"string\",\n      \"first_name\": \"string\",\n      \"middle_names\": \"string\",\n      \"last_name\": \"string\",\n      \"contact_email\": \"string\",\n      \"telephone_number\": \"string\",\n      \"username\": \"string\",\n      \"organisation\": \"string\",\n      \"representee\": \"string\"\n    }\n  ],\n  \"hearing_room_name\": \"string\",\n  \"other_information\": \"string\",\n  \"created_date\": \"2021-02-02T11:08:02.603Z\",\n  \"created_by\": \"string\",\n  \"updated_by\": \"string\",\n  \"updated_date\": \"2021-02-02T11:08:02.603Z\",\n  \"confirmed_by\": \"string\",\n  \"confirmed_date\": \"2021-02-02T11:08:02.603Z\",\n  \"status\": \"Booked\",\n  \"questionnaire_not_required\": true,\n  \"audio_recording_required\": true,\n  \"cancel_reason\": \"string\",\n  \"endpoints\": [\n    {\n      \"id\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\",\n      \"display_name\": \"string\",\n      \"sip\": \"string\",\n      \"pin\": \"string\",\n      \"defence_advocate_id\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\"\n    }\n  ],\n  \"group_id\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\"\n}"
-                    }
                 }],
                 "consumes": ["application/json"],
                 "produces": ["application/json"],
@@ -2011,84 +1943,11 @@
                     "type": "string",
                     "default": "application/json",
                     "enum": ["application/json"]
-                }, {
-                    "name": "rh-def-direct-hearing",
-                    "in": "body",
-                    "schema": {
-                        "$ref": "#/definitions/rh-def-direct-hearing"
-                    }
                 }],
                 "consumes": ["application/json"],
                 "responses": {
                     "202": {
                         "description": ""
-                    }
-                }
-            }
-        },
-        "/hearings/{hearingIdCaseHQ}": {
-            "get": {
-                "description": "Retrieve Hearing By Id",
-                "operationId": "retrieve-hearing-by-id",
-                "summary": "Retrieve Hearing By Id",
-                "tags":["hearings"],
-                "parameters": [{
-                    "name": "hearingIdCaseHQ",
-                    "in": "path",
-                    "required": true,
-                    "type": "string",
-                    "default": "5f2bffce29c77b6fef1e7499",
-                    "enum": ["5f2bffce29c77b6fef1e7499"]
-                }, {
-                    "name": "Source-System",
-                    "in": "header",
-                    "required": true,
-                    "type": "string",
-                    "default": "CFT",
-                    "enum": ["CFT"]
-                }, {
-                    "name": "Destination-System",
-                    "in": "header",
-                    "required": true,
-                    "type": "string",
-                    "default": "MOCK",
-                    "enum": ["MOCK"]
-                }, {
-                    "name": "Request-Created-At",
-                    "in": "header",
-                    "required": true,
-                    "type": "string",
-                    "default": "2018-01-29 20:36:01Z",
-                    "enum": ["2018-01-29 20:36:01Z"]
-                }, {
-                    "name": "Content-Type",
-                    "in": "header",
-                    "required": true,
-                    "type": "string",
-                    "default": "application/json",
-                    "enum": ["application/json"]
-                }],
-                "produces": ["application/json"],
-                "responses": {
-                    "200": {
-                        "description": "",
-                        "examples": {
-                            "application/json": {
-                                "listingRequestId": "5f2bffce29c77b6fef1e7488",
-                                "hearingIdCaseHQ": "5f2bffce29c77b6fef1e7499",
-                                "hearingType": "Crime",
-                                "hearingDate": "2018-01-29%2020:36:01Z",
-                                "hearingStartTime": "08:45",
-                                "hearingEndTime": "10:45",
-                                "hearingCaseIdHMCTS": "5f2bffcee0b6aa870e82f007",
-                                "hearingSessionIdCaseHQ": "5f2bffceef36b0eaf339d884",
-                                "hearingTranslatorRequired": "No",
-                                "hearingCreatedDate": "2020-09-16",
-                                "hearingCreatedBy": "Donald Duck",
-                                "hearingVenueId": "V3455",
-                                "hearingRoomId": "R2345"
-                            }
-                        }
                     }
                 }
             }
