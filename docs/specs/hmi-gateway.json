@@ -205,12 +205,13 @@
                     "required": true,
                     "type": "string",
                     "enum": ["MOCK"]
-                }, {
+                },{
                     "name": "Request-Created-At",
                     "in": "header",
-                    "description": "Date and time of request initiation.",
                     "required": true,
-                    "type": "string"
+                    "type": "string",
+                    "default": "2018-01-29 20:36:01Z",
+                    "enum": ["2018-01-29 20:36:01Z"]
                 }, {
                     "name": "Content-Type",
                     "in": "header",
@@ -1601,11 +1602,6 @@
                     "default": "application/json",
                     "enum": ["application/json"]
                 }, {
-                    "name": "Authorization",
-                    "in": "header",
-                    "required": true,
-                    "type": "string"
-                }, {
                     "name": "def-request-video-hearing",
                     "in": "body",
                     "schema": {
@@ -1710,11 +1706,6 @@
                     "type": "string",
                     "default": "application/json",
                     "enum": ["application/json"]
-                }, {
-                    "name": "Authorization",
-                    "in": "header",
-                    "required": true,
-                    "type": "string"
                 }],
                 "produces": ["application/json"],
                 "responses": {
@@ -1772,11 +1763,6 @@
                     "type": "string",
                     "default": "application/json",
                     "enum": ["application/json"]
-                }, {
-                    "name": "Authorization",
-                    "in": "header",
-                    "required": true,
-                    "type": "string"
                 }],
                 "produces": ["application/json"],
                 "responses": {
@@ -1879,11 +1865,6 @@
                     "default": "application/json",
                     "enum": ["application/json"]
                 }, {
-                    "name": "Authorization",
-                    "in": "header",
-                    "required": true,
-                    "type": "string"
-                }, {
                     "name": "body",
                     "in": "body",
                     "schema": {
@@ -1954,11 +1935,6 @@
                     "type": "string",
                     "default": "application/json",
                     "enum": ["application/json"]
-                }, {
-                    "name": "Authorization",
-                    "in": "header",
-                    "required": true,
-                    "type": "string"
                 }],
                 "responses": {
                     "204": {
@@ -2088,11 +2064,6 @@
                     "type": "string",
                     "default": "application/json",
                     "enum": ["application/json"]
-                }, {
-                    "name": "Authorization",
-                    "in": "header",
-                    "required": true,
-                    "type": "string"
                 }],
                 "produces": ["application/json"],
                 "responses": {
