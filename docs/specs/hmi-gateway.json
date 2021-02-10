@@ -4139,35 +4139,35 @@
       ],
     "tags": [
         {
-            "name":"hearing",
+            "name":"hearings",
             "description":"Everything about your Hering information"
         },
         {
-            "name":"listing",
+            "name":"listings",
             "description":"Everything about Listings"
         },
         {
-            "name":"session",
+            "name":"sessions",
             "description":"Everything about Sessions for Hearings"
         },
         {
-            "name":"resource",
+            "name":"resources",
             "description":"Everything about Resources for Hearings"
         },
         {
-            "name":"eLink",
+            "name":"eLinks",
             "description":"Everything about e-Links interaction"
         },
         {
-            "name":"video-hearing",
+            "name":"video-hearings",
             "description":"Everything about Video Hearings"
         },
         {
-            "name":"schedule",
+            "name":"schedules",
             "description":"Everything about Schedles for Hearings"
         },
         {
-            "name":"util",
+            "name":"utils",
             "description":"Utility endpoints"
         }
     ]
