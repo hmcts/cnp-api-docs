@@ -1235,7 +1235,8 @@
                     "in": "header",
                     "required": true,
                     "type": "string",
-                    "enum": ["01/29/2018 20:36:01"]
+                    "default": "2018-01-29 20:36:01Z",
+                    "enum": ["2018-01-29 20:36:01Z"]
                 }, {
                     "name": "Content-Type",
                     "in": "header",
