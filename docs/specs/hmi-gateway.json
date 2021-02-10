@@ -28,8 +28,8 @@
                     "description": "Target/Backend system that is supposed to consume the request message.",
                     "required": true,
                     "type": "string",
-                    "default": "SNL",
-                    "enum": ["SNL"]
+                    "default": "MOCK",
+                    "enum": ["MOCK"]
                 }, {
                     "name": "Request-Created-At",
                     "in": "header",
@@ -90,8 +90,8 @@
                     "in": "header",
                     "required": true,
                     "type": "string",
-                    "default": "SNL",
-                    "enum": ["SNL"]
+                    "default": "MOCK",
+                    "enum": ["MOCK"]
                 }, {
                     "name": "Request-Created-At",
                     "in": "header",
@@ -163,8 +163,8 @@
                     "in": "header",
                     "required": true,
                     "type": "string",
-                    "default": "SNL",
-                    "enum": ["SNL"]
+                    "default": "MOCK",
+                    "enum": ["MOCK"]
                 }, {
                     "name": "Request-Created-At",
                     "in": "header",
@@ -225,7 +225,7 @@
                     "description": "Target/Backend system that is supposed to consume the request message.",
                     "required": true,
                     "type": "string",
-                    "enum": ["SNL"]
+                    "enum": ["MOCK"]
                 }, {
                     "name": "Request-Created-At",
                     "in": "header",
@@ -303,7 +303,7 @@
                     "in": "header",
                     "required": true,
                     "type": "string",
-                    "enum": ["SNL"]
+                    "enum": ["MOCK"]
                 }, {
                     "name": "Request-Created-At",
                     "in": "header",
@@ -358,7 +358,7 @@
                     "in": "header",
                     "required": true,
                     "type": "string",
-                    "enum": ["SNL"]
+                    "enum": ["MOCK"]
                 }, {
                     "name": "Request-Created-At",
                     "in": "header",
@@ -436,7 +436,7 @@
                     "in": "header",
                     "required": true,
                     "type": "string",
-                    "enum": ["SNL"]
+                    "enum": ["MOCK"]
                 }, {
                     "name": "Request-Created-At",
                     "in": "header",
@@ -529,7 +529,7 @@
                     "description": "Target/Backend system that is supposed to consume the request message.",
                     "required": true,
                     "type": "string",
-                    "enum": ["SNL"]
+                    "enum": ["MOCK"]
                 }, {
                     "name": "Request-Created-At",
                     "in": "header",
@@ -613,8 +613,8 @@
                     "in": "header",
                     "required": true,
                     "type": "string",
-                    "default": "SNL",
-                    "enum": ["SNL"]
+                    "default": "MOCK",
+                    "enum": ["MOCK"]
                 }, {
                     "name": "Request-Created-At",
                     "in": "header",
@@ -666,8 +666,8 @@
                     "in": "header",
                     "required": true,
                     "type": "string",
-                    "default": "SNL",
-                    "enum": ["SNL"]
+                    "default": "MOCK",
+                    "enum": ["MOCK"]
                 }, {
                     "name": "Request-Created-At",
                     "in": "header",
@@ -736,8 +736,8 @@
                     "in": "header",
                     "required": true,
                     "type": "string",
-                    "default": "SNL",
-                    "enum": ["SNL"]
+                    "default": "MOCK",
+                    "enum": ["MOCK"]
                 }, {
                     "name": "Request-Created-At",
                     "in": "header",
@@ -802,8 +802,8 @@
                     "in": "header",
                     "required": true,
                     "type": "string",
-                    "default": "SNL",
-                    "enum": ["SNL"]
+                    "default": "MOCK",
+                    "enum": ["MOCK"]
                 }, {
                     "name": "Request-Created-At",
                     "in": "header",
@@ -879,7 +879,7 @@
                     "in": "header",
                     "required": true,
                     "type": "string",
-                    "enum": ["SNL"]
+                    "enum": ["MOCK"]
                 }, {
                     "name": "Request-Created-At",
                     "in": "header",
@@ -934,8 +934,8 @@
                     "in": "header",
                     "required": true,
                     "type": "string",
-                    "default": "SNL",
-                    "enum": ["SNL"]
+                    "default": "MOCK",
+                    "enum": ["MOCK"]
                 }, {
                     "name": "Request-Created-At",
                     "in": "header",
@@ -1009,8 +1009,8 @@
                     "in": "header",
                     "required": true,
                     "type": "string",
-                    "default": "SNL",
-                    "enum": ["SNL"]
+                    "default": "MOCK",
+                    "enum": ["MOCK"]
                 }, {
                     "name": "Request-Created-At",
                     "in": "header",
@@ -1072,8 +1072,8 @@
                     "in": "header",
                     "required": true,
                     "type": "string",
-                    "default": "SNL",
-                    "enum": ["SNL"]
+                    "default": "MOCK",
+                    "enum": ["MOCK"]
                 }, {
                     "name": "Request-Created-At",
                     "in": "header",
@@ -1128,8 +1128,8 @@
                     "in": "header",
                     "required": true,
                     "type": "string",
-                    "default": "SNL",
-                    "enum": ["SNL"]
+                    "default": "MOCK",
+                    "enum": ["MOCK"]
                 }, {
                     "name": "Request-Created-At",
                     "in": "header",
@@ -1198,8 +1198,8 @@
                     "in": "header",
                     "required": true,
                     "type": "string",
-                    "default": "SNL",
-                    "enum": ["SNL"]
+                    "default": "MOCK",
+                    "enum": ["MOCK"]
                 }, {
                     "name": "Request-Created-At",
                     "in": "header",
@@ -1270,8 +1270,8 @@
                     "in": "header",
                     "required": true,
                     "type": "string",
-                    "default": "SNL",
-                    "enum": ["SNL"]
+                    "default": "MOCK",
+                    "enum": ["MOCK"]
                 }, {
                     "name": "Request-Created-At",
                     "in": "header",
@@ -1352,7 +1352,7 @@
                     "in": "header",
                     "required": true,
                     "type": "string",
-                    "enum": ["SNL"]
+                    "enum": ["MOCK"]
                 }, {
                     "name": "Request-Created-At",
                     "in": "header",
@@ -1404,8 +1404,8 @@
                     "in": "header",
                     "required": true,
                     "type": "string",
-                    "default": "SNL",
-                    "enum": ["SNL"]
+                    "default": "MOCK",
+                    "enum": ["MOCK"]
                 }, {
                     "name": "Request-Created-At",
                     "in": "header",
@@ -1467,8 +1467,8 @@
                     "in": "header",
                     "required": true,
                     "type": "string",
-                    "default": "SNL",
-                    "enum": ["SNL"]
+                    "default": "MOCK",
+                    "enum": ["MOCK"]
                 }, {
                     "name": "Request-Created-At",
                     "in": "header",
@@ -2220,8 +2220,8 @@
                     "in": "header",
                     "required": true,
                     "type": "string",
-                    "default": "SNL",
-                    "enum": ["SNL"]
+                    "default": "MOCK",
+                    "enum": ["MOCK"]
                 }, {
                     "name": "Request-Created-At",
                     "in": "header",
