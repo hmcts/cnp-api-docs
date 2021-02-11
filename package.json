@@ -10,7 +10,7 @@
     "url": "git+https://github.com/hmcts/reform-api-docs.git"
   },
   "scripts": {
-    "start": "http-server -p 4000 docs/",
+    "start": "http-server -p 8080 docs/",
     "test": "jasmine JASMINE_CONFIG_PATH=package.json",
     "update-swagger": "cp node_modules/swagger-ui-dist/swagger-ui* docs/",
     "update-vis": "cp node_modules/vis/dist/vis-network* docs/ && cp -r node_modules/vis/dist/img docs/"
