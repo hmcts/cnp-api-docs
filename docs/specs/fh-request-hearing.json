@@ -6,14 +6,14 @@
     },
     "host": "hmi-apim.dev.platform.hmcts.net",
     "basePath": "/hmi",
-    "schemes": ["https"],
+    "schemes": ["http", "https"],
     "paths": {
         "/hearings": {
             "post": {
                 "description": "Request Hearing",
                 "operationId": "request-hearing",
                 "summary": "Request Hearing",
-                "tags":["hearings"],
+                "tags": ["hearings"],
                 "parameters": [{
                     "name": "Source-System",
                     "in": "header",
@@ -46,7 +46,6 @@
                     "default": "application/json",
                     "enum": ["application/json"]
                 }],
-                "consumes": ["application/json"],
                 "produces": ["application/json"],
                 "responses": {
                     "202": {
@@ -60,59 +59,11 @@
                     }
                 }
             },
-            "delete": {
-                "description": "Delete a Hearing",
-                "operationId": "delete-hearing",
-                "summary": "Delete Hearing",
-                "tags":["hearings"],
-                "parameters": [{
-                    "name": "Source-System",
-                    "in": "header",
-                    "required": true,
-                    "type": "string",
-                    "default": "CFT",
-                    "enum": ["CFT"]
-                }, {
-                    "name": "Destination-System",
-                    "in": "header",
-                    "required": true,
-                    "type": "string",
-                    "default": "MOCK",
-                    "enum": ["MOCK"]
-                }, {
-                    "name": "Request-Created-At",
-                    "in": "header",
-                    "required": true,
-                    "type": "string",
-                    "default": "2018-01-29 20:36:01Z",
-                    "enum": ["2018-01-29 20:36:01Z"]
-                }, {
-                    "name": "Content-Type",
-                    "in": "header",
-                    "required": true,
-                    "type": "string",
-                    "default": "application/json",
-                    "enum": ["application/json"]
-                }],
-                "consumes": ["application/json"],
-                "produces": ["application/json"],
-                "responses": {
-                    "200": {
-                        "description": "",
-                        "examples": {
-                            "application/json": {
-                                "response code": 200,
-                                "description": "The request was received successfully."
-                            }
-                        }
-                    }
-                }
-            },
             "get": {
                 "description": "Retrieve hearings",
                 "operationId": "retrieve-hearings",
                 "summary": "Retrieve Hearings",
-                "tags":["hearings"],
+                "tags": ["hearings"],
                 "parameters": [{
                     "name": "hearingDate",
                     "in": "query",
@@ -168,11 +119,63 @@
             }
         },
         "/hearings/{hearing-id}": {
+            "delete": {
+                "description": "Delete a Hearing",
+                "operationId": "delete-hearing",
+                "summary": "Delete Hearing",
+                "tags": ["hearings"],
+                "parameters": [{
+                    "name": "hearing-id",
+                    "in": "path",
+                    "required": true,
+                    "type": "string"
+                }, {
+                    "name": "Source-System",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "default": "CFT",
+                    "enum": ["CFT"]
+                }, {
+                    "name": "Destination-System",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "default": "MOCK",
+                    "enum": ["MOCK"]
+                }, {
+                    "name": "Request-Created-At",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "default": "2018-01-29 20:36:01Z",
+                    "enum": ["2018-01-29 20:36:01Z"]
+                }, {
+                    "name": "Content-Type",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "default": "application/json",
+                    "enum": ["application/json"]
+                }],
+                "produces": ["application/json"],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "examples": {
+                            "application/json": {
+                                "response code": 200,
+                                "description": "The request was received successfully."
+                            }
+                        }
+                    }
+                }
+            },
             "get": {
                 "description": "Retrieve Hearing By Id",
                 "operationId": "retrieve-hearing-by-id",
                 "summary": "Retrieve Hearing By Id",
-                "tags":["hearings"],
+                "tags": ["hearings"],
                 "parameters": [{
                     "name": "hearing-id",
                     "in": "path",
@@ -237,7 +240,7 @@
                 "description": "Update Hearing",
                 "operationId": "update-hearing",
                 "summary": "Update Hearing",
-                "tags":["hearings"],
+                "tags": ["hearings"],
                 "parameters": [{
                     "name": "hearing-id",
                     "in": "path",
@@ -258,7 +261,7 @@
                     "required": true,
                     "type": "string",
                     "enum": ["MOCK"]
-                },{
+                }, {
                     "name": "Request-Created-At",
                     "in": "header",
                     "required": true,
@@ -272,7 +275,6 @@
                     "type": "string",
                     "enum": ["application/json"]
                 }],
-                "consumes": ["application/json"],
                 "produces": ["application/json"],
                 "responses": {
                     "202": {
@@ -292,7 +294,7 @@
                 "description": "Health-Check",
                 "operationId": "health-check",
                 "summary": "Health-Check",
-                "tags":["utils"],
+                "tags": ["utils"],
                 "produces": ["application/json"],
                 "responses": {
                     "200": {
@@ -311,7 +313,7 @@
                 "description": "Retrieve list of resources",
                 "operationId": "resources",
                 "summary": "Resources",
-                "tags":["resources"],
+                "tags": ["resources"],
                 "parameters": [{
                     "name": "Source-System",
                     "in": "header",
@@ -354,7 +356,7 @@
                 "description": "Retrieve resource by id",
                 "operationId": "resource-by-id",
                 "summary": "Resorce By ID",
-                "tags":["resources"],
+                "tags": ["resources"],
                 "parameters": [{
                     "name": "resourceId",
                     "in": "path",
@@ -423,7 +425,7 @@
                 "description": "Delete Resource",
                 "operationId": "delete-resource",
                 "summary": "Delete Resource",
-                "tags":["resources"],
+                "tags": ["resources"],
                 "parameters": [{
                     "name": "resourceId",
                     "in": "path",
@@ -456,7 +458,6 @@
                     "type": "string",
                     "enum": ["application/json"]
                 }],
-                "consumes": ["application/json"],
                 "produces": ["application/json"],
                 "responses": {
                     "200": {
@@ -476,7 +477,7 @@
                 "description": "Schedules",
                 "operationId": "schedule",
                 "summary": "Schedule",
-                "tags":["schedules"],
+                "tags": ["schedules"],
                 "parameters": [{
                     "name": "hearing_date",
                     "in": "query",
@@ -551,7 +552,7 @@
                 "description": "Get Sessions",
                 "operationId": "get-sessions",
                 "summary": "Get Sessions",
-                "tags":["sessions"],
+                "tags": ["sessions"],
                 "parameters": [{
                     "name": "requestStartDate",
                     "in": "query",
@@ -604,7 +605,7 @@
                     "type": "string",
                     "default": "2018-01-29 20:36:01Z",
                     "enum": ["2018-01-29 20:36:01Z"]
-                },{
+                }, {
                     "name": "Content-Type",
                     "in": "header",
                     "required": true,
@@ -625,7 +626,7 @@
                 "description": "Create Session",
                 "operationId": "create-session",
                 "summary": "Create Session",
-                "tags":["sessions"],
+                "tags": ["sessions"],
                 "parameters": [{
                     "name": "Source-System",
                     "in": "header",
@@ -655,7 +656,6 @@
                     "default": "application/json",
                     "enum": ["application/json"]
                 }],
-                "consumes": ["application/json"],
                 "produces": ["application/json"],
                 "responses": {
                     "200": {
@@ -675,7 +675,7 @@
                 "description": "Update Session",
                 "operationId": "update-session",
                 "summary": "Update Session",
-                "tags":["sessions"],
+                "tags": ["sessions"],
                 "parameters": [{
                     "name": "sessionIdCaseHQ",
                     "in": "path",
@@ -710,7 +710,6 @@
                     "default": "application/json",
                     "enum": ["application/json"]
                 }],
-                "consumes": ["application/json"],
                 "produces": ["application/json"],
                 "responses": {
                     "200": {
@@ -728,7 +727,7 @@
                 "description": "Delete Session",
                 "operationId": "delete-session",
                 "summary": "Delete Session",
-                "tags":["sessions"],
+                "tags": ["sessions"],
                 "parameters": [{
                     "name": "sessionIdCaseHQ",
                     "in": "path",
@@ -765,7 +764,6 @@
                     "default": "application/json",
                     "enum": ["application/json"]
                 }],
-                "consumes": ["application/json"],
                 "produces": ["application/json"],
                 "responses": {
                     "200": {
@@ -783,7 +781,7 @@
                 "description": "Get Session By ID",
                 "operationId": "get-session-by-id",
                 "summary": "Get Session By ID",
-                "tags":["sessions"],
+                "tags": ["sessions"],
                 "parameters": [{
                     "name": "sessionIdCaseHQ",
                     "in": "path",
@@ -848,7 +846,7 @@
                 "description": "Update Resource Location",
                 "operationId": "update-resource-location",
                 "summary": "Update Resource Location",
-                "tags":["resources"],
+                "tags": ["resources"],
                 "parameters": [{
                     "name": "locationCaseHQId",
                     "in": "path",
@@ -884,7 +882,6 @@
                     "default": "application/json",
                     "enum": ["application/json"]
                 }],
-                "consumes": ["application/json"],
                 "responses": {
                     "204": {
                         "description": ""
@@ -897,7 +894,7 @@
                 "description": "Create Resource Location",
                 "operationId": "create-resource-location",
                 "summary": "Create Resource Location",
-                "tags":["resources"],
+                "tags": ["resources"],
                 "parameters": [{
                     "name": "Source-System",
                     "in": "header",
@@ -927,7 +924,6 @@
                     "default": "application/json",
                     "enum": ["application/json"]
                 }],
-                "consumes": ["application/json"],
                 "produces": ["application/json"],
                 "responses": {
                     "201": {
@@ -947,7 +943,7 @@
                 "description": "Get Listings",
                 "operationId": "get-listings",
                 "summary": "Get Listings",
-                "tags":["listings"],
+                "tags": ["listings"],
                 "parameters": [{
                     "name": "date_of_listing",
                     "in": "query",
@@ -1005,7 +1001,7 @@
                 "description": "Update Resource User",
                 "operationId": "update-resource-user",
                 "summary": "Update Resource User",
-                "tags":["resources"],
+                "tags": ["resources"],
                 "parameters": [{
                     "name": "userIdCaseHQ",
                     "in": "path",
@@ -1042,7 +1038,6 @@
                     "default": "application/json",
                     "enum": ["application/json"]
                 }],
-                "consumes": ["application/json"],
                 "responses": {
                     "204": {
                         "description": ""
@@ -1055,7 +1050,7 @@
                 "description": "Create Resource User",
                 "operationId": "create-resource-user",
                 "summary": "Create Resource User",
-                "tags":["resources"],
+                "tags": ["resources"],
                 "parameters": [{
                     "name": "Source-System",
                     "in": "header",
@@ -1085,7 +1080,6 @@
                     "default": "application/json",
                     "enum": ["application/json"]
                 }],
-                "consumes": ["application/json"],
                 "produces": ["application/json"],
                 "responses": {
                     "201": {
@@ -1105,7 +1099,7 @@
                 "description": "Update Listing",
                 "operationId": "update-listing",
                 "summary": "Update Listing",
-                "tags":["listings"],
+                "tags": ["listings"],
                 "parameters": [{
                     "name": "listing_id",
                     "in": "path",
@@ -1142,7 +1136,6 @@
                     "default": "application/json",
                     "enum": ["application/json"]
                 }],
-                "consumes": ["application/json"],
                 "responses": {
                     "204": {
                         "description": ""
@@ -1153,7 +1146,7 @@
                 "description": "Delete Listing",
                 "operationId": "delete-listing",
                 "summary": "Delete Listing",
-                "tags":["listings"],
+                "tags": ["listings"],
                 "parameters": [{
                     "name": "listing_id",
                     "in": "path",
@@ -1190,7 +1183,6 @@
                     "default": "application/json",
                     "enum": ["application/json"]
                 }],
-                "consumes": ["application/json"],
                 "produces": ["application/json"],
                 "responses": {
                     "200": {
@@ -1208,7 +1200,7 @@
                 "description": "Get listing by id",
                 "operationId": "get-listing-by-id",
                 "summary": "Get listing by id",
-                "tags":["listings"],
+                "tags": ["listings"],
                 "parameters": [{
                     "name": "listing_id",
                     "in": "path",
@@ -1270,7 +1262,7 @@
                 "description": "Secure",
                 "operationId": "secure",
                 "summary": "Secure",
-                "tags":["utils"],
+                "tags": ["utils"],
                 "produces": ["application/json"],
                 "responses": {
                     "200": {
@@ -1290,7 +1282,7 @@
                 "description": "Test Wiremock Connection",
                 "operationId": "test-wiremock-connection",
                 "summary": "Test Wiremock Connection",
-                "tags":["utils"],
+                "tags": ["utils"],
                 "parameters": [{
                     "name": "Source-System",
                     "in": "header",
@@ -1329,7 +1321,7 @@
                 "description": "Get People By ID",
                 "operationId": "get-people",
                 "summary": "Get People By ID",
-                "tags":["eLinks"],
+                "tags": ["eLinks"],
                 "parameters": [{
                     "name": "id",
                     "in": "path",
@@ -1414,7 +1406,7 @@
                 "description": "Update People",
                 "operationId": "update-people",
                 "summary": "Update People",
-                "tags":["eLinks"],
+                "tags": ["eLinks"],
                 "parameters": [{
                     "name": "id",
                     "in": "path",
@@ -1461,7 +1453,7 @@
                 "description": "Get People By Params",
                 "operationId": "get-people-by-params",
                 "summary": "Get People By Params",
-                "tags":["eLinks"],
+                "tags": ["eLinks"],
                 "parameters": [{
                     "name": "updated_since",
                     "in": "query",
@@ -1525,7 +1517,7 @@
                 "description": "Request Video Hearing",
                 "operationId": "request-video-hearing",
                 "summary": "Request Video Hearing",
-                "tags":["video-hearings"],
+                "tags": ["video-hearings"],
                 "parameters": [{
                     "name": "Source-System",
                     "in": "header",
@@ -1555,7 +1547,6 @@
                     "default": "application/json",
                     "enum": ["application/json"]
                 }],
-                "consumes": ["application/json"],
                 "produces": ["application/json"],
                 "responses": {
                     "201": {
@@ -1618,7 +1609,7 @@
                 "description": "Retrieve Video Hering By User",
                 "operationId": "retrieve-video-hering-by-user",
                 "summary": "Retrieve Video Hering By User",
-                "tags":["video-hearings"],
+                "tags": ["video-hearings"],
                 "parameters": [{
                     "name": "username",
                     "in": "query",
@@ -1670,7 +1661,7 @@
                 "description": "Retrieve Video Hearings",
                 "operationId": "retrieve-video-hearings",
                 "summary": "Retrieve Video Hearings",
-                "tags":["video-hearings"],
+                "tags": ["video-hearings"],
                 "parameters": [{
                     "name": "hearingId",
                     "in": "path",
@@ -1767,9 +1758,10 @@
                 }
             },
             "put": {
+                "description": "Update Video Hearing",
                 "operationId": "update-video-hearing",
                 "summary": "Update Video Hearing",
-                "tags":["video-hearings"],
+                "tags": ["video-hearings"],
                 "parameters": [{
                     "name": "hearingId",
                     "in": "path",
@@ -1806,7 +1798,6 @@
                     "default": "application/json",
                     "enum": ["application/json"]
                 }],
-                "consumes": ["application/json"],
                 "produces": ["application/json"],
                 "responses": {
                     "200": {
@@ -1832,9 +1823,10 @@
                 }
             },
             "delete": {
+                "description": "Delete Video Hearing",
                 "operationId": "delete-video-hearing",
                 "summary": "Delete Video Hearing",
-                "tags":["video-hearings"],
+                "tags": ["video-hearings"],
                 "parameters": [{
                     "name": "hearingId",
                     "in": "path",
@@ -1883,7 +1875,7 @@
                 "description": "Emulator-Health",
                 "operationId": "emulator-health",
                 "summary": "Emulator-Health",
-                "tags":["utils"],
+                "tags": ["utils"],
                 "responses": {
                     "200": {
                         "description": ""
@@ -1896,7 +1888,7 @@
                 "description": "Pact-Health",
                 "operationId": "pact-health",
                 "summary": "Pact-Health",
-                "tags":["utils"],
+                "tags": ["utils"],
                 "responses": {
                     "200": {
                         "description": ""
@@ -1909,7 +1901,7 @@
                 "description": "Direct Hearing",
                 "operationId": "direct-hearing",
                 "summary": "Direct Hearings",
-                "tags":["hearings"],
+                "tags": ["hearings"],
                 "parameters": [{
                     "name": "sessionId",
                     "in": "path",
@@ -1944,7 +1936,6 @@
                     "default": "application/json",
                     "enum": ["application/json"]
                 }],
-                "consumes": ["application/json"],
                 "responses": {
                     "202": {
                         "description": ""
@@ -1953,56 +1944,29 @@
             }
         }
     },
-    "definitions": {},
-    "securityDefinitions": {
-        "OAuth2": {
-          "type": "oauth2",
-          "flow": "application",
-          "tokenUrl": "https://login.microsoftonline.com/531ff96d-0ae9-462a-8d2d-bec7c0b42082/oauth2/v2.0/token",
-          "scopes": {
-            "api://d49d7fa2-6904-4223-a907-3b8992af4190/.default": "hmiGateway"
-          }
-        }
-      },
-      "security": [
-        {
-          "OAuth2": [
-            "api://d49d7fa2-6904-4223-a907-3b8992af4190/.default"
-          ]
-        }
-      ],
-    "tags": [
-        {
-            "name":"hearings",
-            "description":"Everything about your Hearing information"
-        },
-        {
-            "name":"listings",
-            "description":"Everything about Listings"
-        },
-        {
-            "name":"sessions",
-            "description":"Everything about Sessions for Hearings"
-        },
-        {
-            "name":"resources",
-            "description":"Everything about Resources for Hearings"
-        },
-        {
-            "name":"eLinks",
-            "description":"Everything about e-Links interaction"
-        },
-        {
-            "name":"video-hearings",
-            "description":"Everything about Video Hearings"
-        },
-        {
-            "name":"schedules",
-            "description":"Everything about Schedles for Hearings"
-        },
-        {
-            "name":"utils",
-            "description":"Utility endpoints"
-        }
-    ]
+    "tags": [{
+        "name": "hearings",
+        "description": "Everything about your Hearing information"
+    }, {
+        "name": "listings",
+        "description": "Everything about Listings"
+    }, {
+        "name": "sessions",
+        "description": "Everything about Sessions for Hearings"
+    }, {
+        "name": "resources",
+        "description": "Everything about Resources for Hearings"
+    }, {
+        "name": "eLinks",
+        "description": "Everything about e-Links interaction"
+    }, {
+        "name": "video-hearings",
+        "description": "Everything about Video Hearings"
+    }, {
+        "name": "schedules",
+        "description": "Everything about Schedles for Hearings"
+    }, {
+        "name": "utils",
+        "description": "Utility endpoints"
+    }]
 }
