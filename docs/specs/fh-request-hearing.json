@@ -1,117 +1,142 @@
 {
-    "swagger": "2.0",
+    "openapi": "3.0.1",
     "info": {
         "title": "hmi-apim-api",
+        "description": "",
         "version": "1.0"
     },
-    "host": "hmi-apim.dev.platform.hmcts.net",
-    "basePath": "/hmi",
-    "schemes": ["http", "https"],
+    "servers": [{
+        "url": "http://hmi-apim.test.platform.hmcts.net/hmi"
+    }, {
+        "url": "https://hmi-apim.test.platform.hmcts.net/hmi"
+    }],
     "paths": {
         "/hearings": {
             "post": {
+                "tags": ["hearings"],
+                "summary": "Request Hearing",
                 "description": "Request Hearing",
                 "operationId": "request-hearing",
-                "summary": "Request Hearing",
-                "tags": ["hearings"],
                 "parameters": [{
                     "name": "Source-System",
                     "in": "header",
                     "description": "soruce of the request initiation\n",
                     "required": true,
-                    "type": "string",
-                    "default": "CFT",
-                    "enum": ["CFT"]
+                    "schema": {
+                        "enum": ["CFT"],
+                        "type": "string",
+                        "default": "CFT"
+                    }
                 }, {
                     "name": "Destination-System",
                     "in": "header",
                     "description": "Target/Backend system that is supposed to consume the request message.",
                     "required": true,
-                    "type": "string",
-                    "default": "MOCK",
-                    "enum": ["MOCK"]
+                    "schema": {
+                        "enum": ["MOCK"],
+                        "type": "string",
+                        "default": "MOCK"
+                    }
                 }, {
                     "name": "Request-Created-At",
                     "in": "header",
                     "description": "Date and time of request initiation.",
                     "required": true,
-                    "type": "string",
-                    "default": "2018-01-29 20:36:01Z",
-                    "enum": ["2018-01-29 20:36:01Z"]
+                    "schema": {
+                        "enum": ["2018-01-29 20:36:01Z"],
+                        "type": "string",
+                        "default": "2018-01-29 20:36:01Z"
+                    }
                 }, {
                     "name": "Content-Type",
                     "in": "header",
                     "required": true,
-                    "type": "string",
-                    "default": "application/json",
-                    "enum": ["application/json"]
+                    "schema": {
+                        "enum": ["application/json"],
+                        "type": "string",
+                        "default": "application/json"
+                    }
                 }],
-                "produces": ["application/json"],
                 "responses": {
                     "202": {
                         "description": "",
-                        "examples": {
+                        "content": {
                             "application/json": {
-                                "response code": 202,
-                                "description": "The request was received successfully."
+                                "example": {
+                                    "response code": 202,
+                                    "description": "The request was received successfully."
+                                }
                             }
                         }
                     }
                 }
             },
             "get": {
+                "tags": ["hearings"],
+                "summary": "Retrieve Hearings",
                 "description": "Retrieve hearings",
                 "operationId": "retrieve-hearings",
-                "summary": "Retrieve Hearings",
-                "tags": ["hearings"],
                 "parameters": [{
                     "name": "hearingDate",
                     "in": "query",
-                    "type": "string",
-                    "default": "2018-01-29 20:36:01Z",
-                    "enum": ["2018-01-29 20:36:01Z"]
+                    "schema": {
+                        "enum": ["2018-01-29 20:36:01Z"],
+                        "type": "string",
+                        "default": "2018-01-29 20:36:01Z"
+                    }
                 }, {
                     "name": "hearingType",
                     "in": "query",
-                    "type": "string",
-                    "default": "Traffic",
-                    "enum": ["Traffic"]
+                    "schema": {
+                        "enum": ["Traffic"],
+                        "type": "string",
+                        "default": "Traffic"
+                    }
                 }, {
                     "name": "Source-System",
                     "in": "header",
                     "required": true,
-                    "type": "string",
-                    "default": "CFT",
-                    "enum": ["CFT"]
+                    "schema": {
+                        "enum": ["CFT"],
+                        "type": "string",
+                        "default": "CFT"
+                    }
                 }, {
                     "name": "Destination-System",
                     "in": "header",
                     "required": true,
-                    "type": "string",
-                    "default": "MOCK",
-                    "enum": ["MOCK"]
+                    "schema": {
+                        "enum": ["MOCK"],
+                        "type": "string",
+                        "default": "MOCK"
+                    }
                 }, {
                     "name": "Request-Created-At",
                     "in": "header",
                     "required": true,
-                    "type": "string",
-                    "default": "2018-01-29 20:36:01Z",
-                    "enum": ["2018-01-29 20:36:01Z"]
+                    "schema": {
+                        "enum": ["2018-01-29 20:36:01Z"],
+                        "type": "string",
+                        "default": "2018-01-29 20:36:01Z"
+                    }
                 }, {
                     "name": "Content-Type",
                     "in": "header",
                     "required": true,
-                    "type": "string",
-                    "default": "application/json",
-                    "enum": ["application/json"]
+                    "schema": {
+                        "enum": ["application/json"],
+                        "type": "string",
+                        "default": "application/json"
+                    }
                 }],
-                "produces": ["application/json"],
                 "responses": {
                     "200": {
                         "description": "",
-                        "examples": {
+                        "content": {
                             "application/json": {
-                                "key": "value"
+                                "example": {
+                                    "key": "value"
+                                }
                             }
                         }
                     }
@@ -120,169 +145,223 @@
         },
         "/hearings/{hearing-id}": {
             "delete": {
+                "tags": ["hearings"],
+                "summary": "Delete Hearing",
                 "description": "Delete a Hearing",
                 "operationId": "delete-hearing",
-                "summary": "Delete Hearing",
-                "tags": ["hearings"],
                 "parameters": [{
                     "name": "hearing-id",
                     "in": "path",
                     "required": true,
-                    "type": "string"
+                    "schema": {
+                        "type": "string"
+                    }
                 }, {
                     "name": "Source-System",
                     "in": "header",
                     "required": true,
-                    "type": "string",
-                    "default": "CFT",
-                    "enum": ["CFT"]
+                    "schema": {
+                        "enum": ["CFT"],
+                        "type": "string",
+                        "default": "CFT"
+                    }
                 }, {
                     "name": "Destination-System",
                     "in": "header",
                     "required": true,
-                    "type": "string",
-                    "default": "MOCK",
-                    "enum": ["MOCK"]
+                    "schema": {
+                        "enum": ["MOCK"],
+                        "type": "string",
+                        "default": "MOCK"
+                    }
                 }, {
                     "name": "Request-Created-At",
                     "in": "header",
                     "required": true,
-                    "type": "string",
-                    "default": "2018-01-29 20:36:01Z",
-                    "enum": ["2018-01-29 20:36:01Z"]
+                    "schema": {
+                        "enum": ["2018-01-29 20:36:01Z"],
+                        "type": "string",
+                        "default": "2018-01-29 20:36:01Z"
+                    }
                 }, {
                     "name": "Content-Type",
                     "in": "header",
                     "required": true,
-                    "type": "string",
-                    "default": "application/json",
-                    "enum": ["application/json"]
+                    "schema": {
+                        "enum": ["application/json"],
+                        "type": "string",
+                        "default": "application/json"
+                    }
                 }],
-                "produces": ["application/json"],
                 "responses": {
                     "200": {
                         "description": "",
-                        "examples": {
+                        "content": {
                             "application/json": {
-                                "response code": 200,
-                                "description": "The request was received successfully."
+                                "example": {
+                                    "response code": 200,
+                                    "description": "The request was received successfully."
+                                }
                             }
                         }
                     }
                 }
             },
             "get": {
+                "tags": ["hearings"],
+                "summary": "Retrieve Hearing By Id",
                 "description": "Retrieve Hearing By Id",
                 "operationId": "retrieve-hearing-by-id",
-                "summary": "Retrieve Hearing By Id",
-                "tags": ["hearings"],
                 "parameters": [{
                     "name": "hearing-id",
                     "in": "path",
                     "required": true,
-                    "type": "string",
-                    "default": "5f2bffce29c77b6fef1e7499",
-                    "enum": ["5f2bffce29c77b6fef1e7499"]
+                    "schema": {
+                        "enum": ["5f2bffce29c77b6fef1e7499"],
+                        "type": "string",
+                        "default": "5f2bffce29c77b6fef1e7499"
+                    }
                 }, {
                     "name": "Source-System",
                     "in": "header",
                     "required": true,
-                    "type": "string",
-                    "default": "CFT",
-                    "enum": ["CFT"]
+                    "schema": {
+                        "enum": ["CFT"],
+                        "type": "string",
+                        "default": "CFT"
+                    }
                 }, {
                     "name": "Destination-System",
                     "in": "header",
                     "required": true,
-                    "type": "string",
-                    "default": "MOCK",
-                    "enum": ["MOCK"]
+                    "schema": {
+                        "enum": ["MOCK"],
+                        "type": "string",
+                        "default": "MOCK"
+                    }
                 }, {
                     "name": "Request-Created-At",
                     "in": "header",
                     "required": true,
-                    "type": "string",
-                    "default": "2018-01-29 20:36:01Z",
-                    "enum": ["2018-01-29 20:36:01Z"]
+                    "schema": {
+                        "enum": ["2018-01-29 20:36:01Z"],
+                        "type": "string",
+                        "default": "2018-01-29 20:36:01Z"
+                    }
                 }, {
                     "name": "Content-Type",
                     "in": "header",
                     "required": true,
-                    "type": "string",
-                    "default": "application/json",
-                    "enum": ["application/json"]
+                    "schema": {
+                        "enum": ["application/json"],
+                        "type": "string",
+                        "default": "application/json"
+                    }
                 }],
-                "produces": ["application/json"],
                 "responses": {
                     "200": {
                         "description": "",
-                        "examples": {
+                        "content": {
                             "application/json": {
-                                "listingRequestId": "5f2bffce29c77b6fef1e7488",
-                                "hearingIdCaseHQ": "5f2bffce29c77b6fef1e7499",
-                                "hearingType": "Crime",
-                                "hearingDate": "2018-01-29%2020:36:01Z",
-                                "hearingStartTime": "08:45",
-                                "hearingEndTime": "10:45",
-                                "hearingCaseIdHMCTS": "5f2bffcee0b6aa870e82f007",
-                                "hearingSessionIdCaseHQ": "5f2bffceef36b0eaf339d884",
-                                "hearingTranslatorRequired": "No",
-                                "hearingCreatedDate": "2020-09-16",
-                                "hearingCreatedBy": "Donald Duck",
-                                "hearingVenueId": "V3455",
-                                "hearingRoomId": "R2345"
+                                "example": {
+                                    "listingRequestId": "5f2bffce29c77b6fef1e7488",
+                                    "hearingIdCaseHQ": "5f2bffce29c77b6fef1e7499",
+                                    "hearingType": "Crime",
+                                    "hearingDate": "2018-01-29%2020:36:01Z",
+                                    "hearingStartTime": "2021-02-19T08:45:00.0000000+00:00",
+                                    "hearingEndTime": "2021-02-19T10:45:00.0000000+00:00",
+                                    "hearingCaseIdHMCTS": "5f2bffcee0b6aa870e82f007",
+                                    "hearingSessionIdCaseHQ": "5f2bffceef36b0eaf339d884",
+                                    "hearingTranslatorRequired": "No",
+                                    "hearingCreatedDate": "2020-09-16T00:00:00.0000000+00:00",
+                                    "hearingCreatedBy": "Donald Duck",
+                                    "hearingVenueId": "V3455",
+                                    "hearingRoomId": "R2345"
+                                }
                             }
                         }
                     }
                 }
             },
             "put": {
+                "tags": ["hearings"],
+                "summary": "Update Hearing",
                 "description": "Update Hearing",
                 "operationId": "update-hearing",
-                "summary": "Update Hearing",
-                "tags": ["hearings"],
                 "parameters": [{
                     "name": "hearing-id",
                     "in": "path",
                     "required": true,
-                    "type": "string",
-                    "enum": ["CASE123432"]
+                    "schema": {
+                        "enum": ["CASE123432"],
+                        "type": "string"
+                    }
                 }, {
                     "name": "Source-System",
                     "in": "header",
                     "description": "soruce of the request initiation\n",
                     "required": true,
-                    "type": "string",
-                    "enum": ["CFT"]
+                    "schema": {
+                        "enum": ["CFT"],
+                        "type": "string"
+                    }
                 }, {
                     "name": "Destination-System",
                     "in": "header",
                     "description": "Target/Backend system that is supposed to consume the request message.",
                     "required": true,
-                    "type": "string",
-                    "enum": ["MOCK"]
+                    "schema": {
+                        "enum": ["MOCK"],
+                        "type": "string"
+                    }
                 }, {
                     "name": "Request-Created-At",
                     "in": "header",
                     "required": true,
-                    "type": "string",
-                    "default": "2018-01-29 20:36:01Z",
-                    "enum": ["2018-01-29 20:36:01Z"]
+                    "schema": {
+                        "enum": ["2018-01-29 20:36:01Z"],
+                        "type": "string",
+                        "default": "2018-01-29 20:36:01Z"
+                    }
                 }, {
                     "name": "Content-Type",
                     "in": "header",
                     "required": true,
-                    "type": "string",
-                    "enum": ["application/json"]
+                    "schema": {
+                        "enum": ["application/json"],
+                        "type": "string"
+                    }
                 }],
-                "produces": ["application/json"],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "example": {
+                                "listingRequestId": "5f2bffce29c77b6fef1e7503",
+                                "hearingIdCaseHQ": "5f2bffce29c77b6fef1e7777",
+                                "hearingType": "Crime",
+                                "hearingDate": "2020-09-22T00:00:00.0000000+00:00",
+                                "hearingStartTime": "2021-02-19T11:45:00.0000000+00:00",
+                                "hearingEndTime": "2021-02-19T12:45:00.0000000+00:00",
+                                "hearingCaseIdHMCTS": "5f2bffcee0b6aa870e82f009",
+                                "hearingSessionIdCaseHQ": "5f2bffceef36b0eaf339d886",
+                                "hearingTranslatorRequired": "No",
+                                "hearingCreatedDate": "2020-09-18T00:00:00.0000000+00:00",
+                                "hearingCreatedBy": "Paul Collingwood",
+                                "hearingVenueId": "V3463",
+                                "hearingRoomId": "R2363"
+                            }
+                        }
+                    }
+                },
                 "responses": {
                     "202": {
                         "description": "",
-                        "examples": {
+                        "content": {
                             "application/json": {
-                                "response code": 202,
-                                "description": "The request was received successfully."
+                                "example": {
+                                    "response code": 202,
+                                    "description": "The request was received successfully."
+                                }
                             }
                         }
                     }
@@ -291,17 +370,18 @@
         },
         "/": {
             "get": {
+                "tags": ["utils"],
+                "summary": "Health-Check",
                 "description": "Health-Check",
                 "operationId": "health-check",
-                "summary": "Health-Check",
-                "tags": ["utils"],
-                "produces": ["application/json"],
                 "responses": {
                     "200": {
                         "description": "",
-                        "examples": {
+                        "content": {
                             "application/json": {
-                                "status": "Up"
+                                "example": {
+                                    "status": "Up"
+                                }
                             }
                         }
                     }
@@ -310,42 +390,74 @@
         },
         "/resources": {
             "get": {
+                "tags": ["resources"],
+                "summary": "Resources",
                 "description": "Retrieve list of resources",
                 "operationId": "resources",
-                "summary": "Resources",
-                "tags": ["resources"],
                 "parameters": [{
                     "name": "Source-System",
                     "in": "header",
                     "required": true,
-                    "type": "string",
-                    "enum": ["CFT"]
+                    "schema": {
+                        "enum": ["CFT"],
+                        "type": "string"
+                    }
                 }, {
                     "name": "Destination-System",
                     "in": "header",
                     "required": true,
-                    "type": "string",
-                    "enum": ["MOCK"]
+                    "schema": {
+                        "enum": ["MOCK"],
+                        "type": "string"
+                    }
                 }, {
                     "name": "Request-Created-At",
                     "in": "header",
                     "required": true,
-                    "type": "string",
-                    "default": "2018-01-29 20:36:01Z",
-                    "enum": ["2018-01-29 20:36:01Z"]
+                    "schema": {
+                        "enum": ["2018-01-29 20:36:01Z"],
+                        "type": "string",
+                        "default": "2018-01-29 20:36:01Z"
+                    }
                 }, {
                     "name": "Content-Type",
                     "in": "header",
                     "required": true,
-                    "type": "string",
-                    "enum": ["application/json"]
+                    "schema": {
+                        "enum": ["application/json"],
+                        "type": "string"
+                    }
                 }],
-                "produces": ["application/json"],
                 "responses": {
                     "200": {
                         "description": "",
-                        "examples": {
-                            "application/json": "[\n\t{\n\t\t\"VenueID\": \"V123\",\n\t\t\"JurisdictionID\": \"J123\",\n\t\t\"FacilityID\": \"F123\",\n\t\t\"LocationID\": \"L123\",\n\t\t\"RegionID\": \"R123\",\n\t\t\"AddressID\": \"A123\",\n\t\t\"UPRN\": \"djksfxzcdas\",\n\t\t\"ePIMs\": \"djfsdads\",\n\t\t\"VenueName\": \"VName\",\n\t\t\"VenueType\": \"Vtype\",\n\t\t\"FacilityServiceLead\": \"asdjkfahjd\",\n\t\t\"ReportingSIteName\": \"asfdhahjks\",\n\t\t\"CourtType\": \"Civil\",\n\t\t\"JoinedBuildingYN\": \"Y\",\n\t\t\"OtherAgenciesAtSite\": \"N\",\n\t\t\"FlexibleOpsHours\":\"Y\",\n\t\t\"Cluster\": \"CCC123\",\n\t\t\"JudicialLead\": \"asdkjfhd\",\n\t\t\"DCJLCJLJArea\": \"dsfhj\",\n\t\t\"Status\": \"Open\",\n\t\t\"OpeningTimes\": \"0800 - 1600\",\n\t\t\"OpenToPublic\": \"N\"\n\t}\n]"
+                        "content": {
+                            "application/json": {
+                                "example": [{
+                                    "VenueID": "V123",
+                                    "JurisdictionID": "J123",
+                                    "FacilityID": "F123",
+                                    "LocationID": "L123",
+                                    "RegionID": "R123",
+                                    "AddressID": "A123",
+                                    "UPRN": "djksfxzcdas",
+                                    "ePIMs": "djfsdads",
+                                    "VenueName": "VName",
+                                    "VenueType": "Vtype",
+                                    "FacilityServiceLead": "asdjkfahjd",
+                                    "ReportingSIteName": "asfdhahjks",
+                                    "CourtType": "Civil",
+                                    "JoinedBuildingYN": "Y",
+                                    "OtherAgenciesAtSite": "N",
+                                    "FlexibleOpsHours": "Y",
+                                    "Cluster": "CCC123",
+                                    "JudicialLead": "asdkjfhd",
+                                    "DCJLCJLJArea": "dsfhj",
+                                    "Status": "Open",
+                                    "OpeningTimes": "0800 - 1600",
+                                    "OpenToPublic": "N"
+                                }]
+                            }
                         }
                     }
                 }
@@ -353,119 +465,141 @@
         },
         "/resources/{resourceId}": {
             "get": {
+                "tags": ["resources"],
+                "summary": "Resorce By ID",
                 "description": "Retrieve resource by id",
                 "operationId": "resource-by-id",
-                "summary": "Resorce By ID",
-                "tags": ["resources"],
                 "parameters": [{
                     "name": "resourceId",
                     "in": "path",
                     "required": true,
-                    "type": "string"
+                    "schema": {
+                        "type": "string"
+                    }
                 }, {
                     "name": "Source-System",
                     "in": "header",
                     "required": true,
-                    "type": "string",
-                    "enum": ["CFT"]
+                    "schema": {
+                        "enum": ["CFT"],
+                        "type": "string"
+                    }
                 }, {
                     "name": "Destination-System",
                     "in": "header",
                     "required": true,
-                    "type": "string",
-                    "enum": ["MOCK"]
+                    "schema": {
+                        "enum": ["MOCK"],
+                        "type": "string"
+                    }
                 }, {
                     "name": "Request-Created-At",
                     "in": "header",
                     "required": true,
-                    "type": "string",
-                    "default": "2018-01-29 20:36:01Z",
-                    "enum": ["2018-01-29 20:36:01Z"]
+                    "schema": {
+                        "enum": ["2018-01-29 20:36:01Z"],
+                        "type": "string",
+                        "default": "2018-01-29 20:36:01Z"
+                    }
                 }, {
                     "name": "Content-Type",
                     "in": "header",
                     "required": true,
-                    "type": "string",
-                    "enum": ["application/json"]
+                    "schema": {
+                        "enum": ["application/json"],
+                        "type": "string"
+                    }
                 }],
-                "produces": ["application/json"],
                 "responses": {
                     "200": {
                         "description": "",
-                        "examples": {
+                        "content": {
                             "application/json": {
-                                "VenueID": "V123",
-                                "JurisdictionID": "J123",
-                                "FacilityID": "F123",
-                                "LocationID": "L123",
-                                "RegionID": "R123",
-                                "AddressID": "A123",
-                                "UPRN": "djksfxzcdas",
-                                "ePIMs": "djfsdads",
-                                "VenueName": "VName",
-                                "VenueType": "Vtype",
-                                "FacilityServiceLead": "asdjkfahjd",
-                                "ReportingSIteName": "asfdhahjks",
-                                "CourtType": "Civil",
-                                "JoinedBuildingYN": "Y",
-                                "OtherAgenciesAtSite": "N",
-                                "FlexibleOpsHours": "Y",
-                                "Cluster": "CCC123",
-                                "JudicialLead": "asdkjfhd",
-                                "DCJLCJLJArea": "dsfhj",
-                                "Status": "Open",
-                                "OpeningTimes": "0800 - 1600",
-                                "OpenToPublic": "N"
+                                "example": {
+                                    "VenueID": "V123",
+                                    "JurisdictionID": "J123",
+                                    "FacilityID": "F123",
+                                    "LocationID": "L123",
+                                    "RegionID": "R123",
+                                    "AddressID": "A123",
+                                    "UPRN": "djksfxzcdas",
+                                    "ePIMs": "djfsdads",
+                                    "VenueName": "VName",
+                                    "VenueType": "Vtype",
+                                    "FacilityServiceLead": "asdjkfahjd",
+                                    "ReportingSIteName": "asfdhahjks",
+                                    "CourtType": "Civil",
+                                    "JoinedBuildingYN": "Y",
+                                    "OtherAgenciesAtSite": "N",
+                                    "FlexibleOpsHours": "Y",
+                                    "Cluster": "CCC123",
+                                    "JudicialLead": "asdkjfhd",
+                                    "DCJLCJLJArea": "dsfhj",
+                                    "Status": "Open",
+                                    "OpeningTimes": "0800 - 1600",
+                                    "OpenToPublic": "N"
+                                }
                             }
                         }
                     }
                 }
             },
             "delete": {
+                "tags": ["resources"],
+                "summary": "Delete Resource",
                 "description": "Delete Resource",
                 "operationId": "delete-resource",
-                "summary": "Delete Resource",
-                "tags": ["resources"],
                 "parameters": [{
                     "name": "resourceId",
                     "in": "path",
                     "description": "Resource Identifier",
                     "required": true,
-                    "type": "string",
-                    "enum": ["RESOURCE123"]
+                    "schema": {
+                        "enum": ["RESOURCE123"],
+                        "type": "string"
+                    }
                 }, {
                     "name": "Source-System",
                     "in": "header",
                     "required": true,
-                    "type": "string",
-                    "enum": ["CFT"]
+                    "schema": {
+                        "enum": ["CFT"],
+                        "type": "string"
+                    }
                 }, {
                     "name": "Destination-System",
                     "in": "header",
                     "required": true,
-                    "type": "string",
-                    "enum": ["MOCK"]
+                    "schema": {
+                        "enum": ["MOCK"],
+                        "type": "string"
+                    }
                 }, {
                     "name": "Request-Created-At",
                     "in": "header",
                     "required": true,
-                    "type": "string",
-                    "enum": ["2020-09-29 20:36:01Z"]
+                    "schema": {
+                        "enum": ["2020-09-29 20:36:01Z"],
+                        "type": "string"
+                    }
                 }, {
                     "name": "Content-Type",
                     "in": "header",
                     "required": true,
-                    "type": "string",
-                    "enum": ["application/json"]
+                    "schema": {
+                        "enum": ["application/json"],
+                        "type": "string"
+                    }
                 }],
-                "produces": ["application/json"],
                 "responses": {
                     "200": {
                         "description": "",
-                        "examples": {
+                        "content": {
                             "application/json": {
-                                "response code": 200,
-                                "description": "The request was received successfully."
+                                "example": {
+                                    "response code": 200,
+                                    "description": "The request was received successfully."
+                                }
                             }
                         }
                     }
@@ -474,74 +608,120 @@
         },
         "/schedules": {
             "get": {
+                "tags": ["schedules"],
+                "summary": "Schedule",
                 "description": "Schedules",
                 "operationId": "schedule",
-                "summary": "Schedule",
-                "tags": ["schedules"],
                 "parameters": [{
                     "name": "hearing_date",
                     "in": "query",
-                    "type": "string",
-                    "enum": ["2020-12-31T07:57:08 -00:00"]
+                    "schema": {
+                        "enum": ["2020-12-31T07:57:08 -00:00"],
+                        "type": "string"
+                    }
                 }, {
                     "name": "hearing_venue_id",
                     "in": "query",
-                    "type": "string",
-                    "enum": ["5f2bffce29c77b6fef1e7488"]
+                    "schema": {
+                        "enum": ["5f2bffce29c77b6fef1e7488"],
+                        "type": "string"
+                    }
                 }, {
                     "name": "hearing_room_id",
                     "in": "query",
-                    "type": "string",
-                    "enum": ["5f2bffce29c77b6fef1e7499"]
+                    "schema": {
+                        "enum": ["5f2bffce29c77b6fef1e7499"],
+                        "type": "string"
+                    }
                 }, {
                     "name": "hearing_session_id_casehq",
                     "in": "query",
-                    "type": "string",
-                    "enum": ["5f2bffce29c77b6fef1e7400"]
+                    "schema": {
+                        "enum": ["5f2bffce29c77b6fef1e7400"],
+                        "type": "string"
+                    }
                 }, {
                     "name": "hearing_case_id_hmcts",
                     "in": "query",
-                    "type": "string",
-                    "enum": ["5f2bffce29c77b6fef1e7411"]
+                    "schema": {
+                        "enum": ["5f2bffce29c77b6fef1e7411"],
+                        "type": "string"
+                    }
                 }, {
                     "name": "hearing_id_casehq",
                     "in": "query",
-                    "type": "string",
-                    "enum": ["5f2bffce29c77b6fef1e7422"]
+                    "schema": {
+                        "enum": ["5f2bffce29c77b6fef1e7422"],
+                        "type": "string"
+                    }
                 }, {
                     "name": "Source-System",
                     "in": "header",
                     "description": "soruce of the request initiation\n",
                     "required": true,
-                    "type": "string",
-                    "enum": ["CFT"]
+                    "schema": {
+                        "enum": ["CFT"],
+                        "type": "string"
+                    }
                 }, {
                     "name": "Destination-System",
                     "in": "header",
                     "description": "Target/Backend system that is supposed to consume the request message.",
                     "required": true,
-                    "type": "string",
-                    "enum": ["MOCK"]
+                    "schema": {
+                        "enum": ["MOCK"],
+                        "type": "string"
+                    }
                 }, {
                     "name": "Request-Created-At",
                     "in": "header",
                     "description": "Date and time of request initiation.",
                     "required": true,
-                    "type": "string",
-                    "enum": ["2018-01-29 20:36:01Z"]
+                    "schema": {
+                        "enum": ["2018-01-29 20:36:01Z"],
+                        "type": "string"
+                    }
                 }, {
                     "name": "Content-Type",
                     "in": "header",
                     "required": true,
-                    "type": "string",
-                    "enum": ["application/json"]
+                    "schema": {
+                        "enum": ["application/json"],
+                        "type": "string"
+                    }
                 }],
-                "produces": ["application/json"],
                 "responses": {
                     "200": {
                         "description": "",
-                        "examples": {
-                            "application/json": "[{\r\n  \"apiVersion\": \"V1.00103\",\r\n  \"transactionIdCaseHQ\": \"5f2bffce09fb0feadaf7b906\",\r\n  \"transactionIdHMCTS\": \"5f2bffcea47aedacc86d35cf\",\r\n  \"timeStamp\": \"12:15:22\",\r\n  \"listingId\": \"5f2bffcec0d5d73e929923fa\",\r\n  \"hearingIdCaseHQ\": \"5f2bffce29c77b6fef1e7488\",\r\n  \"hearingType\": \"Crime\",\r\n  \"hearingPriority\": \"High\",\r\n  \"hearingDate\": \"2020-01-28T07:57:08 -00:00\",\r\n  \"hearingStartTime\": \"08:45\",\r\n  \"hearingEndTime\": \"09:00\",\r\n  \"hearingWelshLanguage\": \"No\",\r\n  \"hearingPrivate\": \"Yes\",\r\n  \"hearingCaseIdHMCTS\": \"5f2bffcee0b6aa870e82f007\",\r\n  \"hearingSessionIdCaseHQ\": \"5f2bffceef36b0eaf339d884\",\r\n  \"hearingTranslatorRequired\": \"No\",\r\n  \"hearingTranslatorLanguage\": \"n/a\",\r\n  \"hearingOutcome\": \"To be hanged till death\",\r\n  \"hearingCreatedDate\": \"2019-12-28T07:57:08 -00:00\",\r\n  \"hearingCreatedBy\": \"Dimitry Mascaranhus\",\r\n  \"hearingParticipantId\": \"5f2bffce90a69eb81aaec725\",\r\n  \"hearingVenueId\": \"V3455\",\r\n  \"hearingRoomId\": \"R2345\",\r\n  \"hearingJudgeId\": \"HJ123\"\r\n}]"
+                        "content": {
+                            "application/json": {
+                                "example": [{
+                                    "apiVersion": "V1.00103",
+                                    "transactionIdCaseHQ": "5f2bffce09fb0feadaf7b906",
+                                    "transactionIdHMCTS": "5f2bffcea47aedacc86d35cf",
+                                    "timeStamp": "2021-02-19T12:15:22.0000000+00:00",
+                                    "listingId": "5f2bffcec0d5d73e929923fa",
+                                    "hearingIdCaseHQ": "5f2bffce29c77b6fef1e7488",
+                                    "hearingType": "Crime",
+                                    "hearingPriority": "High",
+                                    "hearingDate": "2020-01-28T07:57:08.0000000+00:00",
+                                    "hearingStartTime": "2021-02-19T08:45:00.0000000+00:00",
+                                    "hearingEndTime": "2021-02-19T09:00:00.0000000+00:00",
+                                    "hearingWelshLanguage": "No",
+                                    "hearingPrivate": "Yes",
+                                    "hearingCaseIdHMCTS": "5f2bffcee0b6aa870e82f007",
+                                    "hearingSessionIdCaseHQ": "5f2bffceef36b0eaf339d884",
+                                    "hearingTranslatorRequired": "No",
+                                    "hearingTranslatorLanguage": "n/a",
+                                    "hearingOutcome": "To be hanged till death",
+                                    "hearingCreatedDate": "2019-12-28T07:57:08.0000000+00:00",
+                                    "hearingCreatedBy": "Dimitry Mascaranhus",
+                                    "hearingParticipantId": "5f2bffce90a69eb81aaec725",
+                                    "hearingVenueId": "V3455",
+                                    "hearingRoomId": "R2345",
+                                    "hearingJudgeId": "HJ123"
+                                }]
+                            }
                         }
                     }
                 }
@@ -549,121 +729,165 @@
         },
         "/sessions": {
             "get": {
+                "tags": ["sessions"],
+                "summary": "Get Sessions",
                 "description": "Get Sessions",
                 "operationId": "get-sessions",
-                "summary": "Get Sessions",
-                "tags": ["sessions"],
                 "parameters": [{
                     "name": "requestStartDate",
                     "in": "query",
-                    "type": "string",
-                    "enum": ["01/29/2018 20:36:01"]
+                    "schema": {
+                        "enum": ["01/29/2018 20:36:01"],
+                        "type": "string"
+                    }
                 }, {
                     "name": "requestEndDate",
                     "in": "query",
-                    "type": "string",
-                    "enum": ["01/29/2018 20:36:01"]
+                    "schema": {
+                        "enum": ["01/29/2018 20:36:01"],
+                        "type": "string"
+                    }
                 }, {
                     "name": "requestJudgeType",
                     "in": "query",
-                    "type": "string",
-                    "enum": ["AC"]
+                    "schema": {
+                        "enum": ["AC"],
+                        "type": "string"
+                    }
                 }, {
                     "name": "requestLocationId",
                     "in": "query",
-                    "type": "string",
-                    "enum": ["354"]
+                    "schema": {
+                        "enum": ["354"],
+                        "type": "string"
+                    }
                 }, {
                     "name": "requestDuration",
                     "in": "query",
-                    "type": "string",
-                    "enum": ["360"]
+                    "schema": {
+                        "enum": ["360"],
+                        "type": "string"
+                    }
                 }, {
                     "name": "requestSessionType",
                     "in": "query",
-                    "type": "string",
-                    "default": "ADHOC",
-                    "enum": ["ADHOC"]
+                    "schema": {
+                        "enum": ["ADHOC"],
+                        "type": "string",
+                        "default": "ADHOC"
+                    }
                 }, {
                     "name": "Source-System",
                     "in": "header",
                     "required": true,
-                    "type": "string",
-                    "default": "CFT",
-                    "enum": ["CFT"]
+                    "schema": {
+                        "enum": ["CFT"],
+                        "type": "string",
+                        "default": "CFT"
+                    }
                 }, {
                     "name": "Destination-System",
                     "in": "header",
                     "required": true,
-                    "type": "string",
-                    "default": "MOCK",
-                    "enum": ["MOCK"]
+                    "schema": {
+                        "enum": ["MOCK"],
+                        "type": "string",
+                        "default": "MOCK"
+                    }
                 }, {
                     "name": "Request-Created-At",
                     "in": "header",
                     "required": true,
-                    "type": "string",
-                    "default": "2018-01-29 20:36:01Z",
-                    "enum": ["2018-01-29 20:36:01Z"]
+                    "schema": {
+                        "enum": ["2018-01-29 20:36:01Z"],
+                        "type": "string",
+                        "default": "2018-01-29 20:36:01Z"
+                    }
                 }, {
                     "name": "Content-Type",
                     "in": "header",
                     "required": true,
-                    "type": "string",
-                    "enum": ["application/json"]
+                    "schema": {
+                        "enum": ["application/json"],
+                        "type": "string"
+                    }
                 }],
-                "produces": ["application/json"],
                 "responses": {
                     "200": {
                         "description": "",
-                        "examples": {
-                            "application/json": "[\n    {\n    \"sessionStartDate\" : \"2018-01-29 20:36:01Z\", \n    \"sessionEndDate\": \"2018-01-29 20:36:01Z\",\n    \"caseCourt\": \"Milton Keynes\",\n    \"room-Name\" : \"RM012\",\n    \"JoH\": {\n        \"PersonRoleID\": \"PR012\",\n        \"PersonID\": \"P012\",\n        \"PersonRole\": \"Judge\",\n        \"personName\": \"Marcus Trescothic\",\n        \"TicketName\": \"\"\n    },\n    \"SessionType\": \"DS\", \n    \"SessionIDCaseHQ\": \"SID012\"\n}\n]\n"
+                        "content": {
+                            "application/json": {
+                                "example": [{
+                                    "sessionStartDate": "2018-01-29T20:36:01.0000000+00:00",
+                                    "sessionEndDate": "2018-01-29T20:36:01.0000000+00:00",
+                                    "caseCourt": "Milton Keynes",
+                                    "room-Name": "RM012",
+                                    "JoH": {
+                                        "PersonRoleID": "PR012",
+                                        "PersonID": "P012",
+                                        "PersonRole": "Judge",
+                                        "personName": "Marcus Trescothic",
+                                        "TicketName": ""
+                                    },
+                                    "SessionType": "DS",
+                                    "SessionIDCaseHQ": "SID012"
+                                }]
+                            }
                         }
                     }
                 }
             },
             "post": {
+                "tags": ["sessions"],
+                "summary": "Create Session",
                 "description": "Create Session",
                 "operationId": "create-session",
-                "summary": "Create Session",
-                "tags": ["sessions"],
                 "parameters": [{
                     "name": "Source-System",
                     "in": "header",
                     "required": true,
-                    "type": "string",
-                    "default": "CFT",
-                    "enum": ["CFT"]
+                    "schema": {
+                        "enum": ["CFT"],
+                        "type": "string",
+                        "default": "CFT"
+                    }
                 }, {
                     "name": "Destination-System",
                     "in": "header",
                     "required": true,
-                    "type": "string",
-                    "default": "MOCK",
-                    "enum": ["MOCK"]
+                    "schema": {
+                        "enum": ["MOCK"],
+                        "type": "string",
+                        "default": "MOCK"
+                    }
                 }, {
                     "name": "Request-Created-At",
                     "in": "header",
                     "required": true,
-                    "type": "string",
-                    "default": "2018-01-29 20:36:01Z",
-                    "enum": ["2018-01-29 20:36:01Z"]
+                    "schema": {
+                        "enum": ["2018-01-29 20:36:01Z"],
+                        "type": "string",
+                        "default": "2018-01-29 20:36:01Z"
+                    }
                 }, {
                     "name": "Content-Type",
                     "in": "header",
                     "required": true,
-                    "type": "string",
-                    "default": "application/json",
-                    "enum": ["application/json"]
+                    "schema": {
+                        "enum": ["application/json"],
+                        "type": "string",
+                        "default": "application/json"
+                    }
                 }],
-                "produces": ["application/json"],
                 "responses": {
                     "200": {
                         "description": "",
-                        "examples": {
+                        "content": {
                             "application/json": {
-                                "response code": 200,
-                                "description": "The request was received successfully."
+                                "example": {
+                                    "response code": 200,
+                                    "description": "The request was received successfully."
+                                }
                             }
                         }
                     }
@@ -672,169 +896,202 @@
         },
         "/sessions/{sessionIdCaseHQ}": {
             "put": {
+                "tags": ["sessions"],
+                "summary": "Update Session",
                 "description": "Update Session",
                 "operationId": "update-session",
-                "summary": "Update Session",
-                "tags": ["sessions"],
                 "parameters": [{
                     "name": "sessionIdCaseHQ",
                     "in": "path",
                     "required": true,
-                    "type": "string"
+                    "schema": {
+                        "type": "string"
+                    }
                 }, {
                     "name": "Source-System",
                     "in": "header",
                     "required": true,
-                    "type": "string",
-                    "default": "CFT",
-                    "enum": ["CFT"]
+                    "schema": {
+                        "enum": ["CFT"],
+                        "type": "string",
+                        "default": "CFT"
+                    }
                 }, {
                     "name": "Destination-System",
                     "in": "header",
                     "required": true,
-                    "type": "string",
-                    "default": "MOCK",
-                    "enum": ["MOCK"]
+                    "schema": {
+                        "enum": ["MOCK"],
+                        "type": "string",
+                        "default": "MOCK"
+                    }
                 }, {
                     "name": "Request-Created-At",
                     "in": "header",
                     "required": true,
-                    "type": "string",
-                    "default": "2018-01-29 20:36:01Z",
-                    "enum": ["2018-01-29 20:36:01Z"]
+                    "schema": {
+                        "enum": ["2018-01-29 20:36:01Z"],
+                        "type": "string",
+                        "default": "2018-01-29 20:36:01Z"
+                    }
                 }, {
                     "name": "Content-Type",
                     "in": "header",
                     "required": true,
-                    "type": "string",
-                    "default": "application/json",
-                    "enum": ["application/json"]
+                    "schema": {
+                        "enum": ["application/json"],
+                        "type": "string",
+                        "default": "application/json"
+                    }
                 }],
-                "produces": ["application/json"],
                 "responses": {
                     "200": {
                         "description": "",
-                        "examples": {
+                        "content": {
                             "application/json": {
-                                "response code": 200,
-                                "description": "The request was received successfully."
+                                "example": {
+                                    "response code": 200,
+                                    "description": "The request was received successfully."
+                                }
                             }
                         }
                     }
                 }
             },
             "delete": {
+                "tags": ["sessions"],
+                "summary": "Delete Session",
                 "description": "Delete Session",
                 "operationId": "delete-session",
-                "summary": "Delete Session",
-                "tags": ["sessions"],
                 "parameters": [{
                     "name": "sessionIdCaseHQ",
                     "in": "path",
                     "required": true,
-                    "type": "string",
-                    "default": "SID012",
-                    "enum": ["SID012"]
+                    "schema": {
+                        "enum": ["SID012"],
+                        "type": "string",
+                        "default": "SID012"
+                    }
                 }, {
                     "name": "Source-System",
                     "in": "header",
                     "required": true,
-                    "type": "string",
-                    "default": "CFT",
-                    "enum": ["CFT"]
+                    "schema": {
+                        "enum": ["CFT"],
+                        "type": "string",
+                        "default": "CFT"
+                    }
                 }, {
                     "name": "Destination-System",
                     "in": "header",
                     "required": true,
-                    "type": "string",
-                    "default": "MOCK",
-                    "enum": ["MOCK"]
+                    "schema": {
+                        "enum": ["MOCK"],
+                        "type": "string",
+                        "default": "MOCK"
+                    }
                 }, {
                     "name": "Request-Created-At",
                     "in": "header",
                     "required": true,
-                    "type": "string",
-                    "default": "2018-01-29 20:36:01Z",
-                    "enum": ["2018-01-29 20:36:01Z"]
+                    "schema": {
+                        "enum": ["2018-01-29 20:36:01Z"],
+                        "type": "string",
+                        "default": "2018-01-29 20:36:01Z"
+                    }
                 }, {
                     "name": "Content-Type",
                     "in": "header",
                     "required": true,
-                    "type": "string",
-                    "default": "application/json",
-                    "enum": ["application/json"]
+                    "schema": {
+                        "enum": ["application/json"],
+                        "type": "string",
+                        "default": "application/json"
+                    }
                 }],
-                "produces": ["application/json"],
                 "responses": {
                     "200": {
                         "description": "",
-                        "examples": {
+                        "content": {
                             "application/json": {
-                                "response code": 200,
-                                "description": "The request was received successfully."
+                                "example": {
+                                    "response code": 200,
+                                    "description": "The request was received successfully."
+                                }
                             }
                         }
                     }
                 }
             },
             "get": {
+                "tags": ["sessions"],
+                "summary": "Get Session By ID",
                 "description": "Get Session By ID",
                 "operationId": "get-session-by-id",
-                "summary": "Get Session By ID",
-                "tags": ["sessions"],
                 "parameters": [{
                     "name": "sessionIdCaseHQ",
                     "in": "path",
                     "required": true,
-                    "type": "string"
+                    "schema": {
+                        "type": "string"
+                    }
                 }, {
                     "name": "Source-System",
                     "in": "header",
                     "required": true,
-                    "type": "string",
-                    "default": "CFT",
-                    "enum": ["CFT"]
+                    "schema": {
+                        "enum": ["CFT"],
+                        "type": "string",
+                        "default": "CFT"
+                    }
                 }, {
                     "name": "Destination-System",
                     "in": "header",
                     "required": true,
-                    "type": "string",
-                    "default": "MOCK",
-                    "enum": ["MOCK"]
+                    "schema": {
+                        "enum": ["MOCK"],
+                        "type": "string",
+                        "default": "MOCK"
+                    }
                 }, {
                     "name": "Request-Created-At",
                     "in": "header",
                     "required": true,
-                    "type": "string",
-                    "default": "2018-01-29 20:36:01Z",
-                    "enum": ["2018-01-29 20:36:01Z"]
+                    "schema": {
+                        "enum": ["2018-01-29 20:36:01Z"],
+                        "type": "string",
+                        "default": "2018-01-29 20:36:01Z"
+                    }
                 }, {
                     "name": "Content-Type",
                     "in": "header",
                     "required": true,
-                    "type": "string",
-                    "default": "application/json",
-                    "enum": ["application/json"]
+                    "schema": {
+                        "enum": ["application/json"],
+                        "type": "string",
+                        "default": "application/json"
+                    }
                 }],
-                "produces": ["application/json"],
                 "responses": {
                     "200": {
                         "description": "",
-                        "examples": {
+                        "content": {
                             "application/json": {
-                                "sessionStartDate": "2018-01-29 20:36:01Z",
-                                "sessionEndDate": "2018-01-29 20:36:01Z",
-                                "caseCourt": "Milton Keynes",
-                                "room-Name": "RM012",
-                                "JoH": {
-                                    "PersonRoleID": "PR012",
-                                    "PersonID": "P012",
-                                    "PersonRole": "Judge",
-                                    "personName": "Marcus Trescothic",
-                                    "TicketName": ""
-                                },
-                                "SessionType": "DS",
-                                "SessionIDCaseHQ": "SID012"
+                                "example": {
+                                    "sessionStartDate": "2018-01-29T20:36:01.0000000+00:00",
+                                    "sessionEndDate": "2018-01-29T20:36:01.0000000+00:00",
+                                    "caseCourt": "Milton Keynes",
+                                    "room-Name": "RM012",
+                                    "JoH": {
+                                        "PersonRoleID": "PR012",
+                                        "PersonID": "P012",
+                                        "PersonRole": "Judge",
+                                        "personName": "Marcus Trescothic",
+                                        "TicketName": ""
+                                    },
+                                    "SessionType": "DS",
+                                    "SessionIDCaseHQ": "SID012"
+                                }
                             }
                         }
                     }
@@ -843,44 +1100,54 @@
         },
         "/resources/location/{locationCaseHQId}": {
             "put": {
+                "tags": ["resources"],
+                "summary": "Update Resource Location",
                 "description": "Update Resource Location",
                 "operationId": "update-resource-location",
-                "summary": "Update Resource Location",
-                "tags": ["resources"],
                 "parameters": [{
                     "name": "locationCaseHQId",
                     "in": "path",
                     "required": true,
-                    "type": "string",
-                    "default": "LCID0123",
-                    "enum": ["LCID0123"]
+                    "schema": {
+                        "enum": ["LCID0123"],
+                        "type": "string",
+                        "default": "LCID0123"
+                    }
                 }, {
                     "name": "Source-System",
                     "in": "header",
                     "required": true,
-                    "type": "string",
-                    "default": "CFT",
-                    "enum": ["CFT"]
+                    "schema": {
+                        "enum": ["CFT"],
+                        "type": "string",
+                        "default": "CFT"
+                    }
                 }, {
                     "name": "Destination-System",
                     "in": "header",
                     "required": true,
-                    "type": "string",
-                    "enum": ["MOCK"]
+                    "schema": {
+                        "enum": ["MOCK"],
+                        "type": "string"
+                    }
                 }, {
                     "name": "Request-Created-At",
                     "in": "header",
                     "required": true,
-                    "type": "string",
-                    "default": "2018-01-29 20:36:01Z",
-                    "enum": ["2018-01-29 20:36:01Z"]
+                    "schema": {
+                        "enum": ["2018-01-29 20:36:01Z"],
+                        "type": "string",
+                        "default": "2018-01-29 20:36:01Z"
+                    }
                 }, {
                     "name": "Content-Type",
                     "in": "header",
                     "required": true,
-                    "type": "string",
-                    "default": "application/json",
-                    "enum": ["application/json"]
+                    "schema": {
+                        "enum": ["application/json"],
+                        "type": "string",
+                        "default": "application/json"
+                    }
                 }],
                 "responses": {
                     "204": {
@@ -891,47 +1158,56 @@
         },
         "/resources/location": {
             "post": {
+                "tags": ["resources"],
+                "summary": "Create Resource Location",
                 "description": "Create Resource Location",
                 "operationId": "create-resource-location",
-                "summary": "Create Resource Location",
-                "tags": ["resources"],
                 "parameters": [{
                     "name": "Source-System",
                     "in": "header",
                     "required": true,
-                    "type": "string",
-                    "default": "CFT",
-                    "enum": ["CFT"]
+                    "schema": {
+                        "enum": ["CFT"],
+                        "type": "string",
+                        "default": "CFT"
+                    }
                 }, {
                     "name": "Destination-System",
                     "in": "header",
                     "required": true,
-                    "type": "string",
-                    "default": "MOCK",
-                    "enum": ["MOCK"]
+                    "schema": {
+                        "enum": ["MOCK"],
+                        "type": "string",
+                        "default": "MOCK"
+                    }
                 }, {
                     "name": "Request-Created-At",
                     "in": "header",
                     "required": true,
-                    "type": "string",
-                    "default": "2018-01-29 20:36:01Z",
-                    "enum": ["2018-01-29 20:36:01Z"]
+                    "schema": {
+                        "enum": ["2018-01-29 20:36:01Z"],
+                        "type": "string",
+                        "default": "2018-01-29 20:36:01Z"
+                    }
                 }, {
                     "name": "Content-Type",
                     "in": "header",
                     "required": true,
-                    "type": "string",
-                    "default": "application/json",
-                    "enum": ["application/json"]
+                    "schema": {
+                        "enum": ["application/json"],
+                        "type": "string",
+                        "default": "application/json"
+                    }
                 }],
-                "produces": ["application/json"],
                 "responses": {
                     "201": {
                         "description": "",
-                        "examples": {
+                        "content": {
                             "application/json": {
-                                "response code": 201,
-                                "description": "The request was received successfully."
+                                "example": {
+                                    "response code": 201,
+                                    "description": "The request was received successfully."
+                                }
                             }
                         }
                     }
@@ -940,57 +1216,79 @@
         },
         "/listings": {
             "get": {
+                "tags": ["listings"],
+                "summary": "Get Listings",
                 "description": "Get Listings",
                 "operationId": "get-listings",
-                "summary": "Get Listings",
-                "tags": ["listings"],
                 "parameters": [{
                     "name": "date_of_listing",
                     "in": "query",
-                    "type": "string",
-                    "default": "2018-01-29 20:36:01Z",
-                    "enum": ["2018-01-29 20:36:01Z"]
+                    "schema": {
+                        "enum": ["2018-01-29 20:36:01Z"],
+                        "type": "string",
+                        "default": "2018-01-29 20:36:01Z"
+                    }
                 }, {
                     "name": "hearing_type",
                     "in": "query",
-                    "type": "string",
-                    "default": "Civil",
-                    "enum": ["Civil"]
+                    "schema": {
+                        "enum": ["Civil"],
+                        "type": "string",
+                        "default": "Civil"
+                    }
                 }, {
                     "name": "Source-System",
                     "in": "header",
                     "required": true,
-                    "type": "string",
-                    "default": "CFT",
-                    "enum": ["CFT"]
+                    "schema": {
+                        "enum": ["CFT"],
+                        "type": "string",
+                        "default": "CFT"
+                    }
                 }, {
                     "name": "Destination-System",
                     "in": "header",
                     "required": true,
-                    "type": "string",
-                    "default": "MOCK",
-                    "enum": ["MOCK"]
+                    "schema": {
+                        "enum": ["MOCK"],
+                        "type": "string",
+                        "default": "MOCK"
+                    }
                 }, {
                     "name": "Request-Created-At",
                     "in": "header",
                     "required": true,
-                    "type": "string",
-                    "default": "2018-01-29 20:36:01Z",
-                    "enum": ["2018-01-29 20:36:01Z"]
+                    "schema": {
+                        "enum": ["2018-01-29 20:36:01Z"],
+                        "type": "string",
+                        "default": "2018-01-29 20:36:01Z"
+                    }
                 }, {
                     "name": "Content-Type",
                     "in": "header",
                     "required": true,
-                    "type": "string",
-                    "default": "application/json",
-                    "enum": ["application/json"]
+                    "schema": {
+                        "enum": ["application/json"],
+                        "type": "string",
+                        "default": "application/json"
+                    }
                 }],
-                "produces": ["application/json"],
                 "responses": {
                     "200": {
                         "description": "",
-                        "examples": {
-                            "application/json": "[\n    {\n        \"listingId\":\"L012\",\n        \"listingAutoCreateFlag\":\"f\",\n        \"listingStartDate\":\"2018-01-29 20:36:01Z\",\n        \"listingEndDate\":\"2018-01-29 20:36:01Z\",\n        \"listingDuration\":\"30\",\n        \"listingType\":\"Civil\",\n        \"listingPriority\":\"High\",\n        \"sessionIdCaseHQ\":\"SID012\"\n    } \n]"
+                        "content": {
+                            "application/json": {
+                                "example": [{
+                                    "listingId": "L012",
+                                    "listingAutoCreateFlag": "f",
+                                    "listingStartDate": "2018-01-29T20:36:01.0000000+00:00",
+                                    "listingEndDate": "2018-01-29T20:36:01.0000000+00:00",
+                                    "listingDuration": "30",
+                                    "listingType": "Civil",
+                                    "listingPriority": "High",
+                                    "sessionIdCaseHQ": "SID012"
+                                }]
+                            }
                         }
                     }
                 }
@@ -998,45 +1296,55 @@
         },
         "/resources/user/{userIdCaseHQ}": {
             "put": {
+                "tags": ["resources"],
+                "summary": "Update Resource User",
                 "description": "Update Resource User",
                 "operationId": "update-resource-user",
-                "summary": "Update Resource User",
-                "tags": ["resources"],
                 "parameters": [{
                     "name": "userIdCaseHQ",
                     "in": "path",
                     "required": true,
-                    "type": "string",
-                    "default": "donald.duck@disney.com",
-                    "enum": ["donald.duck@disney.com"]
+                    "schema": {
+                        "enum": ["donald.duck@disney.com"],
+                        "type": "string",
+                        "default": "donald.duck@disney.com"
+                    }
                 }, {
                     "name": "Source-System",
                     "in": "header",
                     "required": true,
-                    "type": "string",
-                    "default": "CFT",
-                    "enum": ["CFT"]
+                    "schema": {
+                        "enum": ["CFT"],
+                        "type": "string",
+                        "default": "CFT"
+                    }
                 }, {
                     "name": "Destination-System",
                     "in": "header",
                     "required": true,
-                    "type": "string",
-                    "default": "MOCK",
-                    "enum": ["MOCK"]
+                    "schema": {
+                        "enum": ["MOCK"],
+                        "type": "string",
+                        "default": "MOCK"
+                    }
                 }, {
                     "name": "Request-Created-At",
                     "in": "header",
                     "required": true,
-                    "type": "string",
-                    "default": "2018-01-29 20:36:01Z",
-                    "enum": ["2018-01-29 20:36:01Z"]
+                    "schema": {
+                        "enum": ["2018-01-29 20:36:01Z"],
+                        "type": "string",
+                        "default": "2018-01-29 20:36:01Z"
+                    }
                 }, {
                     "name": "Content-Type",
                     "in": "header",
                     "required": true,
-                    "type": "string",
-                    "default": "application/json",
-                    "enum": ["application/json"]
+                    "schema": {
+                        "enum": ["application/json"],
+                        "type": "string",
+                        "default": "application/json"
+                    }
                 }],
                 "responses": {
                     "204": {
@@ -1047,47 +1355,56 @@
         },
         "/resources/user": {
             "post": {
+                "tags": ["resources"],
+                "summary": "Create Resource User",
                 "description": "Create Resource User",
                 "operationId": "create-resource-user",
-                "summary": "Create Resource User",
-                "tags": ["resources"],
                 "parameters": [{
                     "name": "Source-System",
                     "in": "header",
                     "required": true,
-                    "type": "string",
-                    "default": "CFT",
-                    "enum": ["CFT"]
+                    "schema": {
+                        "enum": ["CFT"],
+                        "type": "string",
+                        "default": "CFT"
+                    }
                 }, {
                     "name": "Destination-System",
                     "in": "header",
                     "required": true,
-                    "type": "string",
-                    "default": "MOCK",
-                    "enum": ["MOCK"]
+                    "schema": {
+                        "enum": ["MOCK"],
+                        "type": "string",
+                        "default": "MOCK"
+                    }
                 }, {
                     "name": "Request-Created-At",
                     "in": "header",
                     "required": true,
-                    "type": "string",
-                    "default": "2018-01-29 20:36:01Z",
-                    "enum": ["2018-01-29 20:36:01Z"]
+                    "schema": {
+                        "enum": ["2018-01-29 20:36:01Z"],
+                        "type": "string",
+                        "default": "2018-01-29 20:36:01Z"
+                    }
                 }, {
                     "name": "Content-Type",
                     "in": "header",
                     "required": true,
-                    "type": "string",
-                    "default": "application/json",
-                    "enum": ["application/json"]
+                    "schema": {
+                        "enum": ["application/json"],
+                        "type": "string",
+                        "default": "application/json"
+                    }
                 }],
-                "produces": ["application/json"],
                 "responses": {
                     "201": {
                         "description": "",
-                        "examples": {
+                        "content": {
                             "application/json": {
-                                "response code": 201,
-                                "description": "The request was received successfully."
+                                "example": {
+                                    "response code": 201,
+                                    "description": "The request was received successfully."
+                                }
                             }
                         }
                     }
@@ -1096,45 +1413,55 @@
         },
         "/listings/{listing_id}": {
             "put": {
+                "tags": ["listings"],
+                "summary": "Update Listing",
                 "description": "Update Listing",
                 "operationId": "update-listing",
-                "summary": "Update Listing",
-                "tags": ["listings"],
                 "parameters": [{
                     "name": "listing_id",
                     "in": "path",
                     "required": true,
-                    "type": "string",
-                    "default": "C012",
-                    "enum": ["C012"]
+                    "schema": {
+                        "enum": ["C012"],
+                        "type": "string",
+                        "default": "C012"
+                    }
                 }, {
                     "name": "Source-System",
                     "in": "header",
                     "required": true,
-                    "type": "string",
-                    "default": "CFT",
-                    "enum": ["CFT"]
+                    "schema": {
+                        "enum": ["CFT"],
+                        "type": "string",
+                        "default": "CFT"
+                    }
                 }, {
                     "name": "Destination-System",
                     "in": "header",
                     "required": true,
-                    "type": "string",
-                    "default": "MOCK",
-                    "enum": ["MOCK"]
+                    "schema": {
+                        "enum": ["MOCK"],
+                        "type": "string",
+                        "default": "MOCK"
+                    }
                 }, {
                     "name": "Request-Created-At",
                     "in": "header",
                     "required": true,
-                    "type": "string",
-                    "default": "2018-01-29 20:36:01Z",
-                    "enum": ["2018-01-29 20:36:01Z"]
+                    "schema": {
+                        "enum": ["2018-01-29 20:36:01Z"],
+                        "type": "string",
+                        "default": "2018-01-29 20:36:01Z"
+                    }
                 }, {
                     "name": "Content-Type",
                     "in": "header",
                     "required": true,
-                    "type": "string",
-                    "default": "application/json",
-                    "enum": ["application/json"]
+                    "schema": {
+                        "enum": ["application/json"],
+                        "type": "string",
+                        "default": "application/json"
+                    }
                 }],
                 "responses": {
                     "204": {
@@ -1143,114 +1470,136 @@
                 }
             },
             "delete": {
+                "tags": ["listings"],
+                "summary": "Delete Listing",
                 "description": "Delete Listing",
                 "operationId": "delete-listing",
-                "summary": "Delete Listing",
-                "tags": ["listings"],
                 "parameters": [{
                     "name": "listing_id",
                     "in": "path",
                     "required": true,
-                    "type": "string",
-                    "default": "L012",
-                    "enum": ["L012"]
+                    "schema": {
+                        "enum": ["L012"],
+                        "type": "string",
+                        "default": "L012"
+                    }
                 }, {
                     "name": "Source-System",
                     "in": "header",
                     "required": true,
-                    "type": "string",
-                    "default": "CFT",
-                    "enum": ["CFT"]
+                    "schema": {
+                        "enum": ["CFT"],
+                        "type": "string",
+                        "default": "CFT"
+                    }
                 }, {
                     "name": "Destination-System",
                     "in": "header",
                     "required": true,
-                    "type": "string",
-                    "default": "MOCK",
-                    "enum": ["MOCK"]
+                    "schema": {
+                        "enum": ["MOCK"],
+                        "type": "string",
+                        "default": "MOCK"
+                    }
                 }, {
                     "name": "Request-Created-At",
                     "in": "header",
                     "required": true,
-                    "type": "string",
-                    "default": "2018-01-29 20:36:01Z",
-                    "enum": ["2018-01-29 20:36:01Z"]
+                    "schema": {
+                        "enum": ["2018-01-29 20:36:01Z"],
+                        "type": "string",
+                        "default": "2018-01-29 20:36:01Z"
+                    }
                 }, {
                     "name": "Content-Type",
                     "in": "header",
                     "required": true,
-                    "type": "string",
-                    "default": "application/json",
-                    "enum": ["application/json"]
+                    "schema": {
+                        "enum": ["application/json"],
+                        "type": "string",
+                        "default": "application/json"
+                    }
                 }],
-                "produces": ["application/json"],
                 "responses": {
                     "200": {
                         "description": "",
-                        "examples": {
+                        "content": {
                             "application/json": {
-                                "response code": 200,
-                                "description": "The request was received successfully."
+                                "example": {
+                                    "response code": 200,
+                                    "description": "The request was received successfully."
+                                }
                             }
                         }
                     }
                 }
             },
             "get": {
+                "tags": ["listings"],
+                "summary": "Get listing by id",
                 "description": "Get listing by id",
                 "operationId": "get-listing-by-id",
-                "summary": "Get listing by id",
-                "tags": ["listings"],
                 "parameters": [{
                     "name": "listing_id",
                     "in": "path",
                     "required": true,
-                    "type": "string",
-                    "default": "LID012",
-                    "enum": ["LID012"]
+                    "schema": {
+                        "enum": ["LID012"],
+                        "type": "string",
+                        "default": "LID012"
+                    }
                 }, {
                     "name": "Source-System",
                     "in": "header",
                     "required": true,
-                    "type": "string",
-                    "default": "CFT",
-                    "enum": ["CFT"]
+                    "schema": {
+                        "enum": ["CFT"],
+                        "type": "string",
+                        "default": "CFT"
+                    }
                 }, {
                     "name": "Destination-System",
                     "in": "header",
                     "required": true,
-                    "type": "string",
-                    "default": "MOCK",
-                    "enum": ["MOCK"]
+                    "schema": {
+                        "enum": ["MOCK"],
+                        "type": "string",
+                        "default": "MOCK"
+                    }
                 }, {
                     "name": "Request-Created-At",
                     "in": "header",
                     "required": true,
-                    "type": "string",
-                    "default": "2018-01-29 20:36:01Z",
-                    "enum": ["2018-01-29 20:36:01Z"]
+                    "schema": {
+                        "enum": ["2018-01-29 20:36:01Z"],
+                        "type": "string",
+                        "default": "2018-01-29 20:36:01Z"
+                    }
                 }, {
                     "name": "Content-Type",
                     "in": "header",
                     "required": true,
-                    "type": "string",
-                    "default": "application/json",
-                    "enum": ["application/json"]
+                    "schema": {
+                        "enum": ["application/json"],
+                        "type": "string",
+                        "default": "application/json"
+                    }
                 }],
-                "produces": ["application/json"],
                 "responses": {
                     "200": {
                         "description": "",
-                        "examples": {
+                        "content": {
                             "application/json": {
-                                "listingId": "L012",
-                                "listingAutoCreateFlag": "f",
-                                "listingStartDate": "2018-01-29 20:36:01Z",
-                                "listingEndDate": "2018-01-29 20:36:01Z",
-                                "listingDuration": "30",
-                                "listingType": "Civil",
-                                "listingPriority": "High",
-                                "sessionIdCaseHQ": "SID012"
+                                "example": {
+                                    "listingId": "L012",
+                                    "listingAutoCreateFlag": "f",
+                                    "listingStartDate": "2018-01-29T20:36:01.0000000+00:00",
+                                    "listingEndDate": "2018-01-29T20:36:01.0000000+00:00",
+                                    "listingDuration": "30",
+                                    "listingType": "Civil",
+                                    "listingPriority": "High",
+                                    "sessionIdCaseHQ": "SID012"
+                                }
                             }
                         }
                     }
@@ -1259,18 +1608,19 @@
         },
         "/secure": {
             "get": {
+                "tags": ["utils"],
+                "summary": "Secure",
                 "description": "Secure",
                 "operationId": "secure",
-                "summary": "Secure",
-                "tags": ["utils"],
-                "produces": ["application/json"],
                 "responses": {
                     "200": {
                         "description": "",
-                        "examples": {
+                        "content": {
                             "application/json": {
-                                "responseCode": 200,
-                                "message": "Hello"
+                                "example": {
+                                    "responseCode": 200,
+                                    "message": "Hello"
+                                }
                             }
                         }
                     }
@@ -1279,35 +1629,43 @@
         },
         "/p0001": {
             "get": {
+                "tags": ["utils"],
+                "summary": "Test Wiremock Connection",
                 "description": "Test Wiremock Connection",
                 "operationId": "test-wiremock-connection",
-                "summary": "Test Wiremock Connection",
-                "tags": ["utils"],
                 "parameters": [{
                     "name": "Source-System",
                     "in": "header",
                     "required": true,
-                    "type": "string",
-                    "enum": ["CFT"]
+                    "schema": {
+                        "enum": ["CFT"],
+                        "type": "string"
+                    }
                 }, {
                     "name": "Destination-System",
                     "in": "header",
                     "required": true,
-                    "type": "string",
-                    "enum": ["MOCK"]
+                    "schema": {
+                        "enum": ["MOCK"],
+                        "type": "string"
+                    }
                 }, {
                     "name": "Request-Created-At",
                     "in": "header",
                     "required": true,
-                    "type": "string",
-                    "default": "2018-01-29 20:36:01Z",
-                    "enum": ["2018-01-29 20:36:01Z"]
+                    "schema": {
+                        "enum": ["2018-01-29 20:36:01Z"],
+                        "type": "string",
+                        "default": "2018-01-29 20:36:01Z"
+                    }
                 }, {
                     "name": "Content-Type",
                     "in": "header",
                     "required": true,
-                    "type": "string",
-                    "enum": ["application/json"]
+                    "schema": {
+                        "enum": ["application/json"],
+                        "type": "string"
+                    }
                 }],
                 "responses": {
                     "200": {
@@ -1318,128 +1676,149 @@
         },
         "/people/{id}": {
             "get": {
+                "tags": ["eLinks"],
+                "summary": "Get People By ID",
                 "description": "Get People By ID",
                 "operationId": "get-people",
-                "summary": "Get People By ID",
-                "tags": ["eLinks"],
                 "parameters": [{
                     "name": "id",
                     "in": "path",
                     "required": true,
-                    "type": "string",
-                    "default": "PID012",
-                    "enum": ["PID012"]
+                    "schema": {
+                        "enum": ["PID012"],
+                        "type": "string",
+                        "default": "PID012"
+                    }
                 }, {
                     "name": "Source-System",
                     "in": "header",
                     "required": true,
-                    "type": "string",
-                    "default": "CFT",
-                    "enum": ["CFT"]
+                    "schema": {
+                        "enum": ["CFT"],
+                        "type": "string",
+                        "default": "CFT"
+                    }
                 }, {
                     "name": "Destination-System",
                     "in": "header",
                     "required": true,
-                    "type": "string",
-                    "default": "MOCK",
-                    "enum": ["MOCK"]
+                    "schema": {
+                        "enum": ["MOCK"],
+                        "type": "string",
+                        "default": "MOCK"
+                    }
                 }, {
                     "name": "Request-Created-At",
                     "in": "header",
                     "required": true,
-                    "type": "string",
-                    "default": "2018-01-29 20:36:01Z",
-                    "enum": ["2018-01-29 20:36:01Z"]
+                    "schema": {
+                        "enum": ["2018-01-29 20:36:01Z"],
+                        "type": "string",
+                        "default": "2018-01-29 20:36:01Z"
+                    }
                 }, {
                     "name": "Content-Type",
                     "in": "header",
                     "required": true,
-                    "type": "string",
-                    "default": "application/json",
-                    "enum": ["application/json"]
+                    "schema": {
+                        "enum": ["application/json"],
+                        "type": "string",
+                        "default": "application/json"
+                    }
                 }],
-                "produces": ["application/json"],
                 "responses": {
                     "200": {
                         "description": "",
-                        "examples": {
+                        "content": {
                             "application/json": {
-                                "id": "2959d456-cee3-4011-bf16-e028025ca775",
-                                "personal_code": "4925359",
-                                "title": "Ms",
-                                "known_as": "Michelle",
-                                "surname": "McKeown",
-                                "fullname": "Ms Michelle McKeown",
-                                "email": "DDJ.Michelle.McKeown@railsdxw.onmicrosoft.com",
-                                "appointments": [{
-                                    "role": "District Judge",
-                                    "type": "Courts",
-                                    "court_name": "Liverpool County Court",
-                                    "court_type": "County Court",
-                                    "circuit": "North West",
-                                    "location": null,
-                                    "bench": null,
-                                    "is_principal": true
-                                }, {
-                                    "role": "Tribunal Judge",
-                                    "type": "Tribunals",
-                                    "court_name": "Social Entitlement",
-                                    "court_type": "First Tier Tribunal",
-                                    "circuit": null,
-                                    "location": null,
-                                    "bench": null,
-                                    "is_principal": false
-                                }],
-                                "authorisations": [{
-                                    "jurisdiction": "Tribunals",
-                                    "tickets": ["04 - Incapacity Benefit Employment Support", "03 - Disability Living Allowance", "Social Security and Child Support"]
-                                }, {
-                                    "jurisdiction": "Family",
-                                    "tickets": ["Private Law"]
-                                }]
+                                "example": {
+                                    "id": "2959d456-cee3-4011-bf16-e028025ca775",
+                                    "personal_code": "4925359",
+                                    "title": "Ms",
+                                    "known_as": "Michelle",
+                                    "surname": "McKeown",
+                                    "fullname": "Ms Michelle McKeown",
+                                    "email": "DDJ.Michelle.McKeown@railsdxw.onmicrosoft.com",
+                                    "appointments": [{
+                                        "role": "District Judge",
+                                        "type": "Courts",
+                                        "court_name": "Liverpool County Court",
+                                        "court_type": "County Court",
+                                        "circuit": "North West",
+                                        "location": null,
+                                        "bench": null,
+                                        "is_principal": true
+                                    }, {
+                                        "role": "Tribunal Judge",
+                                        "type": "Tribunals",
+                                        "court_name": "Social Entitlement",
+                                        "court_type": "First Tier Tribunal",
+                                        "circuit": null,
+                                        "location": null,
+                                        "bench": null,
+                                        "is_principal": false
+                                    }],
+                                    "authorisations": [{
+                                        "jurisdiction": "Tribunals",
+                                        "tickets": ["04 - Incapacity Benefit Employment Support", "03 - Disability Living Allowance", "Social Security and Child Support"]
+                                    }, {
+                                        "jurisdiction": "Family",
+                                        "tickets": ["Private Law"]
+                                    }]
+                                }
                             }
                         }
                     }
                 }
             },
             "put": {
+                "tags": ["eLinks"],
+                "summary": "Update People",
                 "description": "Update People",
                 "operationId": "update-people",
-                "summary": "Update People",
-                "tags": ["eLinks"],
                 "parameters": [{
                     "name": "id",
                     "in": "path",
                     "required": true,
-                    "type": "string"
+                    "schema": {
+                        "type": "string"
+                    }
                 }, {
                     "name": "Source-System",
                     "in": "header",
                     "required": true,
-                    "type": "string",
-                    "default": "CFT",
-                    "enum": ["CFT"]
+                    "schema": {
+                        "enum": ["CFT"],
+                        "type": "string",
+                        "default": "CFT"
+                    }
                 }, {
                     "name": "Destination-System",
                     "in": "header",
                     "required": true,
-                    "type": "string",
-                    "default": "MOCK",
-                    "enum": ["MOCK"]
+                    "schema": {
+                        "enum": ["MOCK"],
+                        "type": "string",
+                        "default": "MOCK"
+                    }
                 }, {
                     "name": "Request-Created-At",
                     "in": "header",
                     "required": true,
-                    "type": "string",
-                    "default": "2018-01-29 20:36:01Z",
-                    "enum": ["2018-01-29 20:36:01Z"]
+                    "schema": {
+                        "enum": ["2018-01-29 20:36:01Z"],
+                        "type": "string",
+                        "default": "2018-01-29 20:36:01Z"
+                    }
                 }, {
                     "name": "Content-Type",
                     "in": "header",
                     "required": true,
-                    "type": "string",
-                    "default": "application/json",
-                    "enum": ["application/json"]
+                    "schema": {
+                        "enum": ["application/json"],
+                        "type": "string",
+                        "default": "application/json"
+                    }
                 }],
                 "responses": {
                     "204": {
@@ -1450,63 +1829,112 @@
         },
         "/people": {
             "get": {
+                "tags": ["eLinks"],
+                "summary": "Get People By Params",
                 "description": "Get People By Params",
                 "operationId": "get-people-by-params",
-                "summary": "Get People By Params",
-                "tags": ["eLinks"],
                 "parameters": [{
                     "name": "updated_since",
                     "in": "query",
-                    "type": "string",
-                    "default": "2018-04-10",
-                    "enum": ["2018-04-10"]
+                    "schema": {
+                        "enum": ["2018-04-10"],
+                        "type": "string",
+                        "default": "2018-04-10"
+                    }
                 }, {
                     "name": "per_page",
                     "in": "query",
-                    "type": "string",
-                    "default": "2",
-                    "enum": ["2"]
+                    "schema": {
+                        "enum": ["2"],
+                        "type": "string",
+                        "default": "2"
+                    }
                 }, {
                     "name": "page",
                     "in": "query",
-                    "type": "string",
-                    "default": "100",
-                    "enum": ["100"]
+                    "schema": {
+                        "enum": ["100"],
+                        "type": "string",
+                        "default": "100"
+                    }
                 }, {
                     "name": "Source-System",
                     "in": "header",
                     "required": true,
-                    "type": "string",
-                    "default": "CFT",
-                    "enum": ["CFT"]
+                    "schema": {
+                        "enum": ["CFT"],
+                        "type": "string",
+                        "default": "CFT"
+                    }
                 }, {
                     "name": "Destination-System",
                     "in": "header",
                     "required": true,
-                    "type": "string",
-                    "default": "MOCK",
-                    "enum": ["MOCK"]
+                    "schema": {
+                        "enum": ["MOCK"],
+                        "type": "string",
+                        "default": "MOCK"
+                    }
                 }, {
                     "name": "Request-Created-At",
                     "in": "header",
                     "required": true,
-                    "type": "string",
-                    "default": "2018-01-29 20:36:01Z",
-                    "enum": ["2018-01-29 20:36:01Z"]
+                    "schema": {
+                        "enum": ["2018-01-29 20:36:01Z"],
+                        "type": "string",
+                        "default": "2018-01-29 20:36:01Z"
+                    }
                 }, {
                     "name": "Content-Type",
                     "in": "header",
                     "required": true,
-                    "type": "string",
-                    "default": "application/json",
-                    "enum": ["application/json"]
+                    "schema": {
+                        "enum": ["application/json"],
+                        "type": "string",
+                        "default": "application/json"
+                    }
                 }],
-                "produces": ["application/json"],
                 "responses": {
                     "200": {
                         "description": "",
-                        "examples": {
-                            "application/json": "[\n    {\n\t\t\"id\": \"2959d456-cee3-4011-bf16-e028025ca775\",\n\t\t\"personal_code\": \"4925359\",\n\t\t\"title\": \"Ms\",\n\t\t\"known_as\": \"Michelle\",\n\t\t\"surname\": \"McKeown\",\n\t\t\"fullname\": \"Ms Michelle McKeown\",\n\t\t\"email\": \"DDJ.Michelle.McKeown@railsdxw.onmicrosoft.com\",\n\t\t\"appointments\": [\n\t\t\t{\n\t\t\t\t\"role\": \"District Judge\",\n\t\t\t\t\"type\": \"Courts\",\n\t\t\t\t\"court_name\": \"Liverpool County Court\",\n\t\t\t\t\"court_type\": \"County Court\",\n\t\t\t\t\"circuit\": \"North West\",\n\t\t\t\t\"location\": null,\n\t\t\t\t\"bench\": null,\n\t\t\t\t\"is_principal\": true\n\t\t\t},\n\t\t\t{\n\t\t\t\t\"role\": \"Tribunal Judge\",\n\t\t\t\t\"type\": \"Tribunals\",\n\t\t\t\t\"court_name\": \"Social Entitlement\",\n\t\t\t\t\"court_type\": \"First Tier Tribunal\",\n\t\t\t\t\"circuit\": null,\n\t\t\t\t\"location\": null,\n\t\t\t\t\"bench\": null,\n\t\t\t\t\"is_principal\": false\n\t\t\t}\n\t\t],\n\t\t\"authorisations\": [\n\t\t\t{\n\t\t\t\t\"jurisdiction\": \"Tribunals\",\n\t\t\t\t\"tickets\": [\n\t\t\t\t\t\"04 - Incapacity Benefit Employment Support\",\n\t\t\t\t\t\"03 - Disability Living Allowance\",\n\t\t\t\t\t\"Social Security and Child Support\"\n\t\t\t\t]\n\t\t\t},\n\t\t\t{\n\t\t\t\t\"jurisdiction\": \"Family\",\n\t\t\t\t\"tickets\": [\n\t\t\t\t\t\"Private Law\"\n\t\t\t\t]\n\t\t\t\n\t\t\t}\n\t\t]\n\t}\n]"
+                        "content": {
+                            "application/json": {
+                                "example": [{
+                                    "id": "2959d456-cee3-4011-bf16-e028025ca775",
+                                    "personal_code": "4925359",
+                                    "title": "Ms",
+                                    "known_as": "Michelle",
+                                    "surname": "McKeown",
+                                    "fullname": "Ms Michelle McKeown",
+                                    "email": "DDJ.Michelle.McKeown@railsdxw.onmicrosoft.com",
+                                    "appointments": [{
+                                        "role": "District Judge",
+                                        "type": "Courts",
+                                        "court_name": "Liverpool County Court",
+                                        "court_type": "County Court",
+                                        "circuit": "North West",
+                                        "location": null,
+                                        "bench": null,
+                                        "is_principal": true
+                                    }, {
+                                        "role": "Tribunal Judge",
+                                        "type": "Tribunals",
+                                        "court_name": "Social Entitlement",
+                                        "court_type": "First Tier Tribunal",
+                                        "circuit": null,
+                                        "location": null,
+                                        "bench": null,
+                                        "is_principal": false
+                                    }],
+                                    "authorisations": [{
+                                        "jurisdiction": "Tribunals",
+                                        "tickets": ["04 - Incapacity Benefit Employment Support", "03 - Disability Living Allowance", "Social Security and Child Support"]
+                                    }, {
+                                        "jurisdiction": "Family",
+                                        "tickets": ["Private Law"]
+                                    }]
+                                }]
+                            }
                         }
                     }
                 }
@@ -1514,143 +1942,211 @@
         },
         "/resources/video-hearing": {
             "post": {
+                "tags": ["video-hearings"],
+                "summary": "Request Video Hearing",
                 "description": "Request Video Hearing",
                 "operationId": "request-video-hearing",
-                "summary": "Request Video Hearing",
-                "tags": ["video-hearings"],
                 "parameters": [{
                     "name": "Source-System",
                     "in": "header",
                     "required": true,
-                    "type": "string",
-                    "default": "CFT",
-                    "enum": ["CFT"]
+                    "schema": {
+                        "enum": ["CFT"],
+                        "type": "string",
+                        "default": "CFT"
+                    }
                 }, {
                     "name": "Destination-System",
                     "in": "header",
                     "required": true,
-                    "type": "string",
-                    "default": "MOCK",
-                    "enum": ["MOCK"]
+                    "schema": {
+                        "enum": ["MOCK"],
+                        "type": "string",
+                        "default": "MOCK"
+                    }
                 }, {
                     "name": "Request-Created-At",
                     "in": "header",
                     "required": true,
-                    "type": "string",
-                    "default": "2018-01-29 20:36:01Z",
-                    "enum": ["2018-01-29 20:36:01Z"]
+                    "schema": {
+                        "enum": ["2018-01-29 20:36:01Z"],
+                        "type": "string",
+                        "default": "2018-01-29 20:36:01Z"
+                    }
                 }, {
                     "name": "Content-Type",
                     "in": "header",
                     "required": true,
-                    "type": "string",
-                    "default": "application/json",
-                    "enum": ["application/json"]
+                    "schema": {
+                        "enum": ["application/json"],
+                        "type": "string",
+                        "default": "application/json"
+                    }
                 }],
-                "produces": ["application/json"],
                 "responses": {
                     "201": {
                         "description": "",
-                        "examples": {
+                        "content": {
                             "application/json": {
-                                "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-                                "scheduled_date_time": "2020-12-11T10:01:00.155Z",
-                                "scheduled_duration": 0,
-                                "hearing_venue_name": "string",
-                                "case_type_name": "string",
-                                "hearing_type_name": "string",
-                                "cases": [{
-                                    "number": "string",
-                                    "name": "string",
-                                    "is_lead_case": true
-                                }],
-                                "participants": [{
+                                "example": {
                                     "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-                                    "display_name": "string",
-                                    "case_role_name": "string",
-                                    "hearing_role_name": "string",
-                                    "user_role_name": "string",
-                                    "title": "string",
-                                    "first_name": "string",
-                                    "middle_names": "string",
-                                    "last_name": "string",
-                                    "contact_email": "string",
-                                    "telephone_number": "string",
-                                    "username": "string",
-                                    "organisation": "string",
-                                    "representee": "string"
-                                }],
-                                "hearing_room_name": "string",
-                                "other_information": "string",
-                                "created_date": "2020-12-11T10:01:00.155Z",
-                                "created_by": "string",
-                                "updated_by": "string",
-                                "updated_date": "2020-12-11T10:01:00.155Z",
-                                "confirmed_by": "string",
-                                "confirmed_date": "2020-12-11T10:01:00.155Z",
-                                "status": "Booked",
-                                "questionnaire_not_required": true,
-                                "audio_recording_required": true,
-                                "cancel_reason": "string",
-                                "endpoints": [{
-                                    "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-                                    "display_name": "string",
-                                    "sip": "string",
-                                    "pin": "string",
-                                    "defence_advocate_id": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
-                                }],
-                                "group_id": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
+                                    "scheduled_date_time": "2020-12-11T10:01:00.1550000+00:00",
+                                    "scheduled_duration": 0,
+                                    "hearing_venue_name": "string",
+                                    "case_type_name": "string",
+                                    "hearing_type_name": "string",
+                                    "cases": [{
+                                        "number": "string",
+                                        "name": "string",
+                                        "is_lead_case": true
+                                    }],
+                                    "participants": [{
+                                        "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+                                        "display_name": "string",
+                                        "case_role_name": "string",
+                                        "hearing_role_name": "string",
+                                        "user_role_name": "string",
+                                        "title": "string",
+                                        "first_name": "string",
+                                        "middle_names": "string",
+                                        "last_name": "string",
+                                        "contact_email": "string",
+                                        "telephone_number": "string",
+                                        "username": "string",
+                                        "organisation": "string",
+                                        "representee": "string"
+                                    }],
+                                    "hearing_room_name": "string",
+                                    "other_information": "string",
+                                    "created_date": "2020-12-11T10:01:00.1550000+00:00",
+                                    "created_by": "string",
+                                    "updated_by": "string",
+                                    "updated_date": "2020-12-11T10:01:00.1550000+00:00",
+                                    "confirmed_by": "string",
+                                    "confirmed_date": "2020-12-11T10:01:00.1550000+00:00",
+                                    "status": "Booked",
+                                    "questionnaire_not_required": true,
+                                    "audio_recording_required": true,
+                                    "cancel_reason": "string",
+                                    "endpoints": [{
+                                        "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+                                        "display_name": "string",
+                                        "sip": "string",
+                                        "pin": "string",
+                                        "defence_advocate_id": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
+                                    }],
+                                    "group_id": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
+                                }
                             }
                         }
                     }
                 }
             },
             "get": {
+                "tags": ["video-hearings"],
+                "summary": "Retrieve Video Hering By User",
                 "description": "Retrieve Video Hering By User",
                 "operationId": "retrieve-video-hering-by-user",
-                "summary": "Retrieve Video Hering By User",
-                "tags": ["video-hearings"],
                 "parameters": [{
                     "name": "username",
                     "in": "query",
-                    "type": "string",
-                    "default": "VHU012",
-                    "enum": ["VHU012"]
+                    "schema": {
+                        "enum": ["VHU012"],
+                        "type": "string",
+                        "default": "VHU012"
+                    }
                 }, {
                     "name": "Source-System",
                     "in": "header",
                     "required": true,
-                    "type": "string",
-                    "default": "CFT",
-                    "enum": ["CFT"]
+                    "schema": {
+                        "enum": ["CFT"],
+                        "type": "string",
+                        "default": "CFT"
+                    }
                 }, {
                     "name": "Destination-System",
                     "in": "header",
                     "required": true,
-                    "type": "string",
-                    "default": "MOCK",
-                    "enum": ["MOCK"]
+                    "schema": {
+                        "enum": ["MOCK"],
+                        "type": "string",
+                        "default": "MOCK"
+                    }
                 }, {
                     "name": "Request-Created-At",
                     "in": "header",
                     "required": true,
-                    "type": "string",
-                    "default": "2018-01-29 20:36:01Z",
-                    "enum": ["2018-01-29 20:36:01Z"]
+                    "schema": {
+                        "enum": ["2018-01-29 20:36:01Z"],
+                        "type": "string",
+                        "default": "2018-01-29 20:36:01Z"
+                    }
                 }, {
                     "name": "Content-Type",
                     "in": "header",
                     "required": true,
-                    "type": "string",
-                    "default": "application/json",
-                    "enum": ["application/json"]
+                    "schema": {
+                        "enum": ["application/json"],
+                        "type": "string",
+                        "default": "application/json"
+                    }
                 }],
-                "produces": ["application/json"],
                 "responses": {
                     "200": {
                         "description": "",
-                        "examples": {
-                            "application/json": "[\n  {\n    \"id\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\",\n    \"scheduled_date_time\": \"2020-12-17T10:08:13.060Z\",\n    \"scheduled_duration\": 0,\n    \"hearing_venue_name\": \"string\",\n    \"case_type_name\": \"string\",\n    \"hearing_type_name\": \"string\",\n    \"cases\": [\n      {\n        \"number\": \"string\",\n        \"name\": \"string\",\n        \"is_lead_case\": true\n      }\n    ],\n    \"participants\": [\n      {\n        \"id\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\",\n        \"display_name\": \"string\",\n        \"case_role_name\": \"string\",\n        \"hearing_role_name\": \"string\",\n        \"user_role_name\": \"string\",\n        \"title\": \"string\",\n        \"first_name\": \"string\",\n        \"middle_names\": \"string\",\n        \"last_name\": \"string\",\n        \"contact_email\": \"string\",\n        \"telephone_number\": \"string\",\n        \"username\": \"string\",\n        \"organisation\": \"string\",\n        \"representee\": \"string\"\n      }\n    ],\n    \"hearing_room_name\": \"string\",\n    \"other_information\": \"string\",\n    \"created_date\": \"2020-12-17T10:08:13.060Z\",\n    \"created_by\": \"string\",\n    \"updated_by\": \"string\",\n    \"updated_date\": \"2020-12-17T10:08:13.060Z\",\n    \"confirmed_by\": \"string\",\n    \"confirmed_date\": \"2020-12-17T10:08:13.060Z\",\n    \"status\": \"Booked\",\n    \"questionnaire_not_required\": true,\n    \"audio_recording_required\": true,\n    \"cancel_reason\": \"string\",\n    \"endpoints\": [\n      {\n        \"id\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\",\n        \"display_name\": \"string\",\n        \"sip\": \"string\",\n        \"pin\": \"string\",\n        \"defence_advocate_id\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\"\n      }\n    ],\n    \"group_id\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\"\n  }\n]"
+                        "content": {
+                            "application/json": {
+                                "example": [{
+                                    "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+                                    "scheduled_date_time": "2020-12-17T10:08:13.0600000+00:00",
+                                    "scheduled_duration": 0,
+                                    "hearing_venue_name": "string",
+                                    "case_type_name": "string",
+                                    "hearing_type_name": "string",
+                                    "cases": [{
+                                        "number": "string",
+                                        "name": "string",
+                                        "is_lead_case": true
+                                    }],
+                                    "participants": [{
+                                        "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+                                        "display_name": "string",
+                                        "case_role_name": "string",
+                                        "hearing_role_name": "string",
+                                        "user_role_name": "string",
+                                        "title": "string",
+                                        "first_name": "string",
+                                        "middle_names": "string",
+                                        "last_name": "string",
+                                        "contact_email": "string",
+                                        "telephone_number": "string",
+                                        "username": "string",
+                                        "organisation": "string",
+                                        "representee": "string"
+                                    }],
+                                    "hearing_room_name": "string",
+                                    "other_information": "string",
+                                    "created_date": "2020-12-17T10:08:13.0600000+00:00",
+                                    "created_by": "string",
+                                    "updated_by": "string",
+                                    "updated_date": "2020-12-17T10:08:13.0600000+00:00",
+                                    "confirmed_by": "string",
+                                    "confirmed_date": "2020-12-17T10:08:13.0600000+00:00",
+                                    "status": "Booked",
+                                    "questionnaire_not_required": true,
+                                    "audio_recording_required": true,
+                                    "cancel_reason": "string",
+                                    "endpoints": [{
+                                        "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+                                        "display_name": "string",
+                                        "sip": "string",
+                                        "pin": "string",
+                                        "defence_advocate_id": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
+                                    }],
+                                    "group_id": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
+                                }]
+                            }
                         }
                     }
                 }
@@ -1658,210 +2154,242 @@
         },
         "/resources/video-hearing/{hearingId}": {
             "get": {
+                "tags": ["video-hearings"],
+                "summary": "Retrieve Video Hearings",
                 "description": "Retrieve Video Hearings",
                 "operationId": "retrieve-video-hearings",
-                "summary": "Retrieve Video Hearings",
-                "tags": ["video-hearings"],
                 "parameters": [{
                     "name": "hearingId",
                     "in": "path",
                     "required": true,
-                    "type": "string",
-                    "default": "VH012",
-                    "enum": ["VH012"]
+                    "schema": {
+                        "enum": ["VH012"],
+                        "type": "string",
+                        "default": "VH012"
+                    }
                 }, {
                     "name": "Source-System",
                     "in": "header",
                     "description": "",
                     "required": true,
-                    "type": "string",
-                    "default": "CFT",
-                    "enum": ["CFT"]
+                    "schema": {
+                        "enum": ["CFT"],
+                        "type": "string",
+                        "default": "CFT"
+                    }
                 }, {
                     "name": "Destination-System",
                     "in": "header",
                     "required": true,
-                    "type": "string",
-                    "default": "MOCK",
-                    "enum": ["MOCK"]
+                    "schema": {
+                        "enum": ["MOCK"],
+                        "type": "string",
+                        "default": "MOCK"
+                    }
                 }, {
                     "name": "Request-Created-At",
                     "in": "header",
                     "required": true,
-                    "type": "string",
-                    "default": "2018-01-29 20:36:01Z",
-                    "enum": ["2018-01-29 20:36:01Z"]
+                    "schema": {
+                        "enum": ["2018-01-29 20:36:01Z"],
+                        "type": "string",
+                        "default": "2018-01-29 20:36:01Z"
+                    }
                 }, {
                     "name": "Content-Type",
                     "in": "header",
                     "required": true,
-                    "type": "string",
-                    "default": "application/json",
-                    "enum": ["application/json"]
+                    "schema": {
+                        "enum": ["application/json"],
+                        "type": "string",
+                        "default": "application/json"
+                    }
                 }],
-                "produces": ["application/json"],
                 "responses": {
                     "200": {
                         "description": "",
-                        "examples": {
+                        "content": {
                             "application/json": {
-                                "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-                                "scheduled_date_time": "2020-12-17T08:50:14.508Z",
-                                "scheduled_duration": 0,
-                                "hearing_venue_name": "string",
-                                "case_type_name": "string",
-                                "hearing_type_name": "string",
-                                "cases": [{
-                                    "number": "string",
-                                    "name": "string",
-                                    "is_lead_case": true
-                                }],
-                                "participants": [{
+                                "example": {
                                     "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-                                    "display_name": "string",
-                                    "case_role_name": "string",
-                                    "hearing_role_name": "string",
-                                    "user_role_name": "string",
-                                    "title": "string",
-                                    "first_name": "string",
-                                    "middle_names": "string",
-                                    "last_name": "string",
-                                    "contact_email": "string",
-                                    "telephone_number": "string",
-                                    "username": "string",
-                                    "organisation": "string",
-                                    "representee": "string"
-                                }],
-                                "hearing_room_name": "string",
-                                "other_information": "string",
-                                "created_date": "2020-12-17T08:50:14.508Z",
-                                "created_by": "string",
-                                "updated_by": "string",
-                                "updated_date": "2020-12-17T08:50:14.508Z",
-                                "confirmed_by": "string",
-                                "confirmed_date": "2020-12-17T08:50:14.508Z",
-                                "status": "Booked",
-                                "questionnaire_not_required": true,
-                                "audio_recording_required": true,
-                                "cancel_reason": "string",
-                                "endpoints": [{
-                                    "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-                                    "display_name": "string",
-                                    "sip": "string",
-                                    "pin": "string",
-                                    "defence_advocate_id": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
-                                }],
-                                "group_id": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
+                                    "scheduled_date_time": "2020-12-17T08:50:14.5080000+00:00",
+                                    "scheduled_duration": 0,
+                                    "hearing_venue_name": "string",
+                                    "case_type_name": "string",
+                                    "hearing_type_name": "string",
+                                    "cases": [{
+                                        "number": "string",
+                                        "name": "string",
+                                        "is_lead_case": true
+                                    }],
+                                    "participants": [{
+                                        "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+                                        "display_name": "string",
+                                        "case_role_name": "string",
+                                        "hearing_role_name": "string",
+                                        "user_role_name": "string",
+                                        "title": "string",
+                                        "first_name": "string",
+                                        "middle_names": "string",
+                                        "last_name": "string",
+                                        "contact_email": "string",
+                                        "telephone_number": "string",
+                                        "username": "string",
+                                        "organisation": "string",
+                                        "representee": "string"
+                                    }],
+                                    "hearing_room_name": "string",
+                                    "other_information": "string",
+                                    "created_date": "2020-12-17T08:50:14.5080000+00:00",
+                                    "created_by": "string",
+                                    "updated_by": "string",
+                                    "updated_date": "2020-12-17T08:50:14.5080000+00:00",
+                                    "confirmed_by": "string",
+                                    "confirmed_date": "2020-12-17T08:50:14.5080000+00:00",
+                                    "status": "Booked",
+                                    "questionnaire_not_required": true,
+                                    "audio_recording_required": true,
+                                    "cancel_reason": "string",
+                                    "endpoints": [{
+                                        "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+                                        "display_name": "string",
+                                        "sip": "string",
+                                        "pin": "string",
+                                        "defence_advocate_id": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
+                                    }],
+                                    "group_id": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
+                                }
                             }
                         }
                     }
                 }
             },
             "put": {
+                "tags": ["video-hearings"],
+                "summary": "Update Video Hearing",
                 "description": "Update Video Hearing",
                 "operationId": "update-video-hearing",
-                "summary": "Update Video Hearing",
-                "tags": ["video-hearings"],
                 "parameters": [{
                     "name": "hearingId",
                     "in": "path",
                     "required": true,
-                    "type": "string",
-                    "default": "VH1234",
-                    "enum": ["VH1234"]
+                    "schema": {
+                        "enum": ["VH1234"],
+                        "type": "string",
+                        "default": "VH1234"
+                    }
                 }, {
                     "name": "Source-System",
                     "in": "header",
                     "required": true,
-                    "type": "string",
-                    "default": "CFT",
-                    "enum": ["CFT"]
+                    "schema": {
+                        "enum": ["CFT"],
+                        "type": "string",
+                        "default": "CFT"
+                    }
                 }, {
                     "name": "Destination-System",
                     "in": "header",
                     "required": true,
-                    "type": "string",
-                    "default": "MOCK",
-                    "enum": ["MOCK"]
+                    "schema": {
+                        "enum": ["MOCK"],
+                        "type": "string",
+                        "default": "MOCK"
+                    }
                 }, {
                     "name": "Request-Created-At",
                     "in": "header",
                     "required": true,
-                    "type": "string",
-                    "default": "2018-01-29 20:36:01Z",
-                    "enum": ["2018-01-29 20:36:01Z"]
+                    "schema": {
+                        "enum": ["2018-01-29 20:36:01Z"],
+                        "type": "string",
+                        "default": "2018-01-29 20:36:01Z"
+                    }
                 }, {
                     "name": "Content-Type",
                     "in": "header",
                     "required": true,
-                    "type": "string",
-                    "default": "application/json",
-                    "enum": ["application/json"]
+                    "schema": {
+                        "enum": ["application/json"],
+                        "type": "string",
+                        "default": "application/json"
+                    }
                 }],
-                "produces": ["application/json"],
                 "responses": {
                     "200": {
                         "description": "",
-                        "examples": {
+                        "content": {
                             "application/json": {
-                                "scheduled_date_time": "2021-02-02T11:08:02.565Z",
-                                "scheduled_duration": 0,
-                                "hearing_venue_name": "VenueName",
-                                "hearing_room_name": "RoomName",
-                                "other_information": "Other",
-                                "cases": [{
-                                    "number": "123456",
-                                    "name": "Ben Stokes",
-                                    "is_lead_case": true
-                                }],
-                                "updated_by": "Marcus Trescothick",
-                                "questionnaire_not_required": true,
-                                "audio_recording_required": true
+                                "example": {
+                                    "scheduled_date_time": "2021-02-02T11:08:02.5650000+00:00",
+                                    "scheduled_duration": 0,
+                                    "hearing_venue_name": "VenueName",
+                                    "hearing_room_name": "RoomName",
+                                    "other_information": "Other",
+                                    "cases": [{
+                                        "number": "123456",
+                                        "name": "Ben Stokes",
+                                        "is_lead_case": true
+                                    }],
+                                    "updated_by": "Marcus Trescothick",
+                                    "questionnaire_not_required": true,
+                                    "audio_recording_required": true
+                                }
                             }
                         }
                     }
                 }
             },
             "delete": {
+                "tags": ["video-hearings"],
+                "summary": "Delete Video Hearing",
                 "description": "Delete Video Hearing",
                 "operationId": "delete-video-hearing",
-                "summary": "Delete Video Hearing",
-                "tags": ["video-hearings"],
                 "parameters": [{
                     "name": "hearingId",
                     "in": "path",
                     "required": true,
-                    "type": "string",
-                    "default": "VH1234",
-                    "enum": ["VH1234"]
+                    "schema": {
+                        "enum": ["VH1234"],
+                        "type": "string",
+                        "default": "VH1234"
+                    }
                 }, {
                     "name": "Source-System",
                     "in": "header",
                     "required": true,
-                    "type": "string",
-                    "default": "CFT",
-                    "enum": ["CFT"]
+                    "schema": {
+                        "enum": ["CFT"],
+                        "type": "string",
+                        "default": "CFT"
+                    }
                 }, {
                     "name": "Destination-System",
                     "in": "header",
                     "required": true,
-                    "type": "string",
-                    "default": "MOCK",
-                    "enum": ["MOCK"]
+                    "schema": {
+                        "enum": ["MOCK"],
+                        "type": "string",
+                        "default": "MOCK"
+                    }
                 }, {
                     "name": "Request-Created-At",
                     "in": "header",
                     "required": true,
-                    "type": "string",
-                    "default": "2018-01-29 20:36:01Z",
-                    "enum": ["2018-01-29 20:36:01Z"]
+                    "schema": {
+                        "enum": ["2018-01-29 20:36:01Z"],
+                        "type": "string",
+                        "default": "2018-01-29 20:36:01Z"
+                    }
                 }, {
                     "name": "Content-Type",
                     "in": "header",
                     "required": true,
-                    "type": "string",
-                    "default": "application/json",
-                    "enum": ["application/json"]
+                    "schema": {
+                        "enum": ["application/json"],
+                        "type": "string",
+                        "default": "application/json"
+                    }
                 }],
                 "responses": {
                     "204": {
@@ -1872,10 +2400,10 @@
         },
         "/emulator-health": {
             "get": {
+                "tags": ["utils"],
+                "summary": "Emulator-Health",
                 "description": "Emulator-Health",
                 "operationId": "emulator-health",
-                "summary": "Emulator-Health",
-                "tags": ["utils"],
                 "responses": {
                     "200": {
                         "description": ""
@@ -1885,10 +2413,10 @@
         },
         "/pact-health": {
             "get": {
+                "tags": ["utils"],
+                "summary": "Pact-Health",
                 "description": "Pact-Health",
                 "operationId": "pact-health",
-                "summary": "Pact-Health",
-                "tags": ["utils"],
                 "responses": {
                     "200": {
                         "description": ""
@@ -1898,43 +2426,53 @@
         },
         "/hearings/sessions/{sessionId}": {
             "post": {
+                "tags": ["hearings"],
+                "summary": "Direct Hearings",
                 "description": "Direct Hearing",
                 "operationId": "direct-hearing",
-                "summary": "Direct Hearings",
-                "tags": ["hearings"],
                 "parameters": [{
                     "name": "sessionId",
                     "in": "path",
                     "required": true,
-                    "type": "string"
+                    "schema": {
+                        "type": "string"
+                    }
                 }, {
                     "name": "Source-System",
                     "in": "header",
                     "required": true,
-                    "type": "string",
-                    "default": "CFT",
-                    "enum": ["CFT"]
+                    "schema": {
+                        "enum": ["CFT"],
+                        "type": "string",
+                        "default": "CFT"
+                    }
                 }, {
                     "name": "Destination-System",
                     "in": "header",
                     "required": true,
-                    "type": "string",
-                    "default": "MOCK",
-                    "enum": ["MOCK"]
+                    "schema": {
+                        "enum": ["MOCK"],
+                        "type": "string",
+                        "default": "MOCK"
+                    }
                 }, {
                     "name": "Request-Created-At",
                     "in": "header",
                     "required": true,
-                    "type": "string",
-                    "default": "2021-01-29 20:36:01Z",
-                    "enum": ["2021-01-29 20:36:01Z"]
+                    "schema": {
+                        "enum": ["2021-01-29 20:36:01Z"],
+                        "type": "string",
+                        "default": "2021-01-29 20:36:01Z"
+                    }
                 }, {
                     "name": "Content-Type",
                     "in": "header",
                     "required": true,
-                    "type": "string",
-                    "default": "application/json",
-                    "enum": ["application/json"]
+                    "schema": {
+                        "enum": ["application/json"],
+                        "type": "string",
+                        "default": "application/json"
+                    }
                 }],
                 "responses": {
                     "202": {
@@ -1944,6 +2482,7 @@
             }
         }
     },
+    "components": {},
     "tags": [{
         "name": "hearings",
         "description": "Everything about your Hearing information"
