@@ -1257,26 +1257,6 @@
                 }
             }
         },
-        "/secure": {
-            "get": {
-                "description": "Secure",
-                "operationId": "secure",
-                "summary": "Secure",
-                "tags": ["utils"],
-                "produces": ["application/json"],
-                "responses": {
-                    "200": {
-                        "description": "",
-                        "examples": {
-                            "application/json": {
-                                "responseCode": 200,
-                                "message": "Hello"
-                            }
-                        }
-                    }
-                }
-            }
-        },
         "/p0001": {
             "get": {
                 "description": "Test Wiremock Connection",
