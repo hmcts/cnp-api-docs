@@ -14,13 +14,15 @@
                 "operationId": "liveness-check",
                 "summary": "Liveness Check",
                 "parameters": [],
-                "produces": ["application/json"],
+                "produces": [
+                    "application/json"
+                ],
                 "responses": {
                     "200": {
                         "description": "",
                         "examples": {
                             "application/json": {
-                                    "key": "value"
+                                "key": "value"
                             }
                         }
                     }
@@ -33,7 +35,12 @@
                 "operationId": "ip-check",
                 "responses": {
                     "200": {
-                        "description": null
+                        "description": "",
+                        "examples": {
+                            "application/json": {
+                                "key": "value"
+                            }
+                        }
                     }
                 }
             }
