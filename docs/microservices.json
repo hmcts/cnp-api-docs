@@ -461,6 +461,11 @@
                     "id": "dm-store",
                     "hard": true,
                     "apis": []
+                },
+                 {
+                    "id": "ccd-case-document-am-api",
+                    "hard": true,
+                    "apis": []
                 }
             ],
             "apis": [],
@@ -505,6 +510,44 @@
             "dependencies": [
                 {
                     "id": "rpe-service-auth-provider",
+                    "hard": true,
+                    "apis": []
+                }
+            ],
+            "apis": [],
+            "version": null
+        },
+         {
+            "id": "ccd-case-document-am-api",
+            "name": "CCD Case Doc Store",
+            "group": "CDM",
+            "type": "api",
+            "description": "",
+            "repository": "https://github.com/hmcts/ccd-case-document-am-api",
+            "spec": "https://hmcts.github.io/reform-api-docs/specs/ccd-case-document-am-api.json",
+            "dependencies": [
+                {
+                    "id": "rpe-service-auth-provider",
+                    "hard": true,
+                    "apis": []
+                },
+                 {
+                    "id": "idam-api",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "ccd-data-store-api",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "ccd-definition-store-api",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "dm-store",
                     "hard": true,
                     "apis": []
                 }
