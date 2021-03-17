@@ -617,6 +617,29 @@
             "version": null
         },
         {
+            "id": "cpo-case-payment-orders-api",
+            "name": "Case Payment Orders API",
+            "group": "CDM",
+            "type": "api",
+            "description": "",
+            "repository": "https://github.com/hmcts/cpo-case-payment-orders-api",
+            "spec": "https://hmcts.github.io/reform-api-docs/specs/cpo-case-payment-orders-api.json",
+            "dependencies": [               
+                {
+                    "id": "idam-api",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "rpe-service-auth-provider",
+                    "hard": true,
+                    "apis": []
+                }
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
             "id": "dm-store",
             "name": "DM Store",
             "group": "Evidence",
