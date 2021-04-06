@@ -473,6 +473,52 @@
             }
         },
         "/schedules": {
+            "post":{
+                "description": "Create Schedules",
+                "operationId": "create-schedule",
+                "summary": "Create Schedules",
+                "tags": ["schedules"],
+                "parameters": [{
+                    "name": "Source-System",
+                    "in": "header",
+                    "description": "soruce of the request initiation\n",
+                    "required": true,
+                    "type": "string",
+                    "enum": ["CFT"]
+                }, {
+                    "name": "Destination-System",
+                    "in": "header",
+                    "description": "Target/Backend system that is supposed to consume the request message.",
+                    "required": true,
+                    "type": "string",
+                    "enum": ["MOCK"]
+                }, {
+                    "name": "Request-Created-At",
+                    "in": "header",
+                    "description": "Date and time of request initiation.",
+                    "required": true,
+                    "type": "string",
+                    "enum": ["2021-04-06 20:36:01Z"]
+                }, {
+                    "name": "Content-Type",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "enum": ["application/json"]
+                }],
+                "produces": ["application/json"],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "examples": {
+                            "application/json": {
+                                "response code": 200,
+                                "description": "The request was received successfully."
+                            }
+                        }
+                    }
+                }
+            },
             "get": {
                 "description": "Schedules",
                 "operationId": "schedule",
