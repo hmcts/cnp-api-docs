@@ -520,9 +520,9 @@
                 }
             },
             "get": {
-                "description": "Schedules",
+                "description": "Create Schedules",
                 "operationId": "schedule",
-                "summary": "Schedule",
+                "summary": "Create Schedules",
                 "tags": ["schedules"],
                 "parameters": [{
                     "name": "hearing_date",

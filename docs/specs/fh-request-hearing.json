@@ -476,7 +476,7 @@
             "post":{
                 "description": "Create Schedules",
                 "operationId": "create-schedule",
-                "summary": "Schedule",
+                "summary": "Create Schedules",
                 "tags": ["schedules"],
                 "parameters": [{
                     "name": "Source-System",
