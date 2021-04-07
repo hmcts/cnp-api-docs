@@ -520,7 +520,7 @@
                 }
             },
             "get": {
-                "description": "Create Schedules",
+                "description": "Get Schedules",
                 "operationId": "schedule",
                 "summary": "Create Schedules",
                 "tags": ["schedules"],
