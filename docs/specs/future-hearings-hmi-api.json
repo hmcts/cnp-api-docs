@@ -476,7 +476,7 @@
             "post":{
                 "description": "Create Schedules",
                 "operationId": "create-schedule",
-                "summary": "Schedule",
+                "summary": "Create Schedule",
                 "tags": ["schedules"],
                 "parameters": [{
                     "name": "Source-System",
@@ -508,11 +508,11 @@
                 }],
                 "produces": ["application/json"],
                 "responses": {
-                    "200": {
+                    "201": {
                         "description": "",
                         "examples": {
                             "application/json": {
-                                "response code": 200,
+                                "response code": 201,
                                 "description": "The request was received successfully."
                             }
                         }
@@ -520,9 +520,9 @@
                 }
             },
             "get": {
-                "description": "Create Schedules",
+                "description": "Get Schedules",
                 "operationId": "schedule",
-                "summary": "Create Schedules",
+                "summary": "Get Schedules",
                 "tags": ["schedules"],
                 "parameters": [{
                     "name": "hearing_date",
