@@ -4,10 +4,30 @@
         "title": "Payments API",
         "version": "1.0"
     },
-    "host": "core-api-mgmt-demodata.azure-api.net",
+    "host": "core-api-mgmt-prod.azure-api.net",
     "basePath": "/payments-api",
     "schemes": [
         "https"
+    ],
+    "securityDefinitions": {
+        "apiKeyHeader": {
+            "type": "apiKey",
+            "name": "Ocp-Apim-Subscription-Key",
+            "in": "header"
+        },
+        "apiKeyQuery": {
+            "type": "apiKey",
+            "name": "subscription-key",
+            "in": "query"
+        }
+    },
+    "security": [
+        {
+            "apiKeyHeader": []
+        },
+        {
+            "apiKeyQuery": []
+        }
     ],
     "paths": {
         "/payments": {
@@ -34,6 +54,9 @@
                         "description": "the method used for payment. Available values : CARD, PBA, CASH, CHEQUE, POSTAL_ORDER",
                         "type": "string"
                     }
+                ],
+                "produces": [
+                    "application/json"
                 ],
                 "responses": {
                     "200": {
@@ -110,10 +133,7 @@
                     "403": {
                         "description": "Probably invalid client certificate"
                     }
-                },
-                "produces": [
-                    "application/json"
-                ]
+                }
             }
         },
         "/payments/{payment_reference}": {
@@ -130,6 +150,9 @@
                         "type": "string"
                     }
                 ],
+                "produces": [
+                    "application/json"
+                ],
                 "responses": {
                     "200": {
                         "description": "successful operation"
@@ -140,10 +163,7 @@
                     "404": {
                         "description": "Payment not found"
                     }
-                },
-                "produces": [
-                    "application/json"
-                ]
+                }
             }
         }
     },
