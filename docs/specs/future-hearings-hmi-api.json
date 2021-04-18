@@ -1922,6 +1922,19 @@
                 }
             }
         },
+        "/vh-health": {
+            "get": {
+                "description": "Video Hearinf Health",
+                "operationId": "vh-health",
+                "summary": "Video Hearing Health",
+                "tags": ["utils"],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                }
+            }
+        },
         "/hearings/sessions/{sessionId}": {
             "post": {
                 "description": "Direct Hearing",
