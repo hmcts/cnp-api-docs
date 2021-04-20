@@ -1935,6 +1935,19 @@
                 }
             }
         },
+        "/elinks-health": {
+            "get": {
+                "description": "Einks Health",
+                "operationId": "elinks-health",
+                "summary": "Elinks Health",
+                "tags": ["utils"],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                }
+            }
+        },
         "/hearings/sessions/{sessionId}": {
             "post": {
                 "description": "Direct Hearing",
