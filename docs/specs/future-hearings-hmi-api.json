@@ -1996,6 +1996,23 @@
             }
         }
     },
+    "securityDefinitions": {
+        "OAuth2": {
+          "type": "oauth2",
+          "flow": "application",
+          "tokenUrl": "https://login.microsoftonline.com/531ff96d-0ae9-462a-8d2d-bec7c0b42082/oauth2/v2.0/token",
+          "scopes": {
+            "api://d49d7fa2-6904-4223-a907-3b8992af4190/.default": "hmiGateway"
+          }
+        }
+      },
+      "security": [
+        {
+          "OAuth2": [
+            "api://d49d7fa2-6904-4223-a907-3b8992af4190/.default"
+          ]
+        }
+      ],
     "tags": [{
         "name": "hearings",
         "description": "Everything about your Hearing information"
