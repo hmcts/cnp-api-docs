@@ -1994,25 +1994,190 @@
                     }
                 }
             }
+        },
+        "/add-published-info": {
+            "post": {
+                "tags": ["pub-hub"],
+                "summary": "Publishing Hub",
+                "description": "Publishing Hub",
+                "operationId": "create-info",
+                "parameters": [{
+                    "name": "Source-System",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "default": "CFT",
+                    "enum": ["CFT"]
+                }, {
+                    "name": "Destination-System",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "default": "MOCK",
+                    "enum": ["MOCK"]
+                }, {
+                    "name": "Request-Created-At",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "default": "2021-01-29 20:36:01Z",
+                    "enum": ["2021-01-29 20:36:01Z"]
+                }, {
+                    "name": "Content-Type",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "default": "application/json",
+                    "enum": ["application/json"]
+                }],
+                "responses": {
+                    "200": {
+                        "description": "null"
+                    }
+                }
+            }
+        },
+        "/get-published-info": {
+            "get": {
+                "tags": ["pub-hub"],
+                "summary": "Publishing Hub",
+                "operationId": "get-info",
+                "parameters": [{
+                    "name": "Source-System",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "default": "CFT",
+                    "enum": ["CFT"]
+                }, {
+                    "name": "Destination-System",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "default": "MOCK",
+                    "enum": ["MOCK"]
+                }, {
+                    "name": "Request-Created-At",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "default": "2021-01-29 20:36:01Z",
+                    "enum": ["2021-01-29 20:36:01Z"]
+                }, {
+                    "name": "Content-Type",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "default": "application/json",
+                    "enum": ["application/json"]
+                }],
+                "responses": {
+                    "200": {
+                        "description": "null"
+                    }
+                }
+            }
+        },
+        "/update-published-info": {
+            "put": {
+                "tags": ["pub-hub"],
+                "summary": "Publishing Hub",
+                "operationId": "update-info",
+                "parameters": [{
+                    "name": "Source-System",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "default": "CFT",
+                    "enum": ["CFT"]
+                }, {
+                    "name": "Destination-System",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "default": "MOCK",
+                    "enum": ["MOCK"]
+                }, {
+                    "name": "Request-Created-At",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "default": "2021-01-29 20:36:01Z",
+                    "enum": ["2021-01-29 20:36:01Z"]
+                }, {
+                    "name": "Content-Type",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "default": "application/json",
+                    "enum": ["application/json"]
+                }],
+                "responses": {
+                    "200": {
+                        "description": "null"
+                    }
+                }
+            }
+        },
+        "/delete-published-info": {
+            "delete": {
+                "tags": ["pub-hub"],
+                "summary": "Publishing Hub",
+                "operationId": "delete-info",
+                "parameters": [{
+                    "name": "Source-System",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "default": "CFT",
+                    "enum": ["CFT"]
+                }, {
+                    "name": "Destination-System",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "default": "MOCK",
+                    "enum": ["MOCK"]
+                }, {
+                    "name": "Request-Created-At",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "default": "2021-01-29 20:36:01Z",
+                    "enum": ["2021-01-29 20:36:01Z"]
+                }, {
+                    "name": "Content-Type",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "default": "application/json",
+                    "enum": ["application/json"]
+                }],
+                "responses": {
+                    "200": {
+                        "description": "null"
+                    }
+                }
+            }
         }
     },
     "securityDefinitions": {
         "OAuth2": {
-          "type": "oauth2",
-          "flow": "application",
-          "tokenUrl": "https://login.microsoftonline.com/531ff96d-0ae9-462a-8d2d-bec7c0b42082/oauth2/v2.0/token",
-          "scopes": {
-            "api://d49d7fa2-6904-4223-a907-3b8992af4190/.default": "hmiGateway"
-          }
+            "type": "oauth2",
+            "flow": "application",
+            "tokenUrl": "https://login.microsoftonline.com/531ff96d-0ae9-462a-8d2d-bec7c0b42082/oauth2/v2.0/token",
+            "scopes": {
+                "api://d49d7fa2-6904-4223-a907-3b8992af4190/.default": "hmiGateway"
+            }
         }
-      },
-      "security": [
+    },
+    "security": [
         {
-          "OAuth2": [
-            "api://d49d7fa2-6904-4223-a907-3b8992af4190/.default"
-          ]
+            "OAuth2": [
+                "api://d49d7fa2-6904-4223-a907-3b8992af4190/.default"
+            ]
         }
-      ],
+    ],
     "tags": [{
         "name": "hearings",
         "description": "Everything about your Hearing information"
@@ -2037,5 +2202,8 @@
     }, {
         "name": "utils",
         "description": "Utility endpoints"
+    }, {
+        "name": "pub-hub",
+        "description": "Everything about publishing hub"
     }]
 }
