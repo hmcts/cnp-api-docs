@@ -1995,7 +1995,7 @@
                 }
             }
         },
-        "/publishing/add-published-info": {
+        "/publishinghub/add-published-info": {
             "post": {
                 "tags": ["pub-hub"],
                 "summary": "Publishing Hub",
@@ -2037,7 +2037,7 @@
                 }
             }
         },
-        "/publishing/get-published-info": {
+        "/publishinghub/get-published-info": {
             "get": {
                 "tags": ["pub-hub"],
                 "summary": "Publishing Hub",
@@ -2078,7 +2078,7 @@
                 }
             }
         },
-        "/publishing/update-published-info": {
+        "/publishinghub/update-published-info": {
             "put": {
                 "tags": ["pub-hub"],
                 "summary": "Publishing Hub",
@@ -2119,7 +2119,7 @@
                 }
             }
         },
-        "/publishing/delete-published-info": {
+        "/publishinghub/delete-published-info": {
             "delete": {
                 "tags": ["pub-hub"],
                 "summary": "Publishing Hub",
