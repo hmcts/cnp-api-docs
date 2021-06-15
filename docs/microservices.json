@@ -19,6 +19,10 @@
             "colour": "#cc3300"
         },
         {
+            "name": "PIP Gateway",
+            "colour": "#cc3300"
+        },
+        {
             "name": "IDAM",
             "colour": "#000000"
         },
@@ -104,6 +108,18 @@
             "description": "Future Hearings Gateway",
             "repository": "https://github.com/hmcts/hmi-api-gateway-fh",
             "spec": "https://hmcts.github.io/reform-api-docs/specs/future-hearings-hmi-api.json",
+            "dependencies": [
+            ],
+            "apis": [],
+            "version": null
+        },{
+            "id": "pip-gateway-api",
+            "name": "PIP API",
+            "group": "PIP Gateway",
+            "type": "api",
+            "description": "Publishing Information Platform Gateway",
+            "repository": "https://github.com/hmcts/pih-api-gateway",
+            "spec": "https://hmcts.github.io/reform-api-docs/specs/pip-gateway-api.json",
             "dependencies": [
             ],
             "apis": [],
