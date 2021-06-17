@@ -2125,6 +2125,46 @@
                     }
                 }
             }
+        },
+        "/sitting-patterns": {
+            "get": {
+                "summary": "sitting-patterns",
+                "operationId": "sitting-patterns",
+                "tags": ["sitting-pattern"],
+                "parameters": [{
+                    "name": "Source-System",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "default": "CFT",
+                    "enum": ["CFT"]
+                }, {
+                    "name": "Destination-System",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "default": "MOCK",
+                    "enum": ["MOCK"]
+                }, {
+                    "name": "Request-Created-At",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "default": "2018-01-29T20:36:01Z"
+                }, {
+                    "name": "Content-Type",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "default": "application/json",
+                    "enum": ["application/json"]
+                }],
+                "responses": {
+                    "200": {
+                        "description": "null"
+                    }
+                }
+            }
         }
     },
     "securityDefinitions": {
@@ -2171,5 +2211,8 @@
     }, {
         "name": "pub-hub",
         "description": "Everything about publishing hub"
+    }, {
+        "name": "sitting-pattern",
+        "description": "Retrieve Sitting Patterns"
     }]
 }
