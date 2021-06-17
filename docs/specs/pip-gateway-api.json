@@ -1,0 +1,57 @@
+{
+    "openapi": "3.0.1",
+    "info": {
+        "title": "pip-apim-api",
+        "version": "1.0"
+    },
+    "servers": [{
+        "url": "http://pip-apim-svc-dev.azure-api.net"
+    }, {
+        "url": "https://pip-apim-svc-dev.azure-api.net"
+    }],
+    "paths": {
+        "/": {
+            "get": {
+                "tags": ["utils"],
+                "summary": "Health-Check",
+                "description": "Health-Check",
+                "operationId": "health-check",
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "status": "Up"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "apiKeyHeader": {
+                "type": "apiKey",
+                "name": "Ocp-Apim-Subscription-Key",
+                "in": "header"
+            },
+            "apiKeyQuery": {
+                "type": "apiKey",
+                "name": "subscription-key",
+                "in": "query"
+            }
+        }
+    },
+    "security": [{
+        "apiKeyHeader": []
+    }, {
+        "apiKeyQuery": []
+    }],
+    "tags": [{
+        "name": "utils",
+        "description": "Utility endpoints"
+    }]
+}
