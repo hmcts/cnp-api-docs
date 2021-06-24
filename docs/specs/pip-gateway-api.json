@@ -1,57 +1,63 @@
 {
-    "openapi": "3.0.1",
+    "swagger": "2.0",
     "info": {
         "title": "pip-apim-api",
         "version": "1.0"
     },
-    "servers": [{
-        "url": "http://pip-apim-svc-dev.azure-api.net"
-    }, {
-        "url": "https://pip-apim-svc-dev.azure-api.net"
-    }],
+    "host": "pip-apim-svc-sbox.azure-api.net",
+    "basePath": "/pip",
+    "schemes": [
+        "http",
+        "https"
+    ],
     "paths": {
         "/": {
             "get": {
-                "tags": ["utils"],
-                "summary": "Health-Check",
                 "description": "Health-Check",
                 "operationId": "health-check",
+                "summary": "Health-Check",
+                "tags": [
+                    "utils"
+                ],
+                "produces": [
+                    "application/json"
+                ],
                 "responses": {
                     "200": {
                         "description": "",
-                        "content": {
+                        "examples": {
                             "application/json": {
-                                "example": {
-                                    "status": "Up"
-                                }
+                                "status": "Up"
                             }
                         }
                     }
                 }
             }
-        }
-    },
-    "components": {
-        "securitySchemes": {
-            "apiKeyHeader": {
-                "type": "apiKey",
-                "name": "Ocp-Apim-Subscription-Key",
-                "in": "header"
-            },
-            "apiKeyQuery": {
-                "type": "apiKey",
-                "name": "subscription-key",
-                "in": "query"
+        },
+        "/publications": {
+            "get": {
+                "description": "Get Publications",
+                "operationId": "get-publications",
+                "summary": "Get Publications",
+                "tags": [
+                    "publications"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "null"
+                    }
+                }
             }
         }
     },
-    "security": [{
-        "apiKeyHeader": []
-    }, {
-        "apiKeyQuery": []
-    }],
-    "tags": [{
-        "name": "utils",
-        "description": "Utility endpoints"
-    }]
+    "tags": [
+        {
+            "name": "utils",
+            "description": "Utility endpoints"
+        },
+        {
+            "name": "publications",
+            "description": "Publication related endpoints"
+        }
+    ]
 }
