@@ -1,28 +1,28 @@
 {
-    "swagger": "2.0",
+    "openapi": "3.0.1",
     "info": {
         "title": "pih-apim-health-api",
         "version": "1.0"
     },
-    "host": "pih-apim.dev.platform.hmcts.net",
-    "basePath": "/health",
-    "schemes": ["http", "https"],
+    "servers": [{
+        "url": "http://pip-apim-svc-sbox.azure-api.net/health"
+    }, {
+        "url": "https://pip-apim-svc-sbox.azure-api.net/health"
+    }],
     "paths": {
         "/liveness": {
             "get": {
+                "summary": "Liveness Check",
                 "description": "Liveness Check",
                 "operationId": "liveness-check",
-                "summary": "Liveness Check",
-                "parameters": [],
-                "produces": [
-                    "application/json"
-                ],
                 "responses": {
                     "200": {
                         "description": "",
-                        "examples": {
+                        "content": {
                             "application/json": {
-                                "key": "value"
+                                "example": {
+                                    "key": "value"
+                                }
                             }
                         }
                     }
@@ -30,5 +30,23 @@
             }
         }
     },
-    "tags": []
+    "components": {
+        "securitySchemes": {
+            "apiKeyHeader": {
+                "type": "apiKey",
+                "name": "Ocp-Apim-Subscription-Key",
+                "in": "header"
+            },
+            "apiKeyQuery": {
+                "type": "apiKey",
+                "name": "subscription-key",
+                "in": "query"
+            }
+        }
+    },
+    "security": [{
+        "apiKeyHeader": []
+    }, {
+        "apiKeyQuery": []
+    }]
 }
