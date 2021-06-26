@@ -49,6 +49,27 @@
                         "description": "null"
                     }
                 }
+            },
+            "post": {
+                "tags": [
+                    "publications"
+                ],
+                "summary": "Create Publications",
+                "description": "Create Publications",
+                "operationId": "post-publications",
+                "responses": {
+                    "201": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "response code": 201,
+                                    "description": "The request was received successfully."
+                                }
+                            }
+                        }
+                    }
+                }
             }
         }
     },
