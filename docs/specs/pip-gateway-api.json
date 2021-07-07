@@ -71,6 +71,65 @@
                     }
                 }
             }
+        },
+        "/lists": {
+            "post": {
+                "tags": ["lists"],
+                "summary": "Create Lists",
+                "description": "Create Lists",
+                "operationId": "create-lists",
+                "responses": {
+                    "201": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "response code": 201,
+                                    "description": "The request was received successfully."
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": ["lists"],
+                "summary": "Update Lists",
+                "description": "Update Lists",
+                "operationId": "update-lists",
+                "responses": {
+                    "204": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "response code": 204,
+                                    "description": "The request was received successfully."
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": ["lists"],
+                "summary": "Delete Lists",
+                "description": "Delete Lists",
+                "operationId": "delete-lists",
+                "responses": {
+                    "204": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "response code": 204,
+                                    "description": "The request was received successfully."
+                                }
+                            }
+                        }
+                    }
+                }
+            }            
         }
     },
     "components": {},
