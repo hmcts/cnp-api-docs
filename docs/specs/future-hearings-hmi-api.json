@@ -2421,7 +2421,7 @@
                     }
                 }
             },
-            "put": {
+            "post": {
                 "description": "Add Participant",
                 "operationId": "add-participant",
                 "summary": "Add Participant",
@@ -2589,7 +2589,7 @@
                     }
                 }
             },
-            "put": {
+            "delete": {
                 "description": "Delete Participant",
                 "operationId": "delete-participant",
                 "summary": "Delete Participant",
