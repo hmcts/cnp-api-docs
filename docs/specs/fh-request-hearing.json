@@ -1879,6 +1879,20 @@
                     }
                 }
             }
+        },"/snl-health": {
+            "get": {
+                "description": "SnL-Health",
+                "operationId": "snl-health",
+                "summary": "SnL-Health",
+                "tags": [
+                    "utils"
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                }
+            }
         },
         "/pact-health": {
             "get": {
