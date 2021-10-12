@@ -2883,9 +2883,7 @@
                     "name": "hearingId",
                     "in": "path",
                     "required": true,
-                    "schema": {
-                        "type": "string"
-                    }
+                    "type": "string"
                 }],
                 "responses": {
                     "200": {
@@ -2903,16 +2901,12 @@
                     "name": "hearingId",
                     "in": "path",
                     "required": true,
-                    "schema": {
-                        "type": "string"
-                    }
+                    "type": "string"
                 }, {
                     "name": "participantId",
                     "in": "path",
                     "required": true,
-                    "schema": {
-                        "type": "string"
-                    }
+                    "type": "string"
                 }],
                 "responses": {
                     "200": {
@@ -2928,16 +2922,12 @@
                     "name": "hearingId",
                     "in": "path",
                     "required": true,
-                    "schema": {
-                        "type": "string"
-                    }
+                    "type": "string"
                 }, {
                     "name": "participantId",
                     "in": "path",
                     "required": true,
-                    "schema": {
-                        "type": "string"
-                    }
+                    "type": "string"
                 }],
                 "responses": {
                     "200": {
