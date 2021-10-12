@@ -2873,6 +2873,78 @@
                     }
                 }
             }
+        },
+        "/{hearingId}/participants": {
+            "post": {
+                "tags": ["video-hearings"],
+                "summary": "Add Participant",
+                "operationId": "add-participant",
+                "parameters": [{
+                    "name": "hearingId",
+                    "in": "path",
+                    "required": true,
+                    "schema": {
+                        "type": "string"
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": null
+                    }
+                }
+            }
+        },
+        "/{hearingId}/participants/{participantId}": {
+            "put": {
+                "tags": ["video-hearings"],
+                "summary": "Edit Participant",
+                "operationId": "edit-participant",
+                "parameters": [{
+                    "name": "hearingId",
+                    "in": "path",
+                    "required": true,
+                    "schema": {
+                        "type": "string"
+                    }
+                }, {
+                    "name": "participantId",
+                    "in": "path",
+                    "required": true,
+                    "schema": {
+                        "type": "string"
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": null
+                    }
+                }
+            },
+            "delete": {
+                "tags": ["video-hearings"],
+                "summary": "Delete Participant",
+                "operationId": "delete-participant",
+                "parameters": [{
+                    "name": "hearingId",
+                    "in": "path",
+                    "required": true,
+                    "schema": {
+                        "type": "string"
+                    }
+                }, {
+                    "name": "participantId",
+                    "in": "path",
+                    "required": true,
+                    "schema": {
+                        "type": "string"
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": null
+                    }
+                }
+            }
         }
     },
     "securityDefinitions": {
