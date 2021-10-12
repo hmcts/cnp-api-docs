@@ -2879,12 +2879,51 @@
                 "tags": ["video-hearings"],
                 "summary": "Add Participant",
                 "operationId": "add-participant",
-                "parameters": [{
-                    "name": "hearingId",
-                    "in": "path",
-                    "required": true,
-                    "type": "string"
-                }],
+                "parameters": [
+                    {
+                        "name": "hearingId",
+                        "in": "path",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "Source-System",
+                        "in": "header",
+                        "required": true,
+                        "type": "string",
+                        "default": "CFT",
+                        "enum": [
+                            "CFT"
+                        ]
+                    },
+                    {
+                        "name": "Destination-System",
+                        "in": "header",
+                        "required": true,
+                        "type": "string",
+                        "default": "MOCK",
+                        "enum": [
+                            "MOCK"
+                        ]
+                    },
+                    {
+                        "name": "Request-Created-At",
+                        "in": "header",
+                        "required": true,
+                        "type": "string",
+                        "default": "1/29/2018 8:36:01 PM"
+                    },
+                    {
+                        "name": "Accept",
+                        "in": "header",
+                        "required": true,
+                        "type": "string",
+                        "default": "application/json",
+                        "enum": [
+                            "application/json"
+                        ]
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "null"
@@ -2897,17 +2936,57 @@
                 "tags": ["video-hearings"],
                 "summary": "Edit Participant",
                 "operationId": "edit-participant",
-                "parameters": [{
-                    "name": "hearingId",
-                    "in": "path",
-                    "required": true,
+                "parameters": [
+                    {
+                        "name": "Source-System",
+                        "in": "header",
+                        "required": true,
+                        "type": "string",
+                        "default": "CFT",
+                        "enum": [
+                            "CFT"
+                        ]
+                    },
+                    {
+                        "name": "Destination-System",
+                        "in": "header",
+                        "required": true,
+                        "type": "string",
+                        "default": "MOCK",
+                        "enum": [
+                            "MOCK"
+                        ]
+                    },
+                    {
+                        "name": "Request-Created-At",
+                        "in": "header",
+                        "required": true,
+                        "type": "string",
+                        "default": "1/29/2018 8:36:01 PM"
+                    },
+                    {
+                        "name": "Accept",
+                        "in": "header",
+                        "required": true,
+                        "type": "string",
+                        "default": "application/json",
+                        "enum": [
+                            "application/json"
+                        ]
+                    },
+                    {
+                        "name": "hearingId",
+                        "in": "path",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "participantId",
+                        "in": "path",
+                        "required": true,
                     "type": "string"
-                }, {
-                    "name": "participantId",
-                    "in": "path",
-                    "required": true,
-                    "type": "string"
-                }],
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "null"
@@ -2918,17 +2997,57 @@
                 "tags": ["video-hearings"],
                 "summary": "Delete Participant",
                 "operationId": "delete-participant",
-                "parameters": [{
-                    "name": "hearingId",
-                    "in": "path",
-                    "required": true,
-                    "type": "string"
-                }, {
-                    "name": "participantId",
-                    "in": "path",
-                    "required": true,
-                    "type": "string"
-                }],
+                "parameters": [
+                    {
+                        "name": "Source-System",
+                        "in": "header",
+                        "required": true,
+                        "type": "string",
+                        "default": "CFT",
+                        "enum": [
+                            "CFT"
+                        ]
+                    },
+                    {
+                        "name": "Destination-System",
+                        "in": "header",
+                        "required": true,
+                        "type": "string",
+                        "default": "MOCK",
+                        "enum": [
+                            "MOCK"
+                        ]
+                    },
+                    {
+                        "name": "Request-Created-At",
+                        "in": "header",
+                        "required": true,
+                        "type": "string",
+                        "default": "1/29/2018 8:36:01 PM"
+                    },
+                    {
+                        "name": "Accept",
+                        "in": "header",
+                        "required": true,
+                        "type": "string",
+                        "default": "application/json",
+                        "enum": [
+                            "application/json"
+                        ]
+                    },
+                    {
+                        "name": "hearingId",
+                        "in": "path",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "participantId",
+                        "in": "path",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "null"
