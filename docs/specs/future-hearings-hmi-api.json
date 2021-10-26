@@ -2559,7 +2559,7 @@
             }
         },
         "/hearings/sessions/{sessionId}": {
-            "post": {
+            "put": {
                 "description": "Direct Hearing",
                 "operationId": "direct-hearing",
                 "summary": "Direct Hearings",
