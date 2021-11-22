@@ -3068,6 +3068,69 @@
                     }
                 }
             }
+        },
+        "/resources/linked-hearing-group": {
+            "post": {
+                "tags": ["resources"],
+                "summary": "Create Linked Hearing Group",
+                "operationId": "create-linked-hearing-group",
+                "parameters": [{
+                    "name": "Source-System",
+                    "in": "header",
+                    "required": true,
+                    "schema": {
+                        "enum": [""],
+                        "type": "",
+                        "default": ""
+                    }
+                }, {
+                    "name": "Destination-System",
+                    "in": "header",
+                    "required": true,
+                    "schema": {
+                        "enum": [""],
+                        "type": "",
+                        "default": ""
+                    }
+                }, {
+                    "name": "Request-Created-At",
+                    "in": "header",
+                    "required": true,
+                    "schema": {
+                        "enum": [""],
+                        "type": "",
+                        "default": ""
+                    }
+                }, {
+                    "name": "Content-Type",
+                    "in": "header",
+                    "schema": {
+                        "enum": [""],
+                        "type": "",
+                        "default": ""
+                    }
+                }, {
+                    "name": "Accept",
+                    "in": "header",
+                    "required": true,
+                    "schema": {
+                        "enum": [""],
+                        "type": "",
+                        "default": ""
+                    }
+                }, {
+                    "name": "Authorization",
+                    "in": "header",
+                    "schema": {
+                        "type": ""
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "null"
+                    }
+                }
+            }
         }
     },
     "securityDefinitions": {
