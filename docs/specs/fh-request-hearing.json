@@ -3074,52 +3074,49 @@
                 "tags": ["resources"],
                 "summary": "Create Linked Hearing Group",
                 "operationId": "create-linked-hearing-group",
-                "parameters": [{
-                    "name": "Source-System",
-                    "in": "header",
-                    "required": true,
-                    "schema": {
-                        "enum": ["CFT"],
+                "parameters": [
+                    {
+                        "name": "Source-System",
+                        "in": "header",
+                        "required": true,
                         "type": "string",
-                        "default": "CFT"
-                    }
-                }, {
-                    "name": "Destination-System",
-                    "in": "header",
-                    "required": true,
-                    "schema": {
-                        "enum": ["MOCK"],
+                        "default": "CFT",
+                        "enum": [
+                            "CFT"
+                        ]
+                    },
+                    {
+                        "name": "Destination-System",
+                        "in": "header",
+                        "required": true,
                         "type": "string",
-                        "default": "MOCK"
-                    }
-                }, {
-                    "name": "Request-Created-At",
-                    "in": "header",
-                    "required": true,
-                    "schema": {
+                        "default": "MOCK",
+                        "enum": [
+                            "MOCK"
+                        ]
+                    }, {
+                        "name": "Request-Created-At",
+                        "in": "header",
+                        "required": true,
                         "enum": ["2019-10-12T07:20:00Z"],
                         "type": "string",
                         "default": "2019-10-12T07:20:00Z"
-                    }
-                }, {
-                    "name": "Content-Type",
-                    "in": "header",
-                    "required": false,
-                    "schema": {
+                    }, {
+                        "name": "Content-Type",
+                        "in": "header",
+                        "required": false,
+                        "enum": ["application/json"],
+                        "type": "string",
+                        "default": "application/json"
+                    }, {
+                        "name": "Accept",
+                        "in": "header",
+                        "required": true,
                         "enum": ["application/json"],
                         "type": "string",
                         "default": "application/json"
                     }
-                }, {
-                    "name": "Accept",
-                    "in": "header",
-                    "required": true,
-                    "schema": {
-                        "enum": ["application/json"],
-                        "type": "string",
-                        "default": "application/json"
-                    }
-                }],
+                ],
                 "responses": {
                     "200": {
                         "description": "null"
