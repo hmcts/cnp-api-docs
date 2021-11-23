@@ -3098,23 +3098,23 @@
                         "name": "Request-Created-At",
                         "in": "header",
                         "required": true,
-                        "enum": ["2019-10-12T07:20:00Z"],
                         "type": "string",
-                        "default": "2019-10-12T07:20:00Z"
+                        "default": "2019-10-12T07:20:00Z",
+                        "enum": ["2019-10-12T07:20:00Z"]
                     }, {
                         "name": "Content-Type",
                         "in": "header",
                         "required": false,
-                        "enum": ["application/json"],
                         "type": "string",
-                        "default": "application/json"
+                        "default": "application/json",
+                        "enum": ["application/json"]
                     }, {
                         "name": "Accept",
                         "in": "header",
                         "required": true,
-                        "enum": ["application/json"],
                         "type": "string",
-                        "default": "application/json"
+                        "default": "application/json",
+                        "enum": ["application/json"]
                     }
                 ],
                 "responses": {
