@@ -3080,7 +3080,7 @@
                     "required": true,
                     "schema": {
                         "enum": ["CFT"],
-                        "type": "",
+                        "type": "string",
                         "default": "CFT"
                     }
                 }, {
@@ -3089,7 +3089,7 @@
                     "required": true,
                     "schema": {
                         "enum": ["MOCK"],
-                        "type": "",
+                        "type": "string",
                         "default": "MOCK"
                     }
                 }, {
@@ -3098,7 +3098,7 @@
                     "required": true,
                     "schema": {
                         "enum": ["2019-10-12T07:20:00Z"],
-                        "type": "",
+                        "type": "string",
                         "default": "2019-10-12T07:20:00Z"
                     }
                 }, {
@@ -3107,7 +3107,7 @@
                     "required": false,
                     "schema": {
                         "enum": ["application/json"],
-                        "type": "",
+                        "type": "string",
                         "default": "application/json"
                     }
                 }, {
@@ -3116,7 +3116,7 @@
                     "required": true,
                     "schema": {
                         "enum": ["application/json"],
-                        "type": "",
+                        "type": "string",
                         "default": "application/json"
                     }
                 }],

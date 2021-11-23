@@ -2998,7 +2998,7 @@
                         "name": "participantId",
                         "in": "path",
                         "required": true,
-                    "type": "string"
+                        "type": "string"
                     }
                 ],
                 "responses": {
@@ -3074,45 +3074,52 @@
                 "tags": ["resources"],
                 "summary": "Create Linked Hearing Group",
                 "operationId": "create-linked-hearing-group",
-                "parameters": [
-                    {
-                        "name": "Source-System",
-                        "in": "header",
-                        "required": true,
+                "parameters": [{
+                    "name": "Source-System",
+                    "in": "header",
+                    "required": true,
+                    "schema": {
+                        "enum": ["CFT"],
                         "type": "string",
-                        "default": "CFT",
-                        "enum": [
-                            "CFT"
-                        ]
-                    },
-                    {
-                        "name": "Destination-System",
-                        "in": "header",
-                        "required": true,
-                        "type": "string",
-                        "default": "MOCK",
-                        "enum": [
-                            "MOCK"
-                        ]
-                    },
-                    {
-                        "name": "Request-Created-At",
-                        "in": "header",
-                        "required": true,
-                        "type": "string",
-                        "default": "1/29/2018 8:36:01 PM"
-                    },
-                    {
-                        "name": "Accept",
-                        "in": "header",
-                        "required": true,
-                        "type": "string",
-                        "default": "application/json",
-                        "enum": [
-                            "application/json"
-                        ]
+                        "default": "CFT"
                     }
-                ],
+                }, {
+                    "name": "Destination-System",
+                    "in": "header",
+                    "required": true,
+                    "schema": {
+                        "enum": ["MOCK"],
+                        "type": "string",
+                        "default": "MOCK"
+                    }
+                }, {
+                    "name": "Request-Created-At",
+                    "in": "header",
+                    "required": true,
+                    "schema": {
+                        "enum": ["2019-10-12T07:20:00Z"],
+                        "type": "string",
+                        "default": "2019-10-12T07:20:00Z"
+                    }
+                }, {
+                    "name": "Content-Type",
+                    "in": "header",
+                    "required": false,
+                    "schema": {
+                        "enum": ["application/json"],
+                        "type": "string",
+                        "default": "application/json"
+                    }
+                }, {
+                    "name": "Accept",
+                    "in": "header",
+                    "required": true,
+                    "schema": {
+                        "enum": ["application/json"],
+                        "type": "string",
+                        "default": "application/json"
+                    }
+                }],
                 "responses": {
                     "200": {
                         "description": "null"
