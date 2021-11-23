@@ -3081,9 +3081,7 @@
                         "required": true,
                         "type": "string",
                         "default": "CFT",
-                        "enum": [
-                            "CFT"
-                        ]
+                        "enum": ["CFT"]
                     },
                     {
                         "name": "Destination-System",
@@ -3091,16 +3089,13 @@
                         "required": true,
                         "type": "string",
                         "default": "MOCK",
-                        "enum": [
-                            "MOCK"
-                        ]
+                        "enum": ["MOCK"]
                     }, {
                         "name": "Request-Created-At",
                         "in": "header",
                         "required": true,
                         "type": "string",
-                        "default": "2019-10-12T07:20:00Z",
-                        "enum": ["2019-10-12T07:20:00Z"]
+                        "default": "2019-10-12T07:20:00Z"
                     }, {
                         "name": "Content-Type",
                         "in": "header",

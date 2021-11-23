@@ -3099,8 +3099,7 @@
                         "in": "header",
                         "required": true,
                         "type": "string",
-                        "default": "2019-10-12T07:20:00Z",
-                        "enum": ["2019-10-12T07:20:00Z"]
+                        "default": "2019-10-12T07:20:00Z"
                     }, {
                         "name": "Content-Type",
                         "in": "header",
