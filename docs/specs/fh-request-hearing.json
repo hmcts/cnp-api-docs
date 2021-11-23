@@ -3079,7 +3079,7 @@
                     "in": "header",
                     "required": true,
                     "schema": {
-                        "enum": [""],
+                        "enum": ["CFT"],
                         "type": "",
                         "default": "CFT"
                     }
@@ -3088,7 +3088,7 @@
                     "in": "header",
                     "required": true,
                     "schema": {
-                        "enum": [""],
+                        "enum": ["MOCK"],
                         "type": "",
                         "default": "MOCK"
                     }
@@ -3097,7 +3097,7 @@
                     "in": "header",
                     "required": true,
                     "schema": {
-                        "enum": [""],
+                        "enum": ["2019-10-12T07:20:00Z"],
                         "type": "",
                         "default": "2019-10-12T07:20:00Z"
                     }
@@ -3106,7 +3106,7 @@
                     "in": "header",
                     "required": false,
                     "schema": {
-                        "enum": [""],
+                        "enum": ["application/json"],
                         "type": "",
                         "default": "application/json"
                     }
@@ -3115,15 +3115,9 @@
                     "in": "header",
                     "required": true,
                     "schema": {
-                        "enum": [""],
+                        "enum": ["application/json"],
                         "type": "",
                         "default": "application/json"
-                    }
-                }, {
-                    "name": "Authorization",
-                    "in": "header",
-                    "schema": {
-                        "type": ""
                     }
                 }],
                 "responses": {
