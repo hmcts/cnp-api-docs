@@ -97,6 +97,10 @@
         {
             "name": "WA",
             "colour": "#8e44ad"
+        },
+        {
+            "name": "LAU",
+            "colour": "#110111"
         }
     ],
     "apis": [
@@ -262,6 +266,29 @@
                 },
                 {
                     "id": "fees-register-api",
+                    "hard": true,
+                    "apis": []
+                }
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "lau-case-backend",
+            "name": "LAU Case Backend",
+            "group": "LAU",
+            "type": "api",
+            "description": "LAU Case Search and Actions Backend",
+            "repository": "https://github.com/hmcts/lau-case-backend",
+            "spec": "https://hmcts.github.io/reform-api-docs/specs/lau-case-backend.json",
+            "dependencies": [
+                {
+                    "id": "idam-api",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "rpe-service-auth-provider",
                     "hard": true,
                     "apis": []
                 }
