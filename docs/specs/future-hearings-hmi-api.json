@@ -3151,6 +3151,14 @@
                         "default": "2019-10-12T07:20:00Z"
                     },
                     {
+                        "name": "Content-Type",
+                        "in": "header",
+                        "required": false,
+                        "type": "string",
+                        "default": "application/json",
+                        "enum": ["application/json"]
+                    },
+                    {
                         "name": "Accept",
                         "in": "header",
                         "required": true,
@@ -3204,6 +3212,14 @@
                         "required": true,
                         "type": "string",
                         "default": "2019-10-12T07:20:00Z"
+                    },
+                    {
+                        "name": "Content-Type",
+                        "in": "header",
+                        "required": false,
+                        "type": "string",
+                        "default": "application/json",
+                        "enum": ["application/json"]
                     },
                     {
                         "name": "Accept",
