@@ -3081,9 +3081,7 @@
                         "required": true,
                         "type": "string",
                         "default": "CFT",
-                        "enum": [
-                            "CFT"
-                        ]
+                        "enum": ["CFT"]
                     },
                     {
                         "name": "Destination-System",
@@ -3091,9 +3089,7 @@
                         "required": true,
                         "type": "string",
                         "default": "MOCK",
-                        "enum": [
-                            "MOCK"
-                        ]
+                        "enum": ["MOCK"]
                     }, {
                         "name": "Request-Created-At",
                         "in": "header",
@@ -3118,6 +3114,116 @@
                 ],
                 "responses": {
                     "200": {
+                        "description": "null"
+                    }
+                }
+            },
+            "put": {
+                "tags": ["resources"],
+                "summary": "Update Linked Hearing Group",
+                "operationId": "update-linked-hearing-group",
+                "parameters": [
+                    {
+                        "name": "Source-System",
+                        "in": "header",
+                        "required": true,
+                        "type": "string",
+                        "default": "CFT",
+                        "enum": [
+                            "CFT"
+                        ]
+                    },
+                    {
+                        "name": "Destination-System",
+                        "in": "header",
+                        "required": true,
+                        "type": "string",
+                        "default": "MOCK",
+                        "enum": [
+                            "MOCK"
+                        ]
+                    },
+                    {
+                        "name": "Request-Created-At",
+                        "in": "header",
+                        "required": true,
+                        "type": "string",
+                        "default": "2019-10-12T07:20:00Z"
+                    },
+                    {
+                        "name": "Accept",
+                        "in": "header",
+                        "required": true,
+                        "type": "string",
+                        "default": "application/json",
+                        "enum": [
+                            "application/json"
+                        ]
+                    },
+                    {
+                        "name": "groupClientReference",
+                        "in": "path",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "202": {
+                        "description": "null"
+                    }
+                }
+            },
+            "delete": {
+                "tags": ["resources"],
+                "summary": "Delete Linked Hearing Group",
+                "operationId": "delete-linked-hearing-group",
+                "parameters": [
+                    {
+                        "name": "Source-System",
+                        "in": "header",
+                        "required": true,
+                        "type": "string",
+                        "default": "CFT",
+                        "enum": [
+                            "CFT"
+                        ]
+                    },
+                    {
+                        "name": "Destination-System",
+                        "in": "header",
+                        "required": true,
+                        "type": "string",
+                        "default": "MOCK",
+                        "enum": [
+                            "MOCK"
+                        ]
+                    },
+                    {
+                        "name": "Request-Created-At",
+                        "in": "header",
+                        "required": true,
+                        "type": "string",
+                        "default": "2019-10-12T07:20:00Z"
+                    },
+                    {
+                        "name": "Accept",
+                        "in": "header",
+                        "required": true,
+                        "type": "string",
+                        "default": "application/json",
+                        "enum": [
+                            "application/json"
+                        ]
+                    },
+                    {
+                        "name": "groupClientReference",
+                        "in": "path",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "202": {
                         "description": "null"
                     }
                 }
