@@ -297,6 +297,24 @@
             "version": null
         },
         {
+            "id": "lau-case-frontend",
+            "name": "LAU Case Frontend",
+            "group": "LAU",
+            "type": "web",
+            "description": "LAU Case Frontend Web application",
+            "repository": "https://github.com/hmcts/lau-case-frontend",
+            "spec": null,
+            "dependencies": [
+                {
+                    "id": "lau-case-backend",
+                    "hard": true,
+                    "apis": []
+                }
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
             "id": "ccd-case-activity-api",
             "name": "CCD Case Activities Api",
             "group": "CDM",
