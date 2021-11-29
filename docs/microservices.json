@@ -100,7 +100,7 @@
         },
         {
             "name": "LAU",
-            "colour": "#110111"
+            "colour": "#f0f709"
         }
     ],
     "apis": [
@@ -505,8 +505,13 @@
                     "hard": true,
                     "apis": []
                 },
-                 {
+                {
                     "id": "ccd-case-document-am-api",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "lau-case-backend",
                     "hard": true,
                     "apis": []
                 }
