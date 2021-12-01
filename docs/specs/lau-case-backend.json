@@ -100,6 +100,14 @@
             "x-example": "1"
           },
           {
+            "name": "ServiceAuthorization",
+            "in": "header",
+            "description": "Service Authorisation",
+            "required": true,
+            "type": "string",
+            "x-example": "Bearer eyJ0eXAiOiJK........."
+          },
+          {
             "name": "size",
             "in": "query",
             "description": "Size",
@@ -168,6 +176,14 @@
             "schema": {
               "$ref": "#/definitions/CaseActionPostRequest"
             }
+          },
+          {
+            "name": "ServiceAuthorization",
+            "in": "header",
+            "description": "Service Authorisation",
+            "required": true,
+            "type": "string",
+            "x-example": "Bearer eyJ0eXAiOiJK........."
           }
         ],
         "responses": {
@@ -242,6 +258,14 @@
             "x-example": "1"
           },
           {
+            "name": "ServiceAuthorization",
+            "in": "header",
+            "description": "Service Authorisation",
+            "required": true,
+            "type": "string",
+            "x-example": "Bearer eyJ0eXAiOiJK........."
+          },
+          {
             "name": "size",
             "in": "query",
             "description": "Size",
@@ -310,6 +334,14 @@
             "schema": {
               "$ref": "#/definitions/CaseSearchPostRequest"
             }
+          },
+          {
+            "name": "ServiceAuthorization",
+            "in": "header",
+            "description": "Service Authorisation",
+            "required": true,
+            "type": "string",
+            "x-example": "Bearer eyJ0eXAiOiJK........."
           }
         ],
         "responses": {
