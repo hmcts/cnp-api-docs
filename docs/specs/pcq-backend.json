@@ -1,17 +1,15 @@
 {
   "swagger": "2.0",
   "info": {
-    "description": "Api Documentation",
+    "description": "This is the Protected Characteristics Back-End API that will:\n\n- Save user's answers to the database.\n- Serve the consolidation service to fetch PCQ Ids that don't have an associated case record and add case information to a PCQ record in the database.\n- Serve authentication tasks for other services and components to generate a Service SAS token for the PCQ Storage Account container 'pcq' - this will provide Write, List and Create access.",
     "version": "1.0",
-    "title": "Api Documentation",
-    "termsOfService": "urn:tos",
+    "title": "PCQ Back-End APIs",
     "contact": {},
     "license": {
-      "name": "Apache 2.0",
-      "url": "http://www.apache.org/licenses/LICENSE-2.0"
+      "name": "Reform Common Components"
     }
   },
-  "host": "localhost:4550",
+  "host": "pcq-backend-aat.service.core-compute-aat.internal",
   "basePath": "/",
   "tags": [
     {
@@ -49,15 +47,14 @@
               "type": "string"
             }
           }
-        },
-        "deprecated": false
+        }
       }
     },
     "/pcq/backend/consolidation/addCaseForPCQ/{pcqId}": {
       "put": {
         "tags": [
-          "Add Case for a PCQ",
-          "PCQ BackEnd - API for consolidation service operations."
+          "PCQ BackEnd - API for consolidation service operations.",
+          "PUT end-points"
         ],
         "summary": "Add case information on a PCQ answers record.",
         "description": "This API will be invoked by the Consolidation process to to update the case information ( case id ) on the PCQ answers record. ",
@@ -105,14 +102,13 @@
               "$ref": "#/definitions/SubmitResponse"
             }
           }
-        },
-        "deprecated": false
+        }
       }
     },
     "/pcq/backend/consolidation/pcqRecordWithoutCase": {
       "get": {
         "tags": [
-          "Get PCQ Records",
+          "GET end-points",
           "PCQ BackEnd - API for consolidation service operations."
         ],
         "summary": "Get list of PCQ Record that don't have associated case information.",
@@ -134,14 +130,13 @@
           "500": {
             "description": "Any general application/database un-recoverable error"
           }
-        },
-        "deprecated": false
+        }
       }
     },
     "/pcq/backend/consolidation/pcqWithoutCase": {
       "get": {
         "tags": [
-          "Get PCQ Ids",
+          "GET end-points",
           "PCQ BackEnd - API for consolidation service operations."
         ],
         "summary": "Get list of PCQ Ids that don't have associated case information.",
@@ -167,10 +162,47 @@
         "deprecated": true
       }
     },
+    "/pcq/backend/deletePcqRecord/{pcqId}": {
+      "delete": {
+        "tags": [
+          "DELETE end-points",
+          "PCQ BackEnd - API for PCQ database operations."
+        ],
+        "summary": "Delete PCQ Record from the database.",
+        "description": "This API will delete a record from the PCQ database for the given PCQId. It is intended to be called from the test api for testing purposes.",
+        "operationId": "deletePcqRecordUsingDELETE",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "pcqId",
+            "in": "path",
+            "description": "pcqId",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Pcq record has been deleted",
+            "schema": {
+              "type": "object"
+            }
+          },
+          "400": {
+            "description": "An invalid id was provided"
+          },
+          "404": {
+            "description": "No pcq answer record was found with the given id"
+          }
+        }
+      }
+    },
     "/pcq/backend/getAnswer/{pcqId}": {
       "get": {
         "tags": [
-          "Get PCQ answer",
+          "GET end-points",
           "PCQ BackEnd - API for PCQ database operations."
         ],
         "summary": "Get PCQ answer from the database.",
@@ -201,15 +233,14 @@
           "404": {
             "description": "No pcq answer record was found with the given id"
           }
-        },
-        "deprecated": false
+        }
       }
     },
     "/pcq/backend/submitAnswers": {
       "post": {
         "tags": [
-          "Save PCQ answers",
-          "PCQ BackEnd - API for PCQ database operations."
+          "PCQ BackEnd - API for PCQ database operations.",
+          "POST end-points"
         ],
         "summary": "Add and update PCQ answers to the database.",
         "description": "This API will create a new record in the database for the given PCQId where none exists and will update an existing record with the answers as submitted by the users",
@@ -268,18 +299,17 @@
               "$ref": "#/definitions/SubmitResponse"
             }
           }
-        },
-        "deprecated": false
+        }
       }
     },
     "/pcq/backend/token/bulkscan": {
       "get": {
         "tags": [
-          "Get SAS Token for BulkScan",
+          "GET end-points",
           "PCQ BackEnd - API for SAS token service operations."
         ],
         "summary": "Endpoint for BulkScan to generate the PCQ Storage SAS token.",
-        "description": "This API will be invoked by the Bulk Scan Processor to generate an Azure Service SAS token to allow the upload of paper PCQ envelops to the PCQ Blob Storage 'pcq' container.",
+        "description": "This API will be invoked by the Bulk Scan Processor to generate an Azure Service SAS token to allowthe upload of paper PCQ envelops to the PCQ Blob Storage 'pcq' container.",
         "operationId": "generateBulkScanSasTokenUsingGET",
         "produces": [
           "application/json"
@@ -309,8 +339,7 @@
           "500": {
             "description": "Server error, unable to generate SAS token."
           }
-        },
-        "deprecated": false
+        }
       }
     }
   },
@@ -329,6 +358,12 @@
           "format": "int32"
         },
         "completedDate": {
+          "type": "string"
+        },
+        "dcnNumber": {
+          "type": "string"
+        },
+        "formId": {
           "type": "string"
         },
         "optOut": {
@@ -367,6 +402,12 @@
           "format": "int32"
         },
         "completedDate": {
+          "type": "string"
+        },
+        "dcnNumber": {
+          "type": "string"
+        },
+        "formId": {
           "type": "string"
         },
         "partyId": {
@@ -481,6 +522,9 @@
         "marriage": {
           "type": "integer",
           "format": "int32"
+        },
+        "opt_out": {
+          "type": "boolean"
         },
         "pregnancy": {
           "type": "integer",
