@@ -2543,6 +2543,21 @@
                 }
             }
         },
+        "/server-error": {
+            "get": {
+                "description": "Generate HTTP 500",
+                "operationId": "server-error",
+                "summary": "Server 500 Error",
+                "tags": [
+                    "utils"
+                ],
+                "responses": {
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                }
+            }
+        },
         "/elinks-health": {
             "get": {
                 "description": "Einks Health",
