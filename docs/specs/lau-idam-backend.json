@@ -56,6 +56,14 @@
         ],
         "parameters": [
           {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Authorisation",
+            "required": true,
+            "type": "string",
+            "x-example": "Bearer eyJ0eXAiOiJK........."
+          },
+          {
             "name": "emailAddress",
             "in": "query",
             "description": "Email Address",
@@ -249,7 +257,7 @@
         }
       },
       "title": "LogonLogGetResponse",
-      "description": "Logon GET Response"
+      "description": "IdAM Logon GET Response"
     },
     "LogonLogPostRequest": {
       "type": "object",
