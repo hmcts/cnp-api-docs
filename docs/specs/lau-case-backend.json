@@ -60,6 +60,14 @@
         ],
         "parameters": [
           {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Authorisation",
+            "required": true,
+            "type": "string",
+            "x-example": "Bearer eyJ0eXAiOiJK........."
+          },
+          {
             "name": "caseJurisdictionId",
             "in": "query",
             "description": "Case Jurisdiction ID",
@@ -233,6 +241,14 @@
           "application/json"
         ],
         "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Authorisation",
+            "required": true,
+            "type": "string",
+            "x-example": "Bearer eyJ0eXAiOiJK........."
+          },
           {
             "name": "caseRef",
             "in": "query",
