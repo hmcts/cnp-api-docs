@@ -139,7 +139,13 @@
             "spec": "https://hmcts.github.io/reform-api-docs/specs/idam-api.json",
             "dependencies": [
             ],
-            "apis": [],
+            "apis": [
+                {
+                    "id": "lau-idam-backend",
+                    "hard": true,
+                    "apis": []
+                }
+            ],
             "version": null
         },
         {
@@ -297,16 +303,59 @@
             "version": null
         },
         {
-            "id": "lau-case-frontend",
-            "name": "LAU Case Frontend",
+            "id": "lau-idam-backend",
+            "name": "LAU IdAM Backend",
+            "group": "LAU",
+            "type": "api",
+            "description": "LAU IdAM Logons Backend",
+            "repository": "https://github.com/hmcts/lau-idam-backend",
+            "spec": "https://hmcts.github.io/reform-api-docs/specs/lau-idam-backend.json",
+            "dependencies": [
+                {
+                    "id": "idam-api",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "rpe-service-auth-provider",
+                    "hard": true,
+                    "apis": []
+                }
+            ],
+            "apis": [],
+            "version": null
+        },  
+        {
+            "id": "lau-frontend",
+            "name": "LAU Frontend",
             "group": "LAU",
             "type": "web",
-            "description": "LAU Case Frontend Web application",
-            "repository": "https://github.com/hmcts/lau-case-frontend",
+            "description": "LAU Frontend Web application",
+            "repository": "https://github.com/hmcts/lau-frontend",
             "spec": null,
             "dependencies": [
                 {
                     "id": "lau-case-backend",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "lau-idam-backend",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "idam-web-public",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "idam-api",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "rpe-service-auth-provider",
                     "hard": true,
                     "apis": []
                 }
