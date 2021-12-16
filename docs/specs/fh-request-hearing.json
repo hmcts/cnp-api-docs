@@ -3909,6 +3909,69 @@
                         "description": "null"
                     }
                 }
+            },
+            "delete": {
+                "tags": ["pub-hub"],
+                "summary": "Delete Publication",
+                "operationId": "delete-publication",
+                "parameters": [
+                    {
+                        "name": "Source-System",
+                        "in": "header",
+                        "required": true,
+                        "type": "string",
+                        "default": "CFT",
+                        "enum": [
+                            "CFT"
+                        ]
+                    },
+                    {
+                        "name": "Destination-System",
+                        "in": "header",
+                        "required": true,
+                        "type": "string",
+                        "default": "MOCK",
+                        "enum": [
+                            "MOCK"
+                        ]
+                    },
+                    {
+                        "name": "Request-Created-At",
+                        "in": "header",
+                        "required": true,
+                        "type": "string",
+                        "default": "2019-10-12T07:20:00Z"
+                    },
+                    {
+                        "name": "Content-Type",
+                        "in": "header",
+                        "required": false,
+                        "type": "string",
+                        "default": "application/json",
+                        "enum": ["application/json"]
+                    },
+                    {
+                        "name": "Accept",
+                        "in": "header",
+                        "required": true,
+                        "type": "string",
+                        "default": "application/json",
+                        "enum": [
+                            "application/json"
+                        ]
+                    },
+                    {
+                        "name": "artefact_id",
+                        "in": "path",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "202": {
+                        "description": "null"
+                    }
+                }
             }
         }
     },
