@@ -62,7 +62,7 @@
           {
             "name": "Authorization",
             "in": "header",
-            "description": "Authorisation",
+            "description": "Authorization",
             "required": true,
             "type": "string",
             "x-example": "Bearer eyJ0eXAiOiJK........."
@@ -110,7 +110,7 @@
           {
             "name": "ServiceAuthorization",
             "in": "header",
-            "description": "Service Authorisation",
+            "description": "Service Authorization",
             "required": true,
             "type": "string",
             "x-example": "Bearer eyJ0eXAiOiJK........."
@@ -153,8 +153,20 @@
               "$ref": "#/definitions/CaseActionGetResponse"
             }
           },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/CaseActionGetResponse"
+            }
+          },
           "403": {
             "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/CaseActionGetResponse"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
             "schema": {
               "$ref": "#/definitions/CaseActionGetResponse"
             }
@@ -188,7 +200,7 @@
           {
             "name": "ServiceAuthorization",
             "in": "header",
-            "description": "Service Authorisation",
+            "description": "Service Authorization",
             "required": true,
             "type": "string",
             "x-example": "Bearer eyJ0eXAiOiJK........."
@@ -244,7 +256,7 @@
           {
             "name": "Authorization",
             "in": "header",
-            "description": "Authorisation",
+            "description": "Authorization",
             "required": true,
             "type": "string",
             "x-example": "Bearer eyJ0eXAiOiJK........."
@@ -276,7 +288,7 @@
           {
             "name": "ServiceAuthorization",
             "in": "header",
-            "description": "Service Authorisation",
+            "description": "Service Authorization",
             "required": true,
             "type": "string",
             "x-example": "Bearer eyJ0eXAiOiJK........."
@@ -319,8 +331,20 @@
               "$ref": "#/definitions/CaseSearchGetResponse"
             }
           },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/CaseSearchGetResponse"
+            }
+          },
           "403": {
             "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/CaseSearchGetResponse"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
             "schema": {
               "$ref": "#/definitions/CaseSearchGetResponse"
             }
@@ -354,7 +378,7 @@
           {
             "name": "ServiceAuthorization",
             "in": "header",
-            "description": "Service Authorisation",
+            "description": "Service Authorization",
             "required": true,
             "type": "string",
             "x-example": "Bearer eyJ0eXAiOiJK........."
@@ -471,6 +495,11 @@
           "type": "integer",
           "format": "int32",
           "description": "The index of the first record out of the full result set provided in the result set"
+        },
+        "totalNumberOfRecords": {
+          "type": "integer",
+          "format": "int64",
+          "description": "The total number of records in the full result set"
         }
       },
       "title": "CaseActionGetResponse",
@@ -511,6 +540,11 @@
           "type": "integer",
           "format": "int32",
           "description": "The index of the first record out of the full result set provided in the result set"
+        },
+        "totalNumberOfRecords": {
+          "type": "integer",
+          "format": "int64",
+          "description": "The total number of records for a query"
         }
       },
       "title": "CaseSearchGetResponse",
