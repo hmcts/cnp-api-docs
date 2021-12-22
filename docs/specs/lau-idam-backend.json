@@ -58,7 +58,7 @@
           {
             "name": "Authorization",
             "in": "header",
-            "description": "Authorisation",
+            "description": "Authorization",
             "required": true,
             "type": "string",
             "x-example": "Bearer eyJ0eXAiOiJK........."
@@ -90,7 +90,7 @@
           {
             "name": "ServiceAuthorization",
             "in": "header",
-            "description": "Service Authorisation",
+            "description": "Service Authorization",
             "required": true,
             "type": "string",
             "x-example": "Bearer eyJ0eXAiOiJK........."
@@ -122,7 +122,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Request executed successfully. Response contains of logoon logs",
+            "description": "Request executed successfully. Response contains of logon logs",
             "schema": {
               "$ref": "#/definitions/LogonLogGetResponse"
             }
@@ -133,8 +133,20 @@
               "$ref": "#/definitions/LogonLogGetResponse"
             }
           },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/LogonLogGetResponse"
+            }
+          },
           "403": {
             "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/LogonLogGetResponse"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
             "schema": {
               "$ref": "#/definitions/LogonLogGetResponse"
             }
@@ -168,7 +180,7 @@
           {
             "name": "ServiceAuthorization",
             "in": "header",
-            "description": "Service Authorisation",
+            "description": "Service Authorization",
             "required": true,
             "type": "string",
             "x-example": "Bearer eyJ0eXAiOiJK........."
@@ -254,6 +266,11 @@
           "type": "integer",
           "format": "int32",
           "description": "The index of the first record out of the full result set provided in the result set"
+        },
+        "totalNumberOfRecords": {
+          "type": "integer",
+          "format": "int64",
+          "description": "The total number of records in the full result set"
         }
       },
       "title": "LogonLogGetResponse",
