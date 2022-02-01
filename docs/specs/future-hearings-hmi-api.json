@@ -3262,7 +3262,6 @@
                 }
             }
         }
-        }
     },
     "securityDefinitions": {
         "OAuth2": {
