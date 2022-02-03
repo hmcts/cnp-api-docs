@@ -3271,47 +3271,36 @@
                     "name": "Source-System",
                     "in": "header",
                     "required": true,
-                    "schema": {
-                        "enum": ["CFT"],
-                        "type": "string",
-                        "default": "CFT"
-                    }
+                    "enum": ["CFT"],
+                    "type": "string",
+                    "default": "CFT"
                 }, {
                     "name": "Destination-System",
                     "in": "header",
                     "required": true,
-                    "schema": {
-                        "enum": ["PIH"],
-                        "type": "string",
-                        "default": "PIH"
-                    }
+                    "enum": ["PIH"],
+                    "type": "string",
+                    "default": "PIH"
                 }, {
                     "name": "Request-Created-At",
                     "in": "header",
                     "required": true,
-                    "schema": {
-                        "enum": ["2019-10-12T07:20:00Z"],
-                        "type": "string",
-                        "default": "2019-10-12T07:20:00Z"
-                    }
+                    "type": "string",
+                    "default": "2019-10-12T07:20:00Z"
                 }, {
                     "name": "Accept",
                     "in": "header",
                     "required": true,
-                    "schema": {
-                        "enum": ["application/json"],
-                        "type": "string",
-                        "default": "application/json"
-                    }
+                    "enum": ["application/json"],
+                    "type": "string",
+                    "default": "application/json"
                 }, {
                     "name": "Content-Type",
                     "in": "header",
                     "required": true,
-                    "schema": {
-                        "enum": ["application/json"],
-                        "type": "String",
-                        "default": "application/json"
-                    }
+                    "enum": ["application/json"],
+                    "type": "String",
+                    "default": "application/json"
                 }],
                 "responses": {
                     "201": {
