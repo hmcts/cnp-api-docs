@@ -3297,9 +3297,9 @@
                 }, {
                     "name": "Content-Type",
                     "in": "header",
-                    "required": true,
+                    "required": false,
                     "enum": ["application/json"],
-                    "type": "String",
+                    "type": "string",
                     "default": "application/json"
                 }],
                 "responses": {
