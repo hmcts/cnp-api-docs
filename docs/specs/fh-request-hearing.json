@@ -3299,7 +3299,7 @@
                     "in": "header",
                     "required": true,
                     "enum": ["application/json"],
-                    "type": "String",
+                    "type": "string",
                     "default": "application/json"
                 }],
                 "responses": {
