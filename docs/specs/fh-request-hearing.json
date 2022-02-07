@@ -3265,7 +3265,7 @@
         "/pih/publication": {
             "post": {
                 "tags": ["pub-hub"],
-                "summary": "Update Publication",
+                "summary": "Publication",
                 "operationId": "update-publication",
                 "parameters": [{
                     "name": "Source-System",
