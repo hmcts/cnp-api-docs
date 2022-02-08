@@ -3308,6 +3308,18 @@
                     }
                 }
             }
+        },
+        "/pih/health": {
+            "get": {
+                "tags": ["pub-hub"],
+                "summary": "Publication Health",
+                "operationId": "publication-health",
+                "responses": {
+                    "200": {
+                        "description": "null"
+                    }
+                }
+            }
         }
     },
     "securityDefinitions": {
