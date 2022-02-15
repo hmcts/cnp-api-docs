@@ -113,15 +113,20 @@
             "repository": "https://github.com/hmcts/hmi-api-gateway-fh",
             "spec": "https://hmcts.github.io/reform-api-docs/specs/future-hearings-hmi-api.json",
             "dependencies": [
+                {
+                    "id": "pih-gateway-api",
+                    "hard": true,
+                    "apis": []
+                }
             ],
             "apis": [],
             "version": null
         },{
-            "id": "pip-gateway-api",
-            "name": "PIP API",
-            "group": "PIP Gateway",
+            "id": "pih-gateway-api",
+            "name": "PIH API",
+            "group": "PIH Gateway",
             "type": "api",
-            "description": "Publishing Information Platform Gateway",
+            "description": "Publishing Information Hub Gateway",
             "repository": "https://github.com/hmcts/pih-api-gateway",
             "spec": "https://hmcts.github.io/reform-api-docs/specs/pip-gateway-api.json",
             "dependencies": [
