@@ -2,7 +2,7 @@ apiVersion: backstage.io/v1alpha1
 kind: API
 metadata:
   name: labs-jackmaloney2
-  description: Jack Maloney's test API
+  description: Jack Maloney's updated test API
   links:
     - url: https://hmcts-reform.slack.com/app_redirect?channel=cloud-native
       title: cloud-native on Slack
