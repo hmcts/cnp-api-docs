@@ -5,7 +5,7 @@
         "description": "<h3>Refund API Documentation </h3> <b>Published Date:</b> 8-MAR-2021 <b>Author: </b> Anshika Nigam, Yashar Rahvar <b> Requirement:</b> New API added for Refund List  <b>Version History:</b> Refund List  API is added",
         "title": "Refund List "
     },
-    "host": "cft-api-mgmt-demo.azure-api.net",
+    "host": "core-api-mgmt-demo.azure-api.net",
     "basePath": "/",
     "schemes": [
         "https"
@@ -58,51 +58,55 @@
                         "description": "successful operation",
                         "examples": {
                             "application/json": {
-                                "refund_reference": "string",
-                                "refund_reason": "string",
-                                "refund_instruction_type": "SendRefund",
-                                "refund_date_approved": "string",
-                                "total_refund_amount": 0,
-                                "fees": [
+                                "refunds": [
                                     {
-                                        "id": 0,
-                                        "code": "Unknown Type: String",
-                                        "version": "Unknown Type: String",
-                                        "jurisdiction1": "string",
-                                        "jurisdiction2": "string",
-                                        "memo_line": "string",
-                                        "natural_account_code": "string",
-                                        "credit": 0
+                                        "reference": "string",
+                                        "reason": "string",
+                                        "instruction_type": "SendRefund",
+                                        "date_approved": "string",
+                                        "total_refund_amount": 0,
+                                        "fees": [
+                                            {
+                                                "id": 0,
+                                                "code": "Unknown Type: String",
+                                                "version": "Unknown Type: String",
+                                                "jurisdiction1": "string",
+                                                "jurisdiction2": "string",
+                                                "memo_line": "string",
+                                                "natural_account_code": "string",
+                                                "credit": 0
+                                            }
+                                        ],
+                                        "payment": {
+                                            "reference": "string",
+                                            "date_receipt_created": "string",
+                                            "service_name": "string",
+                                            "site_id": "string",
+                                            "channel": "string",
+                                            "method": "string",
+                                            "ccd_case_number": "string",
+                                            "case_reference": "string",
+                                            "customer_reference": "string",
+                                            "pba_number": "string",
+                                            "gov_uk_id": "string",
+                                            "bgc_number": "string",
+                                            "available_funds": "string"
+                                        }
                                     }
-                                ],
-                                "payment": {
-                                    "payment_reference": "string",
-                                    "date_receipt_created": "string",
-                                    "service_name": "string",
-                                    "site_id": "string",
-                                    "channel": "string",
-                                    "method": "string",
-                                    "ccd_case_number": "string",
-                                    "case_reference": "string",
-                                    "customer_reference": "string",
-                                    "account_number": "string",
-                                    "gov_uk_id": "string",
-                                    "bgc_number": "string",
-                                    "available_funds": "string"
-                                }
+                                ]
+                            },
+                            "400": {
+                                "description": "Bad request."
+                            },
+                            "404": {
+                                "description": "No refund available for the given date range."
+                            },
+                            "413": {
+                                "description": "Date range exceed the maximum supported by the system."
+                            },
+                            "500": {
+                                "description": "Internal server error."
                             }
-                        },
-                        "400": {
-                            "description": "Bad request."
-                        },
-                        "204": {
-                            "description": "Refund unavailable."
-                        },
-                        "413": {
-                            "description": "Payload too large."
-                        },
-                        "500": {
-                            "description": "Internal server error."
                         }
                     }
                 }
