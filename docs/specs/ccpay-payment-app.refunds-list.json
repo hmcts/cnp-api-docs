@@ -31,7 +31,7 @@
         }
     ],
     "paths": {
-        "/refunds-list": {
+        "/refunds": {
             "get": {
                 "description": "Returns all refunds that match filter criteria",
                 "operationId": "retrieveRefunds",
