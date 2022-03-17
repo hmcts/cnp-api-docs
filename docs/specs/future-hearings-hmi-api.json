@@ -3113,9 +3113,7 @@
                 "parameters": [{
                     "name": "requestStartDate",
                     "in": "query",
-                    "schema": {
-                        "type": "string"
-                    }
+                    "type": "string"
                 }, {
                     "name": "requestEndDate",
                     "in": "query",
@@ -3148,22 +3146,22 @@
                     "name": "Source-System",
                     "in": "header",
                     "required": true,
-                    "enum": ["CFT"],
                     "type": "string",
+                    "enum": ["CFT"],
                     "default": "CFT"
                 }, {
                     "name": "Destination-System",
                     "in": "header",
                     "required": true,
-                    "enum": ["MOCK", "SNL"],
                     "type": "string",
+                    "enum": ["MOCK", "SNL"],
                     "default": "MOCK"
                 }, {
                     "name": "Request-Created-At",
                     "in": "header",
                     "required": true,
-                    "enum": ["2018-01-29T20:36:01Z"],
                     "type": "string",
+                    "enum": ["2018-01-29T20:36:01Z"],
                     "default": "2018-01-29T20:36:01Z"
                 }, {
                     "name": "Content-Type",
