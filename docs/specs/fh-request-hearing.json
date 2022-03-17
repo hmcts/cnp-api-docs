@@ -3161,7 +3161,6 @@
                     "in": "header",
                     "required": true,
                     "type": "string",
-                    "enum": ["2018-01-29T20:36:01Z"],
                     "default": "2018-01-29T20:36:01Z"
                 }, {
                     "name": "Content-Type",
