@@ -5,7 +5,7 @@
         "description": "<h3>Refund API Documentation </h3> <b>Published Date:</b> 8-MAR-2021 <b>Author: </b> Anshika Nigam, Yashar Rahvar <b> Requirement:</b> New API added for Refund List  <b>Version History:</b> Refund List  API is added",
         "title": "Refund List "
     },
-    "host": "core-api-mgmt-demo.azure-api.net",
+    "host": "cft-api-mgmt-demo.azure-api.net",
     "basePath": "/",
     "schemes": [
         "https"
