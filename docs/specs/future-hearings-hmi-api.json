@@ -3119,90 +3119,66 @@
                 }, {
                     "name": "requestEndDate",
                     "in": "query",
-                    "schema": {
-                        "type": "string"
-                    }
+                    "type": "string"
                 }, {
                     "name": "requestDuration",
                     "in": "query",
-                    "schema": {
-                        "type": "string"
-                    }
+                    "type": "string"
                 }, {
                     "name": "requestLocationType",
                     "in": "query",
-                    "schema": {
-                        "type": "string"
-                    }
+                    "type": "string"
                 }, {
                     "name": "requestLocationReferenceType",
                     "in": "query",
-                    "schema": {
-                        "type": "string"
-                    }
+                    "type": "string"
                 }, {
                     "name": "requestLocationId",
                     "in": "query",
-                    "schema": {
-                        "type": "string"
-                    }
+                    "type": "string"
                 }, {
                     "name": "requestComments",
                     "in": "query",
-                    "schema": {
-                        "type": "string"
-                    }
+                    "type": "string"
                 }, {
                     "name": "requestExternalId",
                     "in": "query",
-                    "schema": {
-                        "type": "string"
-                    }
+                    "type": "string"
                 }, {
                     "name": "Source-System",
                     "in": "header",
                     "required": true,
-                    "schema": {
-                        "enum": ["CFT"],
-                        "type": "string",
-                        "default": "CFT"
-                    }
+                    "enum": ["CFT"],
+                    "type": "string",
+                    "default": "CFT"
                 }, {
                     "name": "Destination-System",
                     "in": "header",
                     "required": true,
-                    "schema": {
-                        "enum": ["MOCK", "SNL"],
-                        "type": "string",
-                        "default": "MOCK"
-                    }
+                    "enum": ["MOCK", "SNL"],
+                    "type": "string",
+                    "default": "MOCK"
                 }, {
                     "name": "Request-Created-At",
                     "in": "header",
                     "required": true,
-                    "schema": {
-                        "enum": ["2018-01-29T20:36:01Z"],
-                        "type": "string",
-                        "default": "2018-01-29T20:36:01Z"
-                    }
+                    "enum": ["2018-01-29T20:36:01Z"],
+                    "type": "string",
+                    "default": "2018-01-29T20:36:01Z"
                 }, {
                     "name": "Content-Type",
                     "in": "header",
                     "required": true,
-                    "schema": {
-                        "enum": ["application/json"],
-                        "type": "string",
-                        "default": "application/json"
-                    }
+                    "enum": ["application/json"],
+                    "type": "string",
+                    "default": "application/json"
                 }, {
                     "name": "Accept",
                     "in": "header",
                     "required": true,
-                    "schema": {
-                        "enum": ["application/json"],
-                        "type": "string",
-                        "default": "application/json"
-                    }
+                    "enum": ["application/json"],
+                    "type": "string",
+                    "default": "application/json"
                 }],
                 "responses": {
                     "200": {
