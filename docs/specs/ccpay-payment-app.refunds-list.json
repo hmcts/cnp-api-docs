@@ -51,7 +51,7 @@
                     }
                 ],
                 "produces": [
-                    "string"
+                    "application/json"
                 ],
                 "responses": {
                     "200": {
