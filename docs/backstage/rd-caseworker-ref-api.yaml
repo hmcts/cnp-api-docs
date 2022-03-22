@@ -1,0 +1,587 @@
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: rd-caseworker-ref-api 
+  description: rd-caseworker-ref-api API
+spec:
+  type: openapi
+  system: rd-caseworker-ref-api
+  lifecycle: production
+  owner: dcd_group_referencedata_v2
+  definition: |
+    openapi: 3.0.0
+    info:
+      description: Api Documentation
+      version: "1.0"
+      title: Api Documentation
+      termsOfService: urn:tos
+      contact: {}
+      license:
+        name: Apache 2.0
+        url: http://www.apache.org/licenses/LICENSE-2.0
+    tags:
+      - name: case-worker-ref-controller
+        description: Case Worker Ref Controller
+      - name: case-worker-ref-users-controller
+        description: Case Worker Ref Users Controller
+      - name: staff-reference-internal-controller
+        description: Staff Reference Internal Controller
+      - name: welcome-controller
+        description: Welcome Controller
+    paths:
+      /:
+        get:
+          tags:
+            - welcome-controller
+          summary: Welcome message for the Caseworker Ref Data API
+          operationId: welcomeUsingGET
+          responses:
+            "200":
+              description: Welcome message
+              content:
+                application/json:
+                  schema:
+                    type: string
+          deprecated: false
+      /refdata/case-worker/upload-file:
+        post:
+          tags:
+            - case-worker-ref-controller
+          summary: This API allows uploading of excel files that contain caseworker
+            information and mappings between caseworker and IDAM roles
+          operationId: caseWorkerFileUploadUsingPOST
+          requestBody:
+            content:
+              multipart/form-data:
+                schema:
+                  type: object
+                  properties:
+                    file:
+                      description: file
+                      type: string
+                      format: binary
+                  required:
+                    - file
+          responses:
+            "200":
+              description: OK
+              content:
+                "*/*":
+                  schema:
+                    type: object
+            "201":
+              description: Request Completed Successfully
+              content:
+                "*/*":
+                  schema:
+                    type: object
+            "400":
+              description: Bad Request
+            "401":
+              description: "Unauthorized Error : The requested resource is restricted and
+                requires authentication"
+            "403":
+              description: "Forbidden Error: Access denied for invalid permissions"
+            "500":
+              description: Internal Server Error
+          security:
+            - Authorization: []
+            - ServiceAuthorization: []
+          deprecated: false
+      /refdata/case-worker/users:
+        delete:
+          tags:
+            - case-worker-ref-users-controller
+          summary: Delete Case Worker Profiles by User ID or Email Pattern
+          description: This API is only for use in non Prod environments
+          operationId: deleteCaseWorkerProfileByIdOrEmailPatternUsingDELETE
+          parameters:
+            - name: emailPattern
+              in: query
+              description: emailPattern
+              required: false
+              schema:
+                type: string
+            - name: userId
+              in: query
+              description: userId
+              required: false
+              schema:
+                type: string
+          responses:
+            "204":
+              description: Case Worker Profiles deleted successfully
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/CaseWorkerProfilesDeletionResponse"
+            "400":
+              description: An invalid request has been provided
+            "401":
+              description: "Unauthorized Error : The requested resource is restricted and
+                requires authentication"
+            "403":
+              description: "Forbidden Error: Access denied"
+            "500":
+              description: Internal Server Error
+          security:
+            - Authorization: []
+            - ServiceAuthorization: []
+          deprecated: false
+      /refdata/case-worker/users/fetchUsersById:
+        post:
+          tags:
+            - case-worker-ref-users-controller
+          summary: This API gets the User details from Caseworker Profile
+          operationId: fetchCaseworkersByIdUsingPOST
+          requestBody:
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/UserRequest"
+            description: userRequest
+            required: true
+          responses:
+            "200":
+              description: Successfully fetched the Caseworker profile(s)
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/CaseWorkerProfile"
+            "400":
+              description: Bad Request
+            "401":
+              description: "Unauthorized Error : The requested resource is restricted and
+                requires authentication"
+            "403":
+              description: "Forbidden Error: Access denied for invalid permissions"
+            "404":
+              description: The Caseworker data could not be found
+            "500":
+              description: Internal Server Error
+          security:
+            - Authorization: []
+            - ServiceAuthorization: []
+          deprecated: false
+      /refdata/internal/staff/usersByServiceName:
+        get:
+          tags:
+            - staff-reference-internal-controller
+          summary: This API returns the Staff(Case Worker) profiles based on Service Name
+            and Pagination parameters
+          description: |-
+            **IDAM Role to access API** :
+             cwd-system-user
+          operationId: fetchStaffByCcdServiceNamesUsingGET
+          parameters:
+            - name: ccd_service_names
+              in: query
+              description: ccd_service_names
+              required: true
+              schema:
+                type: string
+            - name: page_number
+              in: query
+              description: page_number
+              required: false
+              schema:
+                type: integer
+                format: int32
+            - name: page_size
+              in: query
+              description: page_size
+              required: false
+              schema:
+                type: integer
+                format: int32
+            - name: sort_column
+              in: query
+              description: sort_column
+              required: false
+              schema:
+                type: string
+            - name: sort_direction
+              in: query
+              description: sort_direction
+              required: false
+              schema:
+                type: string
+          responses:
+            "200":
+              description: The Staff profiles have been retrieved successfully
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/StaffProfileWithServiceName"
+            "400":
+              description: Bad Request
+            "401":
+              description: "Unauthorized Error : The requested resource is restricted and
+                requires authentication"
+            "403":
+              description: "Forbidden Error: Access denied for invalid permissions"
+            "404":
+              description: The Caseworker data could not be found
+            "500":
+              description: Internal Server Error
+          security:
+            - Authorization: []
+            - ServiceAuthorization: []
+          deprecated: false
+    servers:
+      - url: //rd-caseworker-ref-api-aat.service.core-compute-aat.internal/
+    components:
+      securitySchemes:
+        Authorization:
+          type: apiKey
+          name: Authorization
+          in: header
+        ServiceAuthorization:
+          type: apiKey
+          name: ServiceAuthorization
+          in: header
+      schemas:
+        CaseWorkerIdamRoleAssociation:
+          type: object
+          properties:
+            createdDate:
+              type: string
+              format: date-time
+            cwIdamRoleAssociationId:
+              type: integer
+              format: int64
+            idamRole:
+              type: string
+            lastUpdate:
+              type: string
+              format: date-time
+            roleId:
+              type: integer
+              format: int64
+            roleType:
+              $ref: "#/components/schemas/RoleType"
+            serviceCode:
+              type: string
+          title: CaseWorkerIdamRoleAssociation
+        CaseWorkerLocation:
+          type: object
+          properties:
+            caseWorkerId:
+              type: string
+            caseWorkerLocationId:
+              type: integer
+              format: int64
+            caseWorkerProfile:
+              $ref: "#/components/schemas/CaseWorkerProfile"
+            createdDate:
+              type: string
+              format: date-time
+            lastUpdate:
+              type: string
+              format: date-time
+            location:
+              type: string
+            locationId:
+              type: integer
+              format: int32
+            primaryFlag:
+              type: boolean
+          title: CaseWorkerLocation
+        CaseWorkerLocationRequest:
+          type: object
+          properties:
+            location_id:
+              type: integer
+              format: int32
+            location:
+              type: string
+            is_primary:
+              type: boolean
+          title: CaseWorkerLocationRequest
+        CaseWorkerProfile:
+          type: object
+          properties:
+            base_location:
+              type: array
+              items:
+                $ref: "#/components/schemas/Location"
+            case_allocator:
+              type: string
+            created_time:
+              type: string
+              format: date-time
+            email_id:
+              type: string
+            first_name:
+              type: string
+            id:
+              type: string
+            idam_roles:
+              type: string
+            last_name:
+              type: string
+            last_updated_time:
+              type: string
+              format: date-time
+            region:
+              type: string
+            region_id:
+              type: integer
+              format: int32
+            role:
+              type: array
+              items:
+                $ref: "#/components/schemas/Role"
+            suspended:
+              type: string
+            task_supervisor:
+              type: string
+            user_type:
+              type: string
+            user_type_id:
+              type: integer
+              format: int64
+            work_area:
+              type: array
+              items:
+                $ref: "#/components/schemas/WorkArea"
+          title: CaseWorkerProfile
+        CaseWorkerProfilesDeletionResponse:
+          type: object
+          properties:
+            message:
+              type: string
+            statusCode:
+              type: integer
+              format: int32
+          title: CaseWorkerProfilesDeletionResponse
+        CaseWorkerRole:
+          type: object
+          properties:
+            caseWorkerId:
+              type: string
+            caseWorkerProfile:
+              $ref: "#/components/schemas/CaseWorkerProfile"
+            caseWorkerRoleId:
+              type: integer
+              format: int64
+            createdDate:
+              type: string
+              format: date-time
+            lastUpdate:
+              type: string
+              format: date-time
+            primaryFlag:
+              type: boolean
+            roleId:
+              type: integer
+              format: int64
+            roleType:
+              $ref: "#/components/schemas/RoleType"
+          title: CaseWorkerRole
+        CaseWorkerRoleRequest:
+          type: object
+          properties:
+            primaryFlag:
+              type: boolean
+            role:
+              type: string
+            is_primary:
+              type: boolean
+          title: CaseWorkerRoleRequest
+        CaseWorkerWorkArea:
+          type: object
+          properties:
+            areaOfWork:
+              type: string
+            caseWorkerId:
+              type: string
+            caseWorkerProfile:
+              $ref: "#/components/schemas/CaseWorkerProfile"
+            caseWorkerWorkAreaId:
+              type: integer
+              format: int64
+            createdDate:
+              type: string
+              format: date-time
+            lastUpdate:
+              type: string
+              format: date-time
+            serviceCode:
+              type: string
+          title: CaseWorkerWorkArea
+        CaseWorkerWorkAreaRequest:
+          type: object
+          properties:
+            area_of_work:
+              type: string
+            service_code:
+              type: string
+          title: CaseWorkerWorkAreaRequest
+        CaseWorkersProfileCreationRequest:
+          type: object
+          properties:
+            base_location:
+              type: array
+              items:
+                $ref: "#/components/schemas/CaseWorkerLocationRequest"
+            case_allocator:
+              type: boolean
+            email_id:
+              type: string
+            first_name:
+              type: string
+            idam_roles:
+              type: array
+              items:
+                type: string
+            last_name:
+              type: string
+            region:
+              type: string
+            region_id:
+              type: integer
+              format: int32
+            roles:
+              type: array
+              items:
+                $ref: "#/components/schemas/CaseWorkerRoleRequest"
+            rowId:
+              type: integer
+              format: int64
+            suspended:
+              type: boolean
+            task_supervisor:
+              type: boolean
+            user_type:
+              type: string
+            work_area:
+              type: array
+              items:
+                $ref: "#/components/schemas/CaseWorkerWorkAreaRequest"
+          title: CaseWorkersProfileCreationRequest
+        IdamRolesMappingResponse:
+          type: object
+          properties:
+            message:
+              type: string
+            statusCode:
+              type: integer
+              format: int32
+          title: IdamRolesMappingResponse
+        Location:
+          type: object
+          properties:
+            created_time:
+              type: string
+              format: date-time
+            is_primary:
+              type: boolean
+            last_updated_time:
+              type: string
+              format: date-time
+            location:
+              type: string
+            location_id:
+              type: integer
+              format: int32
+          title: Location
+        Role:
+          type: object
+          properties:
+            created_time:
+              type: string
+              format: date-time
+            is_primary:
+              type: boolean
+            last_updated_time:
+              type: string
+              format: date-time
+            role:
+              type: string
+            role_id:
+              type: string
+          title: Role
+        RoleType:
+          type: object
+          properties:
+            caseWorkerIdamRoleAssociations:
+              type: array
+              items:
+                $ref: "#/components/schemas/CaseWorkerIdamRoleAssociation"
+            caseWorkerRoles:
+              type: array
+              items:
+                $ref: "#/components/schemas/CaseWorkerRole"
+            createdDate:
+              type: string
+              format: date-time
+            description:
+              type: string
+            lastUpdate:
+              type: string
+              format: date-time
+            roleId:
+              type: integer
+              format: int64
+          title: RoleType
+        ServiceRoleMapping:
+          type: object
+          properties:
+            idam_roles:
+              type: string
+            role:
+              type: integer
+              format: int32
+            service_code:
+              type: string
+          title: ServiceRoleMapping
+        StaffProfileWithServiceName:
+          type: object
+          properties:
+            ccd_service_name:
+              type: string
+            staff_profile:
+              $ref: "#/components/schemas/CaseWorkerProfile"
+          title: StaffProfileWithServiceName
+        UserRequest:
+          type: object
+          properties:
+            userIds:
+              type: array
+              items:
+                type: string
+          title: UserRequest
+        UserType:
+          type: object
+          properties:
+            caseWorkerProfiles:
+              type: array
+              items:
+                $ref: "#/components/schemas/CaseWorkerProfile"
+            createdDate:
+              type: string
+              format: date-time
+            description:
+              type: string
+            lastUpdate:
+              type: string
+              format: date-time
+            userTypeId:
+              type: integer
+              format: int64
+          title: UserType
+        WorkArea:
+          type: object
+          properties:
+            area_of_work:
+              type: string
+            created_time:
+              type: string
+              format: date-time
+            last_updated_time:
+              type: string
+              format: date-time
+            service_code:
+              type: string
+          title: WorkArea

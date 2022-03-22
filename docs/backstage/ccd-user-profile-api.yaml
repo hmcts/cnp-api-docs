@@ -1,0 +1,282 @@
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: ccd-user-profile-api
+  description: ccd-user-profile-api API
+spec:
+  type: openapi
+  system: ccd
+  lifecycle: production
+  owner: dcd_ccd
+  definition: |
+    openapi: 3.0.0
+    info:
+      description: Api Documentation
+      version: "1.0"
+      title: Api Documentation
+      termsOfService: urn:tos
+      contact: {}
+      license:
+        name: Apache 2.0
+        url: http://www.apache.org/licenses/LICENSE-2.0
+    tags:
+      - name: user-profile-controller
+        description: User Profile Controller
+      - name: user-profile-endpoint
+        description: User Profile Endpoint
+    paths:
+      /user-profile/users:
+        get:
+          tags:
+            - user-profile-endpoint
+          summary: Get a user profile
+          operationId: getUserProfilesUsingGET_1
+          parameters:
+            - name: actionedBy
+              in: header
+              description: actionedBy
+              required: true
+              schema:
+                type: string
+                default: 
+            - name: email-ids-users-to-find
+              in: header
+              description: email-ids-users-to-find
+              required: false
+              style: simple
+              schema:
+                type: array
+                items:
+                  type: string
+            - name: uid
+              in: query
+              description: uid
+              required: false
+              schema:
+                type: string
+          responses:
+            "200":
+              description: Found user profile(s) default settings
+              content:
+                "*/*":
+                  schema:
+                    type: object
+            "400":
+              description: Bad request - Email Id(s) not valid
+        post:
+          tags:
+            - user-profile-endpoint
+          summary: Create a new User Profile
+          operationId: createUserProfileUsingPOST
+          parameters:
+            - name: actionedBy
+              in: header
+              description: actionedBy
+              required: true
+              schema:
+                type: string
+                default: 
+          requestBody:
+            $ref: "#/components/requestBodies/UserProfile"
+          responses:
+            "201":
+              description: Created User Profile
+              content:
+                "*/*":
+                  schema:
+                    $ref: "#/components/schemas/UserProfile"
+            "400":
+              description: Unable to create User Profile
+        put:
+          tags:
+            - user-profile-endpoint
+          summary: Update a new User Profile
+          description: a user profile or jurisdiction is created if it does not exist
+          operationId: populateUserProfilesUsingPUT_1
+          parameters:
+            - name: actionedBy
+              in: header
+              description: actionedBy
+              required: true
+              schema:
+                type: string
+                default: 
+          requestBody:
+            $ref: "#/components/requestBodies/UserProfileArray"
+          responses:
+            "200":
+              description: OK
+            "201":
+              description: Updated User Profile defaults
+      /users:
+        get:
+          tags:
+            - user-profile-controller
+          summary: Get User Profiles
+          description: Optional filtering of results via "jurisdiction" request parameter
+          operationId: getUserProfilesUsingGET
+          parameters:
+            - name: actionedBy
+              in: header
+              description: actionedBy
+              required: true
+              schema:
+                type: string
+                default: 
+            - name: jurisdiction
+              in: query
+              description: Jurisdiction ID
+              required: true
+              schema:
+                type: string
+          responses:
+            "200":
+              description: Found User Profiles
+              content:
+                "*/*":
+                  schema:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/UserProfileLight"
+        put:
+          tags:
+            - user-profile-controller
+          summary: Update a new User Profile
+          description: A User Profile or Jurisdiction is created if it does not exist
+          operationId: populateUserProfilesUsingPUT
+          parameters:
+            - name: actionedBy
+              in: header
+              description: actionedBy
+              required: true
+              schema:
+                type: string
+                default: 
+          requestBody:
+            $ref: "#/components/requestBodies/UserProfileArray"
+          responses:
+            "200":
+              description: Updated User Profile defaults
+        delete:
+          tags:
+            - user-profile-controller
+          summary: Delete the association to a Jurisdiction from a User Profile
+          description: Deletes the Jurisdiction unless it matches the user's Workbasket default
+            Jurisdiction AND the user currently belongs to more than one
+            Jurisdiction. If the Jurisdiction being deleted is the user's sole
+            Jurisdiction, removal is permitted. In addition, their Workbasket
+            defaults are set to null, since they no longer belong to any
+            Jurisdictions
+          operationId: deleteJurisdictionFromUserProfileUsingDELETE
+          parameters:
+            - name: actionedBy
+              in: header
+              description: actionedBy
+              required: true
+              schema:
+                type: string
+                default: 
+            - name: jid
+              in: query
+              description: Jurisdiction ID
+              required: true
+              schema:
+                type: string
+            - name: uid
+              in: query
+              description: User Profile ID
+              required: true
+              schema:
+                type: string
+          responses:
+            "204":
+              description: Deleted Jurisdiction from User Profile
+            "400":
+              description: User Profile does not exist, user is not a member of specified
+                Jurisdiction, or user's Workbasket defaults are for the Jurisdiction
+                being removed
+      /users/save:
+        put:
+          tags:
+            - user-profile-controller
+          summary: Save a User Profile
+          description: A User Profile and/or Jurisdiction is created if it does not exist.
+            Behaves exactly the same as the `PUT` /users endpoint, except that an
+            HTTP 400 Bad Request is returned if the user already belongs to the
+            given Jurisdiction
+          operationId: saveUserProfileUsingPUT
+          parameters:
+            - name: actionedBy
+              in: header
+              description: actionedBy
+              required: true
+              schema:
+                type: string
+                default: 
+          requestBody:
+            $ref: "#/components/requestBodies/UserProfile"
+          responses:
+            "200":
+              description: Saved User Profile
+              content:
+                "*/*":
+                  schema:
+                    $ref: "#/components/schemas/UserProfile"
+            "400":
+              description: User Profile does not exist, or user already belongs to given
+                Jurisdiction
+    servers:
+      - url: //localhost/
+    components:
+      requestBodies:
+        UserProfileArray:
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/UserProfile"
+          description: userProfiles
+          required: true
+        UserProfile:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserProfile"
+          description: userProfile
+          required: true
+      schemas:
+        Jurisdiction:
+          type: object
+          properties:
+            id:
+              type: string
+          title: Jurisdiction
+        UserProfile:
+          type: object
+          properties:
+            id:
+              type: string
+            jurisdictions:
+              type: array
+              items:
+                $ref: "#/components/schemas/Jurisdiction"
+            work_basket_default_case_type:
+              type: string
+            work_basket_default_jurisdiction:
+              type: string
+            work_basket_default_state:
+              type: string
+          title: UserProfile
+        UserProfileLight:
+          type: object
+          properties:
+            id:
+              type: string
+            work_basket_default_case_type:
+              type: string
+            work_basket_default_jurisdiction:
+              type: string
+            work_basket_default_state:
+              type: string
+          title: UserProfileLight

@@ -1,0 +1,142 @@
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: hmc-hmi-inbound-adapter 
+  description: hmc-hmi-inbound-adapter API
+spec:
+  type: openapi
+  system: hmc-hmi-inbound-adapter
+  lifecycle: production
+  owner: DTS HMI
+  definition: |
+    openapi: 3.0.0
+    info:
+      description: Api Documentation
+      version: "1.0"
+      title: Api Documentation
+      termsOfService: urn:tos
+      contact: {}
+      license:
+        name: Apache 2.0
+        url: http://www.apache.org/licenses/LICENSE-2.0
+    tags:
+      - name: hmc-inbound-controller
+        description: Hmc Inbound Controller
+      - name: root-controller
+        description: Root Controller
+    paths:
+      /:
+        get:
+          tags:
+            - root-controller
+          summary: welcome
+          operationId: welcomeUsingGET
+          responses:
+            "200":
+              description: OK
+              content:
+                "*/*":
+                  schema:
+                    type: string
+      "/listings/{id}":
+        put:
+          tags:
+            - hmc-inbound-controller
+          summary: getResponseFromHmi
+          operationId: getResponseFromHmiUsingPUT
+          parameters:
+            - name: id
+              in: path
+              description: id
+              required: true
+              schema:
+                type: string
+          requestBody:
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/HearingDetailsRequest"
+            description: hearingDetailsRequest
+            required: true
+          responses:
+            "202":
+              description: Response is valid
+            "400":
+              description: Invalid case listing Id
+            "404":
+              description: Case listing Id could not be found
+            "500":
+              description: Error occurred on the server.
+    servers:
+      - url: //localhost/
+    components:
+      schemas:
+        ErrorDetails:
+          type: object
+          properties:
+            errCode:
+              type: integer
+              format: int32
+            errDesc:
+              type: string
+            errLinkId:
+              type: string
+          title: ErrorDetails
+        Hearing:
+          type: object
+          properties:
+            hearingCaseIdHMCTS:
+              type: string
+            hearingCreatedBy:
+              type: string
+            hearingCreatedDate:
+              type: string
+              format: date-time
+            hearingEndTime:
+              type: string
+              format: date-time
+            hearingIdCaseHQ:
+              type: string
+            hearingJudgeId:
+              type: string
+            hearingRoomId:
+              type: string
+            hearingSessionIdCaseHQ:
+              type: integer
+              format: int32
+            hearingStartTime:
+              type: string
+              format: date-time
+            hearingTranslatorLanguage:
+              type: string
+            hearingTranslatorRequired:
+              type: boolean
+            hearingType:
+              type: string
+            hearingVenueId:
+              type: string
+          title: Hearing
+        HearingDetailsRequest:
+          type: object
+          properties:
+            err:
+              $ref: "#/components/schemas/ErrorDetails"
+            hearingResponse:
+              $ref: "#/components/schemas/HearingResponse"
+          title: HearingDetailsRequest
+        HearingResponse:
+          type: object
+          properties:
+            hearing:
+              $ref: "#/components/schemas/Hearing"
+            meta:
+              $ref: "#/components/schemas/MetaResponse"
+          title: HearingResponse
+        MetaResponse:
+          type: object
+          properties:
+            apiVersion:
+              type: string
+            transactionIdCaseHQ:
+              type: string
+          title: MetaResponse

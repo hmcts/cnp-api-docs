@@ -1,0 +1,267 @@
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: bulk-scan-processor 
+  description: Bulk Scan Processor API
+spec:
+  type: openapi
+  system: bulk-scan-processor
+  lifecycle: production
+  owner: dcd_group_bulkscan_v2
+  definition: |
+    openapi: 3.0.0
+    info:
+      description: Api Documentation
+      version: "1.0"
+      title: Api Documentation
+      termsOfService: urn:tos
+      contact: {}
+      license:
+        name: Apache 2.0
+        url: http://www.apache.org/licenses/LICENSE-2.0
+    tags:
+      - name: envelope-controller
+        description: Envelope Controller
+      - name: sas-token-controller
+        description: Sas Token Controller
+    paths:
+      /envelopes:
+        get:
+          tags:
+            - envelope-controller
+          summary: Retrieves all envelopes
+          description: Returns an empty list when no envelopes were found
+          operationId: getAllUsingGET
+          parameters:
+            - name: ServiceAuthorization
+              in: header
+              description: ServiceAuthorization
+              required: false
+              schema:
+                type: string
+            - name: status
+              in: query
+              description: status
+              required: false
+              schema:
+                type: string
+                enum:
+                  - CONSUMED
+                  - CREATED
+                  - PROCESSED
+                  - UPLOADED
+                  - UPLOAD_FAILURE
+          responses:
+            "200":
+              description: OK
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/EnvelopeListResponse"
+          deprecated: false
+      "/envelopes/{id}/status":
+        put:
+          tags:
+            - envelope-controller
+          summary: Updates the status of given envelope
+          operationId: updateStatusUsingPUT
+          parameters:
+            - name: ServiceAuthorization
+              in: header
+              description: ServiceAuthorization
+              required: false
+              schema:
+                type: string
+            - name: id
+              in: path
+              description: id
+              required: true
+              schema:
+                type: string
+                format: uuid
+          requestBody:
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/StatusUpdate"
+            description: statusUpdate
+            required: true
+          responses:
+            "200":
+              description: OK
+          deprecated: false
+      "/token/{serviceName}":
+        get:
+          tags:
+            - sas-token-controller
+          summary: Get SAS Token to access blob storage
+          operationId: getSasTokenUsingGET
+          parameters:
+            - name: serviceName
+              in: path
+              description: serviceName
+              required: true
+              schema:
+                type: string
+          responses:
+            "200":
+              description: OK
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/SasTokenResponse"
+          deprecated: false
+    servers:
+      - url: //localhost:8581/
+    components:
+      schemas:
+        EnvelopeListResponse:
+          type: object
+          properties:
+            envelopes:
+              type: array
+              items:
+                $ref: "#/components/schemas/EnvelopeResponse"
+          title: EnvelopeListResponse
+        EnvelopeResponse:
+          type: object
+          properties:
+            container:
+              type: string
+            delivery_date:
+              $ref: "#/components/schemas/Timestamp"
+            id:
+              type: string
+              format: uuid
+            jurisdiction:
+              type: string
+            non_scannable_items:
+              type: array
+              items:
+                $ref: "#/components/schemas/NonScannableItemResponse"
+            opening_date:
+              $ref: "#/components/schemas/Timestamp"
+            payments:
+              type: array
+              items:
+                $ref: "#/components/schemas/PaymentResponse"
+            po_box:
+              type: string
+            scannable_items:
+              type: array
+              items:
+                $ref: "#/components/schemas/ScannableItemResponse"
+            status:
+              type: string
+              enum:
+                - CONSUMED
+                - CREATED
+                - PROCESSED
+                - UPLOADED
+                - UPLOAD_FAILURE
+            zip_file_createddate:
+              $ref: "#/components/schemas/Timestamp"
+            zip_file_name:
+              type: string
+          title: EnvelopeResponse
+        NonScannableItemResponse:
+          type: object
+          properties:
+            item_type:
+              type: string
+            notes:
+              type: string
+          title: NonScannableItemResponse
+        PaymentResponse:
+          type: object
+          properties:
+            amount:
+              type: number
+              format: double
+            amount_in_pence:
+              type: integer
+              format: int32
+            currency:
+              type: string
+            document_control_number:
+              type: string
+            method:
+              type: string
+          title: PaymentResponse
+        SasTokenResponse:
+          type: object
+          properties:
+            sas_token:
+              type: string
+              description: Shared access token to access blob
+          title: SasTokenResponse
+        ScannableItemResponse:
+          type: object
+          properties:
+            document_control_number:
+              type: string
+            document_url:
+              type: string
+            file_name:
+              type: string
+            manual_intervention:
+              type: string
+            next_action:
+              type: string
+            next_action_date:
+              $ref: "#/components/schemas/Timestamp"
+            notes:
+              type: string
+            ocr_accuracy:
+              type: string
+            ocr_data:
+              type: string
+            scanning_date:
+              $ref: "#/components/schemas/Timestamp"
+          title: ScannableItemResponse
+        StatusUpdate:
+          type: object
+          properties:
+            status:
+              type: string
+              enum:
+                - CONSUMED
+                - CREATED
+                - PROCESSED
+                - UPLOADED
+                - UPLOAD_FAILURE
+          title: StatusUpdate
+        Timestamp:
+          type: object
+          properties:
+            date:
+              type: integer
+              format: int32
+            day:
+              type: integer
+              format: int32
+            hours:
+              type: integer
+              format: int32
+            minutes:
+              type: integer
+              format: int32
+            month:
+              type: integer
+              format: int32
+            nanos:
+              type: integer
+              format: int32
+            seconds:
+              type: integer
+              format: int32
+            time:
+              type: integer
+              format: int64
+            timezoneOffset:
+              type: integer
+              format: int32
+            year:
+              type: integer
+              format: int32
+          title: Timestamp

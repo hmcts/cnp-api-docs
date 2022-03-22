@@ -1,0 +1,1556 @@
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: rd-professional-api 
+  description: rd-professional-api API
+spec:
+  type: openapi
+  system: rd-professional-api
+  lifecycle: production
+  owner: dcd_group_referencedata_v2
+  definition: |
+    openapi: 3.0.0
+    info:
+      description: Api Documentation
+      version: "1.0"
+      title: Api Documentation
+      termsOfService: urn:tos
+      contact: {}
+      license:
+        name: Apache 2.0
+        url: http://www.apache.org/licenses/LICENSE-2.0
+    tags:
+      - name: organisation-external-controller
+        description: Organisation External Controller
+      - name: organisation-internal-controller
+        description: Organisation Internal Controller
+      - name: organisation-mfa-status-controller
+        description: Organisation Mfa Status Controller
+      - name: professional-external-user-controller
+        description: Professional External User Controller
+      - name: professional-user-internal-controller
+        description: Professional User Internal Controller
+      - name: welcome-controller
+        description: Welcome Controller
+    paths:
+      /:
+        get:
+          tags:
+            - welcome-controller
+          summary: Welcome message for the Professional Reference Data API
+          operationId: welcomeUsingGET
+          responses:
+            "200":
+              description: Welcome message
+              content:
+                application/json:
+                  schema:
+                    type: string
+          deprecated: false
+      /refdata/external/v1/organisations:
+        get:
+          tags:
+            - organisation-external-controller
+          summary: Retrieves Organisation details of the requesting User
+          description: |-
+            **IDAM Roles to access API** :
+             pui-organisation-manager,
+             pui-finance-manager,
+             pui-case-manager,
+             pui-caa,
+             pui-user-manager
+          operationId: retrieveOrganisationUsingOrgIdentifierUsingGET
+          parameters:
+            - name: pbaStatus
+              in: query
+              description: pbaStatus
+              required: false
+              allowEmptyValue: false
+              schema:
+                type: string
+          responses:
+            "200":
+              description: Details of an Organisation
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/OrganisationsDetailResponse"
+            "400":
+              description: An invalid ID was provided
+            "403":
+              description: "Forbidden Error: Access denied"
+            "404":
+              description: No Organisation found with the given ID
+            "500":
+              description: Internal Server Error
+          security:
+            - Authorization: []
+            - ServiceAuthorization: []
+          deprecated: false
+        post:
+          tags:
+            - organisation-external-controller
+          summary: Creates an Organisation
+          description: |-
+            **IDAM Roles to access API**: 
+             No role restriction
+          operationId: createOrganisationUsingExternalControllerUsingPOST
+          requestBody:
+            $ref: "#/components/requestBodies/OrganisationCreationRequest"
+          responses:
+            "201":
+              description: The Organisation Identifier of the created Organisation
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/OrganisationResponse"
+            "400":
+              description: An invalid request has been provided
+            "403":
+              description: "Forbidden Error: Access denied"
+            "500":
+              description: Internal Server Error
+          security:
+            - ServiceAuthorization: []
+          deprecated: false
+      /refdata/external/v1/organisations/addresses:
+        post:
+          tags:
+            - organisation-external-controller
+          summary: Adds contact informations(address details) to organisation
+          description: |-
+            **IDAM Roles to access API** :
+             pui-organisation-manager
+          operationId: addContactInformationsToOrganisationUsingPOST
+          requestBody:
+            content:
+              application/json:
+                schema:
+                  type: array
+                  items:
+                    $ref: "#/components/schemas/ContactInformationCreationRequest"
+            description: contactInformationCreationRequests
+            required: true
+          responses:
+            "201":
+              description: Created
+            "400":
+              description: An invalid request has been provided
+            "401":
+              description: "Unauthorized Error : The requested resource is restricted and
+                requires authentication"
+            "403":
+              description: "Forbidden Error: Access denied"
+            "500":
+              description: Internal Server Error
+          security:
+            - Authorization: []
+            - ServiceAuthorization: []
+          deprecated: false
+        delete:
+          tags:
+            - organisation-external-controller
+          summary: Deletes the Contact Information Address of an Organisation.
+          description: |-
+            **IDAM Roles to access API** : 
+             - pui-organisation-manager
+          operationId: deleteMultipleAddressesOfOrganisationUsingDELETE
+          requestBody:
+            content:
+              application/json:
+                schema:
+                  type: array
+                  items:
+                    $ref: "#/components/schemas/DeleteMultipleAddressRequest"
+            description: deleteRequest
+            required: true
+          responses:
+            "204":
+              description: Successfully deleted the list of Contact Information Address of an
+                Organisation.
+            "400":
+              description: |-
+                Bad Request Error: One of the below reasons: 
+                - Request is malformed.
+                - Organisation id is missing.
+                - Organisation should have at least one address.
+            "401":
+              description: "Unauthorized Error : The requested resource is restricted and
+                requires authentication"
+            "403":
+              description: "Forbidden Error: Access denied for either invalid permissions or
+                user is pending"
+            "404":
+              description: |-
+                NOT FOUND Error: One of the below reasons: 
+                - Organisation does not exist.
+                - Request is empty.
+                - id1, id2 does not exist
+                OR
+                id1, id2 does not belong to given org.
+            "500":
+              description: Internal Server Error
+          security:
+            - Authorization: []
+            - ServiceAuthorization: []
+          deprecated: false
+      /refdata/external/v1/organisations/mfa:
+        get:
+          tags:
+            - organisation-mfa-status-controller
+          summary: Retrieves the mfa status of the organisation a user belongs to
+          description: |-
+            **IDAM Roles to access API** : 
+             No role restriction
+          operationId: retrieveMfaStatusByUserIdUsingGET
+          parameters:
+            - name: user_id
+              in: query
+              description: user_id
+              required: true
+              schema:
+                type: string
+          responses:
+            "200":
+              description: The mfa status of the organisation the user belongs to
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/MfaStatusResponse"
+            "400":
+              description: An invalid request has been provided
+            "404":
+              description: The requested user does not exist
+            "500":
+              description: Internal Server Error
+          deprecated: false
+      /refdata/external/v1/organisations/pba:
+        post:
+          tags:
+            - organisation-external-controller
+          summary: Add multiple PBAs associated with their organisation
+          description: |-
+            **IDAM Roles to access API** :
+             pui-finance-manager
+          operationId: addPaymentAccountsToOrganisationUsingPOST
+          requestBody:
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/PbaRequest"
+            description: pbaRequest
+            required: true
+          responses:
+            "201":
+              description: All PBAs got added successfully or Partial success
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/AddPbaResponse"
+            "400":
+              description: PBA number invalid or Duplicate PBA or Organisation is not active
+            "401":
+              description: S2S unauthorised
+            "403":
+              description: "Forbidden Error: Access denied"
+            "500":
+              description: Internal Server Error
+          security:
+            - Authorization: []
+            - ServiceAuthorization: []
+          deprecated: false
+        delete:
+          tags:
+            - organisation-external-controller
+          summary: Deletes the provided list of payment accounts from the organisation.
+          description: |-
+            **IDAM Roles to access API** : 
+             - pui-finance-manager
+          operationId: deletePaymentAccountsOfOrganisationUsingDELETE
+          requestBody:
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/PbaRequest"
+            description: deletePbaRequest
+            required: true
+          responses:
+            "204":
+              description: Successfully deleted the list of provided payment accounts from the
+                organisation.
+            "400":
+              description: |-
+                Bad Request Error: One of the below reasons: 
+                - Organisation is not ACTIVE.
+                - No payment accounts passed to be deleted in the request body.
+                - Passed payment account numbers are in an invalid format.
+            "401":
+              description: "Unauthorized Error : The requested resource is restricted and
+                requires authentication"
+            "403":
+              description: "Forbidden Error: Access denied for either invalid permissions or
+                user is pending"
+            "404":
+              description: "Resource Not Found Error: The payment accounts are not associated
+                with users organisation"
+            "500":
+              description: Internal Server Error
+          security:
+            - Authorization: []
+            - ServiceAuthorization: []
+          deprecated: false
+      /refdata/external/v1/organisations/pbas:
+        get:
+          tags:
+            - organisation-external-controller
+          summary: Retrieves an Organisation's Payment Accounts with a User's Email Address
+          description: |-
+            **IDAM Roles to access API** : 
+             pui-finance-manager,
+             pui-user-manager,
+             pui-organisation-manager,
+             pui-case-manager
+          operationId: retrievePaymentAccountByEmailUsingGET
+          responses:
+            "200":
+              description: The Organisation's associated Payment Accounts
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/OrganisationPbaResponse"
+            "400":
+              description: An invalid Email Address was provided
+            "403":
+              description: "Forbidden Error: Access denied"
+            "404":
+              description: No Payment Accounts found with the given Email Address
+            "500":
+              description: Internal Server Error
+          security:
+            - Authorization: []
+            - UserEmail: []
+            - ServiceAuthorization: []
+          deprecated: false
+      "/refdata/external/v1/organisations/status/{status}":
+        get:
+          tags:
+            - organisation-external-controller
+          summary: Retrieves all Active Organisations of requested status for user with
+            minimal e.g. organisationIdentifier, name and contact information if
+            address flag is true
+          description: |-
+            **IDAM Roles to access API** : 
+             pui-organisation-manager,
+             pui-finance-manager,
+             pui-case-manager,pui-caa,
+             pui-user-manager,citizen,caseworker
+          operationId: retrieveOrganisationsByStatusWithAddressDetailsOptionalUsingGET
+          parameters:
+            - name: address
+              in: query
+              description: address
+              required: false
+              schema:
+                type: boolean
+                default: false
+            - name: status
+              in: path
+              description: status
+              required: true
+              schema:
+                type: string
+          responses:
+            "200":
+              description: Successfully retrieved list of all Organisations of requested status
+                with minimal information
+              content:
+                application/json:
+                  schema:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/OrganisationMinimalInfoResponse"
+            "401":
+              description: "Unauthorized Error : The requested resource is restricted and
+                requires authentication"
+            "403":
+              description: "Forbidden Error: Access denied for either invalid permissions or
+                user is pending"
+            "404":
+              description: No Organisation found
+            "500":
+              description: Internal Server Error
+          security:
+            - Authorization: []
+            - ServiceAuthorization: []
+          deprecated: false
+      /refdata/external/v1/organisations/users:
+        get:
+          tags:
+            - professional-external-user-controller
+          summary: Retrieves the Users of an Active Organisation based on the showDeleted
+            flag and without roles if returnRoles is False
+          description: |-
+            **IDAM Roles to access API** : 
+             pui-finance-manager,
+             pui-user-manager,
+             pui-organisation-manager,
+             pui-case-manager,
+             pui-caa
+          operationId: findUsersByOrganisationUsingGET
+          parameters:
+            - name: page
+              in: query
+              description: page
+              required: false
+              schema:
+                type: integer
+                format: int32
+            - name: returnRoles
+              in: query
+              description: returnRoles
+              required: false
+              allowEmptyValue: false
+              schema:
+                type: boolean
+                default: true
+            - name: showDeleted
+              in: query
+              description: showDeleted
+              required: false
+              allowEmptyValue: false
+              schema:
+                type: string
+            - name: size
+              in: query
+              description: size
+              required: false
+              schema:
+                type: integer
+                format: int32
+            - name: status
+              in: query
+              description: status
+              required: false
+              allowEmptyValue: false
+              schema:
+                type: string
+          responses:
+            "200":
+              description: List of Professional Users and their details
+              content:
+                application/json:
+                  schema:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/ProfessionalUsersResponse"
+            "400":
+              description: An invalid Organisation Identifier was provided
+            "401":
+              description: "Unauthorized Error : The requested resource is restricted and
+                requires authentication"
+            "403":
+              description: "Forbidden Error: Access denied"
+            "404":
+              description: No Organisation or Users found with the given ID
+            "500":
+              description: Internal Server Error
+          security:
+            - Authorization: []
+            - ServiceAuthorization: []
+          deprecated: false
+      /refdata/external/v1/organisations/users/:
+        post:
+          tags:
+            - organisation-external-controller
+          summary: Add a new User to an Organisation
+          description: |-
+            **IDAM Roles to access API** :
+             pui-user-manager
+          operationId: addUserToOrganisationUsingExternalControllerUsingPOST
+          requestBody:
+            $ref: "#/components/requestBodies/NewUserCreationRequest"
+          responses:
+            "201":
+              description: The new User has been added to the Organisation
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/NewUserResponse"
+            "400":
+              description: An invalid request was provided
+            "403":
+              description: "Forbidden Error: Access denied"
+            "404":
+              description: No Organisation found with the given ID to add new User to
+            "409":
+              description: A User already exists with the given Email Address or is already
+                active in SIDAM during resend invite
+            "429":
+              description: Too many requests for resend invite
+            "500":
+              description: Internal Server Error
+          security:
+            - Authorization: []
+            - ServiceAuthorization: []
+          deprecated: false
+      /refdata/external/v1/organisations/users/accountId:
+        get:
+          tags:
+            - professional-external-user-controller
+          summary: Retrieves the Status of a User belonging to an Active Organisation with
+            the given Email Address
+          description: |-
+            **IDAM Roles to access API** : 
+             pui-finance-manager,
+             pui-user-manager,
+             pui-organisation-manager,
+             pui-case-manager,
+             caseworker-publiclaw-courtadmin
+          operationId: findUserStatusByEmailUsingGET
+          parameters:
+            - name: email
+              in: query
+              description: email
+              required: false
+              schema:
+                type: string
+          responses:
+            "200":
+              description: The User Identifier of the User
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/NewUserResponse"
+            "400":
+              description: An invalid Email Address was provided
+            "403":
+              description: "Forbidden Error: Access denied"
+            "404":
+              description: No User belonging to an Active Organisation was found with the given
+                Email Address
+            "500":
+              description: Internal Server Error
+          security:
+            - Authorization: []
+            - UserEmail: []
+            - ServiceAuthorization: []
+          deprecated: false
+      "/refdata/external/v1/organisations/users/{userId}":
+        put:
+          tags:
+            - professional-external-user-controller
+          summary: Modify the Roles or Status of a User with the given ID
+          description: |-
+            **IDAM Roles to access API** : 
+             pui-user-manager
+          operationId: modifyRolesForExistingUserOfExternalOrganisationUsingPUT
+          parameters:
+            - name: origin
+              in: query
+              description: origin
+              required: false
+              schema:
+                type: string
+                default: EXUI
+            - name: userId
+              in: path
+              description: userId
+              required: true
+              schema:
+                type: string
+          requestBody:
+            $ref: "#/components/requestBodies/UserProfileUpdatedData"
+          responses:
+            "201":
+              description: The User's Roles/Status have been modified
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/ModifyUserRolesResponse"
+            "400":
+              description: Invalid request provided
+            "403":
+              description: "Forbidden Error: Access denied"
+            "404":
+              description: No User found with the given ID
+            "412":
+              description: One or more of the Roles provided is already assigned to the User
+            "500":
+              description: Internal Server Error
+          security:
+            - Authorization: []
+            - ServiceAuthorization: []
+          deprecated: false
+      /refdata/internal/v1/organisations:
+        get:
+          tags:
+            - organisation-internal-controller
+          summary: Retrieves all Organisations filtered by given Status or one Organisation
+            if ID is given
+          description: |-
+            **IDAM Roles to access API** : 
+             prd-admin
+          operationId: retrieveOrganisationsUsingGET
+          parameters:
+            - name: id
+              in: query
+              description: id
+              required: false
+              allowEmptyValue: false
+              schema:
+                type: string
+            - name: status
+              in: query
+              description: status
+              required: false
+              allowEmptyValue: false
+              schema:
+                type: string
+          responses:
+            "200":
+              description: Details of one or more Organisations
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/OrganisationsDetailResponse"
+            "400":
+              description: Invalid request (Status or ID) provided
+            "403":
+              description: "Forbidden Error: Access denied"
+            "404":
+              description: No Organisation(s) found with the given ID
+            "500":
+              description: Internal Server Error
+          security:
+            - Authorization: []
+            - ServiceAuthorization: []
+          deprecated: false
+        post:
+          tags:
+            - organisation-internal-controller
+          summary: Creates an Organisation
+          description: |-
+            **IDAM Roles to access API** : 
+             No role restriction
+          operationId: createOrganisationUsingPOST
+          requestBody:
+            $ref: "#/components/requestBodies/OrganisationCreationRequest"
+          responses:
+            "201":
+              description: The Organisation Identifier of the created Organisation
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/OrganisationResponse"
+            "400":
+              description: An invalid request has been provided
+            "403":
+              description: "Forbidden Error: Access denied"
+            "500":
+              description: Internal Server Error
+          security:
+            - ServiceAuthorization: []
+          deprecated: false
+      "/refdata/internal/v1/organisations/pba/{status}":
+        get:
+          tags:
+            - organisation-internal-controller
+          summary: Retrieves the list of organisations with particular PBA status
+          description: |-
+            **IDAM Roles to access API** : 
+             prd-admin
+          operationId: retrieveOrgByPbaStatusUsingGET
+          parameters:
+            - name: status
+              in: path
+              description: status
+              required: true
+              schema:
+                type: string
+          responses:
+            "200":
+              description: OK
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/OrganisationsWithPbaStatusResponse"
+            "400":
+              description: PBA status is not valid
+            "401":
+              description: ""
+            "403":
+              description: ""
+            "500":
+              description: Internal Server Error
+          security:
+            - Authorization: []
+            - ServiceAuthorization: []
+          deprecated: false
+      /refdata/internal/v1/organisations/pbas:
+        get:
+          tags:
+            - organisation-internal-controller
+          summary: Retrieves an Organisation's Payment Accounts with a User's Email Address
+          description: |-
+            **IDAM Roles to access API** : 
+             prd-admin
+          operationId: retrievePaymentAccountBySuperUserEmailUsingGET
+          responses:
+            "200":
+              description: The Organisation's associated Payment Accounts
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/OrganisationPbaResponse"
+            "400":
+              description: An invalid Email Address was provided
+            "403":
+              description: "Forbidden Error: Access denied"
+            "404":
+              description: No Payment Accounts found with the given Email Address
+            "500":
+              description: Internal Server Error
+          security:
+            - Authorization: []
+            - UserEmail: []
+            - ServiceAuthorization: []
+          deprecated: false
+      "/refdata/internal/v1/organisations/{orgId}":
+        put:
+          tags:
+            - organisation-internal-controller
+          summary: Updates an Organisation
+          description: |-
+            **IDAM Roles to access API** : 
+             prd-admin
+          operationId: updatesOrganisationUsingPUT
+          parameters:
+            - name: orgId
+              in: path
+              description: orgId
+              required: true
+              schema:
+                type: string
+          requestBody:
+            $ref: "#/components/requestBodies/OrganisationCreationRequest"
+          responses:
+            "200":
+              description: Organisation has been updated
+              content:
+                application/json:
+                  schema:
+                    type: string
+            "400":
+              description: If Organisation request sent with null/invalid values for mandatory
+                fields
+            "403":
+              description: "Forbidden Error: Access denied"
+            "404":
+              description: No Organisation found with the given ID
+            "500":
+              description: Internal Server Error
+          security:
+            - Authorization: []
+            - ServiceAuthorization: []
+          deprecated: false
+        delete:
+          tags:
+            - organisation-internal-controller
+          summary: Delete an Organisation
+          description: |-
+            **IDAM Roles to access API** : 
+             prd-admin
+          operationId: deleteOrganisationUsingDELETE
+          parameters:
+            - name: orgId
+              in: path
+              description: orgId
+              required: true
+              schema:
+                type: string
+          responses:
+            "204":
+              description: A representation of the Deleted organisation
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/DeleteOrganisationResponse"
+            "400":
+              description: "The orgId provided for an organisation is not valid or organisation
+                admin is not in Pending state "
+            "401":
+              description: "Unauthorized Error : The requested resource is restricted and
+                requires authentication"
+            "403":
+              description: "Forbidden Error: Access denied"
+            "404":
+              description: Not Found
+            "500":
+              description: Internal Server Error
+          security:
+            - Authorization: []
+            - ServiceAuthorization: []
+          deprecated: false
+      "/refdata/internal/v1/organisations/{orgId}/mfa":
+        put:
+          tags:
+            - organisation-internal-controller
+          summary: Updates the MFA preference of an Organisation
+          description: |-
+            **IDAM Roles to access API** : 
+             prd-admin
+          operationId: updateOrgMfaStatusUsingPUT
+          parameters:
+            - name: orgId
+              in: path
+              description: orgId
+              required: true
+              schema:
+                type: string
+          requestBody:
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/MfaUpdateRequest"
+            description: mfaUpdateRequest
+            required: true
+          responses:
+            "200":
+              description: The MFA preference of the organisation has been successfully updated
+              content:
+                application/json:
+                  schema:
+                    type: object
+            "400":
+              description: An invalid request was provided
+            "401":
+              description: "Unauthorized Error : The requested resource is restricted and
+                requires authentication"
+            "403":
+              description: "Forbidden Error: Access denied"
+            "404":
+              description: No Organisation was found with the given organisationIdentifier
+            "500":
+              description: Internal Server Error
+          security:
+            - Authorization: []
+            - ServiceAuthorization: []
+          deprecated: false
+      "/refdata/internal/v1/organisations/{orgId}/pba/status":
+        put:
+          tags:
+            - organisation-internal-controller
+          summary: "Review (Accept or Reject) an Organisation's registered PBAs "
+          description: |-
+            **IDAM Roles to access API** : 
+             prd-admin
+          operationId: updateAnOrganisationsRegisteredPbasUsingPUT
+          parameters:
+            - name: orgId
+              in: path
+              description: orgId
+              required: true
+              schema:
+                type: string
+          requestBody:
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/UpdatePbaRequest"
+            description: updatePbaRequest
+            required: true
+          responses:
+            "200":
+              description: "Success: The requested PBAs have been successfully Updated - OR -
+                Partial Success: Some of the requested PBAs have been successfully
+                Updated and the invalid ones returned with individual error message"
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/UpdatePbaStatusResponse"
+            "202":
+              description: Accepted
+              content:
+                application/json:
+                  schema:
+                    type: object
+            "400":
+              description: An invalid request was provided
+            "403":
+              description: "Forbidden Error: Access denied"
+            "404":
+              description: No Organisation found with the given ID
+            "422":
+              description: All requested PBAs failed to update
+            "500":
+              description: Internal Server Error
+          security:
+            - Authorization: []
+            - ServiceAuthorization: []
+          deprecated: false
+      "/refdata/internal/v1/organisations/{orgId}/pbas":
+        put:
+          tags:
+            - organisation-internal-controller
+          summary: Edit the PBAs of an Organisation by Organisation ID
+          description: |-
+            **IDAM Roles to access API** : 
+             prd-admin
+          operationId: editPaymentAccountsByOrgIdUsingPUT
+          parameters:
+            - name: orgId
+              in: path
+              description: orgId
+              required: true
+              schema:
+                type: string
+          requestBody:
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/PbaRequest"
+            description: pbaEditRequest
+            required: true
+          responses:
+            "200":
+              description: The Payment Account's have been updated
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/PbaResponse"
+            "400":
+              description: An invalid request was provided
+            "403":
+              description: "Forbidden Error: Access denied"
+            "404":
+              description: No Organisation found with the given ID
+            "500":
+              description: Internal Server Error
+          security:
+            - Authorization: []
+            - ServiceAuthorization: []
+          deprecated: false
+      "/refdata/internal/v1/organisations/{orgId}/users":
+        get:
+          tags:
+            - professional-user-internal-controller
+          summary: Retrieves the Users of an Active Organisation based on the showDeleted
+            flag
+          description: |-
+            **IDAM Roles to access API** :
+             prd-admin,
+             prd-aac-system
+          operationId: findUsersByOrganisationUsingGET_1
+          parameters:
+            - name: orgId
+              in: path
+              description: orgId
+              required: true
+              schema:
+                type: string
+            - name: page
+              in: query
+              description: page
+              required: false
+              schema:
+                type: integer
+                format: int32
+            - name: returnRoles
+              in: query
+              description: returnRoles
+              required: false
+              allowEmptyValue: false
+              schema:
+                type: boolean
+                default: true
+            - name: showDeleted
+              in: query
+              description: showDeleted
+              required: false
+              schema:
+                type: string
+            - name: size
+              in: query
+              description: size
+              required: false
+              schema:
+                type: integer
+                format: int32
+          responses:
+            "200":
+              description: List of Professional Users and their details
+              content:
+                application/json:
+                  schema:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/ProfessionalUsersResponse"
+            "400":
+              description: An invalid Organisation Identifier was provided
+            "403":
+              description: "Forbidden Error: Access denied"
+            "404":
+              description: No Organisation or Users found with the given ID
+            "500":
+              description: Internal Server Error
+          security:
+            - Authorization: []
+            - ServiceAuthorization: []
+          deprecated: false
+      "/refdata/internal/v1/organisations/{orgId}/users/":
+        post:
+          tags:
+            - organisation-internal-controller
+          summary: Add a new User to an Organisation
+          description: |-
+            **IDAM Roles to access API** : 
+             prd-admin
+          operationId: addUserToOrganisationUsingPOST
+          parameters:
+            - name: orgId
+              in: path
+              description: orgId
+              required: true
+              schema:
+                type: string
+          requestBody:
+            $ref: "#/components/requestBodies/NewUserCreationRequest"
+          responses:
+            "201":
+              description: The new User has been added to the Organisation
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/NewUserResponse"
+            "400":
+              description: An invalid request was provided
+            "403":
+              description: "Forbidden Error: Access denied"
+            "404":
+              description: No Organisation found with the given ID to add new User to
+            "409":
+              description: A User already exists with the given Email Address or is already
+                active in SIDAM during resend invite
+            "429":
+              description: Too many requests for resend invite
+            "500":
+              description: Internal Server Error
+          security:
+            - Authorization: []
+            - ServiceAuthorization: []
+          deprecated: false
+      "/refdata/internal/v1/organisations/{orgId}/users/{userId}":
+        put:
+          tags:
+            - professional-user-internal-controller
+          summary: Modify the Roles or Status of a User
+          description: |-
+            **IDAM Roles to access API** :
+             prd-admin
+          operationId: modifyRolesForExistingUserOfOrganisationUsingPUT
+          parameters:
+            - name: orgId
+              in: path
+              description: orgId
+              required: true
+              schema:
+                type: string
+            - name: origin
+              in: query
+              description: origin
+              required: false
+              schema:
+                type: string
+                default: EXUI
+            - name: userId
+              in: path
+              description: userId
+              required: true
+              schema:
+                type: string
+          requestBody:
+            $ref: "#/components/requestBodies/UserProfileUpdatedData"
+          responses:
+            "201":
+              description: The User's Roles/Status have been modified
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/ModifyUserRolesResponse"
+            "400":
+              description: Invalid request provided
+            "403":
+              description: "Forbidden Error: Access denied"
+            "404":
+              description: No Organisation or User found with the given ID
+            "412":
+              description: One or more of the Roles provided is already assigned to the User
+            "500":
+              description: Internal Server Error
+          security:
+            - Authorization: []
+            - ServiceAuthorization: []
+          deprecated: false
+    servers:
+      - url: //rd-professional-api-aat.service.core-compute-aat.internal/
+    components:
+      requestBodies:
+        NewUserCreationRequest:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/NewUserCreationRequest"
+          description: newUserCreationRequest
+          required: true
+        OrganisationCreationRequest:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OrganisationCreationRequest"
+          description: organisationCreationRequest
+          required: true
+        UserProfileUpdatedData:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserProfileUpdatedData"
+          description: userProfileUpdatedData
+          required: true
+      securitySchemes:
+        Authorization:
+          type: apiKey
+          name: Authorization
+          in: header
+        ServiceAuthorization:
+          type: apiKey
+          name: ServiceAuthorization
+          in: header
+        UserEmail:
+          type: apiKey
+          name: UserEmail
+          in: header
+      schemas:
+        AddPbaResponse:
+          type: object
+          properties:
+            message:
+              type: string
+            reason:
+              $ref: "#/components/schemas/FailedPbaReason"
+          title: AddPbaResponse
+        ContactInformationCreationRequest:
+          type: object
+          properties:
+            uprn:
+              type: string
+            addressLine1:
+              type: string
+            addressLine2:
+              type: string
+            addressLine3:
+              type: string
+            townCity:
+              type: string
+            county:
+              type: string
+            country:
+              type: string
+            postCode:
+              type: string
+            dxAddress:
+              type: array
+              items:
+                $ref: "#/components/schemas/DxAddressCreationRequest"
+          title: ContactInformationCreationRequest
+        ContactInformationResponse:
+          type: object
+          properties:
+            addressId:
+              type: string
+              format: uuid
+            addressLine1:
+              type: string
+            addressLine2:
+              type: string
+            addressLine3:
+              type: string
+            country:
+              type: string
+            county:
+              type: string
+            created:
+              type: string
+              format: date-time
+            postCode:
+              type: string
+            townCity:
+              type: string
+            uprn:
+              type: string
+          title: ContactInformationResponse
+        DeleteMultipleAddressRequest:
+          type: object
+          properties:
+            addressId:
+              type: string
+          title: DeleteMultipleAddressRequest
+        DeleteOrganisationResponse:
+          type: object
+          properties:
+            message:
+              type: string
+            statusCode:
+              type: integer
+              format: int32
+          title: DeleteOrganisationResponse
+        DxAddressCreationRequest:
+          type: object
+          properties:
+            dxNumber:
+              type: string
+            dxExchange:
+              type: string
+          title: DxAddressCreationRequest
+        FailedPbaReason:
+          type: object
+          properties:
+            duplicatePaymentAccounts:
+              type: array
+              items:
+                type: string
+            invalidPaymentAccounts:
+              type: array
+              items:
+                type: string
+          title: FailedPbaReason
+        FetchPbaByStatusResponse:
+          type: object
+          properties:
+            dateAccepted:
+              type: string
+            dateCreated:
+              type: string
+            pbaNumber:
+              type: string
+            status:
+              type: string
+            statusMessage:
+              type: string
+          title: FetchPbaByStatusResponse
+        MfaStatusResponse:
+          type: object
+          properties:
+            mfa:
+              type: string
+          title: MfaStatusResponse
+        MfaUpdateRequest:
+          type: object
+          properties:
+            mfa:
+              type: string
+              enum:
+                - EMAIL
+                - NONE
+                - PHONE
+                - AUTHENTICATOR
+          title: MfaUpdateRequest
+        ModifyUserRolesResponse:
+          type: object
+          properties:
+            roleAdditionResponse:
+              $ref: "#/components/schemas/RoleAdditionResponse"
+            roleDeletionResponse:
+              type: array
+              items:
+                $ref: "#/components/schemas/RoleDeletionResponse"
+            statusUpdateResponse:
+              $ref: "#/components/schemas/StatusUpdateResponse"
+          title: ModifyUserRolesResponse
+        NewUserCreationRequest:
+          type: object
+          properties:
+            firstName:
+              type: string
+            lastName:
+              type: string
+            email:
+              type: string
+            roles:
+              type: array
+              items:
+                type: string
+            resendInvite:
+              type: boolean
+          title: NewUserCreationRequest
+        NewUserResponse:
+          type: object
+          properties:
+            idamStatus:
+              type: string
+            userIdentifier:
+              type: string
+          title: NewUserResponse
+        OrganisationCreationRequest:
+          type: object
+          properties:
+            name:
+              type: string
+            status:
+              type: string
+            statusMessage:
+              type: string
+            sraId:
+              type: string
+            sraRegulated:
+              type: string
+            companyNumber:
+              type: string
+            companyUrl:
+              type: string
+            superUser:
+              $ref: "#/components/schemas/UserCreationRequest"
+            paymentAccount:
+              type: array
+              items:
+                type: string
+            contactInformation:
+              type: array
+              items:
+                $ref: "#/components/schemas/ContactInformationCreationRequest"
+          title: OrganisationCreationRequest
+        OrganisationEntityResponse:
+          type: object
+          properties:
+            companyNumber:
+              type: string
+            companyUrl:
+              type: string
+            contactInformation:
+              type: array
+              items:
+                $ref: "#/components/schemas/ContactInformationResponse"
+            name:
+              type: string
+            organisationIdentifier:
+              type: string
+            paymentAccount:
+              type: array
+              items:
+                type: string
+            pendingPaymentAccount:
+              type: array
+              items:
+                type: string
+            sraId:
+              type: string
+            sraRegulated:
+              type: boolean
+            status:
+              type: string
+              enum:
+                - PENDING
+                - ACTIVE
+                - BLOCKED
+                - REVIEW
+                - DELETED
+            statusMessage:
+              type: string
+            superUser:
+              $ref: "#/components/schemas/SuperUserResponse"
+          title: OrganisationEntityResponse
+        OrganisationMinimalInfoResponse:
+          type: object
+          properties:
+            contactInformation:
+              type: array
+              items:
+                $ref: "#/components/schemas/ContactInformationResponse"
+            name:
+              type: string
+            organisationIdentifier:
+              type: string
+          title: OrganisationMinimalInfoResponse
+        OrganisationPbaResponse:
+          type: object
+          properties:
+            organisationEntityResponse:
+              $ref: "#/components/schemas/OrganisationEntityResponse"
+          title: OrganisationPbaResponse
+        OrganisationResponse:
+          type: object
+          properties:
+            organisationIdentifier:
+              type: string
+          title: OrganisationResponse
+        OrganisationsDetailResponse:
+          type: object
+          properties:
+            organisations:
+              type: array
+              items:
+                $ref: "#/components/schemas/OrganisationEntityResponse"
+          title: OrganisationsDetailResponse
+        OrganisationsWithPbaStatusResponse:
+          type: object
+          properties:
+            organisationIdentifier:
+              type: string
+            pbaNumbers:
+              type: array
+              items:
+                $ref: "#/components/schemas/FetchPbaByStatusResponse"
+            status:
+              type: string
+              enum:
+                - PENDING
+                - ACTIVE
+                - BLOCKED
+                - REVIEW
+                - DELETED
+          title: OrganisationsWithPbaStatusResponse
+        PbaRequest:
+          type: object
+          properties:
+            paymentAccounts:
+              type: array
+              items:
+                type: string
+          title: PbaRequest
+        PbaResponse:
+          type: object
+          properties:
+            statusCode:
+              type: string
+            statusMessage:
+              type: string
+          title: PbaResponse
+        PbaUpdateRequest:
+          type: object
+          properties:
+            pbaNumber:
+              type: string
+            status:
+              type: string
+            statusMessage:
+              type: string
+          title: PbaUpdateRequest
+        PbaUpdateStatusResponse:
+          type: object
+          properties:
+            errorMessage:
+              type: string
+            pbaNumber:
+              type: string
+          title: PbaUpdateStatusResponse
+        ProfessionalUsersResponse:
+          type: object
+          properties:
+            email:
+              type: string
+            firstName:
+              type: string
+            idamMessage:
+              type: string
+            idamStatus:
+              type: string
+            idamStatusCode:
+              type: string
+            lastName:
+              type: string
+            roles:
+              type: array
+              items:
+                type: string
+            userIdentifier:
+              type: string
+          title: ProfessionalUsersResponse
+        RoleAdditionResponse:
+          type: object
+          properties:
+            idamMessage:
+              type: string
+            idamStatusCode:
+              type: string
+          title: RoleAdditionResponse
+        RoleDeletionResponse:
+          type: object
+          properties:
+            idamMessage:
+              type: string
+            idamStatusCode:
+              type: string
+            roleName:
+              type: string
+          title: RoleDeletionResponse
+        RoleName:
+          type: object
+          properties:
+            name:
+              type: string
+          title: RoleName
+        StatusUpdateResponse:
+          type: object
+          properties:
+            idamMessage:
+              type: string
+            idamStatusCode:
+              type: string
+          title: StatusUpdateResponse
+        SuperUserResponse:
+          type: object
+          properties:
+            email:
+              type: string
+            firstName:
+              type: string
+            lastName:
+              type: string
+          title: SuperUserResponse
+        UpdatePbaRequest:
+          type: object
+          properties:
+            pbaNumbers:
+              type: array
+              items:
+                $ref: "#/components/schemas/PbaUpdateRequest"
+          title: UpdatePbaRequest
+        UpdatePbaStatusResponse:
+          type: object
+          properties:
+            message:
+              type: string
+            pbaUpdateStatusResponses:
+              type: array
+              items:
+                $ref: "#/components/schemas/PbaUpdateStatusResponse"
+          title: UpdatePbaStatusResponse
+        UserCreationRequest:
+          type: object
+          properties:
+            firstName:
+              type: string
+            lastName:
+              type: string
+            email:
+              type: string
+          title: UserCreationRequest
+        UserProfileUpdatedData:
+          type: object
+          properties:
+            email:
+              type: string
+            firstName:
+              type: string
+            lastName:
+              type: string
+            idamStatus:
+              type: string
+            rolesAdd:
+              type: array
+              items:
+                $ref: "#/components/schemas/RoleName"
+            rolesDelete:
+              type: array
+              items:
+                $ref: "#/components/schemas/RoleName"
+          title: UserProfileUpdatedData

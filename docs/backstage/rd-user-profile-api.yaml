@@ -1,0 +1,547 @@
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: rd-user-profile-api 
+  description: rd-user-profile-api API
+spec:
+  type: openapi
+  system: rd-user-profile-api
+  lifecycle: production
+  owner: dcd_group_referencedata_v2
+  definition: |
+    openapi: 3.0.0
+    info:
+      description: Api Documentation
+      version: "1.0"
+      title: Api Documentation
+      termsOfService: urn:tos
+      contact: {}
+      license:
+        name: Apache 2.0
+        url: http://www.apache.org/licenses/LICENSE-2.0
+    tags:
+      - name: user-profile-controller
+        description: User Profile Controller
+      - name: welcome-controller
+        description: Welcome Controller
+    paths:
+      /:
+        get:
+          tags:
+            - welcome-controller
+          summary: Welcome to the System User Profile Data API
+          operationId: welcomeUsingGET
+          responses:
+            "200":
+              description: Welcome message
+              content:
+                application/json:
+                  schema:
+                    type: string
+          deprecated: false
+      /v1/userprofile:
+        get:
+          tags:
+            - user-profile-controller
+          summary: Retrieve a User Profile by Email or ID. If both are present then Email
+            is used to retrieve.
+          operationId: getUserProfileByEmailUsingGET
+          parameters:
+            - name: userId
+              in: query
+              description: userId
+              required: false
+              schema:
+                type: string
+          responses:
+            "200":
+              description: Representation of a User profile
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/UserProfileResponse"
+            "400":
+              description: An invalid request has been provided
+            "401":
+              description: "Unauthorized Error : The requested resource is restricted and
+                requires authentication"
+            "403":
+              description: "Forbidden Error: Access denied"
+            "404":
+              description: No User Profile found with the given ID
+            "500":
+              description: Internal Server Error
+          security:
+            - Authorization: []
+            - UserEmail: []
+            - ServiceAuthorization: []
+          deprecated: false
+        post:
+          tags:
+            - user-profile-controller
+          summary: Create a User Profile
+          operationId: createUserProfileUsingPOST
+          requestBody:
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/UserProfileCreationData"
+            description: userProfileCreationData
+            required: true
+          responses:
+            "201":
+              description: User Profile created successfully
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/UserProfileCreationResponse"
+            "400":
+              description: An invalid request has been provided
+            "401":
+              description: "Unauthorized Error : The requested resource is restricted and
+                requires authentication"
+            "403":
+              description: "Forbidden Error: Access denied"
+            "409":
+              description: A User already exists with the given information
+            "429":
+              description: Too many requests made for re-invite
+            "500":
+              description: Internal Server Error
+          security:
+            - Authorization: []
+            - ServiceAuthorization: []
+          deprecated: false
+        delete:
+          tags:
+            - user-profile-controller
+          summary: Delete User Profiles
+          operationId: deleteUserProfilesUsingDELETE
+          requestBody:
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/UserProfileDataRequest"
+            description: userProfilesDeletionDataReq
+            required: true
+          responses:
+            "204":
+              description: User Profiles deleted successfully
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/UserProfilesDeletionResponse"
+            "400":
+              description: An invalid request has been provided
+            "401":
+              description: "Unauthorized Error : The requested resource is restricted and
+                requires authentication"
+            "403":
+              description: "Forbidden Error: Access denied"
+            "500":
+              description: Internal Server Error
+          security:
+            - Authorization: []
+            - ServiceAuthorization: []
+          deprecated: false
+      /v1/userprofile/roles:
+        get:
+          tags:
+            - user-profile-controller
+          summary: Retrieves a User Profile and their Roles with the given Email Address
+          operationId: getUserProfileWithRolesByEmailUsingGET
+          responses:
+            "200":
+              description: Representation of a User profile with their Roles
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/UserProfileWithRolesResponse"
+            "400":
+              description: An invalid request has been provided
+            "401":
+              description: "Unauthorized Error : The requested resource is restricted and
+                requires authentication"
+            "403":
+              description: "Forbidden Error: Access denied"
+            "404":
+              description: No User Profile found with the given Email Address
+            "500":
+              description: Internal Server Error
+          security:
+            - Authorization: []
+            - UserEmail: []
+            - ServiceAuthorization: []
+          deprecated: false
+      /v1/userprofile/users:
+        post:
+          tags:
+            - user-profile-controller
+          summary: Retrieve multiple User Profiles
+          operationId: retrieveUserProfilesUsingPOST
+          parameters:
+            - name: rolesRequired
+              in: query
+              description: rolesRequired
+              required: true
+              allowEmptyValue: false
+              schema:
+                type: string
+            - name: showdeleted
+              in: query
+              description: showdeleted
+              required: true
+              allowEmptyValue: false
+              schema:
+                type: string
+          requestBody:
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/UserProfileDataRequest"
+            description: userProfileDataRequest
+            required: true
+          responses:
+            "200":
+              description: Successfully retrieved multiple User Profiles
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/UserProfileDataResponse"
+            "400":
+              description: An invalid request has been provided
+            "401":
+              description: "Unauthorized Error : The requested resource is restricted and
+                requires authentication"
+            "403":
+              description: "Forbidden Error: Access denied"
+            "404":
+              description: No User Profile found with the given ID
+            "500":
+              description: Internal Server Error
+          security:
+            - Authorization: []
+            - ServiceAuthorization: []
+          deprecated: false
+        delete:
+          tags:
+            - user-profile-controller
+          summary: Delete User Profiles by User ID or Email Pattern
+          operationId: deleteUserProfileByIdOrEmailPatternUsingDELETE
+          parameters:
+            - name: emailPattern
+              in: query
+              description: emailPattern
+              required: false
+              schema:
+                type: string
+            - name: userId
+              in: query
+              description: userId
+              required: false
+              schema:
+                type: string
+          responses:
+            "204":
+              description: User Profiles deleted successfully
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/UserProfilesDeletionResponse"
+            "400":
+              description: An invalid request has been provided
+            "401":
+              description: "Unauthorized Error : The requested resource is restricted and
+                requires authentication"
+            "403":
+              description: "Forbidden Error: Access denied"
+            "500":
+              description: Internal Server Error
+          security:
+            - Authorization: []
+            - ServiceAuthorization: []
+          deprecated: false
+      "/v1/userprofile/{id}/roles":
+        get:
+          tags:
+            - user-profile-controller
+          summary: Retrieves a User Profile and their Roles with the given ID
+          operationId: getUserProfileWithRolesByIdUsingGET
+          parameters:
+            - name: id
+              in: path
+              description: id
+              required: true
+              schema:
+                type: string
+          responses:
+            "200":
+              description: Representation of a User profile with their Roles
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/UserProfileWithRolesResponse"
+            "400":
+              description: An invalid request has been provided
+            "401":
+              description: "Unauthorized Error : The requested resource is restricted and
+                requires authentication"
+            "403":
+              description: "Forbidden Error: Access denied"
+            "404":
+              description: Not User Profile found with the given ID
+            "500":
+              description: Internal Server Error
+          security:
+            - Authorization: []
+            - ServiceAuthorization: []
+          deprecated: false
+      "/v1/userprofile/{userId}":
+        put:
+          tags:
+            - user-profile-controller
+          summary: Update a User Profile
+          operationId: updateUserProfileUsingPUT
+          parameters:
+            - name: origin
+              in: query
+              description: origin
+              required: false
+              allowEmptyValue: false
+              schema:
+                type: string
+            - name: userId
+              in: path
+              description: userId
+              required: true
+              schema:
+                type: string
+          requestBody:
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/UpdateUserProfileData"
+            description: updateUserProfileData
+            required: true
+          responses:
+            "200":
+              description: User Profile has been Updated successfully
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/UserProfileCreationResponse"
+            "400":
+              description: An invalid request has been provided
+            "401":
+              description: "Unauthorized Error : The requested resource is restricted and
+                requires authentication"
+            "403":
+              description: "Forbidden Error: Access denied"
+            "404":
+              description: No User Profile found with the given ID
+            "412":
+              description: One or more of the Roles provided is already assigned to the User
+            "500":
+              description: Internal Server Error
+          security:
+            - Authorization: []
+            - ServiceAuthorization: []
+          deprecated: false
+    servers:
+      - url: //rd-user-profile-api-aat.service.core-compute-aat.internal/
+    components:
+      securitySchemes:
+        Authorization:
+          type: apiKey
+          name: Authorization
+          in: header
+        ServiceAuthorization:
+          type: apiKey
+          name: ServiceAuthorization
+          in: header
+        UserEmail:
+          type: apiKey
+          name: UserEmail
+          in: header
+      schemas:
+        AttributeResponse:
+          type: object
+          properties:
+            idamMessage:
+              type: string
+            idamStatusCode:
+              type: integer
+              format: int32
+          title: AttributeResponse
+        RoleAdditionResponse:
+          type: object
+          properties:
+            idamMessage:
+              type: string
+            idamStatusCode:
+              type: string
+          title: RoleAdditionResponse
+        RoleDeletionResponse:
+          type: object
+          properties:
+            idamMessage:
+              type: string
+            idamStatusCode:
+              type: string
+            roleName:
+              type: string
+          title: RoleDeletionResponse
+        RoleName:
+          type: object
+          properties:
+            name:
+              type: string
+          title: RoleName
+        UpdateUserProfileData:
+          type: object
+          properties:
+            email:
+              type: string
+            firstName:
+              type: string
+            lastName:
+              type: string
+            idamStatus:
+              type: string
+            rolesAdd:
+              type: array
+              items:
+                $ref: "#/components/schemas/RoleName"
+            rolesDelete:
+              type: array
+              items:
+                $ref: "#/components/schemas/RoleName"
+          title: UpdateUserProfileData
+        UserProfileCreationData:
+          type: object
+          properties:
+            email:
+              type: string
+            firstName:
+              type: string
+            lastName:
+              type: string
+            languagePreference:
+              type: string
+            emailCommsConsent:
+              type: boolean
+            postalCommsConsent:
+              type: boolean
+            userCategory:
+              type: string
+            userType:
+              type: string
+            roles:
+              type: array
+              items:
+                type: string
+            resendInvite:
+              type: boolean
+          title: UserProfileCreationData
+        UserProfileCreationResponse:
+          type: object
+          properties:
+            idamId:
+              type: string
+            idamRegistrationResponse:
+              type: integer
+              format: int32
+          title: UserProfileCreationResponse
+        UserProfileDataRequest:
+          type: object
+          properties:
+            userIds:
+              type: array
+              items:
+                type: string
+          title: UserProfileDataRequest
+        UserProfileDataResponse:
+          type: object
+          properties:
+            userProfiles:
+              type: array
+              items:
+                $ref: "#/components/schemas/UserProfileWithRolesResponse"
+          title: UserProfileDataResponse
+        UserProfileResponse:
+          type: object
+          properties:
+            attributeResponse:
+              $ref: "#/components/schemas/AttributeResponse"
+            email:
+              type: string
+            firstName:
+              type: string
+            idamStatus:
+              type: string
+            lastName:
+              type: string
+            roleAdditionResponse:
+              $ref: "#/components/schemas/RoleAdditionResponse"
+            roleDeletionResponse:
+              type: array
+              items:
+                $ref: "#/components/schemas/RoleDeletionResponse"
+            roles:
+              type: array
+              items:
+                type: string
+            userIdentifier:
+              type: string
+          title: UserProfileResponse
+        UserProfileRolesResponse:
+          type: object
+          properties:
+            roleAdditionResponse:
+              $ref: "#/components/schemas/RoleAdditionResponse"
+            roleDeletionResponse:
+              type: array
+              items:
+                $ref: "#/components/schemas/RoleDeletionResponse"
+            statusUpdateResponse:
+              $ref: "#/components/schemas/AttributeResponse"
+          title: UserProfileRolesResponse
+        UserProfileWithRolesResponse:
+          type: object
+          properties:
+            attributeResponse:
+              $ref: "#/components/schemas/AttributeResponse"
+            email:
+              type: string
+            firstName:
+              type: string
+            idamMessage:
+              type: string
+            idamStatus:
+              type: string
+            idamStatusCode:
+              type: string
+            lastName:
+              type: string
+            roleAdditionResponse:
+              $ref: "#/components/schemas/RoleAdditionResponse"
+            roleDeletionResponse:
+              type: array
+              items:
+                $ref: "#/components/schemas/RoleDeletionResponse"
+            roles:
+              type: array
+              items:
+                type: string
+            userIdentifier:
+              type: string
+          title: UserProfileWithRolesResponse
+        UserProfilesDeletionResponse:
+          type: object
+          properties:
+            message:
+              type: string
+            statusCode:
+              type: integer
+              format: int32
+          title: UserProfilesDeletionResponse

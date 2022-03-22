@@ -1,0 +1,2330 @@
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: ccd-data-store-api.v1_external
+  description: ccd-data-store-api.v1_external API
+spec:
+  type: openapi
+  system: ccd
+  lifecycle: production
+  owner: dcd_ccd
+  definition: |
+    openapi: 3.0.0
+    info:
+      description: Create, modify, retrieve and search cases
+      version: 1.0.1
+      title: Core Case Data - Data store API
+      contact:
+        name: CCD
+        url: https://tools.hmcts.net/confluence/display/RCCD/Reform%3A+Core+Case+Data+Home
+        email: corecasedatateam@hmcts.net
+      license: {}
+    tags:
+      - name: Drafts API
+        description: Drafts Endpoint
+      - name: Elastic Based Search API
+        description: Case Search Endpoint
+      - name: callback-endpoint
+        description: Default callbacks
+      - name: case-access-endpoint
+        description: Case access API
+      - name: case-details-endpoint
+        description: Standard case API
+      - name: events-endpoint
+        description: Events API
+      - name: global-search-endpoint
+        description: Global Search Endpoint
+    paths:
+      "/callback/jurisdictions/{jid}/case-types/{ctid}/documents":
+        post:
+          tags:
+            - callback-endpoint
+          summary: Get printable documents
+          description: Retrieve a list of printable documents for a case
+          operationId: getPrintableDocumentsUsingPOST
+          parameters:
+            - in: header
+              name: Authorization
+              description: Keyword `Bearer` followed by a valid IDAM user token
+              required: true
+              schema:
+                type: string
+            - name: ctid
+              in: path
+              description: Case type ID
+              required: true
+              schema:
+                type: string
+            - name: jid
+              in: path
+              description: Jurisdiction ID
+              required: true
+              schema:
+                type: string
+            - in: header
+              name: ServiceAuthorization
+              description: Valid Service-to-Service JWT token for a whitelisted micro-service
+              required: true
+              schema:
+                type: string
+          requestBody:
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/CaseDetails"
+            description: caseDetails
+            required: true
+          responses:
+            "200":
+              description: Printable documents list retrieved
+              content:
+                application/json:
+                  schema:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Document"
+      "/caseworkers/{uid}/jurisdictions/{jid}/case-types/{ctid}/cases":
+        get:
+          tags:
+            - case-details-endpoint
+          summary: Get case data for a given case type
+          operationId: searchCasesForCaseWorkersUsingGET
+          parameters:
+            - in: header
+              name: Authorization
+              description: Keyword `Bearer` followed by a valid IDAM user token
+              required: true
+              schema:
+                type: string
+            - name: ctid
+              in: path
+              description: ctid
+              required: true
+              schema:
+                type: string
+            - name: jid
+              in: path
+              description: jid
+              required: true
+              schema:
+                type: string
+            - name: queryParameters
+              in: query
+              description: queryParameters
+              required: true
+              schema:
+                type: string
+                items:
+                  type: object
+                  additionalProperties:
+                    type: string
+            - in: header
+              name: ServiceAuthorization
+              description: Valid Service-to-Service JWT token for a whitelisted micro-service
+              required: true
+              schema:
+                type: string
+            - name: uid
+              in: path
+              description: uid
+              required: true
+              schema:
+                type: string
+          responses:
+            "200":
+              description: List of case data for the given search criteria
+              content:
+                application/json:
+                  schema:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/CaseDetails"
+        post:
+          tags:
+            - case-details-endpoint
+          summary: Submit case creation as Case worker
+          description: Complete the case creation process. This requires a valid event token to
+            be provided, as generated by `startCaseForCaseworker`.
+          operationId: saveCaseDetailsForCaseWorkerUsingPOST
+          parameters:
+            - in: header
+              name: Authorization
+              description: Keyword `Bearer` followed by a valid IDAM user token
+              required: true
+              schema:
+                type: string
+            - name: ctid
+              in: path
+              description: Case type ID
+              required: true
+              schema:
+                type: string
+            - name: ignore-warning
+              in: query
+              description: Should `AboutToSubmit` callback warnings be ignored
+              required: false
+              schema:
+                type: boolean
+            - name: jid
+              in: path
+              description: Jurisdiction ID
+              required: true
+              schema:
+                type: string
+            - in: header
+              name: ServiceAuthorization
+              description: Valid Service-to-Service JWT token for a whitelisted micro-service
+              required: true
+              schema:
+                type: string
+            - name: uid
+              in: path
+              description: Idam user ID
+              required: true
+              schema:
+                type: string
+          requestBody:
+            $ref: "#/components/requestBodies/CaseDataContent"
+          responses:
+            "201":
+              description: Case created
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/CaseDetails"
+            "409":
+              description: Case reference not unique
+            "422":
+              description: Case submission failed
+      "/caseworkers/{uid}/jurisdictions/{jid}/case-types/{ctid}/cases/ids":
+        get:
+          tags:
+            - case-access-endpoint
+          summary: Get case ids
+          description: Retrieve case ids for given users ids
+          operationId: findCaseIdsGivenUserIdHasAccessToUsingGET
+          parameters:
+            - in: header
+              name: Authorization
+              description: Keyword `Bearer` followed by a valid IDAM user token
+              required: true
+              schema:
+                type: string
+            - name: ctid
+              in: path
+              description: Case type ID
+              required: true
+              schema:
+                type: string
+            - name: jid
+              in: path
+              description: Jurisdiction ID
+              required: true
+              schema:
+                type: string
+            - in: header
+              name: ServiceAuthorization
+              description: Valid Service-to-Service JWT token for a whitelisted micro-service
+              required: true
+              schema:
+                type: string
+            - name: uid
+              in: path
+              description: Idam user ID
+              required: true
+              schema:
+                type: string
+            - name: userId
+              in: query
+              description: User id searching for
+              required: true
+              schema:
+                type: string
+          responses:
+            "200":
+              description: List of cases ids found
+              content:
+                application/json:
+                  schema:
+                    type: array
+                    items:
+                      type: string
+            "400":
+              description: Invalid case ID
+      "/caseworkers/{uid}/jurisdictions/{jid}/case-types/{ctid}/cases/pagination_metadata":
+        get:
+          tags:
+            - case-details-endpoint
+          summary: Get the pagination metadata for a case data search
+          operationId: searchCasesMetadataForCaseworkersUsingGET
+          parameters:
+            - in: header
+              name: Authorization
+              description: Keyword `Bearer` followed by a valid IDAM user token
+              required: true
+              schema:
+                type: string
+            - name: ctid
+              in: path
+              description: ctid
+              required: true
+              schema:
+                type: string
+            - name: jid
+              in: path
+              description: jid
+              required: true
+              schema:
+                type: string
+            - name: queryParameters
+              in: query
+              description: queryParameters
+              required: true
+              schema:
+                type: string
+                items:
+                  type: object
+                  additionalProperties:
+                    type: string
+            - in: header
+              name: ServiceAuthorization
+              description: Valid Service-to-Service JWT token for a whitelisted micro-service
+              required: true
+              schema:
+                type: string
+            - name: uid
+              in: path
+              description: uid
+              required: true
+              schema:
+                type: string
+          responses:
+            "200":
+              description: Pagination metadata for the given search criteria
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/PaginatedSearchMetadata"
+      "/caseworkers/{uid}/jurisdictions/{jid}/case-types/{ctid}/cases/{cid}":
+        get:
+          tags:
+            - case-details-endpoint
+          summary: Get case
+          description: Retrieve an existing case with its state and data
+          operationId: findCaseDetailsForCaseworkerUsingGET
+          parameters:
+            - in: header
+              name: Authorization
+              description: Keyword `Bearer` followed by a valid IDAM user token
+              required: true
+              schema:
+                type: string
+            - name: cid
+              in: path
+              description: Case ID
+              required: true
+              schema:
+                type: string
+            - name: ctid
+              in: path
+              description: Case type ID
+              required: true
+              schema:
+                type: string
+            - name: jid
+              in: path
+              description: Jurisdiction ID
+              required: true
+              schema:
+                type: string
+            - in: header
+              name: ServiceAuthorization
+              description: Valid Service-to-Service JWT token for a whitelisted micro-service
+              required: true
+              schema:
+                type: string
+            - name: uid
+              in: path
+              description: Idam user ID
+              required: true
+              schema:
+                type: string
+          responses:
+            "200":
+              description: Case found for the given ID
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/CaseDetails"
+            "400":
+              description: Invalid case ID
+            "404":
+              description: No case found for the given ID
+      "/caseworkers/{uid}/jurisdictions/{jid}/case-types/{ctid}/cases/{cid}/documents":
+        get:
+          tags:
+            - case-details-endpoint
+          summary: "Get a list of printable documents for the given case id "
+          operationId: getDocumentsForCaseUsingGET
+          parameters:
+            - in: header
+              name: Authorization
+              description: Keyword `Bearer` followed by a valid IDAM user token
+              required: true
+              schema:
+                type: string
+            - name: cid
+              in: path
+              description: cid
+              required: true
+              schema:
+                type: string
+            - name: ctid
+              in: path
+              description: ctid
+              required: true
+              schema:
+                type: string
+            - name: jid
+              in: path
+              description: jid
+              required: true
+              schema:
+                type: string
+            - in: header
+              name: ServiceAuthorization
+              description: Valid Service-to-Service JWT token for a whitelisted micro-service
+              required: true
+              schema:
+                type: string
+            - name: uid
+              in: path
+              description: uid
+              required: true
+              schema:
+                type: string
+          responses:
+            "200":
+              description: Documents list for the given case id
+              content:
+                application/json:
+                  schema:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Document"
+      "/caseworkers/{uid}/jurisdictions/{jid}/case-types/{ctid}/cases/{cid}/event-triggers/{etid}/token":
+        get:
+          tags:
+            - case-details-endpoint
+          summary: Start event creation as Case worker
+          description: Start the event creation process for an existing case. Triggers
+            `AboutToStart` callback.
+          operationId: startEventForCaseworkerUsingGET
+          parameters:
+            - in: header
+              name: Authorization
+              description: Keyword `Bearer` followed by a valid IDAM user token
+              required: true
+              schema:
+                type: string
+            - name: cid
+              in: path
+              description: Case ID
+              required: true
+              schema:
+                type: string
+            - name: ctid
+              in: path
+              description: Case type ID
+              required: true
+              schema:
+                type: string
+            - name: etid
+              in: path
+              description: Event ID
+              required: true
+              schema:
+                type: string
+            - name: ignore-warning
+              in: query
+              description: Should `AboutToStart` callback warnings be ignored
+              required: false
+              schema:
+                type: boolean
+            - name: jid
+              in: path
+              description: Jurisdiction ID
+              required: true
+              schema:
+                type: string
+            - in: header
+              name: ServiceAuthorization
+              description: Valid Service-to-Service JWT token for a whitelisted micro-service
+              required: true
+              schema:
+                type: string
+            - name: uid
+              in: path
+              description: Idam user ID
+              required: true
+              schema:
+                type: string
+          responses:
+            "200":
+              description: Event creation process started
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/StartEventResult"
+            "404":
+              description: No case found for the given ID
+            "422":
+              description: Process could not be started
+      "/caseworkers/{uid}/jurisdictions/{jid}/case-types/{ctid}/cases/{cid}/events":
+        get:
+          tags:
+            - events-endpoint
+          summary: Get events for case
+          description: Retrieve all events for a case
+          operationId: findEventDetailsForCaseUsingGET
+          parameters:
+            - in: header
+              name: Authorization
+              description: Keyword `Bearer` followed by a valid IDAM user token
+              required: true
+              schema:
+                type: string
+            - name: cid
+              in: path
+              description: Case ID
+              required: true
+              schema:
+                type: string
+            - name: ctid
+              in: path
+              description: Case type ID
+              required: true
+              schema:
+                type: string
+            - name: jid
+              in: path
+              description: Jurisdiction ID
+              required: true
+              schema:
+                type: string
+            - in: header
+              name: ServiceAuthorization
+              description: Valid Service-to-Service JWT token for a whitelisted micro-service
+              required: true
+              schema:
+                type: string
+            - name: uid
+              in: path
+              description: Idam user ID
+              required: true
+              schema:
+                type: string
+          responses:
+            "200":
+              description: Events found for the given ID
+              content:
+                application/json:
+                  schema:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/AuditEvent"
+            "400":
+              description: Invalid case ID
+            "404":
+              description: No case found for the given ID
+        post:
+          tags:
+            - case-details-endpoint
+          summary: Submit event creation as Case worker
+          description: Complete the event creation process. This requires a valid event token
+            to be provided, as generated by `startEventForCaseworker`.
+          operationId: createCaseEventForCaseWorkerUsingPOST
+          parameters:
+            - in: header
+              name: Authorization
+              description: Keyword `Bearer` followed by a valid IDAM user token
+              required: true
+              schema:
+                type: string
+            - name: cid
+              in: path
+              description: Case ID
+              required: true
+              schema:
+                type: string
+            - name: ctid
+              in: path
+              description: Case type ID
+              required: true
+              schema:
+                type: string
+            - name: jid
+              in: path
+              description: Jurisdiction ID
+              required: true
+              schema:
+                type: string
+            - in: header
+              name: ServiceAuthorization
+              description: Valid Service-to-Service JWT token for a whitelisted micro-service
+              required: true
+              schema:
+                type: string
+            - name: uid
+              in: path
+              description: Idam user ID
+              required: true
+              schema:
+                type: string
+          requestBody:
+            $ref: "#/components/requestBodies/CaseDataContent"
+          responses:
+            "201":
+              description: Case event created
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/CaseDetails"
+            "409":
+              description: Case altered outside of transaction
+            "422":
+              description: Event submission failed
+      "/caseworkers/{uid}/jurisdictions/{jid}/case-types/{ctid}/cases/{cid}/users":
+        post:
+          tags:
+            - case-access-endpoint
+          summary: Grant access to case
+          operationId: grantAccessToCaseUsingPOST
+          parameters:
+            - in: header
+              name: Authorization
+              description: Keyword `Bearer` followed by a valid IDAM user token
+              required: true
+              schema:
+                type: string
+            - name: cid
+              in: path
+              description: Case ID
+              required: true
+              schema:
+                type: string
+            - name: ctid
+              in: path
+              description: Case type ID
+              required: true
+              schema:
+                type: string
+            - name: jid
+              in: path
+              description: Jurisdiction ID
+              required: true
+              schema:
+                type: string
+            - in: header
+              name: ServiceAuthorization
+              description: Valid Service-to-Service JWT token for a whitelisted micro-service
+              required: true
+              schema:
+                type: string
+            - name: uid
+              in: path
+              description: Idam user ID
+              required: true
+              schema:
+                type: string
+          requestBody:
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/UserId"
+            description: userId
+            required: true
+          responses:
+            "201":
+              description: Grant successful
+            "400":
+              description: Invalid case ID
+      "/caseworkers/{uid}/jurisdictions/{jid}/case-types/{ctid}/cases/{cid}/users/{idToDelete}":
+        delete:
+          tags:
+            - case-access-endpoint
+          summary: Revoke access to case
+          operationId: revokeAccessToCaseUsingDELETE
+          parameters:
+            - in: header
+              name: Authorization
+              description: Keyword `Bearer` followed by a valid IDAM user token
+              required: true
+              schema:
+                type: string
+            - name: cid
+              in: path
+              description: Case ID
+              required: true
+              schema:
+                type: string
+            - name: ctid
+              in: path
+              description: Case type ID
+              required: true
+              schema:
+                type: string
+            - name: idToDelete
+              in: path
+              description: Id to delete
+              required: true
+              schema:
+                type: string
+            - name: jid
+              in: path
+              description: Jurisdiction ID
+              required: true
+              schema:
+                type: string
+            - in: header
+              name: ServiceAuthorization
+              description: Valid Service-to-Service JWT token for a whitelisted micro-service
+              required: true
+              schema:
+                type: string
+            - name: uid
+              in: path
+              description: Idam user ID
+              required: true
+              schema:
+                type: string
+          responses:
+            "204":
+              description: Access revoked
+            "400":
+              description: Invalid case ID
+      "/caseworkers/{uid}/jurisdictions/{jid}/case-types/{ctid}/drafts/{did}":
+        get:
+          tags:
+            - Drafts API
+          summary: Fetch a draft for display
+          operationId: findDraftUsingGET
+          parameters:
+            - in: header
+              name: Authorization
+              description: Keyword `Bearer` followed by a valid IDAM user token
+              required: true
+              schema:
+                type: string
+            - name: ctid
+              in: path
+              description: ctid
+              required: true
+              schema:
+                type: string
+            - name: did
+              in: path
+              description: did
+              required: true
+              schema:
+                type: string
+            - name: jid
+              in: path
+              description: jid
+              required: true
+              schema:
+                type: string
+            - in: header
+              name: ServiceAuthorization
+              description: Valid Service-to-Service JWT token for a whitelisted micro-service
+              required: true
+              schema:
+                type: string
+            - name: uid
+              in: path
+              description: uid
+              required: true
+              schema:
+                type: string
+          responses:
+            "200":
+              description: A displayable draft
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/CaseView"
+        delete:
+          tags:
+            - Drafts API
+          summary: Delete a given draft
+          operationId: deleteDraftUsingDELETE
+          parameters:
+            - in: header
+              name: Authorization
+              description: Keyword `Bearer` followed by a valid IDAM user token
+              required: true
+              schema:
+                type: string
+            - name: ctid
+              in: path
+              description: ctid
+              required: true
+              schema:
+                type: string
+            - name: did
+              in: path
+              description: did
+              required: true
+              schema:
+                type: string
+            - name: jid
+              in: path
+              description: jid
+              required: true
+              schema:
+                type: string
+            - in: header
+              name: ServiceAuthorization
+              description: Valid Service-to-Service JWT token for a whitelisted micro-service
+              required: true
+              schema:
+                type: string
+            - name: uid
+              in: path
+              description: uid
+              required: true
+              schema:
+                type: string
+          responses:
+            "200":
+              description: A draft deleted successfully
+      "/caseworkers/{uid}/jurisdictions/{jid}/case-types/{ctid}/event-trigger/{etid}/drafts":
+        post:
+          tags:
+            - Drafts API
+          summary: Save draft as a caseworker.
+          operationId: saveDraftForCaseWorkerUsingPOST
+          parameters:
+            - in: header
+              name: Authorization
+              description: Keyword `Bearer` followed by a valid IDAM user token
+              required: true
+              schema:
+                type: string
+            - name: ctid
+              in: path
+              description: Case type ID
+              required: true
+              schema:
+                type: string
+            - name: etid
+              in: path
+              description: Event Trigger ID
+              required: true
+              schema:
+                type: string
+            - name: jid
+              in: path
+              description: Jurisdiction ID
+              required: true
+              schema:
+                type: string
+            - in: header
+              name: ServiceAuthorization
+              description: Valid Service-to-Service JWT token for a whitelisted micro-service
+              required: true
+              schema:
+                type: string
+            - name: uid
+              in: path
+              description: Idam user ID
+              required: true
+              schema:
+                type: string
+          requestBody:
+            $ref: "#/components/requestBodies/CaseDataContent2"
+          responses:
+            "201":
+              description: Draft created
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/DraftResponse"
+            "400":
+              description: Bad request
+      "/caseworkers/{uid}/jurisdictions/{jid}/case-types/{ctid}/event-trigger/{etid}/drafts/{did}":
+        put:
+          tags:
+            - Drafts API
+          summary: Update draft as a caseworker.
+          operationId: updateDraftForCaseWorkerUsingPUT
+          parameters:
+            - in: header
+              name: Authorization
+              description: Keyword `Bearer` followed by a valid IDAM user token
+              required: true
+              schema:
+                type: string
+            - name: ctid
+              in: path
+              description: Case type ID
+              required: true
+              schema:
+                type: string
+            - name: did
+              in: path
+              description: Draft ID
+              required: true
+              schema:
+                type: string
+            - name: etid
+              in: path
+              description: Event Trigger ID
+              required: true
+              schema:
+                type: string
+            - name: jid
+              in: path
+              description: Jurisdiction ID
+              required: true
+              schema:
+                type: string
+            - in: header
+              name: ServiceAuthorization
+              description: Valid Service-to-Service JWT token for a whitelisted micro-service
+              required: true
+              schema:
+                type: string
+            - name: uid
+              in: path
+              description: Idam user ID
+              required: true
+              schema:
+                type: string
+          requestBody:
+            $ref: "#/components/requestBodies/CaseDataContent2"
+          responses:
+            "200":
+              description: Draft updated
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/DraftResponse"
+            "400":
+              description: Bad request
+      "/caseworkers/{uid}/jurisdictions/{jid}/case-types/{ctid}/event-triggers/{etid}/token":
+        get:
+          tags:
+            - case-details-endpoint
+          summary: Start case creation as Case worker
+          description: Start the case creation process for a new case. Triggers `AboutToStart`
+            callback.
+          operationId: startCaseForCaseworkerUsingGET
+          parameters:
+            - in: header
+              name: Authorization
+              description: Keyword `Bearer` followed by a valid IDAM user token
+              required: true
+              schema:
+                type: string
+            - name: ctid
+              in: path
+              description: Case type ID
+              required: true
+              schema:
+                type: string
+            - name: etid
+              in: path
+              description: Event ID
+              required: true
+              schema:
+                type: string
+            - name: ignore-warning
+              in: query
+              description: Should `AboutToStart` callback warnings be ignored
+              required: false
+              schema:
+                type: boolean
+            - name: jid
+              in: path
+              description: Jurisdiction ID
+              required: true
+              schema:
+                type: string
+            - in: header
+              name: ServiceAuthorization
+              description: Valid Service-to-Service JWT token for a whitelisted micro-service
+              required: true
+              schema:
+                type: string
+            - name: uid
+              in: path
+              description: Idam user ID
+              required: true
+              schema:
+                type: string
+          responses:
+            "200":
+              description: Case creation process started
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/StartEventResult"
+            "422":
+              description: Process could not be started
+      "/caseworkers/{uid}/jurisdictions/{jid}/case-types/{ctid}/validate":
+        post:
+          tags:
+            - case-details-endpoint
+          summary: Validate a set of fields as Case worker
+          description: Validate the case data entered during the case/event creation process.
+          operationId: validateCaseDetailsUsingPOST
+          parameters:
+            - in: header
+              name: Authorization
+              description: Keyword `Bearer` followed by a valid IDAM user token
+              required: true
+              schema:
+                type: string
+            - name: ctid
+              in: path
+              description: Case type ID
+              required: true
+              schema:
+                type: string
+            - name: jid
+              in: path
+              description: Jurisdiction ID
+              required: true
+              schema:
+                type: string
+            - name: pageId
+              in: query
+              description: Page ID
+              required: false
+              schema:
+                type: string
+            - in: header
+              name: ServiceAuthorization
+              description: Valid Service-to-Service JWT token for a whitelisted micro-service
+              required: true
+              schema:
+                type: string
+            - name: uid
+              in: path
+              description: Idam user ID
+              required: true
+              schema:
+                type: string
+          requestBody:
+            $ref: "#/components/requestBodies/CaseDataContent"
+          responses:
+            "200":
+              description: Validation OK
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/JsonNode"
+            "409":
+              description: Case reference not unique
+            "422":
+              description: Field validation failed
+      "/citizens/{uid}/jurisdictions/{jid}/case-types/{ctid}/cases":
+        get:
+          tags:
+            - case-details-endpoint
+          summary: Get case data for a given case type
+          operationId: searchCasesForCitizensUsingGET
+          parameters:
+            - in: header
+              name: Authorization
+              description: Keyword `Bearer` followed by a valid IDAM user token
+              required: true
+              schema:
+                type: string
+            - name: ctid
+              in: path
+              description: ctid
+              required: true
+              schema:
+                type: string
+            - name: jid
+              in: path
+              description: jid
+              required: true
+              schema:
+                type: string
+            - name: queryParameters
+              in: query
+              description: queryParameters
+              required: true
+              schema:
+                type: string
+                items:
+                  type: object
+                  additionalProperties:
+                    type: string
+            - in: header
+              name: ServiceAuthorization
+              description: Valid Service-to-Service JWT token for a whitelisted micro-service
+              required: true
+              schema:
+                type: string
+            - name: uid
+              in: path
+              description: uid
+              required: true
+              schema:
+                type: string
+          responses:
+            "200":
+              description: List of case data for the given search criteria
+              content:
+                application/json:
+                  schema:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/CaseDetails"
+        post:
+          tags:
+            - case-details-endpoint
+          summary: Submit case creation as Citizen
+          description: Complete the case creation process. This requires a valid event token to
+            be provided, as generated by `startCaseForCitizen`.
+          operationId: saveCaseDetailsForCitizenUsingPOST
+          parameters:
+            - in: header
+              name: Authorization
+              description: Keyword `Bearer` followed by a valid IDAM user token
+              required: true
+              schema:
+                type: string
+            - name: ctid
+              in: path
+              description: Case type ID
+              required: true
+              schema:
+                type: string
+            - name: ignore-warning
+              in: query
+              description: Should `AboutToSubmit` callback warnings be ignored
+              required: false
+              schema:
+                type: boolean
+            - name: jid
+              in: path
+              description: Jurisdiction ID
+              required: true
+              schema:
+                type: string
+            - in: header
+              name: ServiceAuthorization
+              description: Valid Service-to-Service JWT token for a whitelisted micro-service
+              required: true
+              schema:
+                type: string
+            - name: uid
+              in: path
+              description: Idam user ID
+              required: true
+              schema:
+                type: string
+          requestBody:
+            $ref: "#/components/requestBodies/CaseDataContent"
+          responses:
+            "201":
+              description: Case created
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/CaseDetails"
+            "409":
+              description: Case reference not unique
+            "422":
+              description: Case submission failed
+      "/citizens/{uid}/jurisdictions/{jid}/case-types/{ctid}/cases/pagination_metadata":
+        get:
+          tags:
+            - case-details-endpoint
+          summary: Get the pagination metadata for a case data search
+          operationId: searchCasesMetadataForCitizensUsingGET
+          parameters:
+            - in: header
+              name: Authorization
+              description: Keyword `Bearer` followed by a valid IDAM user token
+              required: true
+              schema:
+                type: string
+            - name: ctid
+              in: path
+              description: ctid
+              required: true
+              schema:
+                type: string
+            - name: jid
+              in: path
+              description: jid
+              required: true
+              schema:
+                type: string
+            - name: queryParameters
+              in: query
+              description: queryParameters
+              required: true
+              schema:
+                type: string
+                items:
+                  type: object
+                  additionalProperties:
+                    type: string
+            - in: header
+              name: ServiceAuthorization
+              description: Valid Service-to-Service JWT token for a whitelisted micro-service
+              required: true
+              schema:
+                type: string
+            - name: uid
+              in: path
+              description: uid
+              required: true
+              schema:
+                type: string
+          responses:
+            "200":
+              description: Pagination metadata for the given search criteria
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/PaginatedSearchMetadata"
+      "/citizens/{uid}/jurisdictions/{jid}/case-types/{ctid}/cases/{cid}":
+        get:
+          tags:
+            - case-details-endpoint
+          summary: Get case
+          description: Retrieve an existing case with its state and data
+          operationId: findCaseDetailsForCitizenUsingGET
+          parameters:
+            - in: header
+              name: Authorization
+              description: Keyword `Bearer` followed by a valid IDAM user token
+              required: true
+              schema:
+                type: string
+            - name: cid
+              in: path
+              description: Case ID
+              required: true
+              schema:
+                type: string
+            - name: ctid
+              in: path
+              description: Case type ID
+              required: true
+              schema:
+                type: string
+            - name: jid
+              in: path
+              description: Jurisdiction ID
+              required: true
+              schema:
+                type: string
+            - in: header
+              name: ServiceAuthorization
+              description: Valid Service-to-Service JWT token for a whitelisted micro-service
+              required: true
+              schema:
+                type: string
+            - name: uid
+              in: path
+              description: Idam user ID
+              required: true
+              schema:
+                type: string
+          responses:
+            "200":
+              description: Case found for the given ID
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/CaseDetails"
+            "400":
+              description: Invalid case ID
+            "404":
+              description: No case found for the given ID
+      "/citizens/{uid}/jurisdictions/{jid}/case-types/{ctid}/cases/{cid}/event-triggers/{etid}/token":
+        get:
+          tags:
+            - case-details-endpoint
+          summary: Start event creation as Citizen
+          description: Start the event creation process for an existing case. Triggers
+            `AboutToStart` callback.
+          operationId: startEventForCitizenUsingGET
+          parameters:
+            - in: header
+              name: Authorization
+              description: Keyword `Bearer` followed by a valid IDAM user token
+              required: true
+              schema:
+                type: string
+            - name: cid
+              in: path
+              description: Case ID
+              required: true
+              schema:
+                type: string
+            - name: ctid
+              in: path
+              description: Case type ID
+              required: true
+              schema:
+                type: string
+            - name: etid
+              in: path
+              description: Event ID
+              required: true
+              schema:
+                type: string
+            - name: ignore-warning
+              in: query
+              description: Should `AboutToStart` callback warnings be ignored
+              required: false
+              schema:
+                type: boolean
+            - name: jid
+              in: path
+              description: Jurisdiction ID
+              required: true
+              schema:
+                type: string
+            - in: header
+              name: ServiceAuthorization
+              description: Valid Service-to-Service JWT token for a whitelisted micro-service
+              required: true
+              schema:
+                type: string
+            - name: uid
+              in: path
+              description: Idam user ID
+              required: true
+              schema:
+                type: string
+          responses:
+            "200":
+              description: Event creation process started
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/StartEventResult"
+            "404":
+              description: No case found for the given ID
+            "422":
+              description: Process could not be started
+      "/citizens/{uid}/jurisdictions/{jid}/case-types/{ctid}/cases/{cid}/events":
+        post:
+          tags:
+            - case-details-endpoint
+          summary: Submit event creation as Citizen
+          description: Complete the event creation process. This requires a valid event token
+            to be provided, as generated by `startEventForCitizen`.
+          operationId: createCaseEventForCitizenUsingPOST
+          parameters:
+            - in: header
+              name: Authorization
+              description: Keyword `Bearer` followed by a valid IDAM user token
+              required: true
+              schema:
+                type: string
+            - name: cid
+              in: path
+              description: Case ID
+              required: true
+              schema:
+                type: string
+            - name: ctid
+              in: path
+              description: Case type ID
+              required: true
+              schema:
+                type: string
+            - name: jid
+              in: path
+              description: Jurisdiction ID
+              required: true
+              schema:
+                type: string
+            - in: header
+              name: ServiceAuthorization
+              description: Valid Service-to-Service JWT token for a whitelisted micro-service
+              required: true
+              schema:
+                type: string
+            - name: uid
+              in: path
+              description: Idam user ID
+              required: true
+              schema:
+                type: string
+          requestBody:
+            $ref: "#/components/requestBodies/CaseDataContent"
+          responses:
+            "201":
+              description: Case event created
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/CaseDetails"
+            "409":
+              description: Case altered outside of transaction
+            "422":
+              description: Event submission failed
+      "/citizens/{uid}/jurisdictions/{jid}/case-types/{ctid}/event-triggers/{etid}/token":
+        get:
+          tags:
+            - case-details-endpoint
+          summary: Start case creation as Citizen
+          description: Start the case creation process for a new case. Triggers `AboutToStart`
+            callback.
+          operationId: startCaseForCitizenUsingGET
+          parameters:
+            - in: header
+              name: Authorization
+              description: Keyword `Bearer` followed by a valid IDAM user token
+              required: true
+              schema:
+                type: string
+            - name: ctid
+              in: path
+              description: Case type ID
+              required: true
+              schema:
+                type: string
+            - name: etid
+              in: path
+              description: Event ID
+              required: true
+              schema:
+                type: string
+            - name: ignore-warning
+              in: query
+              description: Should `AboutToStart` callback warnings be ignored
+              required: false
+              schema:
+                type: boolean
+            - name: jid
+              in: path
+              description: Jurisdiction ID
+              required: true
+              schema:
+                type: string
+            - in: header
+              name: ServiceAuthorization
+              description: Valid Service-to-Service JWT token for a whitelisted micro-service
+              required: true
+              schema:
+                type: string
+            - name: uid
+              in: path
+              description: Idam user ID
+              required: true
+              schema:
+                type: string
+          responses:
+            "200":
+              description: Case creation process started
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/StartEventResult"
+            "422":
+              description: Process could not be started
+      "/citizens/{uid}/jurisdictions/{jid}/case-types/{ctid}/validate":
+        post:
+          tags:
+            - case-details-endpoint
+          summary: Validate a set of fields as Case worker
+          description: Validate the case data entered during the case/event creation process.
+          operationId: validateCaseDetailsUsingPOST_1
+          parameters:
+            - in: header
+              name: Authorization
+              description: Keyword `Bearer` followed by a valid IDAM user token
+              required: true
+              schema:
+                type: string
+            - name: ctid
+              in: path
+              description: Case type ID
+              required: true
+              schema:
+                type: string
+            - name: jid
+              in: path
+              description: Jurisdiction ID
+              required: true
+              schema:
+                type: string
+            - name: pageId
+              in: query
+              description: Page ID
+              required: false
+              schema:
+                type: string
+            - in: header
+              name: ServiceAuthorization
+              description: Valid Service-to-Service JWT token for a whitelisted micro-service
+              required: true
+              schema:
+                type: string
+            - name: uid
+              in: path
+              description: Idam user ID
+              required: true
+              schema:
+                type: string
+          requestBody:
+            $ref: "#/components/requestBodies/CaseDataContent"
+          responses:
+            "200":
+              description: Validation OK
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/JsonNode"
+            "409":
+              description: Case reference not unique
+            "422":
+              description: Field validation failed
+      /globalSearch:
+        post:
+          tags:
+            - global-search-endpoint
+          summary: Global Search Request
+          description: Global Search Request
+          operationId: searchForCasesUsingPOST
+          parameters:
+            - in: header
+              name: Authorization
+              description: Keyword `Bearer` followed by a valid IDAM user token
+              required: true
+              schema:
+                type: string
+            - in: header
+              name: ServiceAuthorization
+              description: Valid Service-to-Service JWT token for a whitelisted micro-service
+              required: true
+              schema:
+                type: string
+          requestBody:
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/GlobalSearchRequestPayload"
+            description: requestPayload
+            required: true
+          responses:
+            "200":
+              description: Search Request Valid
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/GlobalSearchResponsePayload"
+            "400":
+              description: |-
+                One or more of the following reasons:
+                1) Date of death invalid format
+                2) Sort by category invalid
+                3) Sort direction invalid
+                4) Max return record count must be between 1 and 10000
+                5) Must have at least one search criteria
+                6) Jurisdiction ID exceeds maximum length of 70
+                7) State ID exceeds maximum length of 70
+                8) Case type ID exceeds maximum length of 70
+                9) Case reference invalid format
+                10) Start record number must be 1 or more
+                11) Date of birth invalid format
+              content:
+                application/json:
+                  examples:
+                    response:
+                      value: |-
+                        {
+                           "status": "400",
+                           "error": "Bad Request",
+                           "message": "Input not valid",
+                           "path": "/globalSearch",
+                           "details": [ "State ID exceeds maximum length of 70" ]
+                        }
+      /searchCases:
+        post:
+          tags:
+            - Elastic Based Search API
+          summary: Search cases according to the provided ElasticSearch query. Supports
+            searching across multiple case types.
+          operationId: searchCasesUsingPOST
+          parameters:
+            - in: header
+              name: Authorization
+              description: Keyword `Bearer` followed by a valid IDAM user token
+              required: true
+              schema:
+                type: string
+            - name: ctid
+              in: query
+              description: Comma separated list of case type ID(s) or '*' if the search should
+                be applied on any existing case type. Note that using '*' is an
+                expensive operation and might have low response times so always
+                prefer explicitly listing the case types when known in advance
+              required: true
+              explode: true
+              schema:
+                type: array
+                items:
+                  type: string
+            - name: data_classification
+              in: query
+              description: data_classification
+              required: false
+              schema:
+                type: boolean
+                default: true
+            - in: header
+              name: ServiceAuthorization
+              description: Valid Service-to-Service JWT token for a whitelisted micro-service
+              required: true
+              schema:
+                type: string
+          requestBody:
+            content:
+              application/json:
+                schema:
+                  type: string
+            description: Native ElasticSearch Search API request. Please refer to the
+              ElasticSearch official documentation. For cross case type search, the
+              search results will contain only metadata by default (no case field
+              data). To get case data in the search results, please state the alias
+              fields to be returned in the _source property for e.g.
+              "_source":["alias.customer","alias.postcode"]
+            required: true
+          responses:
+            "200":
+              description: List of case data for the given search request
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/CaseSearchResult"
+    servers:
+      - url: //localhost/
+    components:
+      requestBodies:
+        CaseDataContent:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CaseDataContent"
+          description: content
+          required: true
+        CaseDataContent2:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CaseDataContent"
+          description: caseDataContent
+          required: true
+      schemas:
+        AccessControlList:
+          type: object
+          title: AccessControlList
+        AfterSubmitCallbackResponse:
+          type: object
+          properties:
+            confirmation_body:
+              type: string
+            confirmation_header:
+              type: string
+          title: AfterSubmitCallbackResponse
+        AuditEvent:
+          type: object
+          properties:
+            case_type_id:
+              type: string
+            case_type_version:
+              type: integer
+              format: int32
+            created_date:
+              type: string
+              format: date-time
+            data:
+              type: object
+              description: Case data as defined in case type definition. See
+                `docs/api/case-data.md` for data structure.
+              additionalProperties:
+                $ref: "#/components/schemas/JsonNode"
+            data_classification:
+              type: object
+              description: Same structure as `data` with classification (`PUBLIC`, `PRIVATE`,
+                `RESTRICTED`) as field's value.
+              additionalProperties:
+                $ref: "#/components/schemas/JsonNode"
+            description:
+              type: string
+            event_name:
+              type: string
+            id:
+              type: string
+            proxied_by:
+              type: string
+            proxied_by_first_name:
+              type: string
+            proxied_by_last_name:
+              type: string
+            security_classification:
+              type: string
+              enum:
+                - PRIVATE
+                - PUBLIC
+                - RESTRICTED
+            security_classifications:
+              type: object
+              description: Deprecated. Use `data_classification` instead.
+              additionalProperties:
+                $ref: "#/components/schemas/JsonNode"
+            significant_item:
+              $ref: "#/components/schemas/SignificantItem"
+            state_id:
+              type: string
+            state_name:
+              type: string
+            summary:
+              type: string
+            user_first_name:
+              type: string
+            user_id:
+              type: string
+            user_last_name:
+              type: string
+          title: AuditEvent
+        CaseDataContent:
+          type: object
+          properties:
+            case_reference:
+              type: string
+            data:
+              type: object
+              additionalProperties:
+                $ref: "#/components/schemas/JsonNode"
+            data_classification:
+              type: object
+              additionalProperties:
+                $ref: "#/components/schemas/JsonNode"
+            draft_id:
+              type: string
+            event:
+              $ref: "#/components/schemas/Event"
+            event_data:
+              type: object
+              additionalProperties:
+                $ref: "#/components/schemas/JsonNode"
+            event_token:
+              type: string
+            ignore_warning:
+              type: boolean
+            on_behalf_of_token:
+              type: string
+            security_classification:
+              type: string
+            supplementary_data_request:
+              type: object
+              additionalProperties:
+                type: object
+                additionalProperties:
+                  type: object
+          title: CaseDataContent
+        CaseDetails:
+          type: object
+          properties:
+            after_submit_callback_response:
+              $ref: "#/components/schemas/AfterSubmitCallbackResponse"
+            callback_response_status:
+              type: string
+            callback_response_status_code:
+              type: integer
+              format: int32
+            case_data:
+              type: object
+              description: Case data as defined in case type definition. See
+                `docs/api/case-data.md` for data structure.
+              additionalProperties:
+                $ref: "#/components/schemas/JsonNode"
+            case_type_id:
+              type: string
+            created_date:
+              type: string
+              format: date-time
+            data_classification:
+              type: object
+              description: Same structure as `case_data` with classification (`PUBLIC`,
+                `PRIVATE`, `RESTRICTED`) as field's value.
+              additionalProperties:
+                $ref: "#/components/schemas/JsonNode"
+            delete_draft_response_status:
+              type: string
+            delete_draft_response_status_code:
+              type: integer
+              format: int32
+            id:
+              type: integer
+              format: int64
+            jurisdiction:
+              type: string
+            last_modified:
+              type: string
+              format: date-time
+            last_state_modified_date:
+              type: string
+              format: date-time
+            security_classification:
+              type: string
+              enum:
+                - PRIVATE
+                - PUBLIC
+                - RESTRICTED
+            security_classifications:
+              type: object
+              description: Deprecated. Use `data_classification` instead.
+              additionalProperties:
+                $ref: "#/components/schemas/JsonNode"
+            state:
+              type: string
+            supplementary_data:
+              type: object
+              additionalProperties:
+                $ref: "#/components/schemas/JsonNode"
+            version:
+              type: integer
+              format: int32
+          title: CaseDetails
+        CaseDraft:
+          type: object
+          properties:
+            caseDataContent:
+              $ref: "#/components/schemas/CaseDataContent"
+            caseTypeId:
+              type: string
+            eventId:
+              type: string
+            jurisdictionId:
+              type: string
+            userId:
+              type: string
+          title: CaseDraft
+        CaseFieldDefinition:
+          type: object
+          properties:
+            acls:
+              type: array
+              items:
+                $ref: "#/components/schemas/AccessControlList"
+            case_type_id:
+              type: string
+            complexACLs:
+              type: array
+              items:
+                $ref: "#/components/schemas/ComplexACL"
+            display_context:
+              type: string
+            display_context_parameter:
+              type: string
+            field_type:
+              $ref: "#/components/schemas/FieldTypeDefinition"
+            formatted_value:
+              type: object
+            hidden:
+              type: boolean
+            hint_text:
+              type: string
+            id:
+              type: string
+            label:
+              type: string
+            live_from:
+              type: string
+            live_until:
+              type: string
+            metadata:
+              type: boolean
+            order:
+              type: integer
+              format: int32
+            retain_hidden_value:
+              type: boolean
+            security_classification:
+              type: string
+            show_condition:
+              type: string
+          title: CaseFieldDefinition
+        CaseSearchResult:
+          type: object
+          properties:
+            case_types_results:
+              type: array
+              items:
+                $ref: "#/components/schemas/CaseTypeResults"
+            cases:
+              type: array
+              items:
+                $ref: "#/components/schemas/CaseDetails"
+            total:
+              type: integer
+              format: int64
+          title: CaseSearchResult
+        CaseTypeResults:
+          type: object
+          properties:
+            case_type_id:
+              type: string
+            total:
+              type: integer
+              format: int64
+          title: CaseTypeResults
+        CaseView:
+          type: object
+          properties:
+            case_id:
+              type: string
+            case_type:
+              $ref: "#/components/schemas/CaseViewType"
+            channels:
+              type: array
+              items:
+                type: string
+            events:
+              type: array
+              items:
+                $ref: "#/components/schemas/CaseViewEvent"
+            metadataFields:
+              type: array
+              items:
+                $ref: "#/components/schemas/CaseViewField"
+            state:
+              $ref: "#/components/schemas/ProfileCaseState"
+            tabs:
+              type: array
+              items:
+                $ref: "#/components/schemas/CaseViewTab"
+            triggers:
+              type: array
+              items:
+                $ref: "#/components/schemas/CaseViewActionableEvent"
+          title: CaseView
+        CaseViewActionableEvent:
+          type: object
+          properties:
+            description:
+              type: string
+            id:
+              type: string
+            name:
+              type: string
+            order:
+              type: integer
+              format: int32
+          title: CaseViewActionableEvent
+        CaseViewEvent:
+          type: object
+          properties:
+            comment:
+              type: string
+            event_id:
+              type: string
+            event_name:
+              type: string
+            id:
+              type: integer
+              format: int64
+            proxied_by:
+              type: string
+            proxied_by_first_name:
+              type: string
+            proxied_by_last_name:
+              type: string
+            significant_item:
+              $ref: "#/components/schemas/SignificantItem"
+            state_id:
+              type: string
+            state_name:
+              type: string
+            summary:
+              type: string
+            timestamp:
+              type: string
+              format: date-time
+            user_first_name:
+              type: string
+            user_id:
+              type: string
+            user_last_name:
+              type: string
+          title: CaseViewEvent
+        CaseViewField:
+          type: object
+          properties:
+            acls:
+              type: array
+              items:
+                $ref: "#/components/schemas/AccessControlList"
+            display_context:
+              type: string
+            display_context_parameter:
+              type: string
+            field_type:
+              $ref: "#/components/schemas/FieldTypeDefinition"
+            formatted_value:
+              type: object
+            hidden:
+              type: boolean
+            hint_text:
+              type: string
+            id:
+              type: string
+            label:
+              type: string
+            metadata:
+              type: boolean
+            order:
+              type: integer
+              format: int32
+            publish:
+              type: boolean
+            publish_as:
+              type: string
+            retain_hidden_value:
+              type: boolean
+            security_label:
+              type: string
+            show_condition:
+              type: string
+            show_summary_change_option:
+              type: boolean
+            show_summary_content_option:
+              type: integer
+              format: int32
+            validation_expr:
+              type: string
+            value:
+              type: object
+          title: CaseViewField
+        CaseViewJurisdiction:
+          type: object
+          properties:
+            description:
+              type: string
+            id:
+              type: string
+            name:
+              type: string
+          title: CaseViewJurisdiction
+        CaseViewTab:
+          type: object
+          properties:
+            fields:
+              type: array
+              items:
+                $ref: "#/components/schemas/CaseViewField"
+            id:
+              type: string
+            label:
+              type: string
+            order:
+              type: integer
+              format: int32
+            role:
+              type: string
+            show_condition:
+              type: string
+          title: CaseViewTab
+        CaseViewType:
+          type: object
+          properties:
+            description:
+              type: string
+            id:
+              type: string
+            jurisdiction:
+              $ref: "#/components/schemas/CaseViewJurisdiction"
+            name:
+              type: string
+            printEnabled:
+              type: boolean
+          title: CaseViewType
+        ComplexACL:
+          type: object
+          title: ComplexACL
+        Document:
+          type: object
+          properties:
+            description:
+              type: string
+            name:
+              type: string
+            type:
+              type: string
+            url:
+              type: string
+          title: Document
+        DraftResponse:
+          type: object
+          properties:
+            created:
+              type: string
+              format: date-time
+            document:
+              $ref: "#/components/schemas/CaseDraft"
+            id:
+              type: string
+            type:
+              type: string
+            updated:
+              type: string
+              format: date-time
+          title: DraftResponse
+        Event:
+          type: object
+          properties:
+            description:
+              type: string
+            id:
+              type: string
+            summary:
+              type: string
+          title: Event
+        FieldTypeDefinition:
+          type: object
+          properties:
+            collection_field_type:
+              $ref: "#/components/schemas/FieldTypeDefinition"
+            complex_fields:
+              type: array
+              items:
+                $ref: "#/components/schemas/CaseFieldDefinition"
+            fixed_list_items:
+              type: array
+              items:
+                $ref: "#/components/schemas/FixedListItemDefinition"
+            id:
+              type: string
+            max:
+              type: number
+            min:
+              type: number
+            regular_expression:
+              type: string
+            type:
+              type: string
+          title: FieldTypeDefinition
+        FixedListItemDefinition:
+          type: object
+          properties:
+            code:
+              type: string
+            label:
+              type: string
+            order:
+              type: string
+          title: FixedListItemDefinition
+        GlobalSearchRequestPayload:
+          type: object
+          properties:
+            maxReturnRecordCount:
+              type: integer
+              format: int32
+              minimum: 0
+              maximum: 9223372036854776000
+              exclusiveMinimum: false
+              exclusiveMaximum: false
+            searchCriteria:
+              $ref: "#/components/schemas/SearchCriteria"
+            sortCriteria:
+              type: array
+              items:
+                $ref: "#/components/schemas/SortCriteria"
+            startRecordNumber:
+              type: integer
+              format: int32
+              minimum: 1
+              exclusiveMinimum: false
+          title: GlobalSearchRequestPayload
+        GlobalSearchResponsePayload:
+          type: object
+          properties:
+            resultInfo:
+              $ref: "#/components/schemas/ResultInfo"
+            results:
+              type: array
+              items:
+                $ref: "#/components/schemas/Result"
+          title: GlobalSearchResponsePayload
+        JsonNode:
+          type: object
+          title: JsonNode
+        PaginatedSearchMetadata:
+          type: object
+          properties:
+            total_pages_count:
+              type: integer
+              format: int32
+            total_results_count:
+              type: integer
+              format: int32
+          title: PaginatedSearchMetadata
+        Party:
+          type: object
+          properties:
+            addressLine1:
+              type: string
+            dateOfBirth:
+              type: string
+              pattern: ^\d{4}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$
+            dateOfDeath:
+              type: string
+              pattern: ^\d{4}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$
+            emailAddress:
+              type: string
+            partyName:
+              type: string
+            postCode:
+              type: string
+          title: Party
+        ProfileCaseState:
+          type: object
+          properties:
+            description:
+              type: string
+            id:
+              type: string
+            name:
+              type: string
+            title_display:
+              type: string
+          title: ProfileCaseState
+        Result:
+          type: object
+          properties:
+            CCDCaseTypeId:
+              type: string
+            CCDCaseTypeName:
+              type: string
+            CCDJurisdictionId:
+              type: string
+            CCDJurisdictionName:
+              type: string
+            HMCTSServiceId:
+              type: string
+            HMCTSServiceShortDescription:
+              type: string
+            baseLocationId:
+              type: string
+            baseLocationName:
+              type: string
+            caseManagementCategoryId:
+              type: string
+            caseManagementCategoryName:
+              type: string
+            caseNameHmctsInternal:
+              type: string
+            caseReference:
+              type: string
+            otherReferences:
+              type: array
+              items:
+                type: string
+            processForAccess:
+              type: string
+            regionId:
+              type: string
+            regionName:
+              type: string
+            stateId:
+              type: string
+          title: Result
+        ResultInfo:
+          type: object
+          properties:
+            caseStartRecord:
+              type: integer
+              format: int32
+            casesReturned:
+              type: integer
+              format: int32
+            moreResultsToGo:
+              type: boolean
+          title: ResultInfo
+        SearchCriteria:
+          type: object
+          properties:
+            CCDCaseTypeIds:
+              type: array
+              items:
+                type: string
+            CCDJurisdictionIds:
+              type: array
+              items:
+                type: string
+            caseManagementBaseLocationIds:
+              type: array
+              items:
+                type: string
+            caseManagementRegionIds:
+              type: array
+              items:
+                type: string
+            caseReferences:
+              type: array
+              items:
+                type: string
+            otherReferences:
+              type: array
+              items:
+                type: string
+            parties:
+              type: array
+              items:
+                $ref: "#/components/schemas/Party"
+            stateIds:
+              type: array
+              items:
+                type: string
+          title: SearchCriteria
+        SignificantItem:
+          type: object
+          properties:
+            description:
+              type: string
+            type:
+              type: string
+            url:
+              type: string
+          title: SignificantItem
+        SortCriteria:
+          type: object
+          properties:
+            sortBy:
+              type: string
+            sortDirection:
+              type: string
+          title: SortCriteria
+        StartEventResult:
+          type: object
+          properties:
+            case_details:
+              $ref: "#/components/schemas/CaseDetails"
+            event_id:
+              type: string
+            token:
+              type: string
+          title: StartEventResult
+        UserId:
+          type: object
+          properties:
+            id:
+              type: string
+          title: UserId

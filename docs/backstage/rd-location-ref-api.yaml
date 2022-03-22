@@ -1,0 +1,505 @@
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: rd-location-ref-api 
+  description: rd-location-ref-api API
+spec:
+  type: openapi
+  system: rd-location-ref-api
+  lifecycle: production
+  owner: dcd_group_referencedata_v2
+  definition: |
+    openapi: 3.0.0
+    info:
+      description: Api Documentation
+      version: "1.0"
+      title: Api Documentation
+      termsOfService: urn:tos
+      contact: {}
+      license:
+        name: Apache 2.0
+        url: http://www.apache.org/licenses/LICENSE-2.0
+    tags:
+      - name: lrd-api-controller
+        description: Lrd Api Controller
+      - name: lrd-court-venue-controller
+        description: Lrd Court Venue Controller
+      - name: welcome-controller
+        description: Welcome Controller
+    paths:
+      /:
+        get:
+          tags:
+            - welcome-controller
+          summary: Welcome message for the Location Ref Data API
+          operationId: welcomeUsingGET
+          responses:
+            "200":
+              description: Welcome message
+              content:
+                application/json:
+                  schema:
+                    type: string
+          deprecated: false
+      /refdata/location/building-locations:
+        get:
+          tags:
+            - lrd-api-controller
+          summary: This API will retrieve the Building Location details for the request
+            param provided
+          description: >-
+            Any valid IDAM role is sufficient to access this API 
+
+            For the request param 'epimms_id', the value can be a single id for which single building location object would be returned or a list of ids passed as comma separated values for which the associated building location objects would be returned as a list.
+
+            Additionally, if 'ALL' is passed as the epimms_id value, all the available building locations are returned as a list.For the request param 'building_location_name', the value needs to be a single building location name for which a single building location object would be returned.
+
+            For the request param 'region_id', the value needs to be a single region_id for which all the associated building location objects would be returned as a list.
+
+            For the request param 'cluster_id', the value needs to be a single cluster_id for which all the associated building location objects would be returned as a list.
+
+            If no params are passed, then all the available building locations which have the building location status as 'OPEN' are returned as a list.
+          operationId: retrieveBuildingLocationDetailsUsingGET
+          parameters:
+            - name: building_location_name
+              in: query
+              description: building_location_name
+              required: false
+              schema:
+                type: string
+            - name: cluster_id
+              in: query
+              description: cluster_id
+              required: false
+              schema:
+                type: string
+            - name: epimms_id
+              in: query
+              description: epimms_id
+              required: false
+              schema:
+                type: string
+            - name: region_id
+              in: query
+              description: region_id
+              required: false
+              schema:
+                type: string
+          responses:
+            "200":
+              description: Successfully retrieved the building Location details
+              content:
+                application/json:
+                  schema:
+                    type: array
+                    items:
+                      type: array
+                      items:
+                        $ref: "#/components/schemas/LrdBuildingLocationResponse"
+            "400":
+              description: Bad Request
+            "401":
+              description: "Forbidden Error: Access denied"
+            "404":
+              description: No Building Location found with the given ID
+            "500":
+              description: Internal Server Error
+          security:
+            - Authorization: []
+            - ServiceAuthorization: []
+          deprecated: false
+      /refdata/location/court-venues:
+        get:
+          tags:
+            - lrd-court-venue-controller
+          summary: This API will retrieve Court Venues for the request provided
+          description: >-
+            No roles required to access this API.
+
+            For the request param 'epimms_id', either a single epimms_id or a list of epimms_ids separated by comascan be passed. In any of these cases, a list of associated court venues would be returned.
+
+            Additionally, if 'ALL' is passed as the epimms_id value, then all the available court venues associated with the available list of epimms_id are returned as a list.
+
+            For the request param 'court_type_id', then all the court venues that have the status as 'Open' with the requested court_type_id are returned as a list.
+
+            For the request param 'region_id', the value needs to be a single region_id for which all the associated court venues with the status as 'Open' would be returned as a list.
+
+            For the request param 'cluster_id', the value needs to be a single cluster_id for which all the associated court venues with the status as 'Open' would be returned as a list.
+
+            For the request param 'court_venue_name', all the associated court venues that have the same site name or court name irrespective of the case are returned as a list.
+
+            If no params are passed, then all the available court venues which have the status as 'OPEN' are returned as a list.
+          operationId: retrieveCourtVenuesUsingGET
+          parameters:
+            - name: cluster_id
+              in: query
+              description: cluster_id
+              required: false
+              schema:
+                type: integer
+                format: int32
+            - name: court_type_id
+              in: query
+              description: court_type_id
+              required: false
+              schema:
+                type: integer
+                format: int32
+            - name: court_venue_name
+              in: query
+              description: court_venue_name
+              required: false
+              schema:
+                type: string
+            - name: epimms_id
+              in: query
+              description: epimms_id
+              required: false
+              schema:
+                type: string
+            - name: region_id
+              in: query
+              description: region_id
+              required: false
+              schema:
+                type: integer
+                format: int32
+          responses:
+            "200":
+              description: Successfully retrieved list of Court Venues for the request provided
+              content:
+                application/json:
+                  schema:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/LrdCourtVenueResponse"
+            "400":
+              description: Bad Request
+            "401":
+              description: "Forbidden Error: Access denied"
+            "404":
+              description: No Court Venues found for the request provided
+            "500":
+              description: Internal Server Error
+          security:
+            - Authorization: []
+            - ServiceAuthorization: []
+          deprecated: false
+      /refdata/location/court-venues/services:
+        get:
+          tags:
+            - lrd-court-venue-controller
+          summary: This API will retrieve Court Venues for given Service Code
+          description: No roles required to access this API
+          operationId: retrieveCourtVenuesByServiceCodeUsingGET
+          parameters:
+            - name: service_code
+              in: query
+              description: service_code
+              required: true
+              schema:
+                type: string
+          responses:
+            "200":
+              description: Successfully retrieved list of Court Venues for given Service Code
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/LrdCourtVenuesByServiceCodeResponse"
+            "400":
+              description: Bad Request
+            "401":
+              description: "Forbidden Error: Access denied"
+            "404":
+              description: No Court Venues found with the given Service Code
+            "500":
+              description: Internal Server Error
+          security:
+            - Authorization: []
+            - ServiceAuthorization: []
+          deprecated: false
+      /refdata/location/court-venues/venue-search:
+        get:
+          tags:
+            - lrd-court-venue-controller
+          summary: This endpoint will be used for Court Venues search based on partial
+            query. When the consumers inputs any 3 characters, they will call this
+            api to fetch the required result.
+          description: No roles required to access this API
+          operationId: retrieveCourtVenuesBySearchStringUsingGET
+          parameters:
+            - name: court-type-id
+              in: query
+              description: Alphabets and Numeric values only allowed in comma separated format
+              required: false
+              allowEmptyValue: false
+              schema:
+                type: string
+            - name: search-string
+              in: query
+              description: Alphabets, Numeric And Special characters(_@.,’&-() ) only allowed
+                and String should contain minimum three chars.
+              required: true
+              allowEmptyValue: false
+              schema:
+                type: string
+          responses:
+            "200":
+              description: Successfully retrieved list of Court Venues for the request provided
+              content:
+                application/json:
+                  schema:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/LrdCourtVenueResponse"
+            "400":
+              description: Bad Request
+            "401":
+              description: "Forbidden Error: Access denied"
+            "500":
+              description: Internal Server Error
+          security:
+            - Authorization: []
+            - ServiceAuthorization: []
+          deprecated: false
+      /refdata/location/orgServices:
+        get:
+          tags:
+            - lrd-api-controller
+          summary: This API will retrieve service code details association with ccd case
+            type
+          description: No roles required to access this API
+          operationId: retrieveOrgServiceDetailsUsingGET
+          parameters:
+            - name: ccdCaseType
+              in: query
+              description: ccdCaseType
+              required: false
+              schema:
+                type: string
+            - name: ccdServiceNames
+              in: query
+              description: ccdServiceNames
+              required: false
+              schema:
+                type: string
+            - name: serviceCode
+              in: query
+              description: serviceCode
+              required: false
+              schema:
+                type: string
+          responses:
+            "200":
+              description: Successfully retrieved list of Service Code or Ccd Case Type Details
+              content:
+                application/json:
+                  schema:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/LrdOrgInfoServiceResponse"
+            "400":
+              description: Bad Request
+            "401":
+              description: "Forbidden Error: Access denied"
+            "404":
+              description: No Service found with the given ID
+            "500":
+              description: Internal Server Error
+          security:
+            - Authorization: []
+            - ServiceAuthorization: []
+          deprecated: false
+      /refdata/location/regions:
+        get:
+          tags:
+            - lrd-api-controller
+          summary: This API will retrieve Region details for the given Region description
+          description: No roles required to access this API
+          operationId: retrieveRegionDetailsUsingGET
+          parameters:
+            - name: region
+              in: query
+              description: region
+              required: false
+              schema:
+                type: string
+            - name: regionId
+              in: query
+              description: regionId
+              required: false
+              schema:
+                type: string
+          responses:
+            "200":
+              description: Successfully retrieved a list of Region Details
+              content:
+                application/json:
+                  schema:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/LrdRegionResponse"
+            "400":
+              description: Bad Request
+            "401":
+              description: "Forbidden Error: Access denied"
+            "404":
+              description: No Region(s) found with the given Description(s) or ID(s)
+            "500":
+              description: Internal Server Error
+          security:
+            - Authorization: []
+            - ServiceAuthorization: []
+          deprecated: false
+    servers:
+      - url: //rd-location-ref-api-aat.service.core-compute-aat.internal/
+    components:
+      securitySchemes:
+        Authorization:
+          type: apiKey
+          name: Authorization
+          in: header
+        ServiceAuthorization:
+          type: apiKey
+          name: ServiceAuthorization
+          in: header
+      schemas:
+        LrdBuildingLocationResponse:
+          type: object
+          properties:
+            address:
+              type: string
+            area:
+              type: string
+            building_location_id:
+              type: string
+            building_location_name:
+              type: string
+            building_location_status:
+              type: string
+            cluster_id:
+              type: string
+            cluster_name:
+              type: string
+            court_finder_url:
+              type: string
+            court_venues:
+              type: array
+              items:
+                $ref: "#/components/schemas/LrdCourtVenueResponse"
+            epimms_id:
+              type: string
+            postcode:
+              type: string
+            region:
+              type: string
+            region_id:
+              type: string
+          title: LrdBuildingLocationResponse
+        LrdCourtVenueResponse:
+          type: object
+          properties:
+            closed_date:
+              type: string
+            cluster_id:
+              type: string
+            cluster_name:
+              type: string
+            court_address:
+              type: string
+            court_location_code:
+              type: string
+            court_name:
+              type: string
+            court_open_date:
+              type: string
+            court_status:
+              type: string
+            court_type:
+              type: string
+            court_type_id:
+              type: string
+            court_venue_id:
+              type: string
+            dx_address:
+              type: string
+            epimms_id:
+              type: string
+            is_case_management_location:
+              type: string
+            is_hearing_location:
+              type: string
+            open_for_public:
+              type: string
+            phone_number:
+              type: string
+            postcode:
+              type: string
+            region:
+              type: string
+            region_id:
+              type: string
+            site_name:
+              type: string
+            venue_name:
+              type: string
+            welsh_court_address:
+              type: string
+            welsh_site_name:
+              type: string
+          title: LrdCourtVenueResponse
+        LrdCourtVenuesByServiceCodeResponse:
+          type: object
+          properties:
+            court_type:
+              type: string
+            court_type_id:
+              type: string
+            court_venues:
+              type: array
+              items:
+                $ref: "#/components/schemas/LrdCourtVenueResponse"
+            service_code:
+              type: string
+            welsh_court_type:
+              type: string
+          title: LrdCourtVenuesByServiceCodeResponse
+        LrdOrgInfoServiceResponse:
+          type: object
+          properties:
+            business_area:
+              type: string
+            ccd_case_types:
+              type: array
+              items:
+                type: string
+            ccd_service_name:
+              type: string
+            jurisdiction:
+              type: string
+            last_update:
+              type: string
+            org_unit:
+              type: string
+            service_code:
+              type: string
+            service_description:
+              type: string
+            service_id:
+              type: integer
+              format: int64
+            service_short_description:
+              type: string
+            sub_business_area:
+              type: string
+          title: LrdOrgInfoServiceResponse
+        LrdRegionResponse:
+          type: object
+          properties:
+            description:
+              type: string
+            region_id:
+              type: string
+            welsh_description:
+              type: string
+          title: LrdRegionResponse
