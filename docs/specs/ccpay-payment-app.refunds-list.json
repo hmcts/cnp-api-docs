@@ -41,13 +41,15 @@
                         "name": "start_date",
                         "in": "path",
                         "description": "Format - date time (as full-date in RFC3339). The start date time to filter on. If the time is not supplied then it will be defaulted to 00:00:00",
-                        "type": "string"
+                        "type": "string",
+                        "required": true
                     },
                     {
                         "name": "end_date",
                         "in": "path",
                         "description": "Format - date time (as full-date in RFC3339). The end date to filter on. If the time is not supplied then it will be defaulted to 00:00:00",
-                        "type": "string"
+                        "type": "string",
+                        "required": true
                     }
                 ],
                 "produces": [
