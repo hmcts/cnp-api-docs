@@ -31,7 +31,7 @@
         }
     ],
     "paths": {
-        "/testrefunds/{start_date}/{end_date}": {
+        "/refunds": {
             "get": {
                 "description": "Returns all refunds that match filter criteria",
                 "operationId": "retrieveRefunds",
