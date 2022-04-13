@@ -1,0 +1,446 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "A new URL will be provided at a later date.\n\nNew Fee API to retrieve all the approved fee.",
+    "version": "1.0",
+    "title": "Fees API",
+    "contact": {
+      "name": "Anil Dhawale",
+      "email": "Anil.Dhawale@hmcts.net"
+    }
+  },
+  "host": "URL",
+  "basePath": "/1.0/",
+  "tags": [
+    {
+      "name": "fee-controller",
+      "description": "Fee Controller"
+    }
+  ],
+  "paths": {
+    "/fees": {
+      "get": {
+        "tags": [
+          "fee-controller"
+        ],
+        "summary": "get all approved fees",
+        "operationId": "searchUsingGET",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Subscription ID",
+            "in": "header",
+            "description": "Subscription ID",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Found",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Fee2"
+              },
+              "example": [
+                {
+                  "channel_type": {
+                    "creation_time": "2022-03-03T12:07:19.366Z",
+                    "last_updated": "2022-03-03T12:07:19.366Z",
+                    "name": "string"
+                  },
+                  "code": "string",
+                  "current_version": {
+                    "consolidated_fee_order_name": "string",
+                    "description": "string",
+                    "flat_amount": {
+                      "amount": 0
+                    },
+                    "memo_line": "string",
+                    "natural_account_code": "string",
+                    "status": "approved",
+                    "valid_from": "2022-03-03T12:07:19.367Z",
+                    "valid_to": "2022-03-03T12:07:19.367Z",
+                    "version": 0
+                  },
+                  "event_type": {
+                    "creation_time": "2022-03-03T12:07:19.367Z",
+                    "last_updated": "2022-03-03T12:07:19.367Z",
+                    "name": "string"
+                  },
+                  "fee_type": "string",
+                  "fee_versions": [
+                    {
+                      "consolidated_fee_order_name": "string",
+                      "description": "string",
+                      "flat_amount": {
+                        "amount": 0
+                      },
+                      "memo_line": "string",
+                      "natural_account_code": "string",
+                      "status": "approved",
+                      "valid_from": "2022-03-03T12:07:19.367Z",
+                      "valid_to": "2022-03-03T12:07:19.367Z",
+                      "version": 0
+                    },
+                    {
+                      "consolidated_fee_order_name": "string",
+                      "description": "string",
+                      "memo_line": "string",
+                      "natural_account_code": "string",
+                      "percentage_amount": {
+                        "percentage": 0
+                      },
+                      "status": "approved",
+                      "valid_from": "2022-03-03T12:07:19.367Z",
+                      "valid_to": "2022-03-03T12:07:19.367Z",
+                      "version": 0
+                    },
+                    {
+                      "consolidated_fee_order_name": "string",
+                      "description": "string",
+                      "memo_line": "string",
+                      "natural_account_code": "string",
+                      "status": "approved",
+                      "valid_from": "2022-03-03T12:07:19.367Z",
+                      "valid_to": "2022-03-03T12:07:19.367Z",
+                      "version": 0,
+                      "volume_amount": {
+                        "amount": 0
+                      }
+                    }
+                  ],
+                  "jurisdiction1": {
+                    "creation_time": "2022-03-03T12:07:19.367Z",
+                    "last_updated": "2022-03-03T12:07:19.367Z",
+                    "name": "string"
+                  },
+                  "jurisdiction2": {
+                    "creation_time": "2022-03-03T12:07:19.367Z",
+                    "last_updated": "2022-03-03T12:07:19.367Z",
+                    "name": "string"
+                  },
+                  "service_type": {
+                    "creation_time": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "last_updated": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "name": {
+                      "type": "string"
+                    }
+                  },
+                  "keyword": "string",
+                  "unspecified_claim_amount": true
+                }
+              ]
+            }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "429": {
+            "description": "Too Many Requests"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "ChannelType": {
+      "type": "object",
+      "properties": {
+        "creation_time": {
+          "description": "creation time for channel",
+          "type": "string",
+          "format": "date-time"
+        },
+        "last_updated": {
+          "description": "last updated time for channel",
+          "type": "string",
+          "format": "date-time"
+        },
+        "name": {
+          "description": "channel name",
+          "type": "string"
+        }
+      },
+      "title": "ChannelType"
+    },
+    "EventType": {
+      "type": "object",
+      "properties": {
+        "creation_time": {
+          "description": "creation time for event",
+          "type": "string",
+          "format": "date-time"
+        },
+        "last_updated": {
+          "description": "last updated time for event",
+          "type": "string",
+          "format": "date-time"
+        },
+        "name": {
+          "description": "event name",
+          "type": "string"
+        }
+      },
+      "title": "EventType"
+    },
+    "Fee2": {
+      "type": "object",
+      "properties": {
+        "channel_type": {
+          "$ref": "#/definitions/ChannelType"
+        },
+        "code": {
+          "description": "Fee code",
+          "type": "string"
+        },
+        "current_version": {
+          "$ref": "#/definitions/CurrentFeeVersion"
+        },
+        "event_type": {
+          "$ref": "#/definitions/EventType"
+        },
+        "fee_type": {
+          "description": "Fee type",
+          "type": "string"
+        },
+        "fee_versions": {
+          "description": "Fee version",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/FeeVersion"
+          }
+        },
+        "jurisdiction1": {
+          "$ref": "#/definitions/Jurisdiction1"
+        },
+        "jurisdiction2": {
+          "$ref": "#/definitions/Jurisdiction2"
+        },
+        "service_type": {
+          "$ref": "#/definitions/SerivceType"
+        },
+        "keyword": {
+          "description": "keyword for the fee",
+          "type": "string"
+        },
+        "unspecified_claim_amount": {
+          "description": "unspecified claim amount",
+          "type": "boolean"
+        }
+      },
+      "title": "Fee2"
+    },
+    "CurrentFeeVersion": {
+      "type": "object",
+      "properties": {
+        "consolidated_fee_order_name": {
+          "description": "consolidated fee order name",
+          "type": "string"
+        },
+        "description": {
+          "description": "description for the fee",
+          "type": "string"
+        },
+        "flat_amount": {
+          "$ref": "#/definitions/FlatAmount"
+        },
+        "memo_line": {
+          "description": "memo for the fee",
+          "type": "string"
+        },
+        "natural_account_code": {
+          "description": "natural account code for the fee",
+          "type": "string"
+        },
+        "percentage_amount": {
+          "$ref": "#/definitions/PercentageAmount"
+        },
+        "status": {
+          "description": "status of the fee",
+          "type": "string",
+          "enum": [
+            "approved"
+          ]
+        },
+        "valid_from": {
+          "description": "fee valid from start date",
+          "type": "string",
+          "format": "date-time"
+        },
+        "valid_to": {
+          "description": "fee valid until end date",
+          "type": "string",
+          "format": "date-time"
+        },
+        "version": {
+          "description": "fee version",
+          "type": "integer",
+          "format": "int32"
+        },
+        "volume_amount": {
+          "$ref": "#/definitions/VolumeAmount"
+        }
+      },
+      "title": "CurrentFeeVersion"
+    },
+    "FeeVersion": {
+      "type": "object",
+      "properties": {
+        "consolidated_fee_order_name": {
+          "description": "consolidated fee order name",
+          "type": "string"
+        },
+        "description": {
+          "description": "description for the fee",
+          "type": "string"
+        },
+        "flat_amount": {
+          "$ref": "#/definitions/FlatAmount"
+        },
+        "memo_line": {
+          "description": "memo for the fee",
+          "type": "string"
+        },
+        "natural_account_code": {
+          "description": "natural account code for the fee",
+          "type": "string"
+        },
+        "percentage_amount": {
+          "$ref": "#/definitions/PercentageAmount"
+        },
+        "status": {
+          "description": "status for the fee",
+          "type": "string",
+          "enum": [
+            "approved"
+          ]
+        },
+        "valid_from": {
+          "description": "fee valid from start date",
+          "type": "string",
+          "format": "date-time"
+        },
+        "valid_to": {
+          "description": "fee valid until end date",
+          "type": "string",
+          "format": "date-time"
+        },
+        "version": {
+          "description": "fee version",
+          "type": "integer",
+          "format": "int32"
+        },
+        "volume_amount": {
+          "$ref": "#/definitions/VolumeAmount"
+        }
+      },
+      "title": "FeeVersion"
+    },
+    "FlatAmount": {
+      "type": "object",
+      "properties": {
+        "amount": {
+          "description": "value amount when fee type is flat amount",
+          "type": "number"
+        }
+      },
+      "title": "FlatAmount"
+    },
+    "Jurisdiction1": {
+      "type": "object",
+      "properties": {
+        "creation_time": {
+          "description": "creation time for the fee",
+          "type": "string",
+          "format": "date-time"
+        },
+        "last_updated": {
+          "description": "update time for the fee",
+          "type": "string",
+          "format": "date-time"
+        },
+        "name": {
+          "description": "name of jurisdiction1",
+          "type": "string"
+        }
+      },
+      "title": "Jurisdiction1"
+    },
+    "Jurisdiction2": {
+      "type": "object",
+      "properties": {
+        "creation_time": {
+          "description": "creation time for the fee",
+          "type": "string",
+          "format": "date-time"
+        },
+        "last_updated": {
+          "description": "update time for the fee",
+          "type": "string",
+          "format": "date-time"
+        },
+        "name": {
+          "description": "name of jurisdiction2",
+          "type": "string"
+        }
+      },
+      "title": "Jurisdiction2"
+    },
+    "PercentageAmount": {
+      "type": "object",
+      "properties": {
+        "percentage": {
+          "description": "percentage amount of the fee",
+          "type": "number"
+        }
+      },
+      "title": "PercentageAmount"
+    },
+    "VolumeAmount": {
+      "type": "object",
+      "properties": {
+        "amount": {
+          "description": "volume amount of the fee where the fee type is volume",
+          "type": "number"
+        }
+      },
+      "title": "VolumeAmount"
+    },
+    "SerivceType": {
+      "type": "object",
+      "properties": {
+        "creation_time": {
+          "description": "creation time for service type",
+          "type": "string",
+          "format": "date-time"
+        },
+        "last_updated": {
+          "description": "last updated time for service type",
+          "type": "string",
+          "format": "date-time"
+        },
+        "name": {
+          "description": "name for service type",
+          "type": "string"
+        }
+      },
+      "title": "ServiceTypeDto"
+    }
+  }
+}
