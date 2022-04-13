@@ -9,14 +9,37 @@
       "email": "Anil.Dhawale@hmcts.net"
     }
   },
-  "host": "URL",
-  "basePath": "/1.0/",
+  "host": "cft-api-mgmt-demo.azure-api.net",
+  "basePath": "/",
+  "schemes": [
+    "https"
+],
   "tags": [
     {
       "name": "fee-controller",
       "description": "Fee Controller"
     }
   ],
+  "securityDefinitions": {
+    "apiKeyHeader": {
+        "type": "apiKey",
+        "name": "Ocp-Apim-Subscription-Key",
+        "in": "header"
+    },
+    "apiKeyQuery": {
+        "type": "apiKey",
+        "name": "subscription-key",
+        "in": "query"
+    }
+},
+"security": [
+    {
+        "apiKeyHeader": []
+    },
+    {
+        "apiKeyQuery": []
+    }
+],
   "paths": {
     "/fees": {
       "get": {
@@ -27,15 +50,6 @@
         "operationId": "searchUsingGET",
         "produces": [
           "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "Subscription ID",
-            "in": "header",
-            "description": "Subscription ID",
-            "required": true,
-            "type": "string"
-          }
         ],
         "responses": {
           "200": {
