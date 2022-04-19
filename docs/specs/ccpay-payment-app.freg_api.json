@@ -10,7 +10,7 @@
     }
   },
   "host": "cft-api-mgmt-demo.azure-api.net",
-  "basePath": "/",
+  "basePath": "/fees-register",
   "schemes": [
     "https"
 ],
