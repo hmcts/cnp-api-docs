@@ -10,38 +10,38 @@
     }
   },
   "host": "cft-api-mgmt-demo.azure-api.net",
-  "basePath": "/fees-register",
+  "basePath": "/feeRegister-api",
   "schemes": [
     "https"
-],
+  ],
   "tags": [
     {
       "name": "fee-controller",
       "description": "Fee Controller"
     }
   ],
-   "securityDefinitions": {
+  "securityDefinitions": {
     "apiKeyHeader": {
-        "type": "apiKey",
-        "name": "Ocp-Apim-Subscription-Key",
-        "in": "header"
+      "type": "apiKey",
+      "name": "Ocp-Apim-Subscription-Key",
+      "in": "header"
     },
     "apiKeyQuery": {
-        "type": "apiKey",
-        "name": "subscription-key",
-        "in": "query"
+      "type": "apiKey",
+      "name": "subscription-key",
+      "in": "query"
     }
-},
-"security": [
+  },
+  "security": [
     {
-        "apiKeyHeader": []
+      "apiKeyHeader": []
     },
     {
-        "apiKeyQuery": []
+      "apiKeyQuery": []
     }
-],
+  ],
   "paths": {
-    "/fees": {
+    "/fees-register/approvedFees": {
       "get": {
         "tags": [
           "fee-controller"
@@ -53,7 +53,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Found",
+            "description": "Approved Status",
             "schema": {
               "type": "array",
               "items": {
