@@ -9,6 +9,10 @@
     {
       "name": "Payment_Status",
       "description": "Payment Status Update fields"
+    },
+    {
+      "name": "Payment_Status_second",
+      "description": "Update fields for payment status failure"
     }
   ],
   "paths": {
@@ -45,6 +49,50 @@
           },
           "429": {
             "description": "Request already received for this payment reference"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/payment-failures/{failure_reference}": {
+      "patch": {
+        "tags": [
+          "Payment_Status_second"
+        ],
+        "summary": "Update fields for payment status failure",
+        "operationId": "PaymentStatusUpdate-second",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "failure_reference",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "description": "Unique Failure reference from Liberata side"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PaymentStatusUpdateSecond"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "404": {
+            "description": "No Payment Failure available for the given Failure reference"
           },
           "500": {
             "description": "Internal Server Error"
@@ -158,6 +206,22 @@
             "$ref": "#/components/schemas/BouncedCheque"
           }
         ]
+      },
+      "PaymentStatusUpdateSecond": {
+        "type": "object",
+        "required": [
+          "representment_success representment_outcome_date"
+        ],
+        "properties": {
+          "representment_success": {
+            "type": "string",
+            "example": "Yes"
+          },
+          "representment_outcome_date": {
+            "type": "string",
+            "example": "2021-08-15T10:34:45"
+          }
+        }
       }
     }
   }
