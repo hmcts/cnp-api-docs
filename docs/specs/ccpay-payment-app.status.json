@@ -1,0 +1,228 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "description": "This is the API specification about Payment Status update.",
+    "version": "1.0.0",
+    "title": "Payment Status Update"
+  },
+  "tags": [
+    {
+      "name": "Payment_Status",
+      "description": "Payment Status Update fields"
+    },
+    {
+      "name": "Payment_Status_second",
+      "description": "Update fields for payment status failure"
+    }
+  ],
+  "paths": {
+    "/payment-failures": {
+      "post": {
+        "tags": [
+          "Payment_Status"
+        ],
+        "summary": "Update fields for payment status failure",
+        "description": "",
+        "operationId": "payment-failures",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PaymentFailure"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "404": {
+            "description": "No Payments available for the given Payment reference"
+          },
+          "412": {
+            "description": "Data values incorrect for the given Chargeback / Bounced Cheque"
+          },
+          "429": {
+            "description": "Request already received for this payment reference"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/payment-failures/{failure_reference}": {
+      "patch": {
+        "tags": [
+          "Payment_Status_second"
+        ],
+        "summary": "Update fields for payment status failure",
+        "operationId": "PaymentStatusUpdate-second",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "failure_reference",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "description": "Unique Failure reference from Liberata side"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PaymentStatusUpdateSecond"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "404": {
+            "description": "No Payment Failure available for the given Failure reference"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Chargeback": {
+        "type": "object",
+        "required": [
+          "payment_reference failure_reference reason ccd_case_number amount event_date_time has_amount_debited failure_type"
+        ],
+        "properties": {
+          "payment_reference": {
+            "type": "string",
+            "example": "RC-1111-2222-3333-4444"
+          },
+          "failure_reference": {
+            "type": "string",
+            "example": "Barclaycard Chargeback reference",
+            "description": "Liberata provided unique number for this failure"
+          },
+          "reason": {
+            "type": "string",
+            "example": "unpaid cheque",
+            "description": "Reason provided by Barclaycard/bank (unpaid cheque)"
+          },
+          "ccd_case_number": {
+            "type": "string",
+            "example": "1234567812345678",
+            "description": "16 digit case number (cccc-cccc-cccc-cccc)"
+          },
+          "amount": {
+            "type": "string",
+            "example": "450.00"
+          },
+          "additional_reference": {
+            "type": "string",
+            "example": "Extra information"
+          },
+          "event_date_time": {
+            "type": "string",
+            "example": "2021-08-15T10:34:45",
+            "description": "Event date initiated in Liberata"
+          },
+          "has_amount_debited": {
+            "type": "string",
+            "example": "yes",
+            "description": "Yes/No"
+          },
+          "failure_type": {
+            "type": "string",
+            "example": "“Chargeback”"
+          }
+        }
+      },
+      "BouncedCheque": {
+        "type": "object",
+        "required": [
+          "payment_reference failure_reference reason ccd_case_number amount event_date_time failure_type"
+        ],
+        "properties": {
+          "payment_reference": {
+            "type": "string",
+            "example": "RC-1111-2222-3333-4444",
+            "description": "RC number generated during the payments (RC-nnnn-nnnn-nnnn-nnnn)"
+          },
+          "failure_reference": {
+            "type": "string",
+            "example": "Barclaycard Chargeback reference",
+            "description": "Liberata provided unique number for this failure"
+          },
+          "reason": {
+            "type": "string",
+            "example": "unpaid cheque",
+            "description": "Reason provided by Barclaycard/bank (unpaid cheque)"
+          },
+          "ccd_case_number": {
+            "type": "string",
+            "example": "1234567812345678",
+            "description": "16 digit case number (cccc-cccc-cccc-cccc)"
+          },
+          "amount": {
+            "type": "string",
+            "example": "450.00"
+          },
+          "additional_reference": {
+            "type": "string",
+            "example": "Extra information"
+          },
+          "event_date_time": {
+            "type": "string",
+            "example": "2021-08-15T10:34:45",
+            "description": "Event date initiated in Liberata"
+          },
+          "failure_type": {
+            "type": "string",
+            "example": "“BouncedCheque”"
+          }
+        }
+      },
+      "PaymentFailure": {
+        "anyOf": [
+          {
+            "$ref": "#/components/schemas/Chargeback"
+          },
+          {
+            "$ref": "#/components/schemas/BouncedCheque"
+          }
+        ]
+      },
+      "PaymentStatusUpdateSecond": {
+        "type": "object",
+        "required": [
+          "representment_success representment_outcome_date"
+        ],
+        "properties": {
+          "representment_success": {
+            "type": "string",
+            "example": "Yes"
+          },
+          "representment_outcome_date": {
+            "type": "string",
+            "example": "2021-08-15T10:34:45"
+          }
+        }
+      }
+    }
+  }
+}
