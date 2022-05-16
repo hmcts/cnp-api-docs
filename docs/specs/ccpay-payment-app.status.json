@@ -1,5 +1,5 @@
 {
-  "openapi": "3.0.0",
+  "openapi": "3.0.1",
   "info": {
     "description": "This is the API specification about Payment Status update.",
     "version": "1.0.0",
