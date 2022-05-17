@@ -5,7 +5,7 @@
     "version": "1.0.0",
     "title": "Payment Status Update"
   },
-  "host": "core-api-mgmt-prod.azure-api.net",
+  "host": "cft-api-mgmt-demo.azure-api.net",
   "basePath": "/payments-api",
   "schemes": [
     "https"
