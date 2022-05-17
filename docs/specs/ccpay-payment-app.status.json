@@ -1,24 +1,13 @@
 {
   "openapi": "3.0.1",
   "info": {
-    "description": "This is the API specification about Payment Status update.",
-    "version": "1.0.0",
-    "title": "Payment Status Update"
+    "title": "Payment Status Update",
+    "version": "v0",
+    "description": "This is the API specification about Payment Status update."
   },
   "servers": [{
     "url": "https://cft-api-mgmt-demo.azure-api.net/payments-api"
   }],
-  "security": [{
-    "apiKeyHeader": []
-  }, {
-    "apiKeyQuery": []
-  }],
-  "tags": [
-    {
-      "name": "Payment_Status_second",
-      "description": "Update fields for payment status failure"
-    }
-  ],
   "paths": {
     "/payment-failures/{failure_reference}": {
       "patch": {
@@ -50,7 +39,7 @@
         },
         "responses": {
           "200": {
-            "description": "successful operation"
+            "description": "Successful operation"
           },
           "400": {
             "description": "Bad request"
@@ -67,100 +56,6 @@
   },
   "components": {
     "schemas": {
-      "Chargeback": {
-        "type": "object",
-        "required": [
-          "payment_reference failure_reference reason ccd_case_number amount event_date_time has_amount_debited failure_type"
-        ],
-        "properties": {
-          "payment_reference": {
-            "type": "string",
-            "example": "RC-1111-2222-3333-4444"
-          },
-          "failure_reference": {
-            "type": "string",
-            "example": "Barclaycard Chargeback reference",
-            "description": "Liberata provided unique number for this failure"
-          },
-          "reason": {
-            "type": "string",
-            "example": "unpaid cheque",
-            "description": "Reason provided by Barclaycard/bank (unpaid cheque)"
-          },
-          "ccd_case_number": {
-            "type": "string",
-            "example": "1234567812345678",
-            "description": "16 digit case number (cccc-cccc-cccc-cccc)"
-          },
-          "amount": {
-            "type": "string",
-            "example": "450.00"
-          },
-          "additional_reference": {
-            "type": "string",
-            "example": "Extra information"
-          },
-          "event_date_time": {
-            "type": "string",
-            "example": "2021-08-15T10:34:45",
-            "description": "Event date initiated in Liberata"
-          },
-          "has_amount_debited": {
-            "type": "string",
-            "example": "yes",
-            "description": "Yes/No"
-          },
-          "failure_type": {
-            "type": "string",
-            "example": "“Chargeback”"
-          }
-        }
-      },
-      "BouncedCheque": {
-        "type": "object",
-        "required": [
-          "payment_reference failure_reference reason ccd_case_number amount event_date_time failure_type"
-        ],
-        "properties": {
-          "payment_reference": {
-            "type": "string",
-            "example": "RC-1111-2222-3333-4444",
-            "description": "RC number generated during the payments (RC-nnnn-nnnn-nnnn-nnnn)"
-          },
-          "failure_reference": {
-            "type": "string",
-            "example": "Barclaycard Chargeback reference",
-            "description": "Liberata provided unique number for this failure"
-          },
-          "reason": {
-            "type": "string",
-            "example": "unpaid cheque",
-            "description": "Reason provided by Barclaycard/bank (unpaid cheque)"
-          },
-          "ccd_case_number": {
-            "type": "string",
-            "example": "1234567812345678",
-            "description": "16 digit case number (cccc-cccc-cccc-cccc)"
-          },
-          "amount": {
-            "type": "string",
-            "example": "450.00"
-          },
-          "additional_reference": {
-            "type": "string",
-            "example": "Extra information"
-          },
-          "event_date_time": {
-            "type": "string",
-            "example": "2021-08-15T10:34:45",
-            "description": "Event date initiated in Liberata"
-          },
-          "failure_type": {
-            "type": "string",
-            "example": "“BouncedCheque”"
-          }
-        }
-      },
       "PaymentStatusUpdateSecond": {
         "type": "object",
         "required": [
@@ -190,5 +85,10 @@
         "in": "query"
       }
     }
-  }
+  },
+  "security": [{
+    "apiKeyHeader": []
+  }, {
+    "apiKeyQuery": []
+  }]
 }
