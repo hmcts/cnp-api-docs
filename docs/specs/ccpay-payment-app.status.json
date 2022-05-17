@@ -1,13 +1,35 @@
 {
-  "openapi": "3.0.1",
+  "swagger": "2.0",
   "info": {
-    "title": "Payment Status Update",
-    "version": "v0",
-    "description": "This is the API specification about Payment Status update."
+    "version": "1.0",
+    "description": "This is the API specification about Payment Status update.",
+    "title": "Payment Status Update"
   },
-  "servers": [{
-    "url": "https://cft-api-mgmt-demo.azure-api.net/payments-api"
-  }],
+  "host": "cft-api-mgmt-demo.azure-api.net",
+  "basePath": "/",
+  "schemes": [
+    "https"
+  ],
+  "securityDefinitions": {
+    "apiKeyHeader": {
+      "type": "apiKey",
+      "name": "Ocp-Apim-Subscription-Key",
+      "in": "header"
+    },
+    "apiKeyQuery": {
+      "type": "apiKey",
+      "name": "subscription-key",
+      "in": "query"
+    }
+  },
+  "security": [
+    {
+      "apiKeyHeader": []
+    },
+    {
+      "apiKeyQuery": []
+    }
+  ],
   "paths": {
     "/payment-failures/{failure_reference}": {
       "patch": {
@@ -15,28 +37,32 @@
           "Payment_Status_second"
         ],
         "summary": "Update fields for payment status failure",
+        "description": "To update fields for payment status failure",
         "operationId": "PaymentStatusUpdate-second",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
         "parameters": [
           {
             "in": "path",
+            "type": "string",
             "name": "failure_reference",
-            "schema": {
-              "type": "string"
-            },
+            "description": "Unique Failure reference from Liberata side",
+            "required": true
+          },
+          {
+            "in": "body",
+            "name": "PaymentStatusUpdateSecond",
+            "description": "PaymentStatusUpdateSecond",
             "required": true,
-            "description": "Unique Failure reference from Liberata side"
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/PaymentStatusUpdateSecond"
-              }
+            "schema": {
+              "$ref": "#/definitions/PaymentStatusUpdateSecond"
             }
           }
-        },
+        ],
         "responses": {
           "200": {
             "description": "Successful operation"
@@ -54,41 +80,24 @@
       }
     }
   },
-  "components": {
-    "schemas": {
-      "PaymentStatusUpdateSecond": {
-        "type": "object",
-        "required": [
-          "representment_success representment_outcome_date"
-        ],
-        "properties": {
-          "representment_success": {
-            "type": "string",
-            "example": "Yes"
-          },
-          "representment_outcome_date": {
-            "type": "string",
-            "example": "2021-08-15T10:34:45"
-          }
+  "definitions": {
+    "PaymentStatusUpdateSecond": {
+      "type": "object",
+      "required": [
+        "representment_success",
+        "representment_outcome_date"
+      ],
+      "properties": {
+        "representment_success": {
+          "type": "string",
+          "example": "Yes"
+        },
+        "representment_outcome_date": {
+          "type": "string",
+          "example": "2021-08-15T10:34:45"
         }
-      }
-    },
-    "securitySchemes": {
-      "apiKeyHeader": {
-        "type": "apiKey",
-        "name": "Ocp-Apim-Subscription-Key",
-        "in": "header"
       },
-      "apiKeyQuery": {
-        "type": "apiKey",
-        "name": "subscription-key",
-        "in": "query"
-      }
+      "title": "PaymentStatusUpdateSecond"
     }
-  },
-  "security": [{
-    "apiKeyHeader": []
-  }, {
-    "apiKeyQuery": []
-  }]
+  }
 }
