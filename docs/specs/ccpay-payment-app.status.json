@@ -39,7 +39,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/PaymentFailure"
+                "$ref": "#/components/schemas/BouncedCheque"
               }
             }
           }
@@ -206,16 +206,6 @@
             "example": "“BouncedCheque”"
           }
         }
-      },
-      "PaymentFailure": {
-        "anyOf": [
-          {
-            "$ref": "#/components/schemas/Chargeback"
-          },
-          {
-            "$ref": "#/components/schemas/BouncedCheque"
-          }
-        ]
       },
       "PaymentStatusUpdateSecond": {
         "type": "object",
