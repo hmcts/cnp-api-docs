@@ -5,31 +5,16 @@
     "version": "1.0.0",
     "title": "Payment Status Update"
   },
-  "host": "cft-api-mgmt-demo.azure-api.net",
-  "basePath": "/payments-api",
-  "schemes": [
-    "https"
-  ],
-  "securityDefinitions": {
-    "apiKeyHeader": {
-      "type": "apiKey",
-      "name": "Ocp-Apim-Subscription-Key",
-      "in": "header"
-    },
-    "apiKeyQuery": {
-      "type": "apiKey",
-      "name": "subscription-key",
-      "in": "query"
-    }
-  },
-  "security": [
-    {
-      "apiKeyHeader": []
-    },
-    {
-      "apiKeyQuery": []
-    }
-  ],
+  "servers": [{
+    "url": "http://cft-api-mgmt-demo.azure-api.net/payments-api"
+  }, {
+    "url": "https://cft-api-mgmt-demo.azure-api.net/payments-api"
+  }],
+  "security": [{
+    "apiKeyHeader": []
+  }, {
+    "apiKeyQuery": []
+  }],
   "tags": [
     {
       "name": "Payment_Status",
@@ -247,6 +232,18 @@
             "example": "2021-08-15T10:34:45"
           }
         }
+      }
+    },
+    "securitySchemes": {
+      "apiKeyHeader": {
+        "type": "apiKey",
+        "name": "Ocp-Apim-Subscription-Key",
+        "in": "header"
+      },
+      "apiKeyQuery": {
+        "type": "apiKey",
+        "name": "subscription-key",
+        "in": "query"
       }
     }
   }
