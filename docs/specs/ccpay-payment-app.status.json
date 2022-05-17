@@ -6,8 +6,6 @@
     "title": "Payment Status Update"
   },
   "servers": [{
-    "url": "http://cft-api-mgmt-demo.azure-api.net/payments-api"
-  }, {
     "url": "https://cft-api-mgmt-demo.azure-api.net/payments-api"
   }],
   "security": [{
@@ -17,55 +15,11 @@
   }],
   "tags": [
     {
-      "name": "Payment_Status",
-      "description": "Payment Status Update fields"
-    },
-    {
       "name": "Payment_Status_second",
       "description": "Update fields for payment status failure"
     }
   ],
   "paths": {
-    "/payment-failures": {
-      "post": {
-        "tags": [
-          "Payment_Status"
-        ],
-        "summary": "Update fields for payment status failure",
-        "description": "",
-        "operationId": "payment-failures",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/BouncedCheque"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "successful operation"
-          },
-          "400": {
-            "description": "Bad request"
-          },
-          "404": {
-            "description": "No Payments available for the given Payment reference"
-          },
-          "412": {
-            "description": "Data values incorrect for the given Chargeback / Bounced Cheque"
-          },
-          "429": {
-            "description": "Request already received for this payment reference"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
     "/payment-failures/{failure_reference}": {
       "patch": {
         "tags": [
