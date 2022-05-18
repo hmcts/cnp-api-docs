@@ -99,5 +99,209 @@
       },
       "title": "PaymentStatusUpdateSecond"
     }
-  }
+  },
+    "paths": {
+        "/payment-failures/chargeback": {
+            "post": {
+                "tags": [
+                    "Payment_Status_chargeback"
+                ],
+                "summary": "Update fields for payment status failure",
+                "description": "To update fields for payment status failure",
+                "operationId": "payment-failures-chargeback",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "*/*"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "PaymentStatusChargeBack",
+                        "description": "PaymentStatusChargeBack",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/PaymentStatusChargeBack"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "No Payment Failure available for the given Failure reference"
+                    },
+                    "412": {
+                        "description": "Data values incorrect for the given Chargeback / Bounced Cheque"
+                    },
+                    "429": {
+                        "description": "Request already received for this payment reference"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "PaymentStatusChargeBack": {
+            "type": "object",
+            "required": [
+                "payment_reference",
+                "failure_reference",
+                "reason",
+                "ccd_case_number",
+                "amount",
+                "additional_reference",
+                "event_date_time",
+                "has_amount_debited",
+                "failure_type"
+            ],
+            "properties": {
+                "payment_reference": {
+                    "type": "string",
+                    "example": "RC-1111-2222-3333-4444"
+                },
+                "failure_reference": {
+                    "type": "string",
+                    "example": "Barclaycard Chargeback reference"
+                },
+                "reason": {
+                    "type": "string",
+                    "example": "unpaid cheque"
+                },
+                "ccd_case_number": {
+                    "type": "string",
+                    "example": "1234567812345678"
+                },
+                "amount": {
+                    "type": "string",
+                    "example": "450.00"
+                },
+                "additional_reference": {
+                    "type": "string",
+                    "example": "Extra information"
+                },
+                "event_date_time": {
+                    "type": "string",
+                    "example": "450.00"
+                },
+                "has_amount_debited": {
+                    "type": "string",
+                    "example": "yes"
+                },
+                "failure_type": {
+                    "type": "string",
+                    "example": "Chargeback"
+                }
+            },
+            "title": "PaymentStatusChargeBack"
+        }
+    },
+
+    "paths": {
+        "/payment-failures/bouncedcheque": {
+            "post": {
+                "tags": [
+                    "Payment_Status_BouncedCheque"
+                ],
+                "summary": "Update fields for payment status failure",
+                "description": "To update fields for payment status failure",
+                "operationId": "payment-failures-bouncedcheque",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "*/*"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "PaymentStatusBouncedCheque",
+                        "description": "PaymentStatusChargeBack",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/PaymentStatusBouncedCheque"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "No Payment Failure available for the given Failure reference"
+                    },
+                    "412": {
+                        "description": "Data values incorrect for the given Chargeback / Bounced Cheque"
+                    },
+                    "429": {
+                        "description": "Request already received for this payment reference"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "PaymentStatusBouncedCheque": {
+            "type": "object",
+            "required": [
+                "payment_reference",
+                "failure_reference",
+                "reason",
+                "ccd_case_number",
+                "amount",
+                "additional_reference",
+                "event_date_time",
+                "failure_type"
+            ],
+            "properties": {
+                "payment_reference": {
+                    "type": "string",
+                    "example": "RC-1111-2222-3333-4444"
+                },
+                "failure_reference": {
+                    "type": "string",
+                    "example": "Barclaycard Chargeback reference"
+                },
+                "reason": {
+                    "type": "string",
+                    "example": "unpaid cheque"
+                },
+                "ccd_case_number": {
+                    "type": "string",
+                    "example": "1234567812345678"
+                },
+                "amount": {
+                    "type": "string",
+                    "example": "450.00"
+                },
+                "additional_reference": {
+                    "type": "string",
+                    "example": "Extra information"
+                },
+                "event_date_time": {
+                    "type": "string",
+                    "example": "450.00"
+                },
+                "failure_type": {
+                    "type": "string",
+                    "example": "BouncedCheque"
+                }
+            },
+            "title": "PaymentStatusBouncedCheque"
+        }
+    }
 }
