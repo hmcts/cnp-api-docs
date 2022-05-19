@@ -2,7 +2,7 @@
     "swagger": "2.0",
     "info": {
         "description": "This is the API specification about Payment Status update for All Failure scenarios. This specification contains 3 endpoints which will be followed by the second ping endpoint.",
-        "version": "1.0.0",
+        "version": "1.0.1",
         "title": "Payment Status Update"
     },
     "host": "cft-api-mgmt-demo.azure-api.net",
