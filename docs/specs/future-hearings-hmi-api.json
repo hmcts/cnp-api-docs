@@ -2512,11 +2512,11 @@
                     }
                 }
             }
-        },"/Crime-health": {
+        },"/crime-health": {
             "get": {
-                "description": "Crime-Health",
-                "operationId": "Crime-health",
-                "summary": "Crime-Health",
+                "description": "crime-Health",
+                "operationId": "crime-health",
+                "summary": "crime-Health",
                 "tags": [
                     "utils"
                 ],
