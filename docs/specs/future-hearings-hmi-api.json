@@ -2514,9 +2514,9 @@
             }
         },"/crime-health": {
             "get": {
-                "description": "crime-Health",
+                "description": "Crime-Health",
                 "operationId": "crime-health",
-                "summary": "crime-Health",
+                "summary": "Crime-Health",
                 "tags": [
                     "utils"
                 ],
