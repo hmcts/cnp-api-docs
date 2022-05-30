@@ -2512,6 +2512,20 @@
                     }
                 }
             }
+        },"/crime-health": {
+            "get": {
+                "description": "crime-Health",
+                "operationId": "crime-health",
+                "summary": "crime-Health",
+                "tags": [
+                    "utils"
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                }
+            }
         },
         "/pact-health": {
             "get": {
