@@ -2762,7 +2762,7 @@
             "post": {
                 "tags": ["video-hearings"],
                 "summary": "Add Participant",
-                "operationId": "add-participant",
+                "operationId": "clone-hearing",
                 "parameters": [
                     {
                         "name": "hearingId",
