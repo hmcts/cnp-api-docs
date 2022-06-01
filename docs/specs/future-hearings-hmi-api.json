@@ -2761,7 +2761,7 @@
         "/hearings/{hearingId}/clone": {
             "post": {
                 "tags": ["video-hearings"],
-                "summary": "Add Participant",
+                "summary": "Clone Hearing",
                 "operationId": "clone-hearing",
                 "parameters": [
                     {
