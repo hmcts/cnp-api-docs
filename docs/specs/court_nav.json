@@ -52,10 +52,26 @@
         ],
         "responses": {
           "200": {
-            "status": "case created successfully"
-          },
-          "500": {
-            "status": "Internal server error."
+            "description": "successful operation",
+            "examples": {
+              "application/json": {
+                
+                  "status": "Case created successfully",
+                  "id": "1234567891234567"
+              },
+              "400": {
+                "description": "Bad request."
+              },
+              "404": {
+                "description": "No refund available for the given date range."
+              },
+              "413": {
+                "description": "Date range exceed the maximum supported by the system."
+              },
+              "500": {
+                "description": "Internal server error."
+              }
+            }
           }
         }
       }
