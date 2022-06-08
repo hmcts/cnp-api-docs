@@ -1,62 +1,64 @@
 {
-    "swagger": "2.0",
-    "info": {
-        "version": "1.0",
-        "description": "<h3>CourtNav API Documentation </h3> <b>Published Date:</b> 8-June-2022 <b>Author: </b> Shashi Kumar S K, Yashar Rahvar <b> Requirement:</b> New API added for CourtNav case creation  <b>Version History:</b> CourtNav  API is added",
-        "title": "CourtNav "
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0",
+    "description": "<h3>CourtNav API Documentation </h3> <b>Published Date:</b> 8-June-2022 <b>Author: </b> Shashi Kumar S K, Yashar Rahvar <b> Requirement:</b> New API added for CourtNav case creation  <b>Version History:</b> CourtNav  API is added",
+    "title": "CourtNav "
+  },
+  "host": "cft-api-mgmt-demo.azure-api.net",
+  "basePath": "/",
+  "schemes": [
+    "https"
+  ],
+  "securityDefinitions": {
+    "apiKeyHeader": {
+      "type": "apiKey",
+      "name": "Ocp-Apim-Subscription-Key",
+      "in": "header"
     },
-    "host": "cft-api-mgmt-demo.azure-api.net",
-    "basePath": "/",
-    "schemes": [
-        "https"
-    ],
-    "securityDefinitions": {
-        "apiKeyHeader": {
-            "type": "apiKey",
-            "name": "Ocp-Apim-Subscription-Key",
-            "in": "header"
-        },
-        "apiKeyQuery": {
-            "type": "apiKey",
-            "name": "auth-token",
-            "in": "header"
-        }
-    },
-    "security": [
-        {
-            "apiKeyHeader": []
-        },
-        {
-            "apiKeyHeader": []
-        }
-    ],
-    "paths": {
-        "/fis": {
-            "post": {
-                "description": "Creates case in CCD",
-                "operationId": "caseCreation",
-                "summary": "Creates case in CCD",
-                "parameters": [
-                    {
-                    "input1": "String",
-                    "input2": "String",
-                    "input3": "String"
-                    }
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "responses": {
-                    "200":  {
-                    "status": "case created successfully"
-                            },
-                            "500": {
-                                "status": "Internal server error."
-                            }
-                        }
-                    }
-                }
-            }
-        }
+    "apiKeyQuery": {
+      "type": "apiKey",
+      "name": "auth-token",
+      "in": "header"
     }
+  },
+  "security": [
+    {
+      "apiKeyHeader": [
+        
+      ]
+    },
+    {
+      "apiKeyHeader": [
+        
+      ]
+    }
+  ],
+  "paths": {
+    "/fis": {
+      "post": {
+        "description": "Creates case in CCD",
+        "operationId": "caseCreation",
+        "summary": "Creates case in CCD",
+        "parameters": [
+          {
+            "input1": "String",
+            "input2": "String",
+            "input3": "String"
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "status": "case created successfully"
+          },
+          "500": {
+            "status": "Internal server error."
+          }
+        }
+      }
+    }
+  }
 }
