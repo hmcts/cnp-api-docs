@@ -2817,7 +2817,7 @@
         },
         "/hearings/groups/{groupId}": {
             "post": {
-                "tags": ["video-hearings-group"],
+                "tags": ["video-hearings"],
                 "summary": "groupid Hearing",
                 "operationId": "groupid-hearing",
                 "parameters": [
