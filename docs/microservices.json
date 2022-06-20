@@ -2641,6 +2641,29 @@
             "dependencies": [],
             "apis": [],
             "version": null
+        },
+        {
+            "id": "ts-translation-service",
+            "name": "Translation Service",
+            "group": "CDM",
+            "type": "api",
+            "description": "Provides a capability for service users to maintain Welsh translations.",
+            "repository": "https://github.com/hmcts/ts-translation-service",
+            "spec": "https://hmcts.github.io/reform-api-docs/specs/ts-translation-service.json",
+            "dependencies": [
+                {
+                    "id": "idam-api",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "rpe-service-auth-provider",
+                    "hard": true,
+                    "apis": []
+                }
+            ],
+            "apis": [],
+            "version": null
         }
     ]
 }
