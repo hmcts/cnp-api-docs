@@ -2815,7 +2815,7 @@
                 }
             }
         },
-        "/hearings/groups/{groupId}": {
+        "/hearings/{groupId}/hearings": {
             "get": {
                 "tags": ["video-hearings"],
                 "summary": "groupid Hearing",
