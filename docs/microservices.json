@@ -490,6 +490,11 @@
                     "id": "rpe-service-auth-provider",
                     "hard": true,
                     "apis": []
+                },
+                {
+                    "id": "ts-translation-service",
+                    "hard": true,
+                    "apis": []
                 }
             ],
             "apis": [],
@@ -612,6 +617,11 @@
                 },
                 {
                     "id": "rpe-service-auth-provider",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "ts-translation-service",
                     "hard": true,
                     "apis": []
                 }
