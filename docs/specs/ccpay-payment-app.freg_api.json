@@ -9,7 +9,7 @@
       "email": "Anil.Dhawale@hmcts.net"
     }
   },
-  "host": "cft-api-mgmt-demo.azure-api.net",
+  "host": "core-api-mgmt-demo.azure-api.net",
   "basePath": "/feeRegister-api",
   "schemes": [
     "https"
@@ -41,7 +41,7 @@
     }
   ],
   "paths": {
-    "/fees-register/fees": {
+    "/fees-register/approvedFees": {
       "get": {
         "tags": [
           "fee-controller"
@@ -54,15 +54,6 @@
         "responses": {
           "200": {
             "description": "Approved Status",
-            "parameters": [
-              {
-                "name": "feeVersionStatus",
-                "in": "path",
-                "description": "status type",
-                "type": "string",
-                "required": true
-              }
-            ],
             "schema": {
               "type": "array",
               "items": {
