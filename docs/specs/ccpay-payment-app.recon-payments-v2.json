@@ -30,6 +30,112 @@
         }
     ],
     "paths": {
+        "/payments": {
+            "get": {
+                "description": "Returns all payments that match filter criteria",
+                "operationId": "getPayments",
+                "summary": "Get list of payments",
+                "parameters": [
+                    {
+                        "name": "start_date",
+                        "in": "query",
+                        "description": "Format - date time (as full-date in RFC3339). The start date time to filter on. If the time is not supplied then it will be defaulted to 00:00:00",
+                        "type": "string"
+                    },
+                    {
+                        "name": "end_date",
+                        "in": "query",
+                        "description": "Format - date time (as full-date in RFC3339). The end date to filter on. If the time is not supplied then it will be defaulted to 00:00:00",
+                        "type": "string"
+                    },
+                    {
+                        "name": "payment_method",
+                        "in": "query",
+                        "description": "the method used for payment. Available values : CARD, PBA, CASH, CHEQUE, POSTAL_ORDER",
+                        "type": "string"
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "examples": {
+                            "application/json": {
+                                "payments": [
+                                    {
+                                        "_links": {
+                                            "cancel": {
+                                                "href": "string",
+                                                "method": "string"
+                                            },
+                                            "next_url": {
+                                                "href": "string",
+                                                "method": "string"
+                                            },
+                                            "self": {
+                                                "href": "string",
+                                                "method": "string"
+                                            }
+                                        },
+                                        "account_number": "string",
+                                        "amount": 0,
+                                        "case_reference": "string",
+                                        "ccd_case_number": "string",
+                                        "channel": "string",
+                                        "currency": "GBP",
+                                        "customer_reference": "string",
+                                        "date_created": "yyyy-MM-dd'T'HH:mm:ss.SSSZ",
+                                        "date_updated": "yyyy-MM-dd'T'HH:mm:ss.SSSZ",
+                                        "description": "string",
+                                        "external_provider": "string",
+                                        "external_reference": "string",
+                                        "fees": [
+                                            {
+                                                "calculated_amount": 0,
+                                                "ccd_case_number": "string",
+                                                "code": "string",
+                                                "memo_line": "string",
+                                                "natural_account_code": "string",
+                                                "reference": "string",
+                                                "version": "string",
+                                                "volume": 0
+                                            }
+                                        ],
+                                        "giro_slip_no": "string",
+                                        "id": "string",
+                                        "method": "string",
+                                        "organisation_name": "string",
+                                        "payment_group_reference": "string",
+                                        "payment_reference": "string",
+                                        "reference": "string",
+                                        "reported_date_offline": "string",
+                                        "service_name": "string",
+                                        "site_id": "string",
+                                        "status": "string",
+                                        "status_histories": [
+                                            {
+                                                "date_created": "yyyy-MM-dd'T'HH:mm:ss.SSSZ",
+                                                "date_updated": "yyyy-MM-dd'T'HH:mm:ss.SSSZ",
+                                                "external_status": "string",
+                                                "status": "string"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "403": {
+                        "description": "Probably invalid client certificate"
+                    }
+                }
+            }
+        },
         "/reconciliation-payments": {
             "get": {
                 "description": "Returns all payments that match filter criteria",
@@ -163,6 +269,162 @@
                     "404": {
                         "description": "Payment not found"
                     }
+                }
+            }
+        },
+        "/payment-failures/chargeback": {
+            "post": {
+                "tags": [
+                    "Payment_Status"
+                ],
+                "summary": "Update fields for payment status failure",
+                "description": "",
+                "operationId": "chargeback",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "Chargeback",
+                        "schema": {
+                            "$ref": "#/definitions/Chargeback"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "No Payments available for the given Payment reference"
+                    },
+                    "429": {
+                        "description": "Request already received for this failure reference"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                }
+            }
+        },
+        "/payment-failures/bounced-cheque": {
+            "post": {
+                "tags": [
+                    "Payment_Status"
+                ],
+                "summary": "Update fields for payment status failure",
+                "description": "",
+                "operationId": "bounced-cheque",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "BouncedCheque",
+                        "schema": {
+                            "$ref": "#/definitions/BouncedCheque"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "No Payments available for the given Payment reference"
+                    },
+                    "429": {
+                        "description": "Request already received for this failure reference"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "Chargeback": {
+            "type": "object",
+            "required": [
+                "payment_reference failure_reference reason ccd_case_number amount event_date_time has_amount_debited"
+            ],
+            "properties": {
+                "payment_reference": {
+                    "type": "string",
+                    "example": "RC-1111-2222-3333-4444"
+                },
+                "failure_reference": {
+                    "type": "string",
+                    "example": "Barclaycard Chargeback reference"
+                },
+                "reason": {
+                    "type": "string",
+                    "example": "unpaid cheque"
+                },
+                "ccd_case_number": {
+                    "type": "string",
+                    "example": "1234567812345678"
+                },
+                "amount": {
+                    "type": "number",
+                    "example": 450
+                },
+                "additional_reference": {
+                    "type": "string",
+                    "example": "Extra information"
+                },
+                "event_date_time": {
+                    "type": "string",
+                    "example": "2021-08-15T10:34:45"
+                },
+                "has_amount_debited": {
+                    "type": "string",
+                    "example": "yes"
+                }
+            }
+        },
+        "BouncedCheque": {
+            "type": "object",
+            "required": [
+                "payment_reference failure_reference reason ccd_case_number amount event_date_time"
+            ],
+            "properties": {
+                "payment_reference": {
+                    "type": "string",
+                    "example": "RC-1111-2222-3333-4444"
+                },
+                "failure_reference": {
+                    "type": "string",
+                    "example": "Barclaycard Bounced Cheque reference"
+                },
+                "reason": {
+                    "type": "string",
+                    "example": "unpaid cheque"
+                },
+                "ccd_case_number": {
+                    "type": "string",
+                    "example": "1234567812345678"
+                },
+                "amount": {
+                    "type": "number",
+                    "example": 450
+                },
+                "additional_reference": {
+                    "type": "string",
+                    "example": "Extra information"
+                },
+                "event_date_time": {
+                    "type": "string",
+                    "example": "2021-08-15T10:34:45"
                 }
             }
         }
