@@ -349,6 +349,89 @@
                     }
                 }
             }
+        },
+        "/payment-failures/unprocessed-payment": {
+            "post": {
+                "tags": [
+                    "Payment_Status"
+                ],
+                "summary": "Update fields for payment status failure",
+                "description": "",
+                "operationId": "unprocessed-payment",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "UnprocessedPayment",
+                        "schema": {
+                            "$ref": "#/definitions/UnprocessedPayment"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "No Payments available for the given Payment reference"
+                    },
+                    "429": {
+                        "description": "Request already received for this failure reference"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                }
+            }
+        },
+        "/payment-failures/{failure_reference}": {
+            "patch": {
+                "tags": [
+                    "Payment_Status_second"
+                ],
+                "summary": "Update fields for payment status failure",
+                "operationId": "PaymentStatusUpdate-second",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "failure_reference",
+                        "type": "string",
+                        "required": true,
+                        "description": "Unique Failure reference from Liberata side"
+                    },
+                    {
+                        "in": "body",
+                        "name": "PaymentStatusUpdateSecond",
+                        "schema": {
+                            "$ref": "#/definitions/PaymentStatusUpdateSecond"
+                        },
+                        "required": true,
+                        "description": "Unique Failure reference from Liberata side"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "No Payment Failure available for the given Failure reference"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                }
+            }
         }
     },
     "definitions": {
@@ -423,6 +506,54 @@
                     "example": "Extra information"
                 },
                 "event_date_time": {
+                    "type": "string",
+                    "example": "2021-08-15T10:34:45"
+                }
+            }
+        },
+        "UnprocessedPayment": {
+            "type": "object",
+            "required": [
+                "failure_reference reason po_box_number amount dcn event_date_time"
+            ],
+            "properties": {
+                "failure_reference": {
+                    "type": "string",
+                    "example": "Unique reference from Liberata"
+                },
+                "reason": {
+                    "type": "string",
+                    "example": "cheque unprocessed"
+                },
+                "po_box_number": {
+                    "type": "string",
+                    "example": "1234567"
+                },
+                "amount": {
+                    "type": "number",
+                    "example": 450
+                },
+                "dcn": {
+                    "type": "string",
+                    "example": "Document Control Number"
+                },
+                "event_date_time": {
+                    "type": "string",
+                    "example": "2021-08-15T10:34:45"
+                }
+            }
+        },
+        "PaymentStatusUpdateSecond": {
+            "type": "object",
+            "required": [
+                "representment_success representment_outcome_date"
+            ],
+            "properties": {
+                "representment_success": {
+                    "type": "string",
+                    "example": "Yes"
+                },
+                "representment_outcome_date": {
                     "type": "string",
                     "example": "2021-08-15T10:34:45"
                 }
