@@ -75,6 +75,10 @@
             "colour": "#119F5A"
         },
         {
+            "name": "NFDIV",
+            "colour": "#FF9F5A"
+        },
+        {
             "name": "FINREM",
             "colour": "#A4DD00"
         },
@@ -83,7 +87,7 @@
             "colour": "#FF5733"
         },
         {
-            "name": "Vedeo Hearing",
+            "name": "Video Hearing",
             "colour": "#222222"
         },
         {
@@ -212,7 +216,7 @@
             "spec": "https://hmcts.github.io/reform-api-docs/specs/bar-apps.json",
             "dependencies": [
                 {
-                    "id": "idam-web",
+                    "id": "idam-web-public",
                     "hard": true,
                     "apis": []
                 }
@@ -230,7 +234,7 @@
             "spec": "https://hmcts.github.io/reform-api-docs/specs/ccfr-fees-register-admin-web.json",
             "dependencies": [
                 {
-                    "id": "idam-web",
+                    "id": "idam-web-public",
                     "hard": true,
                     "apis": []
                 },
@@ -253,7 +257,7 @@
             "spec": "https://hmcts.github.io/reform-api-docs/specs/ccfr-fees-register-app.json",
             "dependencies": [
                 {
-                    "id": "idam-web",
+                    "id": "idam-web-public",
                     "hard": true,
                     "apis": []
                 }
@@ -378,7 +382,7 @@
             "spec": "https://hmcts.github.io/reform-api-docs/specs/ccd-case-activity-api.json",
             "dependencies": [
                 {
-                    "id": "idam-web",
+                    "id": "idam-web-public",
                     "hard": true,
                     "apis": []
                 }
@@ -406,7 +410,7 @@
                     "apis": []
                 },
                 {
-                    "id": "idam-web",
+                    "id": "idam-web-public",
                     "hard": true,
                     "apis": []
                 }
@@ -449,7 +453,7 @@
                     "apis": []
                 },
                 {
-                    "id": "idam-web",
+                    "id": "idam-web-public",
                     "hard": true,
                     "apis": []
                 },
@@ -477,7 +481,7 @@
             "spec": "https://hmcts.github.io/reform-api-docs/specs/ccd-admin-web.json",
             "dependencies": [
                 {
-                    "id": "idam-web",
+                    "id": "idam-web-public",
                     "hard": true,
                     "apis": []
                 },
@@ -520,7 +524,7 @@
                     "apis": []
                 },
                 {
-                    "id": "idam-web",
+                    "id": "idam-web-public",
                     "hard": true,
                     "apis": []
                 },
@@ -568,7 +572,7 @@
                     "apis": []
                 },
                 {
-                    "id": "idam-web",
+                    "id": "idam-web-public",
                     "hard": true,
                     "apis": []
                 },
@@ -611,7 +615,7 @@
                     "apis": []
                 },
                 {
-                    "id": "idam-web",
+                    "id": "idam-web-public",
                     "hard": true,
                     "apis": []
                 },
@@ -695,7 +699,7 @@
             "spec": "https://hmcts.github.io/reform-api-docs/specs/document-management-node-demo.json",
             "dependencies": [
                 {
-                    "id": "idam-web",
+                    "id": "idam-web-public",
                     "hard": true,
                     "apis": []
                 },
@@ -972,7 +976,7 @@
             "spec": "https://hmcts.github.io/reform-api-docs/specs/draft-store.json",
             "dependencies": [
                 {
-                    "id": "idam-web",
+                    "id": "idam-web-public",
                     "hard": true,
                     "apis": []
                 },
@@ -1135,7 +1139,7 @@
             "spec": "https://hmcts.github.io/reform-api-docs/specs/rpa-coh-continuous-online-resolution.json",
             "dependencies": [
                 {
-                    "id": "idam-web",
+                    "id": "idam-web-public",
                     "hard": true,
                     "apis": []
                 },
@@ -1158,7 +1162,7 @@
             "spec": "https://hmcts.github.io/reform-api-docs/specs/jui-webapp.json",
             "dependencies": [
                 {
-                    "id": "idam-web",
+                    "id": "idam-web-public",
                     "hard": true,
                     "apis": []
                 },
@@ -1237,7 +1241,7 @@
             "spec": "https://hmcts.github.io/reform-api-docs/specs/pui-webapp.json",
             "dependencies": [
                 {
-                    "id": "idam-web",
+                    "id": "idam-web-public",
                     "hard": true,
                     "apis": []
                 },
@@ -1280,7 +1284,7 @@
                     "apis": []
                 },
                 {
-                    "id": "idam-web",
+                    "id": "idam-web-public",
                     "hard": true,
                     "apis": []
                 }
@@ -1308,7 +1312,7 @@
                     "apis": []
                 },
                 {
-                    "id": "idam-web",
+                    "id": "idam-web-public",
                     "hard": true,
                     "apis": []
                 },
@@ -1351,7 +1355,7 @@
                     "apis": []
                 },
                 {
-                    "id": "idam-web",
+                    "id": "idam-web-public",
                     "hard": true,
                     "apis": []
                 },
@@ -1394,7 +1398,7 @@
                     "apis": []
                 },
                 {
-                    "id": "idam-web",
+                    "id": "idam-web-public",
                     "hard": true,
                     "apis": []
                 },
@@ -1404,7 +1408,7 @@
                     "apis": []
                 },
                 {
-                    "id": "rpe-send-letter-service",
+                    "id": "bsp-send-letter-service",
                     "hard": true,
                     "apis": []
                 },
@@ -1455,7 +1459,7 @@
                     "apis": []
                 },
                 {
-                    "id": "idam-web",
+                    "id": "idam-web-public",
                     "hard": true,
                     "apis": []
                 },
@@ -1488,7 +1492,7 @@
                     "apis": []
                 },
                 {
-                    "id": "idam-web",
+                    "id": "idam-web-public",
                     "hard": true,
                     "apis": []
                 },
@@ -1648,12 +1652,12 @@
                     "apis": []
                 },
                 {
-                    "id": "send-letter-producer",
+                    "id": "bsp-send-letter-service",
                     "hard": true,
                     "apis": []
                 },
                 {
-                    "id": "idam-web",
+                    "id": "idam-web-public",
                     "hard": true,
                     "apis": []
                 }
@@ -1694,7 +1698,7 @@
             "spec": "https://hmcts.github.io/reform-api-docs/specs/finrem-frontend.json",
             "dependencies": [
                 {
-                    "id": "idam-web",
+                    "id": "idam-web-public",
                     "hard": true,
                     "apis": []
                 },
@@ -1727,7 +1731,7 @@
             "spec": "https://hmcts.github.io/reform-api-docs/specs/finrem-draft-store-service.json",
             "dependencies": [
                 {
-                    "id": "idam-web",
+                    "id": "idam-web-public",
                     "hard": true,
                     "apis": []
                 },
@@ -1796,7 +1800,7 @@
             "spec": "https://hmcts.github.io/reform-api-docs/specs/probate-frontend.json",
             "dependencies": [
                 {
-                    "id": "idam-web",
+                    "id": "idam-web-public",
                     "hard": true,
                     "apis": []
                 },
@@ -1844,7 +1848,7 @@
             "spec": "https://hmcts.github.io/reform-api-docs/specs/probate-caveats-frontend.json",
             "dependencies": [
                 {
-                    "id": "idam-web",
+                    "id": "idam-web-public",
                     "hard": true,
                     "apis": []
                 },
@@ -1877,7 +1881,7 @@
             "spec": "https://hmcts.github.io/reform-api-docs/specs/probate-orchestrator-service.json",
             "dependencies": [
                 {
-                    "id": "idam-web",
+                    "id": "idam-web-public",
                     "hard": true,
                     "apis": []
                 },
@@ -1955,7 +1959,7 @@
                     "apis": []
                 },
                 {
-                    "id": "rpe-send-letter-service",
+                    "id": "bsp-send-letter-service",
                     "hard": true,
                     "apis": []
                 },
@@ -2151,7 +2155,7 @@
                     "apis": []
                 },
                 {
-                    "id": "rpe-send-letter-service",
+                    "id": "bsp-send-letter-service",
                     "hard": true,
                     "apis": []
                 },
@@ -2668,6 +2672,102 @@
                 },
                 {
                     "id": "rpe-service-auth-provider",
+                    "hard": true,
+                    "apis": []
+                }
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "nfdiv-frontend",
+            "name": "NFDIV Frontend",
+            "group": "NFDIV",
+            "type": "web",
+            "description": "Citizen frontend for the No Fault Divorce system",
+            "repository": "https://github.com/hmcts/nfdiv-frontend",
+            "spec": "https://hmcts.github.io/reform-api-docs/specs/nfdiv-frontend.json",
+            "dependencies": [
+                {
+                    "id": "idam-api",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "rpe-service-auth-provider",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "ccd-data-store-api",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "fees-register-api",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "payment-api",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "dm-store",
+                    "hard": true,
+                    "apis": []
+                }
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "nfdiv-case-api",
+            "name": "NFDIV Case API",
+            "group": "NFDIV",
+            "type": "api",
+            "description": "Business logic for the No Fault Divorce system",
+            "repository": "https://github.com/hmcts/nfdiv-case-api",
+            "spec": "https://hmcts.github.io/reform-api-docs/specs/nfdiv-case-api.json",
+            "dependencies": [
+                {
+                    "id": "idam-api",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "rpe-service-auth-provider",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "ccd-data-store-api",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "fees-register-api",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "payment-api",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "dm-store",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "rpa-dg-docassembly-api",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "bsp-send-letter-service",
                     "hard": true,
                     "apis": []
                 }
