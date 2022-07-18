@@ -64,16 +64,14 @@ bsp = softwareSystem "BSP" {
    bsp_bulk_scan_processor = container "Bulk scan processor" ""
    bsp_bulk_scan_orchestrator = container "Bulk scan orchestrator" ""
    bsp_bulk_scan_payment_processor = container "Bulk scan payment processor" ""
-   bsp_send_letter_service = container "Bulk Prining (Send Letter)" ""
+   bsp_send_letter_service = container "Bulk Printing (Send Letter)" ""
 }
-coh = softwareSystem "COH" {
-   coh_cor = container "COH Continuous Online Resolution" ""
+xui = softwareSystem "XUI" {
+   xui_webapp = container "XUI Webapp" ""
 }
 rpa = softwareSystem "RPA" {
-   jui_webapp = container "JUI Webapp" ""
-   rpa_icp = container "RPA In Court Presnetation API" ""
-   rpa_icp_w = container "RPA In Court Presnetation Web" ""
-   pui_webapp = container "PUI Webapp" ""
+   rpa_icp = container "RPA In Court Presentation API" ""
+   rpa_icp_w = container "RPA In Court Presentation Web" ""
    ref_pup = container "PUP Reference Data" ""
 }
 cmc = softwareSystem "CMC" {
@@ -113,7 +111,6 @@ sscs = softwareSystem "SSCS" {
    sscs_submit_your_appeal = container "SSCS Submit Your Appeal Frontend" ""
    sscs_evidence_share = container "SSCS Evidence Share Service" ""
    sscs_cor_frontend = container "SSCS COR Frontend" ""
-   sscs_cor_backend = container "SSCS COR Backend" ""
 }
 ia = softwareSystem "IA" {
    ia_case_api = container "Immigration & Asylum case API" ""
@@ -266,24 +263,14 @@ bsp_bulk_scan_payment_processor -> payment_api "Depends on"
 
 bsp_send_letter_service -> rpe_service_auth_provider "Depends on"
 
-coh_cor -> idam_web_public "Depends on"
-coh_cor -> rpe_service_auth_provider "Depends on"
-
-jui_webapp -> idam_web_public "Depends on"
-jui_webapp -> rpe_service_auth_provider "Depends on"
-jui_webapp -> dm_store "Depends on"
-jui_webapp -> ccd_data_store_api "Depends on"
-jui_webapp -> ccd_definition_store_api "Depends on"
-jui_webapp -> coh_cor "Depends on"
+xui_webapp -> idam_web_public "Depends on"
+xui_webapp -> rpe_service_auth_provider "Depends on"
+xui_webapp -> dm_store "Depends on"
+xui_webapp -> ccd_data_store_api "Depends on"
+xui_webapp -> ccd_definition_store_api "Depends on"
 
 rpa_icp_w -> rpa_icp "Depends on"
 rpa_icp_w -> dm_store "Depends on"
-
-pui_webapp -> idam_web_public "Depends on"
-pui_webapp -> rpe_service_auth_provider "Depends on"
-pui_webapp -> dm_store "Depends on"
-pui_webapp -> ccd_data_store_api "Depends on"
-pui_webapp -> ccd_definition_store_api "Depends on"
 
 ref_pup -> rpe_service_auth_provider "Depends on"
 ref_pup -> idam_web_public "Depends on"
@@ -419,14 +406,6 @@ sscs_evidence_share -> idam_api "Depends on"
 sscs_evidence_share -> bsp_send_letter_service "Depends on"
 sscs_evidence_share -> docmosis_tornado_api "Depends on"
 
-sscs_cor_frontend -> sscs_cor_backend "Depends on"
-
-sscs_cor_backend -> ccd_data_store_api "Depends on"
-sscs_cor_backend -> dm_store "Depends on"
-sscs_cor_backend -> idam_api "Depends on"
-sscs_cor_backend -> docmosis_tornado_api "Depends on"
-sscs_cor_backend -> coh_cor "Depends on"
-
 ia_case_api -> ccd_data_store_api "Depends on"
 ia_case_api -> rpe_service_auth_provider "Depends on"
 ia_case_api -> cmc_pdf_service "Depends on"
@@ -499,6 +478,5 @@ nfdiv_case_api -> rpe_service_auth_provider "Depends on"
 nfdiv_case_api -> ccd_data_store_api "Depends on"
 nfdiv_case_api -> fees_register_api "Depends on"
 nfdiv_case_api -> payment_api "Depends on"
-nfdiv_case_api -> dm_store "Depends on"
 nfdiv_case_api -> rpa_dg_docassembly_api "Depends on"
 nfdiv_case_api -> bsp_send_letter_service "Depends on"

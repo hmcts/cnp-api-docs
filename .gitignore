@@ -3,3 +3,5 @@ node_modules
 .gradle/
 *.iml
 
+docs/c4/**/workspace.json
+**/.structurizr

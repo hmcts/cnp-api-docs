@@ -1,11 +1,11 @@
 workspace {
     model {
-        !include hmcts.mdsl
+        !include ../hmcts.mdsl
 
         citizen = person "Citizen" "A citizen user."
         caseworker = person "Caseworker" "A case worker."
 
-        caseworker -> jui_webapp "Uses"
+        caseworker -> xui_webapp "Uses"
         caseworker -> idam_web_public "Logs in with"
 
         citizen -> nfdiv_frontend "Uses"
@@ -15,49 +15,49 @@ workspace {
     }
 
     views {
-        systemLandscape landscape "HMCTSLandscape" {
+        !include ../hmcts.vdsl
+
+        systemContext nfdiv "nfdiv-context" {
             include *
-            exclude citizen
-            exclude caseworker
+            include caseworker
+            include xui
+            exclude idam
+            exclude rpe
+            exclude relationship==bsp->*
             autoLayout
         }
 
-        systemContext nfdiv "SystemContext" {
+        container nfdiv "nfdiv-overview" {
             include *
             include caseworker
+            include xui
+            exclude idam
+            exclude rpe
+            exclude relationship==bsp->*
             autoLayout
         }
 
-        container nfdiv "DivorceContainer" {
+        container nfdiv "nfdiv-citizen" {
             include *
-            include caseworker
+            exclude idam
+            exclude rpe
+            exclude bsp
             autoLayout
         }
 
-        container nfdiv "CitizenView" {
-            include *
-            autoLayout lr
-        }
-
-        container nfdiv "CaseworkerView" {
+        container nfdiv "nfdiv-caseworker" {
             include *
             include caseworker
+            include xui
             exclude citizen
             exclude nfdiv_frontend
+            exclude idam
+            exclude rpe
+            exclude relationship==bsp->*
+
             autoLayout
         }
 
-        styles {
-            element "Software System" {
-                background #1168bd
-                color #ffffff
-            }
-            element "Person" {
-                shape person
-                background #08427b
-                color #ffffff
-            }
-        }
     }
 
 }

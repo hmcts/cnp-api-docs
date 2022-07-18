@@ -47,11 +47,11 @@
             "colour": "#3B7FC0"
         },
         {
-            "name": "COH",
-            "colour": "#7122D6"
+            "name": "RPA",
+            "colour": "#28C5C7"
         },
         {
-            "name": "RPA",
+            "name": "XUI",
             "colour": "#28C5C7"
         },
         {
@@ -1113,7 +1113,7 @@
         },
         {
             "id": "bsp-send-letter-service",
-            "name": "Bulk Prining (Send Letter)",
+            "name": "Bulk Printing (Send Letter)",
             "group": "BSP",
             "type": "api",
             "description": "",
@@ -1130,36 +1130,13 @@
             "version": null
         },
         {
-            "id": "coh-cor",
-            "name": "COH Continuous Online Resolution",
-            "group": "COH",
-            "type": "api",
-            "description": "",
-            "repository": "https://github.com/hmcts/rpa-coh-continuous-online-resolution",
-            "spec": "https://hmcts.github.io/reform-api-docs/specs/rpa-coh-continuous-online-resolution.json",
-            "dependencies": [
-                {
-                    "id": "idam-web-public",
-                    "hard": true,
-                    "apis": []
-                },
-                {
-                    "id": "rpe-service-auth-provider",
-                    "hard": true,
-                    "apis": []
-                }
-            ],
-            "apis": [],
-            "version": null
-        },
-        {
-            "id": "jui-webapp",
-            "name": "JUI Webapp",
-            "group": "RPA",
+            "id": "xui-webapp",
+            "name": "XUI Webapp",
+            "group": "XUI",
             "type": "web",
             "description": "",
-            "repository": "https://github.com/hmcts/jui-webapp",
-            "spec": "https://hmcts.github.io/reform-api-docs/specs/jui-webapp.json",
+            "repository": "https://github.com/hmcts/rpx-xui-webapp",
+            "spec": "https://hmcts.github.io/reform-api-docs/specs/xui-webapp.json",
             "dependencies": [
                 {
                     "id": "idam-web-public",
@@ -1185,11 +1162,6 @@
                     "id": "ccd-definition-store-api",
                     "hard": true,
                     "apis": []
-                },
-                {
-                    "id": "coh-cor",
-                    "hard": true,
-                    "apis": []
                 }
             ],
             "apis": [],
@@ -1197,7 +1169,7 @@
         },
         {
             "id": "rpa-icp",
-            "name": "RPA In Court Presnetation API",
+            "name": "RPA In Court Presentation API",
             "group": "RPA",
             "type": "api",
             "description": "",
@@ -1210,7 +1182,7 @@
         },
         {
             "id": "rpa-icp-w",
-            "name": "RPA In Court Presnetation Web",
+            "name": "RPA In Court Presentation Web",
             "group": "RPA",
             "type": "web",
             "description": "",
@@ -1224,44 +1196,6 @@
                 },
                 {
                     "id": "dm-store",
-                    "hard": true,
-                    "apis": []
-                }
-            ],
-            "apis": [],
-            "version": null
-        },
-        {
-            "id": "pui-webapp",
-            "name": "PUI Webapp",
-            "group": "RPA",
-            "type": "web",
-            "description": "",
-            "repository": "https://github.com/hmcts/pui-webapp",
-            "spec": "https://hmcts.github.io/reform-api-docs/specs/pui-webapp.json",
-            "dependencies": [
-                {
-                    "id": "idam-web-public",
-                    "hard": true,
-                    "apis": []
-                },
-                {
-                    "id": "rpe-service-auth-provider",
-                    "hard": true,
-                    "apis": []
-                },
-                {
-                    "id": "dm-store",
-                    "hard": true,
-                    "apis": []
-                },
-                {
-                    "id": "ccd-data-store-api",
-                    "hard": true,
-                    "apis": []
-                },
-                {
-                    "id": "ccd-definition-store-api",
                     "hard": true,
                     "apis": []
                 }
@@ -2187,44 +2121,6 @@
             "version": null
         },
         {
-            "id": "sscs-cor-backend",
-            "name": "SSCS COR Backend",
-            "group": "SSCS",
-            "type": "api",
-            "description": "",
-            "repository": "https://github.com/hmcts/sscs-cor-backend",
-            "spec": null,
-            "dependencies": [
-                {
-                    "id": "ccd-data-store-api",
-                    "hard": true,
-                    "apis": []
-                },
-                {
-                    "id": "dm-store",
-                    "hard": true,
-                    "apis": []
-                },
-                {
-                    "id": "idam-api",
-                    "hard": true,
-                    "apis": []
-                },
-                {
-                    "id": "docmosis-tornado-api",
-                    "hard": true,
-                    "apis": []
-                },
-                {
-                    "id": "coh-cor",
-                    "hard": true,
-                    "apis": []
-                }
-            ],
-            "apis": [],
-            "version": null
-        },
-        {
             "id": "ia-case-api",
             "name": "Immigration & Asylum case API",
             "group": "IA",
@@ -2753,11 +2649,6 @@
                 },
                 {
                     "id": "payment-api",
-                    "hard": true,
-                    "apis": []
-                },
-                {
-                    "id": "dm-store",
                     "hard": true,
                     "apis": []
                 },
