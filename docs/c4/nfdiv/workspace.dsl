@@ -2,8 +2,8 @@ workspace {
     model {
         !include ../hmcts.mdsl
 
-        citizen = person "Citizen" "A citizen user."
-        caseworker = person "Caseworker" "A case worker."
+        citizen = person "Citizen" "A citizen user"
+        caseworker = person "Caseworker" "A case worker"
 
         caseworker -> xui_webapp "Uses"
         caseworker -> idam_web_public "Logs in with"
