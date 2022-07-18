@@ -14,7 +14,7 @@ jobs:
         with:
           node-version: 16
 
-      - run: node docs/c4/generate.js
+      - run: node ./docs/c4/generate.js
 
       - run: docker run --rm -it -v docs/c4:/docs extenda/structurizr-to-png
 
