@@ -13,5 +13,5 @@ workspace {
 
             autoLayout
         }
-
+    }
 }
