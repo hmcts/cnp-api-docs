@@ -9,7 +9,6 @@ jobs:
 
   updateImages:
     runs-on: ubuntu-latest
-    needs: [setup]
     steps:
       - uses: actions/setup-node@v3
         with:
