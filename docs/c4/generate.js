@@ -1,3 +1,5 @@
+const { writeFileSync } = require("fs");
+
 const microservices = require('../microservices.json');
 
 const servicesByGroup = {};
@@ -40,5 +42,9 @@ const relationships = microservices.apis
     .map(getRelationships)
     .join('\n\n');
 
-console.log(systems);
-console.log(relationships);
+const output = `
+${systems}
+${relationships}
+`;
+
+writeFileSync(__dirname + "/hmcts.mdsl", output);
