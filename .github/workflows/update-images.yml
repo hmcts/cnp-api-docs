@@ -10,11 +10,12 @@ jobs:
   updateImages:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
           node-version: 16
 
-      - run: node ./docs/c4/generate.js
+      - run: node docs/c4/generate.js
 
       - run: docker run --rm -it -v docs/c4:/docs extenda/structurizr-to-png
 
