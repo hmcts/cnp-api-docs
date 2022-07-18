@@ -22,8 +22,8 @@ workspace {
             include caseworker
             include xui
             exclude idam
-            # exclude rpe
-            # exclude relationship==bsp->*
+            exclude rpe
+            exclude relationship==bsp->*
             autoLayout
         }
 
