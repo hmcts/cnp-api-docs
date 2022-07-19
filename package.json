@@ -22,7 +22,7 @@
   },
   "homepage": "https://github.com/hmcts/reform-api-docs#readme",
   "dependencies": {
-    "djv": "^2.1.1",
+    "djv": "^2.1.4",
     "jasmine": "^2.99.0",
     "moment": "~2.29.4",
     "npm": "^6.14.6",
