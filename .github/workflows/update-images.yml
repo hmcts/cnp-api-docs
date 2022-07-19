@@ -1,0 +1,26 @@
+name: Diff CCD definition
+
+on:
+  pull_request:
+    branches:
+      - master
+
+jobs:
+
+  updateImages:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+
+      - run: node docs/c4/generate.js
+
+      - run: docker run --rm -v $(pwd)/docs/c4:/docs extenda/structurizr-to-png
+
+      - uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: Updated images
+          file_pattern: "*.png *.mdsl"
+

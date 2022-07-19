@@ -1,0 +1,483 @@
+
+
+hmi_gateway = softwareSystem "HMI Gateway" {
+   hmi_gateway_api = container "HMI API" "Future Hearings Gateway"
+}
+pih_gateway = softwareSystem "PIH Gateway" {
+   pih_gateway_api = container "PIH API" "Publishing Information Hub Gateway"
+}
+idam = softwareSystem "IDAM" {
+   idam_api = container "IDAM API" "Authentication APIs"
+   idam_web_admin = container "IDAM Admin UI" "Administrative interface for managing services and users within IDAM"
+   idam_web_public = container "IDAM Web" "Login and singup pages"
+}
+bar_fee__pay = softwareSystem "BAR, Fee & Pay" {
+   bar_web = container "Bar Web" ""
+   bar_api = container "Bar App" ""
+   fees_register_frontend = container "Fees Admin Frontend" ""
+   fees_register_api = container "Fees App" ""
+   payment_api = container "Payments API" ""
+}
+lau = softwareSystem "LAU" {
+   lau_case_backend = container "LAU Case Backend" "LAU Case Search and Actions Backend"
+   lau_idam_backend = container "LAU IdAM Backend" "LAU IdAM Logons Backend"
+   lau_frontend = container "LAU Frontend" "LAU Frontend Web application"
+}
+cdm = softwareSystem "CDM" {
+   ccd_case_activity_api = container "CCD Case Activities Api" ""
+   ccd_case_print_service = container "CCD Case Print Service" ""
+   ccd_api_gateway_web = container "CCD API GW" ""
+   ccd_admin_web = container "CCD Admin Web" ""
+   ccd_case_management_web = container "CCD Case Managment Web" ""
+   ccd_data_store_api = container "CCD Data Store" ""
+   ccd_definition_store_api = container "CCD Defintion Store" ""
+   ccd_user_profile_api = container "CCD User Profile" ""
+   ccd_case_document_am_api = container "CCD Case Doc Store" ""
+   aac_manage_case_assignment = container "Manage Case Assignment" ""
+   cpo_case_payment_orders_api = container "Case Payment Orders API" ""
+   ts_translation_service = container "Translation Service" "Provides a capability for service users to maintain Welsh translations."
+}
+evidence = softwareSystem "Evidence" {
+   dm_show = container "DM Show" ""
+   dm_store = container "DM Store" ""
+   em_anno = container "EM Annotation API" ""
+   rpa_em_stitching_api = container "Stitching API" ""
+   rpa_em_ccd_orchestrator = container "CCD Bundle Orchestrator" ""
+   rpa_dg_docassembly_api = container "DG Document Assembly API" ""
+   docmosis_tornado_api = container "Docmosis Tornado API" "Documentation can be found here https://www.docmosis.com/download/tornado2.7/Tornado-Web-Services-Guide2.7.pdf"
+}
+snl = softwareSystem "SNL" {
+   snl_notes = container "SNL Notes" ""
+   snl_api = container "SNL API" ""
+   snl_frontend = container "SNL Frontend" ""
+   snl_events = container "SNL Event" ""
+   snl_rules = container "SNL Rules" ""
+}
+rpe = softwareSystem "RPE" {
+   pbi_service = container "RPE Private Beta Inivation" ""
+   rpe_service_auth_provider = container "RPE Serivce Auth Provider (S2S)" ""
+   rpe_feature_toggle_api = container "RPE Feature Toggle" ""
+   cmc_pdf_service = container "CMC PDF Service" ""
+   draft_store_service = container "RPE Draft Store" ""
+}
+bsp = softwareSystem "BSP" {
+   bsp_blob_router = container "Bulk scan router" ""
+   bsp_bulk_scan_processor = container "Bulk scan processor" ""
+   bsp_bulk_scan_orchestrator = container "Bulk scan orchestrator" ""
+   bsp_bulk_scan_payment_processor = container "Bulk scan payment processor" ""
+   bsp_send_letter_service = container "Bulk Printing (Send Letter)" ""
+}
+xui = softwareSystem "XUI" {
+   xui_webapp = container "XUI Webapp" ""
+}
+rpa = softwareSystem "RPA" {
+   rpa_icp = container "RPA In Court Presentation API" ""
+   rpa_icp_w = container "RPA In Court Presentation Web" ""
+   ref_pup = container "PUP Reference Data" ""
+}
+cmc = softwareSystem "CMC" {
+   cmc_citizen_frontend = container "CMC Citzen Frontend" ""
+   cmc_legal_frontend = container "CMC Leagal Rep Frontend" ""
+   cmc_claim_store = container "CMC Claim Store" ""
+}
+div = softwareSystem "DIV" {
+   div_emca = container "Divorce Evidence Managment Client" ""
+   div_bfe = container "Divorce Respondent Frontend" ""
+   div_pfe = container "Divorce Petitioner Frontend" ""
+   div_cms = container "Divorce Case Maintance Service" ""
+   div_cps = container "Divorce (Transform) Case Progression Service" ""
+   div_dgs = container "Divorce Document Generator Client" ""
+   div_fps = container "Divorce Fees and payments Service" ""
+   div_vs = container "Divorce Validation" ""
+}
+finrem = softwareSystem "FINREM" {
+   finrem_backend = container "Finrem Backend" ""
+   finrem_frontend = container "Finrem Frontend" ""
+   fr_dss = container "Finrem Draft store service" ""
+}
+probate = softwareSystem "Probate" {
+   probate_persistence_service = container "Probate Persitance Service" ""
+   probate_submit_service = container "Probate Submission Service" ""
+   probate_frontend = container "Probate Frontend" ""
+   probate_caveats_frontend = container "Probate Caveats Frontend" ""
+   probate_orchestrator_service = container "Probate Orchestrator" ""
+   probate_back_office = container "Probate Back Office" ""
+   probate_business_service = container "Probate Validation (Business) Service" ""
+}
+sscs = softwareSystem "SSCS" {
+   sscs_tya_frontend = container "SSCS Track Your Appeal Frontend" ""
+   sscs_tribunals_api = container "SSCS Tribunal Case API" ""
+   sscs_case_loader = container "SSCS Case Loader" ""
+   sscs_tya_notif = container "SSCS Track Your Appeal Nofiication" ""
+   sscs_submit_your_appeal = container "SSCS Submit Your Appeal Frontend" ""
+   sscs_evidence_share = container "SSCS Evidence Share Service" ""
+   sscs_cor_frontend = container "SSCS COR Frontend" ""
+}
+ia = softwareSystem "IA" {
+   ia_case_api = container "Immigration & Asylum case API" ""
+   ia_case_documents_api = container "IA case documents API" ""
+   ia_case_notifications_api = container "IA case notifications API" ""
+}
+fpla = softwareSystem "FPLA" {
+   fpla_case_service = container "FPLA Case Service" "CCD callback service for FPLA cases"
+}
+rd = softwareSystem "RD" {
+   rd_professional_api = container "Professional reference data API" "Provides APIs for managing professional reference data"
+   rd_user_profile_api = container "Reference data user profile API" "Provides APIs for reference data user profile"
+   rd_profile_sync = container "Professional user profile scheduler" "Scheduler for updating user profile info in ref data user profile api"
+   rd_caseworker_ref_api = container "Staff reference data API" "Provides APIs for managing Staff reference data"
+   rd_location_ref_api = container "Location reference data API" "Provides Fetch APIs for Location reference data"
+   rd_judicial_api = container "Judicial reference data API" "Provides Fetch APIs for Judicial reference data"
+   rd_commondata_api = container "Common reference data API" "Provides Fetch APIs for Reference Common static data i.e. case flag and List of values"
+}
+wa = softwareSystem "WA" {
+   wa_workflow_api = container "Workflow API" "API to kick off work allocation work flow"
+   wa_task_management_api = container "WA Task Management API" "API that helps you manage and perform operations on tasks"
+}
+nfdiv = softwareSystem "NFDIV" {
+   nfdiv_frontend = container "NFDIV Frontend" "Citizen frontend for the No Fault Divorce system"
+   nfdiv_case_api = container "NFDIV Case API" "Business logic for the No Fault Divorce system"
+}
+hmi_gateway_api -> pih_gateway_api "Depends on"
+
+bar_web -> bar_api "Depends on"
+bar_web -> fees_register_api "Depends on"
+
+bar_api -> idam_web_public "Depends on"
+
+fees_register_frontend -> idam_web_public "Depends on"
+fees_register_frontend -> fees_register_api "Depends on"
+
+fees_register_api -> idam_web_public "Depends on"
+
+payment_api -> rpe_service_auth_provider "Depends on"
+payment_api -> fees_register_api "Depends on"
+
+lau_case_backend -> idam_api "Depends on"
+lau_case_backend -> rpe_service_auth_provider "Depends on"
+
+lau_idam_backend -> idam_api "Depends on"
+lau_idam_backend -> rpe_service_auth_provider "Depends on"
+
+lau_frontend -> lau_case_backend "Depends on"
+lau_frontend -> lau_idam_backend "Depends on"
+lau_frontend -> idam_web_public "Depends on"
+lau_frontend -> idam_api "Depends on"
+lau_frontend -> rpe_service_auth_provider "Depends on"
+
+ccd_case_activity_api -> idam_web_public "Depends on"
+
+ccd_case_print_service -> rpe_service_auth_provider "Depends on"
+ccd_case_print_service -> ccd_data_store_api "Depends on"
+ccd_case_print_service -> idam_web_public "Depends on"
+
+ccd_api_gateway_web -> ccd_data_store_api "Depends on"
+ccd_api_gateway_web -> ccd_definition_store_api "Depends on"
+ccd_api_gateway_web -> ccd_case_activity_api "Depends on"
+ccd_api_gateway_web -> ccd_user_profile_api "Depends on"
+ccd_api_gateway_web -> ccd_case_print_service "Depends on"
+ccd_api_gateway_web -> idam_web_public "Depends on"
+ccd_api_gateway_web -> rpe_service_auth_provider "Depends on"
+ccd_api_gateway_web -> dm_store "Depends on"
+
+ccd_admin_web -> idam_web_public "Depends on"
+ccd_admin_web -> ccd_definition_store_api "Depends on"
+ccd_admin_web -> rpe_service_auth_provider "Depends on"
+ccd_admin_web -> ts_translation_service "Depends on"
+
+ccd_case_management_web -> ccd_api_gateway_web "Depends on"
+ccd_case_management_web -> ccd_case_activity_api "Depends on"
+ccd_case_management_web -> idam_web_public "Depends on"
+ccd_case_management_web -> dm_store "Depends on"
+ccd_case_management_web -> ccd_case_print_service "Depends on"
+
+ccd_data_store_api -> ccd_definition_store_api "Depends on"
+ccd_data_store_api -> ccd_user_profile_api "Depends on"
+ccd_data_store_api -> ccd_case_print_service "Depends on"
+ccd_data_store_api -> idam_web_public "Depends on"
+ccd_data_store_api -> rpe_service_auth_provider "Depends on"
+ccd_data_store_api -> dm_store "Depends on"
+ccd_data_store_api -> ccd_case_document_am_api "Depends on"
+ccd_data_store_api -> lau_case_backend "Depends on"
+
+ccd_definition_store_api -> ccd_user_profile_api "Depends on"
+ccd_definition_store_api -> idam_web_public "Depends on"
+ccd_definition_store_api -> rpe_service_auth_provider "Depends on"
+ccd_definition_store_api -> ts_translation_service "Depends on"
+
+ccd_user_profile_api -> rpe_service_auth_provider "Depends on"
+
+ccd_case_document_am_api -> rpe_service_auth_provider "Depends on"
+ccd_case_document_am_api -> idam_api "Depends on"
+ccd_case_document_am_api -> ccd_data_store_api "Depends on"
+ccd_case_document_am_api -> ccd_definition_store_api "Depends on"
+ccd_case_document_am_api -> dm_store "Depends on"
+
+dm_show -> idam_web_public "Depends on"
+dm_show -> rpe_service_auth_provider "Depends on"
+dm_show -> dm_store "Depends on"
+
+aac_manage_case_assignment -> ccd_data_store_api "Depends on"
+aac_manage_case_assignment -> rd_professional_api "Depends on"
+aac_manage_case_assignment -> idam_api "Depends on"
+aac_manage_case_assignment -> rpe_service_auth_provider "Depends on"
+
+cpo_case_payment_orders_api -> idam_api "Depends on"
+cpo_case_payment_orders_api -> rpe_service_auth_provider "Depends on"
+
+dm_store -> rpe_service_auth_provider "Depends on"
+
+em_anno -> idam_api "Depends on"
+em_anno -> rpe_service_auth_provider "Depends on"
+em_anno -> dm_store "Depends on"
+
+snl_api -> snl_events "Depends on"
+
+snl_frontend -> snl_api "Depends on"
+snl_frontend -> snl_notes "Depends on"
+
+snl_events -> snl_rules "Depends on"
+
+rpe_feature_toggle_api -> rpe_service_auth_provider "Depends on"
+
+cmc_pdf_service -> rpe_service_auth_provider "Depends on"
+
+draft_store_service -> idam_web_public "Depends on"
+draft_store_service -> rpe_service_auth_provider "Depends on"
+
+bsp_bulk_scan_processor -> bsp_blob_router "Depends on"
+bsp_bulk_scan_processor -> rpe_service_auth_provider "Depends on"
+bsp_bulk_scan_processor -> dm_store "Depends on"
+bsp_bulk_scan_processor -> probate_back_office "Depends on"
+
+bsp_bulk_scan_orchestrator -> bsp_bulk_scan_processor "Depends on"
+bsp_bulk_scan_orchestrator -> rpe_service_auth_provider "Depends on"
+bsp_bulk_scan_orchestrator -> idam_api "Depends on"
+bsp_bulk_scan_orchestrator -> ccd_data_store_api "Depends on"
+bsp_bulk_scan_orchestrator -> probate_back_office "Depends on"
+
+bsp_bulk_scan_payment_processor -> bsp_bulk_scan_orchestrator "Depends on"
+bsp_bulk_scan_payment_processor -> rpe_service_auth_provider "Depends on"
+bsp_bulk_scan_payment_processor -> idam_api "Depends on"
+bsp_bulk_scan_payment_processor -> ccd_data_store_api "Depends on"
+bsp_bulk_scan_payment_processor -> payment_api "Depends on"
+
+bsp_send_letter_service -> rpe_service_auth_provider "Depends on"
+
+xui_webapp -> idam_web_public "Depends on"
+xui_webapp -> rpe_service_auth_provider "Depends on"
+xui_webapp -> dm_store "Depends on"
+xui_webapp -> ccd_data_store_api "Depends on"
+xui_webapp -> ccd_definition_store_api "Depends on"
+
+rpa_icp_w -> rpa_icp "Depends on"
+rpa_icp_w -> dm_store "Depends on"
+
+ref_pup -> rpe_service_auth_provider "Depends on"
+ref_pup -> idam_web_public "Depends on"
+
+cmc_citizen_frontend -> cmc_claim_store "Depends on"
+cmc_citizen_frontend -> draft_store_service "Depends on"
+cmc_citizen_frontend -> idam_web_public "Depends on"
+cmc_citizen_frontend -> rpe_service_auth_provider "Depends on"
+cmc_citizen_frontend -> payment_api "Depends on"
+cmc_citizen_frontend -> fees_register_api "Depends on"
+
+cmc_legal_frontend -> cmc_claim_store "Depends on"
+cmc_legal_frontend -> draft_store_service "Depends on"
+cmc_legal_frontend -> idam_web_public "Depends on"
+cmc_legal_frontend -> payment_api "Depends on"
+cmc_legal_frontend -> fees_register_api "Depends on"
+cmc_legal_frontend -> rpe_service_auth_provider "Depends on"
+
+cmc_claim_store -> ccd_data_store_api "Depends on"
+cmc_claim_store -> rpe_service_auth_provider "Depends on"
+cmc_claim_store -> idam_web_public "Depends on"
+cmc_claim_store -> dm_store "Depends on"
+cmc_claim_store -> bsp_send_letter_service "Depends on"
+cmc_claim_store -> cmc_pdf_service "Depends on"
+
+div_emca -> rpe_service_auth_provider "Depends on"
+div_emca -> dm_store "Depends on"
+
+div_bfe -> rpe_service_auth_provider "Depends on"
+div_bfe -> idam_web_public "Depends on"
+div_bfe -> div_cps "Depends on"
+div_bfe -> div_emca "Depends on"
+
+div_pfe -> rpe_service_auth_provider "Depends on"
+div_pfe -> idam_web_public "Depends on"
+div_pfe -> div_cps "Depends on"
+div_pfe -> div_emca "Depends on"
+div_pfe -> div_fps "Depends on"
+div_pfe -> fees_register_api "Depends on"
+div_pfe -> payment_api "Depends on"
+
+div_cms -> ccd_data_store_api "Depends on"
+div_cms -> rpe_service_auth_provider "Depends on"
+
+div_cps -> ccd_data_store_api "Depends on"
+div_cps -> rpe_service_auth_provider "Depends on"
+div_cps -> div_dgs "Depends on"
+div_cps -> draft_store_service "Depends on"
+div_cps -> dm_store "Depends on"
+
+div_dgs -> cmc_pdf_service "Depends on"
+div_dgs -> rpe_service_auth_provider "Depends on"
+div_dgs -> div_emca "Depends on"
+
+div_fps -> fees_register_api "Depends on"
+
+div_vs -> rpe_service_auth_provider "Depends on"
+div_vs -> ccd_data_store_api "Depends on"
+div_vs -> bsp_send_letter_service "Depends on"
+div_vs -> idam_web_public "Depends on"
+
+finrem_backend -> rpe_service_auth_provider "Depends on"
+finrem_backend -> draft_store_service "Depends on"
+
+finrem_frontend -> idam_web_public "Depends on"
+finrem_frontend -> rpe_service_auth_provider "Depends on"
+finrem_frontend -> finrem_backend "Depends on"
+finrem_frontend -> fr_dss "Depends on"
+
+fr_dss -> idam_web_public "Depends on"
+fr_dss -> rpe_service_auth_provider "Depends on"
+fr_dss -> draft_store_service "Depends on"
+
+probate_submit_service -> rpe_service_auth_provider "Depends on"
+probate_submit_service -> ccd_data_store_api "Depends on"
+probate_submit_service -> probate_persistence_service "Depends on"
+
+probate_frontend -> idam_web_public "Depends on"
+probate_frontend -> rpe_service_auth_provider "Depends on"
+probate_frontend -> fees_register_api "Depends on"
+probate_frontend -> payment_api "Depends on"
+probate_frontend -> probate_business_service "Depends on"
+probate_frontend -> probate_persistence_service "Depends on"
+probate_frontend -> probate_submit_service "Depends on"
+
+probate_caveats_frontend -> idam_web_public "Depends on"
+probate_caveats_frontend -> rpe_service_auth_provider "Depends on"
+probate_caveats_frontend -> payment_api "Depends on"
+probate_caveats_frontend -> probate_orchestrator_service "Depends on"
+
+probate_orchestrator_service -> idam_web_public "Depends on"
+probate_orchestrator_service -> rpe_service_auth_provider "Depends on"
+probate_orchestrator_service -> probate_submit_service "Depends on"
+probate_orchestrator_service -> probate_business_service "Depends on"
+probate_orchestrator_service -> probate_back_office "Depends on"
+probate_orchestrator_service -> fees_register_api "Depends on"
+probate_orchestrator_service -> ccd_data_store_api "Depends on"
+
+probate_back_office -> rpe_service_auth_provider "Depends on"
+probate_back_office -> cmc_pdf_service "Depends on"
+probate_back_office -> ccd_case_print_service "Depends on"
+probate_back_office -> fees_register_api "Depends on"
+probate_back_office -> dm_store "Depends on"
+probate_back_office -> ccd_api_gateway_web "Depends on"
+probate_back_office -> bsp_send_letter_service "Depends on"
+probate_back_office -> docmosis_tornado_api "Depends on"
+
+probate_business_service -> probate_persistence_service "Depends on"
+
+sscs_tya_frontend -> sscs_tribunals_api "Depends on"
+
+sscs_tribunals_api -> ccd_data_store_api "Depends on"
+sscs_tribunals_api -> rpe_service_auth_provider "Depends on"
+sscs_tribunals_api -> cmc_pdf_service "Depends on"
+sscs_tribunals_api -> dm_store "Depends on"
+sscs_tribunals_api -> idam_api "Depends on"
+
+sscs_case_loader -> ccd_data_store_api "Depends on"
+sscs_case_loader -> rpe_service_auth_provider "Depends on"
+sscs_case_loader -> idam_api "Depends on"
+
+sscs_tya_notif -> ccd_data_store_api "Depends on"
+sscs_tya_notif -> dm_store "Depends on"
+sscs_tya_notif -> rpe_service_auth_provider "Depends on"
+sscs_tya_notif -> cmc_pdf_service "Depends on"
+sscs_tya_notif -> idam_api "Depends on"
+
+sscs_submit_your_appeal -> sscs_tribunals_api "Depends on"
+
+sscs_evidence_share -> ccd_data_store_api "Depends on"
+sscs_evidence_share -> dm_store "Depends on"
+sscs_evidence_share -> idam_api "Depends on"
+sscs_evidence_share -> bsp_send_letter_service "Depends on"
+sscs_evidence_share -> docmosis_tornado_api "Depends on"
+
+ia_case_api -> ccd_data_store_api "Depends on"
+ia_case_api -> rpe_service_auth_provider "Depends on"
+ia_case_api -> cmc_pdf_service "Depends on"
+ia_case_api -> idam_api "Depends on"
+
+ia_case_documents_api -> ccd_data_store_api "Depends on"
+ia_case_documents_api -> rpe_service_auth_provider "Depends on"
+ia_case_documents_api -> cmc_pdf_service "Depends on"
+ia_case_documents_api -> idam_api "Depends on"
+
+ia_case_notifications_api -> ccd_data_store_api "Depends on"
+ia_case_notifications_api -> rpe_service_auth_provider "Depends on"
+ia_case_notifications_api -> cmc_pdf_service "Depends on"
+ia_case_notifications_api -> idam_api "Depends on"
+
+rpa_em_stitching_api -> idam_api "Depends on"
+rpa_em_stitching_api -> rpe_service_auth_provider "Depends on"
+rpa_em_stitching_api -> dm_store "Depends on"
+
+rpa_em_ccd_orchestrator -> rpa_em_stitching_api "Depends on"
+rpa_em_ccd_orchestrator -> idam_api "Depends on"
+rpa_em_ccd_orchestrator -> rpe_service_auth_provider "Depends on"
+
+rpa_dg_docassembly_api -> docmosis_tornado_api "Depends on"
+rpa_dg_docassembly_api -> idam_api "Depends on"
+rpa_dg_docassembly_api -> rpe_service_auth_provider "Depends on"
+
+fpla_case_service -> idam_api "Depends on"
+fpla_case_service -> rpe_service_auth_provider "Depends on"
+fpla_case_service -> dm_store "Depends on"
+fpla_case_service -> ccd_data_store_api "Depends on"
+
+rd_professional_api -> idam_api "Depends on"
+rd_professional_api -> rpe_service_auth_provider "Depends on"
+rd_professional_api -> rd_user_profile_api "Depends on"
+
+rd_user_profile_api -> idam_api "Depends on"
+rd_user_profile_api -> rpe_service_auth_provider "Depends on"
+
+rd_profile_sync -> idam_api "Depends on"
+rd_profile_sync -> rpe_service_auth_provider "Depends on"
+rd_profile_sync -> rd_user_profile_api "Depends on"
+
+rd_caseworker_ref_api -> idam_api "Depends on"
+rd_caseworker_ref_api -> rpe_service_auth_provider "Depends on"
+rd_caseworker_ref_api -> rd_user_profile_api "Depends on"
+
+rd_location_ref_api -> idam_api "Depends on"
+rd_location_ref_api -> rpe_service_auth_provider "Depends on"
+
+rd_judicial_api -> idam_api "Depends on"
+rd_judicial_api -> rpe_service_auth_provider "Depends on"
+rd_judicial_api -> rd_location_ref_api "Depends on"
+
+rd_commondata_api -> idam_api "Depends on"
+rd_commondata_api -> rpe_service_auth_provider "Depends on"
+
+ts_translation_service -> idam_api "Depends on"
+ts_translation_service -> rpe_service_auth_provider "Depends on"
+
+nfdiv_frontend -> idam_api "Depends on"
+nfdiv_frontend -> rpe_service_auth_provider "Depends on"
+nfdiv_frontend -> ccd_data_store_api "Depends on"
+nfdiv_frontend -> fees_register_api "Depends on"
+nfdiv_frontend -> payment_api "Depends on"
+nfdiv_frontend -> dm_store "Depends on"
+
+nfdiv_case_api -> idam_api "Depends on"
+nfdiv_case_api -> rpe_service_auth_provider "Depends on"
+nfdiv_case_api -> ccd_data_store_api "Depends on"
+nfdiv_case_api -> fees_register_api "Depends on"
+nfdiv_case_api -> payment_api "Depends on"
+nfdiv_case_api -> rpa_dg_docassembly_api "Depends on"
+nfdiv_case_api -> bsp_send_letter_service "Depends on"
