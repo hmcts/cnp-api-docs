@@ -22,6 +22,10 @@ jobs:
       - run: docker run --rm -d -p 8080:8080 -v $PWD:/usr/local/structurizr -e STRUCTURIZR_WORKSPACE_PATH=nfdiv structurizr/lite
         working-directory: docs/c4
 
+      - uses: jakejarvis/wait-action@master
+        with:
+          time: '5s'
+
       - run: |
           node export.js http://localhost:8080/ png
           mv *.png ./nfdiv/images
