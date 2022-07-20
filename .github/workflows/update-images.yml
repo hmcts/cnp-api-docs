@@ -16,7 +16,7 @@ jobs:
         with:
           node-version: 16
 
-      - run: npm install playwright
+      - run: npx playwright install --with-deps chromium
       - run: node docs/c4/generate.js
 
       - run: docker run --rm -d -p 8080:8080 -v $PWD:/usr/local/structurizr -e STRUCTURIZR_WORKSPACE_PATH=nfdiv structurizr/lite
