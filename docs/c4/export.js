@@ -1,4 +1,4 @@
-const puppeteer = require('puppeteer');
+const { chromium } = require('playwright');
 const fs = require('fs');
 
 if (process.argv.length < 4) {
@@ -25,7 +25,7 @@ const url = structurizrUrl + '/workspace/diagrams';
 const filenameSuffix = 'structurizr-';
 
 (async () => {
-    browser = await puppeteer.launch({ ignoreHTTPSErrors: true, headless: true });
+    browser = await chromium.launch({ ignoreHTTPSErrors: true, headless: true });
     const page = await browser.newPage();
 
     await page.goto(url, { waitUntil: 'domcontentloaded' });
