@@ -28,7 +28,7 @@ jobs:
           time: '5s'
 
       - run: |
-          node export.js http://localhost:8080/ png
+          xvfb-run --auto-servernum -- node export.js http://localhost:8080/ png
           mv *.png ./nfdiv/images
           docker stop $(docker ps -a -q)
         working-directory: docs/c4
