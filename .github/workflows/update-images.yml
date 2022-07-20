@@ -31,7 +31,7 @@ jobs:
 
       - uses: jakejarvis/wait-action@master
         with:
-          time: '5s'
+          time: '30s'
 
       - run: node export-diagrams-lite.js http://localhost:8080/ png
         working-directory: puppeteer
