@@ -16,6 +16,7 @@ jobs:
         with:
           node-version: 16
 
+      - run: npm install playwright
       - run: npx playwright install --with-deps chromium
       - run: node docs/c4/generate.js
 
