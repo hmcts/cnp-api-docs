@@ -11,13 +11,38 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+
+      - uses: actions/checkout@v3
+        with:
+          repository: structurizr/puppeteer
+          path: puppeteer
+
+      - run: npm install puppeteer
+        working-directory: puppeteer
+
       - uses: actions/setup-node@v3
         with:
           node-version: 16
 
       - run: node docs/c4/generate.js
 
-      - run: docker run --rm -v $(pwd)/docs/c4:/docs extenda/structurizr-to-png
+      - run: docker run --rm -d -p 8080:8080 -v $PWD:/usr/local/structurizr -e STRUCTURIZR_WORKSPACE_PATH=nfdiv structurizr/lite
+        working-directory: docs/c4
+
+      - uses: jakejarvis/wait-action@master
+        with:
+          time: '5s'
+
+      - run: node export-diagrams-lite.js http://localhost:8080/ png
+        working-directory: puppeteer
+
+      - run: |
+          rm *-key.png
+          mv *.png ../c4/docs/nfdiv/images
+        working-directory: puppeteer
+
+      - run: docker stop $(docker ps -a -q)
+        working-directory: docs/c4
 
       - uses: stefanzweifel/git-auto-commit-action@v4
         with:
