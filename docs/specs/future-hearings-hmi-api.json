@@ -2146,9 +2146,9 @@
                 }
             },
             "get": {
-                "description": "Retrieve Video Hering By User",
-                "operationId": "retrieve-video-hering-by-user",
-                "summary": "Retrieve Video Hering By User",
+                "description": "Retrieve Video Hearing By User",
+                "operationId": "retrieve-video-hearing-by-user",
+                "summary": "Retrieve Video Hearing By User",
                 "tags": [
                     "video-hearings"
                 ],
