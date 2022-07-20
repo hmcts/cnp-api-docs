@@ -25,7 +25,7 @@ const url = structurizrUrl + '/workspace/diagrams';
 const filenameSuffix = 'structurizr-';
 
 (async () => {
-    browser = await chromium.launch({ args: [`--no-sandbox`, `--disable-setuid-sandbox`], ignoreHTTPSErrors: true, headless: true });
+    browser = await chromium.launch({ args: [`--no-sandbox`, `--disable-setuid-sandbox`], ignoreHTTPSErrors: true, headless: false, downloadsPath: '.' });
     const page = await browser.newPage();
 
     await page.goto(url, { waitUntil: 'domcontentloaded' });
