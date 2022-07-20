@@ -35,7 +35,7 @@
             "colour": "#FFDFD3"
         },
         {
-            "name": "CDM",
+            "name": "CCD",
             "colour": "#AF9F2E"
         },
         {
@@ -375,7 +375,7 @@
         {
             "id": "ccd-case-activity-api",
             "name": "CCD Case Activities Api",
-            "group": "CDM",
+            "group": "CCD",
             "type": "api",
             "description": "",
             "repository": "https://github.com/hmcts/ccd-case-activity-api",
@@ -393,7 +393,7 @@
         {
             "id": "ccd-case-print-service",
             "name": "CCD Case Print Service",
-            "group": "CDM",
+            "group": "CCD",
             "type": "api",
             "description": "",
             "repository": "https://github.com/hmcts/ccd-case-print-service",
@@ -421,7 +421,7 @@
         {
             "id": "ccd-api-gateway-web",
             "name": "CCD API GW",
-            "group": "CDM",
+            "group": "CCD",
             "type": "api-gw",
             "description": "",
             "repository": "https://github.com/hmcts/ccd-api-gateway",
@@ -474,7 +474,7 @@
         {
             "id": "ccd-admin-web",
             "name": "CCD Admin Web",
-            "group": "CDM",
+            "group": "CCD",
             "type": "web",
             "description": "",
             "repository": "https://github.com/hmcts/ccd-admin-web",
@@ -507,7 +507,7 @@
         {
             "id": "ccd-case-management-web",
             "name": "CCD Case Managment Web",
-            "group": "CDM",
+            "group": "CCD",
             "type": "web",
             "description": "",
             "repository": "https://github.com/hmcts/ccd-case-management-web",
@@ -545,7 +545,7 @@
         {
             "id": "ccd-data-store-api",
             "name": "CCD Data Store",
-            "group": "CDM",
+            "group": "CCD",
             "type": "api",
             "description": "",
             "repository": "https://github.com/hmcts/ccd-data-store-api",
@@ -602,8 +602,8 @@
         },
         {
             "id": "ccd-definition-store-api",
-            "name": "CCD Defintion Store",
-            "group": "CDM",
+            "name": "CCD Definition Store",
+            "group": "CCD",
             "type": "api",
             "description": "",
             "repository": "https://github.com/hmcts/ccd-definition-store-api",
@@ -636,7 +636,7 @@
         {
             "id": "ccd-user-profile-api",
             "name": "CCD User Profile",
-            "group": "CDM",
+            "group": "CCD",
             "type": "api",
             "description": "",
             "repository": "https://github.com/hmcts/ccd-user-profile-api",
@@ -654,7 +654,7 @@
          {
             "id": "ccd-case-document-am-api",
             "name": "CCD Case Doc Store",
-            "group": "CDM",
+            "group": "CCD",
             "type": "api",
             "description": "",
             "repository": "https://github.com/hmcts/ccd-case-document-am-api",
@@ -720,7 +720,7 @@
         {
             "id": "aac-manage-case-assignment",
             "name": "Manage Case Assignment",
-            "group": "CDM",
+            "group": "CCD",
             "type": "api",
             "description": "",
             "repository": "https://github.com/hmcts/aac-manage-case-assignment",
@@ -753,7 +753,7 @@
         {
             "id": "cpo-case-payment-orders-api",
             "name": "Case Payment Orders API",
-            "group": "CDM",
+            "group": "CCD",
             "type": "api",
             "description": "",
             "repository": "https://github.com/hmcts/cpo-case-payment-orders-api",
@@ -2555,7 +2555,7 @@
         {
             "id": "ts-translation-service",
             "name": "Translation Service",
-            "group": "CDM",
+            "group": "CCD",
             "type": "api",
             "description": "Provides a capability for service users to maintain Welsh translations.",
             "repository": "https://github.com/hmcts/ts-translation-service",

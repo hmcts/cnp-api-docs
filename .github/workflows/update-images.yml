@@ -12,17 +12,12 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - uses: actions/checkout@v3
-        with:
-          repository: structurizr/puppeteer
-          path: puppeteer
-
-      - run: npm install puppeteer
-        working-directory: puppeteer
-
       - uses: actions/setup-node@v3
         with:
           node-version: 16
+
+      - run: npm install puppeteer
+        working-directory: docs/c4
 
       - run: node docs/c4/generate.js
 
@@ -33,15 +28,10 @@ jobs:
         with:
           time: '30s'
 
-      - run: node export-diagrams-lite.js http://localhost:8080/ png
-        working-directory: puppeteer
-
       - run: |
-          rm *-key.png
-          mv *.png ../c4/docs/nfdiv/images
-        working-directory: puppeteer
-
-      - run: docker stop $(docker ps -a -q)
+          node export.js http://localhost:8080/ png
+          mv *.png ./nfdiv/images
+          docker stop $(docker ps -a -q)
         working-directory: docs/c4
 
       - uses: stefanzweifel/git-auto-commit-action@v4
