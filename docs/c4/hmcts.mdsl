@@ -23,14 +23,14 @@ lau = softwareSystem "LAU" {
    lau_idam_backend = container "LAU IdAM Backend" "LAU IdAM Logons Backend"
    lau_frontend = container "LAU Frontend" "LAU Frontend Web application"
 }
-cdm = softwareSystem "CDM" {
+ccd = softwareSystem "CCD" {
    ccd_case_activity_api = container "CCD Case Activities Api" ""
    ccd_case_print_service = container "CCD Case Print Service" ""
    ccd_api_gateway_web = container "CCD API GW" ""
    ccd_admin_web = container "CCD Admin Web" ""
    ccd_case_management_web = container "CCD Case Managment Web" ""
    ccd_data_store_api = container "CCD Data Store" ""
-   ccd_definition_store_api = container "CCD Defintion Store" ""
+   ccd_definition_store_api = container "CCD Definition Store" ""
    ccd_user_profile_api = container "CCD User Profile" ""
    ccd_case_document_am_api = container "CCD Case Doc Store" ""
    aac_manage_case_assignment = container "Manage Case Assignment" ""
