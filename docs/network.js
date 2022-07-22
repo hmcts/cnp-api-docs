@@ -3,6 +3,12 @@ const idamIdPrefix = "idam";
 const s2sId = "rpe-service-auth-provider";
 
 
+const formatName = str => str.toLowerCase()
+  .replaceAll(" ", "_")
+  .replaceAll("-", "_")
+  .replaceAll("&", "")
+  .replaceAll(",", "");
+
 let networkCanvas;
 let container = document.getElementById('api');
 let appTypes = {};
@@ -51,49 +57,12 @@ function build(data) {
     let network = new vis.Network(container, networkData, visOptions);
     networkCanvas = container.getElementsByTagName('canvas')[0];
 
-
     network.on('click', function (params) {
-        let nodeId = this.getNodeAt(params.pointer.DOM);
+        const nodeId = this.getNodeAt(params.pointer.DOM);
+        const node = this.body.nodes[nodeId];
 
-        if (legendaryNodeIds[nodeId] !== undefined) {
-            legendaryNodeIds[nodeId] = !legendaryNodeIds[nodeId];
-            let nodeIdsToClear = [];
-
-            network.setData({
-                nodes: getNodes(data, edgesData, groupOptions).filter((node) => {
-                    let clear = false;
-                    for (let legendId in legendaryNodeIds) {
-                        // skip loop if the property is from prototype
-                        if (!legendaryNodeIds.hasOwnProperty(legendId)) {
-                            console.log(legendId);
-                            console.dir(legendaryNodeIds);
-                            continue;
-                        }
-
-                        if (
-                            !legendaryNodeIds[legendId] && (
-                                isPartOfGroup(node.group,network.body.nodes[legendId].options.group)
-                            )) {
-                            nodeIdsToClear.push(node.id);
-                            clear = true;
-                            break;
-                        }
-                    }
-                    return !clear || legendaryNodeIds[node.id] !== undefined;
-                }),
-                edges: getEdges(data).filter(function(edge) {
-                    return !nodeIdsToClear.includes(edge.from) && !nodeIdsToClear.includes(edge.to)
-                })
-            });
-
-            network.redraw();
-        }
-    });
-    network.on('click', function (params) {
-        let nodeId = this.getNodeAt(params.pointer.DOM);
-
-        if (this.body.nodes[nodeId]) {
-            let href = this.body.nodes[nodeId].options.href;
+        if (node) {
+            let href = node.options.href;
 
             if (href) {
                 window.open(href, '_blank');
@@ -252,7 +221,8 @@ function getNodes(data, edgesData, groupOptions) {
                 group: group.name,
                 value: 1,
                 fixed: true,
-                physics: false
+                physics: false,
+                href: "lld/" + formatName(group.name) + ".html"
             });
         });
 
