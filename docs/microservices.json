@@ -64,7 +64,8 @@
         },
         {
             "name": "Probate",
-            "colour": "#DD7F00"
+            "colour": "#DD7F00",
+            "info": "Overview of the Probate components and how they interact with other CFT components. View our <a href=\"https://tools.hmcts.net/confluence/display/DATS/DTS+-+Probate+Service?src=contextnavpagetreemode\">confluence</a> page for fore details about the Probate services and the <a href=\"https://tools.hmcts.net/confluence/display/DATS/How-to+technical\">how-to page</a> for guides to common tasks and setup."
         },
         {
             "name": "CMC",

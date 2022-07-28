@@ -34,6 +34,15 @@
                         "examples": [
                             "#8e44ad"
                         ]
+                    },
+                    "info": {
+                        "type": "string",
+                        "title": "Introductory text for the group",
+                        "description": "Add a link to confluence with some extra context about the group",
+                        "default": "",
+                        "examples": [
+                            "Overview of the Probate components and how they interact with other CFT components. View our <a href=\"\">confluence</a> page for low level implementation details."
+                        ]
                     }
                 }
             }
