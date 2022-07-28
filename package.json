@@ -23,14 +23,13 @@
   "homepage": "https://github.com/hmcts/reform-api-docs#readme",
   "dependencies": {
     "djv": "^2.1.4",
-    "jasmine": "^2.99.0",
+    "jasmine": "^4.3.0",
     "moment": "~2.29.4",
-    "npm": "^6.14.6",
-    "swagger-ui-dist": "^3.19.5",
+    "swagger-ui-dist": "^4.13.0",
     "vis": "^4.21.0"
   },
   "devDependencies": {
-    "http-server": "^0.10.0"
+    "http-server": "^14.1.1"
   },
   "spec_dir": "test",
   "spec_files": [
