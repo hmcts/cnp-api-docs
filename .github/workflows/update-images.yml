@@ -1,4 +1,4 @@
-name: Diff CCD definition
+name: Update C4 documentation
 
 on:
   pull_request:
