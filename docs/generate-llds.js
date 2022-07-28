@@ -3,6 +3,7 @@ const { writeFileSync, existsSync } = require("fs");
 const microservices = require('./microservices.json');
 
 const servicesByGroup = {};
+const groups = microservices.groups.reduce((groups, group) => ({ [group.name]: group, ...groups }), {});
 
 const formatName = str => str.toLowerCase()
     .replaceAll(" ", "_")
@@ -38,7 +39,7 @@ const getHTML = group => `
     <div class="container px-4 pt-5 my-5">
       <h1 class="display-4 fw-bold">${group} Overview</h1>
       <div class="col-lg-6 mx-auto">
-        <p class="lead mb-4">Overview of the ${group} and how they interact with other CFT components.</p>
+        <p class="lead my-4">${ groups[group].info ? groups[group].info : `Overview of the ${group} components and how they interact with other CFT components.` }</p>
       </div>
       <div class="overflow-hidden">
         <div class="container px-5">
