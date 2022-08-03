@@ -53,7 +53,7 @@
             "description": "Document is uploaded",
             "examples": {
               "application/json": {
-                "Document has been uploaded successfully": "xyz.pdf"
+                "message": "Document has been uploaded successfully: xyz.pdf"
               }
             }
           },
