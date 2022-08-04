@@ -1,0 +1,81 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0",
+    "description": "<h3>Document upload API documentation </h3> <b>Published Date:</b> 8-June-2022 <b>Author: </b> Shashi Kumar S K, Yashar Rahvar <b> Requirement:</b> New API added for document upload  <b>Version History:</b>Document upload API is added",
+    "title": "Document upload "
+  },
+  "host": "cft-api-mgmt-demo.azure-api.net",
+  "basePath": "/",
+  "schemes": [
+    "https"
+  ],
+  "securityDefinitions": {
+    "apiKeyHeader": {
+      "type": "apiKey",
+      "name": "Ocp-Apim-Subscription-Key",
+      "in": "header"
+    },
+    "apiKeyQuery": {
+      "type": "apiKey",
+      "name": "auth-token",
+      "in": "header"
+    }
+  },
+  "security": [
+    {
+      "apiKeyHeader": [
+        
+      ]
+    }
+  ],
+  "paths": {
+    "/{caseId}/document": {
+      "post": {
+        "description": "Uploads document for a specific case in CCD",
+        "operationId": "documentUpload",
+        "summary": "Upload document",
+        "parameters": [
+          {
+            "name": "caseId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "CCD ID for which document will be uploaded"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              
+            },
+            "description": "Used by third party service to upload a document in CCD"
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "201": {
+            "description": "Document is uploaded",
+            "examples": {
+              "application/json": {
+                "message": "Document has been uploaded successfully: xyz.pdf"
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "403": {
+            "description": "Failed authorisation"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    }
+  }
+}
