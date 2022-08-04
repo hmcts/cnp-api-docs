@@ -1,0 +1,76 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0",
+    "description": "<h3>CourtNav API Documentation </h3> <b>Published Date:</b> 8-June-2022 <b>Author: </b> Shashi Kumar S K, Yashar Rahvar <b> Requirement:</b> New API added for CourtNav case creation  <b>Version History:</b> CourtNav  API is added",
+    "title": "CourtNav "
+  },
+  "host": "cft-api-mgmt-demo.azure-api.net",
+  "basePath": "/",
+  "schemes": [
+    "https"
+  ],
+  "securityDefinitions": {
+    "apiKeyHeader": {
+      "type": "apiKey",
+      "name": "Ocp-Apim-Subscription-Key",
+      "in": "header"
+    },
+    "apiKeyQuery": {
+      "type": "apiKey",
+      "name": "auth-token",
+      "in": "header"
+    }
+  },
+  "security": [
+    {
+      "apiKeyHeader": [
+        
+      ]
+    }
+  ],
+  "paths": {
+    "/case": {
+      "post": {
+        "description": "Creates case in CCD",
+        "operationId": "caseCreation",
+        "summary": "Creates case in CCD",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              
+            },
+            "description": "Used by third party service to create a case in CCD"
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "201": {
+            "description": "Case created",
+            "examples": {
+              "application/json": {
+                "ccd_reference": "1234567891234567"
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Failed authorisation"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    }
+  }
+}
