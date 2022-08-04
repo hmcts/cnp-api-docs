@@ -30,15 +30,23 @@
     }
   ],
   "paths": {
-    "/document": {
+    "/{caseId}/document": {
       "post": {
         "description": "Uploads document for a specific case in CCD",
         "operationId": "documentUpload",
         "summary": "Upload document",
         "parameters": [
           {
+            "name": "caseId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "CCD ID for which document will be uploaded"
+          },
+          {
             "name": "body",
             "in": "body",
+            "required": true,
             "schema": {
               
             },
