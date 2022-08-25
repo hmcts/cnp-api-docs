@@ -2,11 +2,11 @@
   "swagger": "2.0",
   "info": {
     "version": "1.0",
-    "description": "<h3>Document upload API documentation </h3> <b>Published Date:</b> 8-June-2022 <b>Author: </b> Shashi Kumar S K, Yashar Rahvar <b> Requirement:</b> New API added for document upload  <b>Version History:</b>Document upload API is added",
+    "description": "<h3>Document upload API documentation </h3> <b>Published Date:</b> 23-Aug-2022 <b>Author: </b> Shashi Kumar S K, Yashar Rahvar <b> Requirement:</b> New API added for document upload  <b>Version History:</b>Document upload API is added",
     "title": "Document upload "
   },
-  "host": "cft-api-mgmt-demo.azure-api.net",
-  "basePath": "/",
+  "host": "cft-api-mgmt.demo.platform.hmcts.net",
+  "basePath": "/prl-document-api",
   "schemes": [
     "https"
   ],
@@ -24,9 +24,7 @@
   },
   "security": [
     {
-      "apiKeyHeader": [
-        
-      ]
+      "apiKeyHeader": []
     }
   ],
   "paths": {
@@ -44,14 +42,22 @@
             "description": "CCD ID for which document will be uploaded"
           },
           {
-            "name": "body",
-            "in": "body",
+            "name": "file",
+            "in": "formData",
             "required": true,
-            "schema": {
-              
-            },
-            "description": "Used by third party service to upload a document in CCD"
+            "type": "file",
+            "description": "Document which needs to be attached to a case"
+          },
+          {
+            "name": "typeOfDocument",
+            "in": "formData",
+            "required": true,
+            "type": "string",
+            "description": "Type of document which is being attached"
           }
+        ],
+        "consumes": [
+          "multipart/form-data"
         ],
         "produces": [
           "application/json"
@@ -70,6 +76,9 @@
           },
           "403": {
             "description": "Failed authorisation"
+          },
+          "404": {
+            "description": "Not found"
           },
           "500": {
             "description": "Internal server error"
