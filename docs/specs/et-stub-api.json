@@ -1,0 +1,58 @@
+{
+  "swagger" : "2.0",
+  "info": {
+    "version": "1.0",
+    "description": "<h3>ET Stub API Documentation </h3> <b>Published Date:</b> 1-September-2022 <b>Author: </b> Harpreet Jhita <b> Requirement:</b> New API added for ET Stub  <b>Version History:</b> ET Stub API is added",
+    "title": "ET Stub API "
+  },
+  "host": "cft-api-mgmt-demo.azure-api.net",
+  "basePath": "/et-cos",
+  "schemes": [
+    "https"
+  ],
+  "securityDefinitions": {
+    "apiKeyHeader" : {
+      "type" : "apiKey",
+      "name": "Ocp-Apim-Subscription-Key",
+      "in": "header"
+    },
+    "apiKeyQuery" : {
+      "type": "apiKey",
+      "name": "auth-token",
+      "in": "header"
+    }
+  },
+  "paths": {
+    "/stubApi" : {
+      "get": {
+        "description": "Test ACAS Connectivity through a Stub API",
+        "operationId": "etStub",
+        "summary": "Test API for ET",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+
+            },
+            "description": "Used by third party"
+          }
+        ],
+        "produces": [
+          "text/plain"
+        ],
+        "responses": {
+          "200": {
+            "description": "Connection is successful"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    }
+  }
+}
