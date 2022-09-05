@@ -1,0 +1,77 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0",
+    "title": "ET ACAS API",
+    "description": "<h3>ET ACAS API Documentation </h3> <b>Published Date:</b> 5-September-2022 <b>Author: </b> Harpreet Jhita <b> Requirement:</b> API for ACAS  <b>Version History:</b> ET ACAS API is added"
+  },
+  "host": "cft-api-mgmt-demo.azure-api.net",
+  "basePath": "/et-cos",
+  "schemes": [
+    "https"
+  ],
+  "securityDefinitions": {
+    "apiKeyHeader" : {
+      "type" : "apiKey",
+      "name": "Ocp-Apim-Subscription-Key",
+      "in": "header"
+    },
+    "apiKeyQuery" : {
+      "type": "apiKey",
+      "name": "auth-token",
+      "in": "header"
+    }
+  },
+  "paths": {
+    "/getLastModifiedCaseList": {
+      "get": {
+        "summary": "Return a list of CCD case IDs from a provided date",
+        "operationId": "getLastModifiedCaseList",
+        "parameters": [
+          {
+            "name": "datetime",
+            "in": "query",
+            "description": "Format - date time. The date from which the query should return cases which have been modified",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Operation"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/getCaseData": {
+      "get": {
+        "summary": "Return case data from a list of provided IDs",
+        "operationId": "getCaseData",
+        "parameters": [
+          {
+            "name": "caseIds",
+            "in": "query",
+            "description": "A list of CaseIds to search. Should be comma seperated",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Operation"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    }
+  }
+}
