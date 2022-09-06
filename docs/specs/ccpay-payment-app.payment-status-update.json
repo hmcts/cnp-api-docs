@@ -1,0 +1,328 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "This is the API specification about Payment Status update for All Failure scenarios. This specification contains 3 endpoints which will be followed by the second ping endpoint.",
+        "version": "1.0.1",
+        "title": "Payment Status Update"
+    },
+    "host": "cft-api-mgmt-demo.azure-api.net",
+    "basePath": "/",
+    "schemes": [
+        "https"
+    ],
+    "securityDefinitions": {
+        "apiKeyHeader": {
+            "type": "apiKey",
+            "name": "Ocp-Apim-Subscription-Key",
+            "in": "header"
+        },
+        "apiKeyQuery": {
+            "type": "apiKey",
+            "name": "subscription-key",
+            "in": "query"
+        }
+    },
+    "security": [
+        {
+            "apiKeyHeader": []
+        },
+        {
+            "apiKeyQuery": []
+        }
+    ],
+    "tags": [
+        {
+            "name": "Payment-Failures",
+            "description": "Payment Status Update fields"
+        }
+    ],
+    "paths": {
+        "/payment-failures/chargeback": {
+            "post": {
+                "tags": [
+                    "Payment_Status"
+                ],
+                "summary": "Update fields for payment status failure",
+                "description": "",
+                "operationId": "chargeback",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "Chargeback",
+                        "schema": {
+                            "$ref": "#/definitions/Chargeback"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "No Payments available for the given Payment reference"
+                    },
+                    "429": {
+                        "description": "Request already received for this failure reference"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                }
+            }
+        },
+        "/payment-failures/bounced-cheque": {
+            "post": {
+                "tags": [
+                    "Payment_Status"
+                ],
+                "summary": "Update fields for payment status failure",
+                "description": "",
+                "operationId": "bounced-cheque",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "BouncedCheque",
+                        "schema": {
+                            "$ref": "#/definitions/BouncedCheque"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "No Payments available for the given Payment reference"
+                    },
+                    "429": {
+                        "description": "Request already received for this failure reference"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                }
+            }
+        },
+        "/payment-failures/unprocessed-payment": {
+            "post": {
+                "tags": [
+                    "Payment_Status"
+                ],
+                "summary": "Update fields for payment status failure",
+                "description": "",
+                "operationId": "unprocessed-payment",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "UnprocessedPayment",
+                        "schema": {
+                            "$ref": "#/definitions/UnprocessedPayment"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "No Payments available for the given Payment reference"
+                    },
+                    "429": {
+                        "description": "Request already received for this failure reference"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                }
+            }
+        },
+        "/payment-failures/{failure_reference}": {
+            "patch": {
+                "tags": [
+                    "Payment_Status_second"
+                ],
+                "summary": "Update fields for payment status failure",
+                "operationId": "PaymentStatusUpdate-second",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "failure_reference",
+                        "type": "string",
+                        "required": true,
+                        "description": "Unique Failure reference from Liberata side"
+                    },
+                    {
+                        "in": "body",
+                        "name": "PaymentStatusUpdateSecond",
+                        "schema": {
+                            "$ref": "#/definitions/PaymentStatusUpdateSecond"
+                        },
+                        "required": true,
+                        "description": "Unique Failure reference from Liberata side"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "No Payment Failure available for the given Failure reference"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "Chargeback": {
+            "type": "object",
+            "required": [
+                "payment_reference failure_reference reason ccd_case_number amount event_date_time has_amount_debited"
+            ],
+            "properties": {
+                "payment_reference": {
+                    "type": "string",
+                    "example": "RC-1111-2222-3333-4444"
+                },
+                "failure_reference": {
+                    "type": "string",
+                    "example": "Barclaycard Chargeback reference"
+                },
+                "reason": {
+                    "type": "string",
+                    "example": "unpaid cheque"
+                },
+                "ccd_case_number": {
+                    "type": "string",
+                    "example": "1234567812345678"
+                },
+                "amount": {
+                    "type": "number",
+                    "example": 450
+                },
+                "additional_reference": {
+                    "type": "string",
+                    "example": "Extra information"
+                },
+                "event_date_time": {
+                    "type": "string",
+                    "example": "2021-08-15T10:34:45"
+                },
+                "has_amount_debited": {
+                    "type": "string",
+                    "example": "yes"
+                }
+            }
+        },
+        "BouncedCheque": {
+            "type": "object",
+            "required": [
+                "payment_reference failure_reference reason ccd_case_number amount event_date_time"
+            ],
+            "properties": {
+                "payment_reference": {
+                    "type": "string",
+                    "example": "RC-1111-2222-3333-4444"
+                },
+                "failure_reference": {
+                    "type": "string",
+                    "example": "Barclaycard Bounced Cheque reference"
+                },
+                "reason": {
+                    "type": "string",
+                    "example": "unpaid cheque"
+                },
+                "ccd_case_number": {
+                    "type": "string",
+                    "example": "1234567812345678"
+                },
+                "amount": {
+                    "type": "number",
+                    "example": 450
+                },
+                "additional_reference": {
+                    "type": "string",
+                    "example": "Extra information"
+                },
+                "event_date_time": {
+                    "type": "string",
+                    "example": "2021-08-15T10:34:45"
+                }
+            }
+        },
+        "UnprocessedPayment": {
+            "type": "object",
+            "required": [
+                "failure_reference reason po_box_number amount dcn event_date_time"
+            ],
+            "properties": {
+                "failure_reference": {
+                    "type": "string",
+                    "example": "Unique reference from Liberata"
+                },
+                "reason": {
+                    "type": "string",
+                    "example": "cheque unprocessed"
+                },
+                "po_box_number": {
+                    "type": "string",
+                    "example": "1234567"
+                },
+                "amount": {
+                    "type": "number",
+                    "example": 450
+                },
+                "dcn": {
+                    "type": "string",
+                    "example": "Document Control Number"
+                },
+                "event_date_time": {
+                    "type": "string",
+                    "example": "2021-08-15T10:34:45"
+                }
+            }
+        },
+        "PaymentStatusUpdateSecond": {
+            "type": "object",
+            "required": [
+                "representment_success representment_outcome_date"
+            ],
+            "properties": {
+                "representment_success": {
+                    "type": "string",
+                    "example": "Yes"
+                },
+                "representment_date": {
+                    "type": "string",
+                    "example": "2021-08-15T10:34:45"
+                }
+            }
+        }
+    }
+}
