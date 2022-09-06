@@ -318,7 +318,7 @@
                     "type": "string",
                     "example": "Yes"
                 },
-                "representment_outcome_date": {
+                "representment_date": {
                     "type": "string",
                     "example": "2021-08-15T10:34:45"
                 }
