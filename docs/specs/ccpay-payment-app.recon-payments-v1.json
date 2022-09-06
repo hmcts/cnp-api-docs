@@ -546,14 +546,14 @@
         "PaymentStatusUpdateSecond": {
             "type": "object",
             "required": [
-                "representment_success representment_outcome_date"
+                "representment_success representment_date"
             ],
             "properties": {
                 "representment_success": {
                     "type": "string",
                     "example": "Yes"
                 },
-                "representment_outcome_date": {
+                "representment_date": {
                     "type": "string",
                     "example": "2021-08-15T10:34:45"
                 }
