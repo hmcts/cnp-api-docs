@@ -6,7 +6,7 @@
     "description": "<h3>ET ACAS API Documentation </h3> <b>Published Date:</b> 5-September-2022 <b>Author: </b> Harpreet Jhita <b> Requirement:</b> API for ACAS  <b>Version History:</b> ET ACAS API is added"
   },
   "host": "cft-api-mgmt-demo.azure-api.net",
-  "basePath": "/et-cos",
+  "basePath": "/et-sya-api",
   "schemes": [
     "https"
   ],
