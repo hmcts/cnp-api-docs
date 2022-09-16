@@ -30,25 +30,18 @@
     }
   ],
   "paths": {
-    "/cases/searchCases": {
+    "/cases/documents/{documentId}/binary": {
       "get": {
-        "description": "Search and return cases according to the provided parameters",
-        "operationId": "get case data",
-        "summary": "This API retrieve case data",
+        "description": "This API retrieve case document",
+        "operationId": "get case document",
+        "summary": "This API retrieve case document",
         "parameters": [
           {
-            "name": "start_date",
-            "in": "query",
-            "description": "start date timestamp",
+            "name": "documentId",
+            "in": "path",
+            "description": "retrieve case document by document ID",
             "type": "string",
-            "example": "2022-03-28T12:32:54.541"
-          },
-          {
-            "name": "end_date",
-            "in": "query",
-            "description": "end date timestamp",
-            "type": "string",
-            "example": "2022-03-29T12:32:54.541"
+            "required": true
           }
         ],
         "produces": [
@@ -56,17 +49,10 @@
         ],
         "responses": {
           "200": {
-            "description": "search results matching criteria",
-            "examples": {
-              "application/json": [
-                {
-                "id": "d290f1ee-6c54-4b01-90e6-d701748f0851"
-                }
-              ]
-            }
+            "description": "Success"
           },
           "400": {
-            "description": "Bad request"
+            "description": "Case document Id is not valid"
           },
           "401": {
             "description": "Unauthorized"
@@ -74,8 +60,11 @@
           "403": {
             "description": "Failed authorisation"
           },
-          "403": {
+          "429": {
             "description": "rate limit error or too many requests"
+          },
+          "404": {
+            "description": "Case document not found"
           },
           "500": {
             "description": "Internal server error"
