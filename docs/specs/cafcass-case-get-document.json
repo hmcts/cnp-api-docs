@@ -30,7 +30,7 @@
     }
   ],
   "paths": {
-    "/cases/documents/{documentId}/binary": {
+    "/documents/{documentId}/binary": {
       "get": {
         "description": "This API retrieve case document",
         "operationId": "get case document",
