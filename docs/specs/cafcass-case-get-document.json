@@ -1,0 +1,76 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0",
+    "description": "<h3>Cafcass API Documentation </h3> <b>Published Date:</b> 15-September-2022 <b>Author: </b> Jegan Maharajan, Yashar Rahvar <b> Requirement:</b> This document present details of third-party organisations to retrieve case data and documents from the CFT case management system  <b>Version History:</b> Cafcass  API is added",
+    "title": "Cafcass APIs "
+  },
+  "host": "cft-api-mgmt-demo.azure-api.net",
+  "basePath": "/",
+  "schemes": [
+    "https"
+  ],
+  "securityDefinitions": {
+    "apiKeyHeader": {
+      "type": "apiKey",
+      "name": "Ocp-Apim-Subscription-Key",
+      "in": "header"
+    },
+    "apiKeyQuery": {
+      "type": "apiKey",
+      "name": "auth-token",
+      "in": "header"
+    }
+  },
+  "security": [
+    {
+      "apiKeyHeader": [
+
+      ]
+    }
+  ],
+  "paths": {
+    "/cases/documents/{documentId}/binary": {
+      "get": {
+        "description": "This API retrieve case document",
+        "operationId": "get case document",
+        "summary": "This API retrieve case document",
+        "parameters": [
+          {
+            "name": "documentId",
+            "in": "path",
+            "description": "retrieve case document by document ID",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Case document Id is not valid"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Failed authorisation"
+          },
+          "429": {
+            "description": "rate limit error or too many requests"
+          },
+          "404": {
+            "description": "Case document not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    }
+  }
+}
