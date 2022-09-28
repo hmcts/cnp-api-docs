@@ -1,0 +1,348 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0",
+    "description": "<h3>Refund API Documentation </h3> <b>Published Date:</b> 28-SEP-2022 <b>Author: </b> Sayali Salunkhe <b> Requirement:</b> New API added for Refunds V2 <b>Version History:</b> Refunds V2 API is added, Refund status update API is added",
+    "title": "Refund APIs"
+  },
+  "host": "core-api-mgmt-demo.azure-api.net",
+  "basePath": "/",
+  "schemes": [
+    "https"
+  ],
+  "securityDefinitions": {
+    "apiKeyHeader": {
+      "type": "apiKey",
+      "name": "Ocp-Apim-Subscription-Key",
+      "in": "header"
+    },
+    "apiKeyQuery": {
+      "type": "apiKey",
+      "name": "subscription-key",
+      "in": "query"
+    }
+  },
+  "security": [
+    {
+      "apiKeyHeader": []
+    },
+    {
+      "apiKeyQuery": []
+    }
+  ],
+  "paths": {
+    "/refund/{reference}": {
+      "patch": {
+        "tags": [
+          "Refund Status Update"
+        ],
+        "summary": "Update refund status for payments",
+        "description": "To get refund status",
+        "operationId": "GetRefundStatus",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "type": "string",
+            "name": "reference",
+            "description": "reference",
+            "required": true
+          },
+          {
+            "in": "body",
+            "name": "refundRequest",
+            "description": "refundRequest",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/refundRequest"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Refund status updated successfully."
+          },
+          "400": {
+            "description": "Bad request. Refund status should be ACCEPTED or REJECTED/Refund rejection reason is missing"
+          },
+          "401": {
+            "description": "Access denied due to invalid subscription key. Make sure to provide a valid key for an active subscription."
+          },
+          "403": {
+            "description": "Invalid client certificate"
+          },
+          "404": {
+            "description": "Refund reference not found"
+          },
+          "500": {
+            "description": "Unexpected or Run time exception."
+          }
+        }
+      }
+    },
+    "/refunds": {
+      "get": {
+        "tags": [
+          "Refunds"
+        ],
+        "summary": "Get list of Refunds along with respective Payment details",
+        "description": "",
+        "operationId": "getRefundsList",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "start_date",
+            "in": "query",
+            "description": "Start date for searching refunds.",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "end_date",
+            "in": "query",
+            "description": "End date for searching refunds.",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "refund_reference",
+            "in": "body",
+            "description": "Reference for searching refunds.",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/Refund"
+            }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "413": {
+            "description": "Date range exceeds the maximum supported by the system"
+          },
+          "404": {
+            "description": "No refunds available for the given date range"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "refundRequest": {
+      "type": "object",
+      "required": [
+        "reason",
+        "status"
+      ],
+      "properties": {
+        "reason": {
+          "type": "string",
+          "description": "rejection reason",
+          "example": "abc"
+        },
+        "status": {
+          "type": "string",
+          "description": "refund status",
+          "example": "REJECTED",
+          "enum": [
+            "ACCEPTED",
+            "REJECTED"
+          ]
+        }
+      },
+      "title": "refundRequest"
+    },
+    "Fees": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string",
+          "format": "text"
+        },
+        "version": {
+          "type": "string",
+          "format": "text"
+        },
+        "jurisdiction1": {
+          "type": "string",
+          "format": "text"
+        },
+        "jurisdiction2": {
+          "type": "string",
+          "format": "text"
+        },
+        "memo_line": {
+          "type": "string",
+          "format": "text"
+        },
+        "natural_account_code": {
+          "type": "string",
+          "format": "text"
+        },
+        "credit": {
+          "type": "number"
+        }
+      },
+      "example": {
+        "code": "FEE0002",
+        "version": "1",
+        "jurisdiction1": "civil",
+        "jurisdiction2": "county court",
+        "memo_line": "GOV-Paper fees - Money Claim £1,000-£1,500",
+        "natural_account_code": "4481102158",
+        "credit": 67.00
+      }
+    },
+    "Payment": {
+      "type": "object",
+      "properties": {
+        "reference": {
+          "type": "string"
+        },
+        "date_receipt_created": {
+          "type": "string"
+        },
+        "service_name": {
+          "type": "string"
+        },
+        "site_id": {
+          "type": "string"
+        },
+        "channel": {
+          "type": "string"
+        },
+        "method": {
+          "type": "string"
+        },
+        "ccd_case_number": {
+          "type": "string"
+        },
+        "case_reference": {
+          "type": "string"
+        },
+        "customer_reference": {
+          "type": "string",
+          "description": "Applicable when payment_method = PBA"
+        },
+        "pba_number": {
+          "type": "string",
+          "description": "Applicable when payment_method = PBA"
+        },
+        "gov_uk_id": {
+          "type": "string",
+          "description": "Applicable when payment_method = card AND payment_channel=online"
+        },
+        "bgc_number": {
+          "type": "string",
+          "description": "Applicable when payment_channel = bulk scanning"
+        },
+        "available_funds": {
+          "type": "string"
+        }
+      },
+      "example": {
+        "reference": "RC-1111-2222-3333-4444",
+        "date_receipt_created": "2021-08-15T10:34:45",
+        "service_name": "Civil Money Claims",
+        "site_id": "AA00",
+        "channel": "online",
+        "method": "card",
+        "ccd_case_number": "4675243487979456",
+        "case_reference": "72b77b8d-3efa-44c2-8c87-d7cbb04513b7",
+        "customer_reference": "test",
+        "pba_number": "PBA0066906",
+        "gov_uk_id": "lnobdj2jke225nvq0ve4hrm984",
+        "bgc_number": "314234",
+        "available_funds": 110.00
+      }
+    },
+    "Refund": {
+      "type": "object",
+      "properties": {
+        "reference": {
+          "type": "string",
+          "format": "text"
+        },
+        "reason": {
+          "type": "string"
+        },
+        "instruction_type": {
+          "type": "string",
+          "enum": [
+            "SendRefund",
+            "RefundWhenContacted"
+          ]
+        },
+        "date_approved": {
+          "type": "string"
+        },
+        "total_refund_amount": {
+          "type": "number"
+        },
+        "fees": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Fees"
+          }
+        },
+        "payment": {
+          "$ref": "#/definitions/Payment"
+        }
+      },
+      "example": {
+        "refunds": [
+          {
+            "reference": "RF-1664-2732-2132-8576",
+            "reason": "RR007",
+            "instruction_type": "RefundWhenContacted",
+            "date_approved": "2022-09-27T10:07:44.867+0000",
+            "total_refund_amount": 200,
+            "fees": [
+              {
+                "code": "FEE0304",
+                "version": "1",
+                "natural_account_code": "4481102179",
+                "jurisdiction1": "tribunal",
+                "jurisdiction2": "upper tribunal lands chamber",
+                "memo_line": "RECEIPT OF FEES - Tribunal hearing other",
+                "credit": 200
+              }
+            ],
+            "payment": {
+              "reference": "RC-1664-2711-1699-1045",
+              "date_receipt_created": "2022-09-27T09:31:56.954+0000",
+              "service_name": "Specified Money Claims",
+              "site_id": "AAA6",
+              "channel": "bulk scan",
+              "method": "cash",
+              "ccd_case_number": "1763259014062093",
+              "case_reference": null,
+              "customer_reference": null,
+              "pba_number": null,
+              "gov_uk_id": null,
+              "bgc_number": "123456",
+              "available_funds": 250
+            }
+          }
+        ]
+      }
+    }
+  }
+}
