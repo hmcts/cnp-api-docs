@@ -2274,21 +2274,6 @@
                 }
             }
         },
-        "/pact-health": {
-            "get": {
-                "description": "Pact-Health",
-                "operationId": "pact-health",
-                "summary": "Pact-Health",
-                "tags": [
-                    "utils"
-                ],
-                "responses": {
-                    "200": {
-                        "description": ""
-                    }
-                }
-            }
-        },
         "/vh-health": {
             "get": {
                 "description": "Video Hearinf Health",
