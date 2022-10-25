@@ -2230,21 +2230,6 @@
                     }
                 }
             }
-        },
-        "/emulator-health": {
-            "get": {
-                "description": "Emulator-Health",
-                "operationId": "emulator-health",
-                "summary": "Emulator-Health",
-                "tags": [
-                    "utils"
-                ],
-                "responses": {
-                    "200": {
-                        "description": ""
-                    }
-                }
-            }
         },"/snl-health": {
             "get": {
                 "description": "SnL-Health",
