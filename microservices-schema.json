@@ -1,6 +1,5 @@
 {
     "definitions": {},
-    "$schema": "http://json-schema.org/draft-06/schema#",
     "type": "object",
     "$id": "https://raw.githubusercontent.com/hmcts/reform-api-docs/master/docs/microservices.json",
     "required": [
@@ -106,7 +105,6 @@
                     },
                     "urls": {
                         "type": "array",
-                        "required": false,
                         "items": {
                             "type": "object",
                             "required": [
