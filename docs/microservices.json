@@ -148,14 +148,13 @@
             "repository": "https://github.com/hmcts/idam-api",
             "spec": "https://hmcts.github.io/reform-api-docs/specs/idam-api.json",
             "dependencies": [
+              {
+                "id": "lau-idam-backend",
+                "hard": true,
+                "apis": []
+              }
             ],
-            "apis": [
-                {
-                    "id": "lau-idam-backend",
-                    "hard": true,
-                    "apis": []
-                }
-            ],
+            "apis": [],
             "version": null
         },
         {
@@ -2011,7 +2010,7 @@
         },
         {
             "id": "sscs-tya-notif",
-            "name": "SSCS Track Your Appeal Nofiication",
+            "name": "SSCS Track Your Appeal Notification",
             "group": "SSCS",
             "type": "api",
             "description": "",

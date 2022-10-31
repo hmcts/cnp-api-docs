@@ -108,7 +108,7 @@ sscs = softwareSystem "SSCS" {
    sscs_tya_frontend = container "SSCS Track Your Appeal Frontend" ""
    sscs_tribunals_api = container "SSCS Tribunal Case API" ""
    sscs_case_loader = container "SSCS Case Loader" ""
-   sscs_tya_notif = container "SSCS Track Your Appeal Nofiication" ""
+   sscs_tya_notif = container "SSCS Track Your Appeal Notification" ""
    sscs_submit_your_appeal = container "SSCS Submit Your Appeal Frontend" ""
    sscs_evidence_share = container "SSCS Evidence Share Service" ""
    sscs_cor_frontend = container "SSCS COR Frontend" ""
@@ -139,6 +139,8 @@ nfdiv = softwareSystem "NFDIV" {
    nfdiv_case_api = container "NFDIV Case API" "Business logic for the No Fault Divorce system"
 }
 hmi_gateway_api -> pih_gateway_api "Depends on"
+
+idam_api -> lau_idam_backend "Depends on"
 
 bar_web -> bar_api "Depends on"
 bar_web -> fees_register_api "Depends on"
