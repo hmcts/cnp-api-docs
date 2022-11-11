@@ -2702,11 +2702,6 @@
             "id": "rpe-service-auth-provider",
             "hard": true,
             "apis": []
-          },
-          {
-            "id": "pcqshared",
-            "hard": true,
-            "apis": []
           }
         ],
         "apis": [],
