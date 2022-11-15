@@ -106,6 +106,10 @@
         {
             "name": "LAU",
             "colour": "#f0f709"
+        },
+        {
+          "name": "PCQ",
+          "colour": "#B87333"
         }
     ],
     "apis": [
@@ -2659,6 +2663,98 @@
                 },
                 {
                     "id": "bsp-send-letter-service",
+                    "hard": true,
+                    "apis": []
+                }
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "pcq-backend",
+            "name": "PCQ Backend",
+            "group": "PCQ",
+            "type": "api",
+            "description": "PCQ Backend",
+            "repository": "https://github.com/hmcts/pcq-backend",
+            "spec": "https://hmcts.github.io/reform-api-docs/specs/pcq-backend.json",
+            "dependencies": [
+                {
+                    "id": "rpe-service-auth-provider",
+                    "hard": true,
+                    "apis": []
+                }
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "pcq-loader",
+            "name": "PCQ Loader",
+            "group": "PCQ",
+            "type": "api",
+            "description": "PCQ Loader",
+            "repository": "https://github.com/hmcts/pcq-loader",
+            "spec": null,
+            "dependencies": [
+                {
+                    "id": "pcq-backend",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "rpe-service-auth-provider",
+                    "hard": true,
+                    "apis": []
+                }
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "pcq-consolidation-service",
+            "name": "PCQ Consolidation Service",
+            "group": "PCQ",
+            "type": "api",
+            "description": "PCQ Consolidation Service",
+            "repository": "https://github.com/hmcts/pcq-consolidation-service",
+            "spec": null,
+            "dependencies": [
+                {
+                    "id": "pcq-backend",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "rpe-service-auth-provider",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "idam-api",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "ccd-data-store-api",
+                    "hard": true,
+                    "apis": []
+                }
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "pcq-frontend",
+            "name": "PCQ Frontend",
+            "group": "PCQ",
+            "type": "web",
+            "description": "PCQ Frontend Web application",
+            "repository": "https://github.com/hmcts/pcq-frontend",
+            "spec": null,
+            "dependencies": [
+                {
+                    "id": "pcq-backend",
                     "hard": true,
                     "apis": []
                 }
