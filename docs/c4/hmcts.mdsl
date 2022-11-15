@@ -138,6 +138,12 @@ nfdiv = softwareSystem "NFDIV" {
    nfdiv_frontend = container "NFDIV Frontend" "Citizen frontend for the No Fault Divorce system"
    nfdiv_case_api = container "NFDIV Case API" "Business logic for the No Fault Divorce system"
 }
+pcq = softwareSystem "PCQ" {
+   pcq_backend = container "PCQ Backend" "PCQ Backend"
+   pcq_loader = container "PCQ Loader" "PCQ Loader"
+   pcq_consolidation_service = container "PCQ Consolidation Service" "PCQ Consolidation Service"
+   pcq_frontend = container "PCQ Frontend" "PCQ Frontend Web application"
+}
 hmi_gateway_api -> pih_gateway_api "Depends on"
 
 idam_api -> lau_idam_backend "Depends on"
@@ -483,3 +489,15 @@ nfdiv_case_api -> fees_register_api "Depends on"
 nfdiv_case_api -> payment_api "Depends on"
 nfdiv_case_api -> rpa_dg_docassembly_api "Depends on"
 nfdiv_case_api -> bsp_send_letter_service "Depends on"
+
+pcq_backend -> rpe_service_auth_provider "Depends on"
+
+pcq_loader -> pcq_backend "Depends on"
+pcq_loader -> rpe_service_auth_provider "Depends on"
+
+pcq_consolidation_service -> pcq_backend "Depends on"
+pcq_consolidation_service -> rpe_service_auth_provider "Depends on"
+pcq_consolidation_service -> idam_api "Depends on"
+pcq_consolidation_service -> ccd_data_store_api "Depends on"
+
+pcq_frontend -> pcq_backend "Depends on"
