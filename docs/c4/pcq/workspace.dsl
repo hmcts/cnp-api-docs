@@ -17,16 +17,16 @@ workspace {
     views {
         !include ../hmcts.vdsl
 
-        #systemContext pcq "pcq-context" {
-            #include *
+        systemContext pcq "pcq-context" {
+            include *
             # exclude caseworker
             # exclude citizen
             # include xui
-            #exclude idam
-            #exclude rpe
-            #exclude relationship==bsp->*
-            #autoLayout
-        #}
+            exclude idam
+            exclude rpe
+            exclude relationship==bsp->*
+            autoLayout
+        }
 
         container pcq "pcq-overview" {
             include *
