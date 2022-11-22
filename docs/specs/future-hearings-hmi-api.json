@@ -2532,6 +2532,63 @@
                 }
             }
         },
+      "/hearingsTest/{hearingId}/cloneTest": {
+        "post": {
+          "tags": ["video-hearings"],
+          "summary": "Clone Hearing",
+          "operationId": "clone-hearing-test",
+          "parameters": [
+            {
+              "name": "hearingId",
+              "in": "path",
+              "required": true,
+              "type": "string"
+            },
+            {
+              "name": "Source-System",
+              "in": "header",
+              "required": true,
+              "type": "string",
+              "default": "CFT",
+              "enum": [
+                "CFT"
+              ]
+            },
+            {
+              "name": "Destination-System",
+              "in": "header",
+              "required": true,
+              "type": "string",
+              "default": "MOCK",
+              "enum": [
+                "MOCK"
+              ]
+            },
+            {
+              "name": "Request-Created-At",
+              "in": "header",
+              "required": true,
+              "type": "string",
+              "default": "1/29/2018 8:36:01 PM"
+            },
+            {
+              "name": "Accept",
+              "in": "header",
+              "required": true,
+              "type": "string",
+              "default": "application/json",
+              "enum": [
+                "application/json"
+              ]
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Success Test"
+            }
+          }
+        }
+      },
         "/hearings/{groupId}/hearings": {
             "get": {
                 "tags": ["video-hearings"],
