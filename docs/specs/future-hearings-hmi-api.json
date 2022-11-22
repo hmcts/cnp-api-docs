@@ -2544,14 +2544,14 @@
                         "required": true,
                         "type": "string"
                     },
-                    {
+                  {
                         "name": "Source-System",
                         "in": "header",
                         "required": true,
                         "type": "string",
                         "default": "CFT",
                         "enum": [
-                            "CFT"
+                            "CFT", "CRIME"
                         ]
                     },
                     {
@@ -2561,7 +2561,7 @@
                         "type": "string",
                         "default": "MOCK",
                         "enum": [
-                            "MOCK"
+                            "MOCK", "VH"
                         ]
                     },
                     {
@@ -2580,7 +2580,19 @@
                         "enum": [
                             "application/json"
                         ]
-                    }
+                    },
+                  {
+                    "name": "X-Client-ID",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "default": "123456789",
+                    "enum": [
+                      "123456789",
+                      "1234",
+                      "2468"
+                    ]
+                  }
                 ],
                 "responses": {
                     "200": {
