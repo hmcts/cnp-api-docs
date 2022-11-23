@@ -2564,7 +2564,7 @@
         },
       "/hearingsTest/{hearingId}/cloneTest": {
         "post": {
-          "tags": ["video-hearings-test"],
+          "tags": ["video-hearings"],
           "summary": "Clone Hearing Test",
           "operationId": "clone-hearing-test",
           "parameters": [
