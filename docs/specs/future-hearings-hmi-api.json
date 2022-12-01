@@ -2263,7 +2263,7 @@
         "/cft-health": {
               "get": {
               "description": "CFT-Health",
-              "operationId": "crime-health",
+              "operationId": "cft-health",
               "summary": "CFT-Health",
               "tags": [
                   "utils"
