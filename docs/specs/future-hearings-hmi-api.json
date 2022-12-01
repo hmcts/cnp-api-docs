@@ -2244,7 +2244,8 @@
                     }
                 }
             }
-        },"/crime-health": {
+        },
+        "/crime-health": {
             "get": {
                 "description": "Crime-Health",
                 "operationId": "crime-health",
@@ -2258,6 +2259,21 @@
                     }
                 }
             }
+        },
+        "/cft-health": {
+              "get": {
+              "description": "CFT-Health",
+              "operationId": "crime-health",
+              "summary": "CFT-Health",
+              "tags": [
+                  "utils"
+              ],
+              "responses": {
+                  "200": {
+                            "description": ""
+                  }
+              }
+              }
         },
         "/vh-health": {
             "get": {
