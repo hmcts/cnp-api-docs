@@ -3,7 +3,7 @@
   "info": {
     "version": "1.1",
     "title": "ET ACAS API",
-    "description": "<h3>ET ACAS API Documentation </h3> <b>Published Date:</b> 5-September-2022 <b>Author: </b> Harpreet Jhita <b> Requirement:</b> API for ACAS  <b>Version History:</b> ET ACAS API is added"
+    "description": "<h3>ET ACAS API Documentation </h3> <br><b>Published Date:</b> 5 September 2022<br><b>Last Updated:</b> 16 February 2023 <br><b>Author: </b> Harpreet Jhita<br> <b> Requirement:</b> API for ACAS  <br><b>Version History:</b> <li>V1: ET ACAS API is added</li><li>V1.1: Documents API added</li>"
   },
   "host": "cft-api-mgmt-demo.azure-api.net",
   "basePath": "/et-sya-api",
@@ -37,77 +37,20 @@
         ],
         "responses": {
           "200": {
-            "description": "Successful Operation"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-    "/getAcasDocuments": {
-      "get": {
-        "summary": "Return a list of documents on a case",
-        "operationId": "getAcasDocuments",
-        "parameters": [
-          {
-            "name": "caseId",
-            "in": "query",
-            "description": "CCD Case ID",
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
             "description": "Successful Operation",
             "examples": {
-              "application/json" : {
-                "ET1" : [
-                  {
-                    "documentId": "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa",
-                    "modifiedOn": "2022-10-07T10:32:37.791Z"
-                  }
-                ],
-                "ET3": [
-                  {
-                    "documentId": "bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb",
-                    "modifiedOn": "2023-02-02T15:24:52.000+00:00"
-                  },
-                  {
-                    "documentId": "cccccccc-cccc-cccc-cccc-cccccccccccc",
-                    "modifiedOn": "2023-02-02T16:07:28.000+00:00"
-                  }
+              "application/json" :
+                [
+                  1663235002066080,
+                  1663164805587979,
+                  1663851490895911,
+                  1664202328205544,
+                  1663744788990892,
+                  1664439480848824,
+                  1663711417034160,
+                  1663711826854976
                 ]
-              }
             }
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-    "/downloadAcasDocuments": {
-      "get": {
-        "summary": "Get a document from CDAM in binary format",
-        "operationId": "downloadAcasDocuments",
-        "parameters": [
-          {
-            "name": "documentId",
-            "in": "query",
-            "description": "UUID for the document in DM Store",
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Operation"
           },
           "400": {
             "description": "Bad Request"
@@ -4692,6 +4635,76 @@
                   "callback_response_status": "string"
               }
             }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/getAcasDocuments": {
+      "get": {
+        "summary": "Return a list of documents on a case",
+        "operationId": "getAcasDocuments",
+        "parameters": [
+          {
+            "name": "caseId",
+            "in": "query",
+            "description": "CCD Case ID",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Operation",
+            "examples": {
+              "application/json" : {
+                "ET1" : [
+                  {
+                    "documentId": "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa",
+                    "modifiedOn": "2022-10-07T10:32:37.791Z"
+                  }
+                ],
+                "ET3": [
+                  {
+                    "documentId": "bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb",
+                    "modifiedOn": "2023-02-02T15:24:52.000+00:00"
+                  },
+                  {
+                    "documentId": "cccccccc-cccc-cccc-cccc-cccccccccccc",
+                    "modifiedOn": "2023-02-02T16:07:28.000+00:00"
+                  }
+                ]
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/downloadAcasDocuments": {
+      "get": {
+        "summary": "Get a document from CDAM in binary format",
+        "operationId": "downloadAcasDocuments",
+        "parameters": [
+          {
+            "name": "documentId",
+            "in": "query",
+            "description": "UUID for the document in DM Store",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Operation"
           },
           "400": {
             "description": "Bad Request"
