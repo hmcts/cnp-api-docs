@@ -2275,6 +2275,21 @@
               }
               }
         },
+        "/hmc-health": {
+            "get": {
+                "description": "hmc-Health",
+                "operationId": "hmc-health",
+                "summary": "hmc-Health",
+                "tags": [
+                    "utils"
+                ],
+                "responses": {
+                    "200": {
+                      "description": ""
+                    }
+                }
+            }
+        },
         "/vh-health": {
             "get": {
                 "description": "Video Hearinf Health",
