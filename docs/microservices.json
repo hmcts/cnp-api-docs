@@ -1604,21 +1604,61 @@
             "version": null
         },
         {
-            "id": "finrem-backend",
-            "name": "Finrem Backend",
+            "id": "finrem-cos",
+            "name": "Finrem Case Orchestration Service",
             "group": "FINREM",
             "type": "api",
             "description": "",
-            "repository": "https://github.com/hmcts/finrem-backend",
-            "spec": "https://hmcts.github.io/reform-api-docs/specs/finrem-backend.json",
+            "repository": "https://github.com/hmcts/finrem-case-orchestration-service",
+            "spec": "https://hmcts.github.io/reform-api-docs/specs/finrem-case-orchestration.json",
             "dependencies": [
+                {
+                    "id": "idam-web-public",
+                    "hard": true,
+                    "apis": []
+                },
                 {
                     "id": "rpe-service-auth-provider",
                     "hard": true,
                     "apis": []
                 },
                 {
-                    "id": "draft-store-service",
+                    "id": "fees-register-api",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "payment-api",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "ccd-data-store-api",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "aac-manage-case-assignment",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "bsp-send-letter-service",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "cmc-pdf-service",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "dm-store",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "rd-professional-api",
                     "hard": true,
                     "apis": []
                 }
