@@ -219,7 +219,7 @@ ccd_case_document_am_api -> ccd_data_store_api "Depends on"
 ccd_case_document_am_api -> ccd_definition_store_api "Depends on"
 ccd_case_document_am_api -> dm_store "Depends on"
 
-dm_show -> idam_web_public "Depends on"§
+dm_show -> idam_web_public "Depends on"
 dm_show -> rpe_service_auth_provider "Depends on"
 dm_show -> dm_store "Depends on"
 
@@ -339,8 +339,8 @@ div_vs -> ccd_data_store_api "Depends on"
 div_vs -> bsp_send_letter_service "Depends on"
 div_vs -> idam_web_public "Depends on"
 
-finrem_cos -> rpe_service_auth_provider "Depends on"
 finrem_cos -> idam_web_public "Depends on"
+finrem_cos -> rpe_service_auth_provider "Depends on"
 finrem_cos -> fees_register_api "Depends on"
 finrem_cos -> payment_api "Depends on"
 finrem_cos -> ccd_data_store_api "Depends on"
@@ -349,7 +349,6 @@ finrem_cos -> bsp_send_letter_service "Depends on"
 finrem_cos -> cmc_pdf_service "Depends on"
 finrem_cos -> dm_store "Depends on"
 finrem_cos -> rd_professional_api "Depends on"
-
 
 probate_submit_service -> rpe_service_auth_provider "Depends on"
 probate_submit_service -> ccd_data_store_api "Depends on"
