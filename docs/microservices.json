@@ -1667,67 +1667,6 @@
             "version": null
         },
         {
-            "id": "finrem-frontend",
-            "name": "Finrem Frontend",
-            "group": "FINREM",
-            "type": "web",
-            "description": "",
-            "repository": "https://github.com/hmcts/finrem-frontend",
-            "spec": "https://hmcts.github.io/reform-api-docs/specs/finrem-frontend.json",
-            "dependencies": [
-                {
-                    "id": "idam-web-public",
-                    "hard": true,
-                    "apis": []
-                },
-                {
-                    "id": "rpe-service-auth-provider",
-                    "hard": true,
-                    "apis": []
-                },
-                {
-                    "id": "finrem-backend",
-                    "hard": true,
-                    "apis": []
-                },
-                {
-                    "id": "fr-dss",
-                    "hard": true,
-                    "apis": []
-                }
-            ],
-            "apis": [],
-            "version": null
-        },
-        {
-            "id": "fr-dss",
-            "name": "Finrem Draft store service",
-            "group": "FINREM",
-            "type": "api",
-            "description": "",
-            "repository": "https://github.com/hmcts/finrem-draft-store-service",
-            "spec": "https://hmcts.github.io/reform-api-docs/specs/finrem-draft-store-service.json",
-            "dependencies": [
-                {
-                    "id": "idam-web-public",
-                    "hard": true,
-                    "apis": []
-                },
-                {
-                    "id": "rpe-service-auth-provider",
-                    "hard": true,
-                    "apis": []
-                },
-                {
-                    "id": "draft-store-service",
-                    "hard": true,
-                    "apis": []
-                }
-            ],
-            "apis": [],
-            "version": null
-        },
-        {
             "id": "probate-persistence-service",
             "name": "Probate Persitance Service",
             "group": "Probate",

@@ -91,9 +91,7 @@ div = softwareSystem "DIV" {
    div_vs = container "Divorce Validation" ""
 }
 finrem = softwareSystem "FINREM" {
-   finrem_backend = container "Finrem Backend" ""
-   finrem_frontend = container "Finrem Frontend" ""
-   fr_dss = container "Finrem Draft store service" ""
+   finrem_cos = container "Finrem Case Orchestration Service" ""
 }
 probate = softwareSystem "Probate" {
    probate_persistence_service = container "Probate Persitance Service" ""
@@ -221,7 +219,7 @@ ccd_case_document_am_api -> ccd_data_store_api "Depends on"
 ccd_case_document_am_api -> ccd_definition_store_api "Depends on"
 ccd_case_document_am_api -> dm_store "Depends on"
 
-dm_show -> idam_web_public "Depends on"
+dm_show -> idam_web_public "Depends on"§
 dm_show -> rpe_service_auth_provider "Depends on"
 dm_show -> dm_store "Depends on"
 
