@@ -339,7 +339,7 @@ div_vs -> ccd_data_store_api "Depends on"
 div_vs -> bsp_send_letter_service "Depends on"
 div_vs -> idam_web_public "Depends on"
 
-finrem_cos-> rpe_service_auth_provider "Depends on"
+finrem_cos -> rpe_service_auth_provider "Depends on"
 finrem_cos -> idam_web_public "Depends on"
 finrem_cos -> fees_register_api "Depends on"
 finrem_cos -> payment_api "Depends on"
