@@ -136,6 +136,10 @@ nfdiv = softwareSystem "NFDIV" {
    nfdiv_frontend = container "NFDIV Frontend" "Citizen frontend for the No Fault Divorce system"
    nfdiv_case_api = container "NFDIV Case API" "Business logic for the No Fault Divorce system"
 }
+darts = softwareSystem "DARTS" {
+   darts_api = container "DARTS API" "Backend for DARTS modernisation project"
+   darts_portal = container "DARTS Portal" "Frontend for DARTS modernisation project"
+}
 pcq = softwareSystem "PCQ" {
    pcq_backend = container "PCQ Backend" "PCQ Backend"
    pcq_loader = container "PCQ Loader" "PCQ Loader"
@@ -486,6 +490,8 @@ nfdiv_case_api -> fees_register_api "Depends on"
 nfdiv_case_api -> payment_api "Depends on"
 nfdiv_case_api -> rpa_dg_docassembly_api "Depends on"
 nfdiv_case_api -> bsp_send_letter_service "Depends on"
+
+darts_portal -> darts_api "Depends on"
 
 pcq_backend -> rpe_service_auth_provider "Depends on"
 

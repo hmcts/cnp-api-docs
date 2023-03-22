@@ -110,6 +110,10 @@
         {
             "name": "PCQ",
             "colour": "#B87333"
+        },
+        {
+            "name": "DARTS",
+            "colour": "#3498DB"
         }
     ],
     "apis": [
@@ -2642,6 +2646,36 @@
                 },
                 {
                     "id": "bsp-send-letter-service",
+                    "hard": true,
+                    "apis": []
+                }
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "darts-api",
+            "name": "DARTS API",
+            "group": "DARTS",
+            "type": "api",
+            "description": "Backend for DARTS modernisation project",
+            "repository": "https://github.com/hmcts/darts-api",
+            "spec": null,
+            "dependencies": [],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "darts-portal",
+            "name": "DARTS Portal",
+            "group": "DARTS",
+            "type": "web",
+            "description": "Frontend for DARTS modernisation project",
+            "repository": "https://github.com/hmcts/darts-portal",
+            "spec": null,
+            "dependencies": [
+                {
+                    "id": "darts-api",
                     "hard": true,
                     "apis": []
                 }
