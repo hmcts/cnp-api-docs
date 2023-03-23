@@ -5,19 +5,19 @@ COMMIT_REQUIRED=false
 
 for group in "$@"
 do
-  CURRENT_DOCS=$(curl https://hmcts.github.io/reform-api-docs/specs/"$REPO_NAME"."$group".json)
+  CURRENT_DOCS=$(curl https://hmcts.github.io/cnp-api-docs/specs/"$REPO_NAME"."$group".json)
   NEW_DOCS=$(cat /tmp/swagger-specs."$group".json)
 
   if [ "$CURRENT_DOCS" != "$NEW_DOCS" ]; then
       if [ "$COMMIT_REQUIRED" = false ] ; then
-          echo "Update reform-api-docs"
+          echo "Update cnp-api-docs"
           mkdir swagger-staging
           cd swagger-staging
           git init
 
           git config user.name "Travis CI"
           git config user.email "travis@travis-ci.org"
-          git remote add upstream "https://${GH_TOKEN}@github.com/hmcts/reform-api-docs.git"
+          git remote add upstream "https://${GH_TOKEN}@github.com/hmcts/cnp-api-docs.git"
           git pull upstream master
       fi
 

@@ -124,7 +124,7 @@
             "type": "api",
             "description": "Future Hearings Gateway",
             "repository": "https://github.com/hmcts/hmi-api-gateway-fh",
-            "spec": "https://hmcts.github.io/reform-api-docs/specs/future-hearings-hmi-api.json",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/future-hearings-hmi-api.json",
             "dependencies": [
                 {
                     "id": "pih-gateway-api",
@@ -141,7 +141,7 @@
             "type": "api",
             "description": "Publishing Information Hub Gateway",
             "repository": "https://github.com/hmcts/pih-api-gateway",
-            "spec": "https://hmcts.github.io/reform-api-docs/specs/pip-gateway-api.json",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/pip-gateway-api.json",
             "dependencies": [
             ],
             "apis": [],
@@ -154,7 +154,7 @@
             "type": "api",
             "description": "Authentication APIs",
             "repository": "https://github.com/hmcts/idam-api",
-            "spec": "https://hmcts.github.io/reform-api-docs/specs/idam-api.json",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/idam-api.json",
             "dependencies": [
               {
                 "id": "lau-idam-backend",
@@ -172,7 +172,7 @@
             "type": "web",
             "description": "Administrative interface for managing services and users within IDAM",
             "repository": "https://github.com/hmcts/idam-web-admin",
-            "spec": "https://hmcts.github.io/reform-api-docs/specs/idam-web-admin.json",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/idam-web-admin.json",
             "dependencies": [
             ],
             "apis": [],
@@ -185,7 +185,7 @@
             "type": "web",
             "description": "Login and singup pages",
             "repository": "https://github.com/hmcts/idam-web-public",
-            "spec": "https://hmcts.github.io/reform-api-docs/specs/idam-web-public.json",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/idam-web-public.json",
             "dependencies": [
             ],
             "apis": [],
@@ -198,7 +198,7 @@
             "type": "web",
             "description": "",
             "repository": "https://github.com/hmcts/bar-web",
-            "spec": "https://hmcts.github.io/reform-api-docs/specs/bar-web.json",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/bar-web.json",
             "dependencies": [
                 {
                     "id": "bar-api",
@@ -221,7 +221,7 @@
             "type": "api",
             "description": "",
             "repository": "https://github.com/hmcts/bar-apps",
-            "spec": "https://hmcts.github.io/reform-api-docs/specs/bar-apps.json",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/bar-apps.json",
             "dependencies": [
                 {
                     "id": "idam-web-public",
@@ -239,7 +239,7 @@
             "type": "web",
             "description": "",
             "repository": "https://github.com/hmcts/ccfr-fees-register-admin-web",
-            "spec": "https://hmcts.github.io/reform-api-docs/specs/ccfr-fees-register-admin-web.json",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/ccfr-fees-register-admin-web.json",
             "dependencies": [
                 {
                     "id": "idam-web-public",
@@ -262,7 +262,7 @@
             "type": "api",
             "description": "",
             "repository": "https://github.com/hmcts/ccfr-fees-register-app",
-            "spec": "https://hmcts.github.io/reform-api-docs/specs/ccfr-fees-register-app.json",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/ccfr-fees-register-app.json",
             "dependencies": [
                 {
                     "id": "idam-web-public",
@@ -280,7 +280,7 @@
             "type": "api",
             "description": "",
             "repository": "https://github.com/hmcts/ccpay-payment-app",
-            "spec": "https://hmcts.github.io/reform-api-docs/specs/ccpay-payment-app.payment2.json",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/ccpay-payment-app.payment2.json",
             "dependencies": [
                 {
                     "id": "rpe-service-auth-provider",
@@ -303,7 +303,7 @@
             "type": "api",
             "description": "LAU Case Search and Actions Backend",
             "repository": "https://github.com/hmcts/lau-case-backend",
-            "spec": "https://hmcts.github.io/reform-api-docs/specs/lau-case-backend.json",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/lau-case-backend.json",
             "dependencies": [
                 {
                     "id": "idam-api",
@@ -326,7 +326,7 @@
             "type": "api",
             "description": "LAU IdAM Logons Backend",
             "repository": "https://github.com/hmcts/lau-idam-backend",
-            "spec": "https://hmcts.github.io/reform-api-docs/specs/lau-idam-backend.json",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/lau-idam-backend.json",
             "dependencies": [
                 {
                     "id": "idam-api",
@@ -387,7 +387,7 @@
             "type": "api",
             "description": "",
             "repository": "https://github.com/hmcts/ccd-case-activity-api",
-            "spec": "https://hmcts.github.io/reform-api-docs/specs/ccd-case-activity-api.json",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/ccd-case-activity-api.json",
             "dependencies": [
                 {
                     "id": "idam-web-public",
@@ -405,7 +405,7 @@
             "type": "api",
             "description": "",
             "repository": "https://github.com/hmcts/ccd-case-print-service",
-            "spec": "https://hmcts.github.io/reform-api-docs/specs/ccd-case-print-service.json",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/ccd-case-print-service.json",
             "dependencies": [
                 {
                     "id": "rpe-service-auth-provider",
@@ -433,7 +433,7 @@
             "type": "api-gw",
             "description": "",
             "repository": "https://github.com/hmcts/ccd-api-gateway",
-            "spec": "https://hmcts.github.io/reform-api-docs/specs/ccd-api-gateway.json",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/ccd-api-gateway.json",
             "dependencies": [
                 {
                     "id": "ccd-data-store-api",
@@ -486,7 +486,7 @@
             "type": "web",
             "description": "",
             "repository": "https://github.com/hmcts/ccd-admin-web",
-            "spec": "https://hmcts.github.io/reform-api-docs/specs/ccd-admin-web.json",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/ccd-admin-web.json",
             "dependencies": [
                 {
                     "id": "idam-web-public",
@@ -519,7 +519,7 @@
             "type": "web",
             "description": "",
             "repository": "https://github.com/hmcts/ccd-case-management-web",
-            "spec": "https://hmcts.github.io/reform-api-docs/specs/ccd-case-management-web.json",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/ccd-case-management-web.json",
             "dependencies": [
                 {
                     "id": "ccd-api-gateway-web",
@@ -558,10 +558,10 @@
             "description": "",
             "repository": "https://github.com/hmcts/ccd-data-store-api",
             "urls": [
-                {"url": "https://hmcts.github.io/reform-api-docs/specs/ccd-data-store-api.v1_internal.json", "name": "v1_internal"},
-                {"url": "https://hmcts.github.io/reform-api-docs/specs/ccd-data-store-api.v1_external.json", "name": "v1_external"},
-                {"url": "https://hmcts.github.io/reform-api-docs/specs/ccd-data-store-api.v2_internal.json", "name": "v2_internal"},
-                {"url": "https://hmcts.github.io/reform-api-docs/specs/ccd-data-store-api.v2_external.json", "name": "v2_external"}
+                {"url": "https://hmcts.github.io/cnp-api-docs/specs/ccd-data-store-api.v1_internal.json", "name": "v1_internal"},
+                {"url": "https://hmcts.github.io/cnp-api-docs/specs/ccd-data-store-api.v1_external.json", "name": "v1_external"},
+                {"url": "https://hmcts.github.io/cnp-api-docs/specs/ccd-data-store-api.v2_internal.json", "name": "v2_internal"},
+                {"url": "https://hmcts.github.io/cnp-api-docs/specs/ccd-data-store-api.v2_external.json", "name": "v2_external"}
             ],
             "dependencies": [
                 {
@@ -615,7 +615,7 @@
             "type": "api",
             "description": "",
             "repository": "https://github.com/hmcts/ccd-definition-store-api",
-            "spec": "https://hmcts.github.io/reform-api-docs/specs/ccd-definition-store-api.json",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/ccd-definition-store-api.json",
             "dependencies": [
                 {
                     "id": "ccd-user-profile-api",
@@ -648,7 +648,7 @@
             "type": "api",
             "description": "",
             "repository": "https://github.com/hmcts/ccd-user-profile-api",
-            "spec": "https://hmcts.github.io/reform-api-docs/specs/ccd-user-profile-api.json",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/ccd-user-profile-api.json",
             "dependencies": [
                 {
                     "id": "rpe-service-auth-provider",
@@ -666,7 +666,7 @@
             "type": "api",
             "description": "",
             "repository": "https://github.com/hmcts/ccd-case-document-am-api",
-            "spec": "https://hmcts.github.io/reform-api-docs/specs/ccd-case-document-am-api.json",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/ccd-case-document-am-api.json",
             "dependencies": [
                 {
                     "id": "rpe-service-auth-provider",
@@ -704,7 +704,7 @@
             "type": "web",
             "description": "",
             "repository": "https://github.com/hmcts/document-management-node-demo",
-            "spec": "https://hmcts.github.io/reform-api-docs/specs/document-management-node-demo.json",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/document-management-node-demo.json",
             "dependencies": [
                 {
                     "id": "idam-web-public",
@@ -732,7 +732,7 @@
             "type": "api",
             "description": "",
             "repository": "https://github.com/hmcts/aac-manage-case-assignment",
-            "spec": "https://hmcts.github.io/reform-api-docs/specs/aac-manage-case-assignment.json",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/aac-manage-case-assignment.json",
             "dependencies": [
                 {
                     "id": "ccd-data-store-api",
@@ -765,7 +765,7 @@
             "type": "api",
             "description": "",
             "repository": "https://github.com/hmcts/cpo-case-payment-orders-api",
-            "spec": "https://hmcts.github.io/reform-api-docs/specs/cpo-case-payment-orders-api.json",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/cpo-case-payment-orders-api.json",
             "dependencies": [
                 {
                     "id": "idam-api",
@@ -788,7 +788,7 @@
             "type": "api",
             "description": "",
             "repository": "https://github.com/hmcts/document-management-store-app",
-            "spec": "https://hmcts.github.io/reform-api-docs/specs/document-management-store-app.json",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/document-management-store-app.json",
             "dependencies": [
                 {
                     "id": "rpe-service-auth-provider",
@@ -806,7 +806,7 @@
             "type": "api",
             "description": "",
             "repository": "https://github.com/hmcts/rpa-em-annotation-api",
-            "spec": "https://hmcts.github.io/reform-api-docs/specs/em-annotation-api.json",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/em-annotation-api.json",
             "dependencies": [
                 {
                     "id": "idam-api",
@@ -834,7 +834,7 @@
             "type": "api",
             "description": "",
             "repository": "https://github.com/hmcts/snl-notes",
-            "spec": "https://hmcts.github.io/reform-api-docs/specs/snl-notes.json",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/snl-notes.json",
             "dependencies": [
             ],
             "apis": [],
@@ -847,7 +847,7 @@
             "type": "api",
             "description": "",
             "repository": "https://github.com/hmcts/snl-api",
-            "spec": "https://hmcts.github.io/reform-api-docs/specs/snl-api.json",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/snl-api.json",
             "dependencies": [
                 {
                     "id": "snl-events",
@@ -865,7 +865,7 @@
             "type": "web",
             "description": "",
             "repository": "https://github.com/hmcts/snl-frontend",
-            "spec": "https://hmcts.github.io/reform-api-docs/specs/snl-frontend.json",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/snl-frontend.json",
             "dependencies": [
                 {
                     "id": "snl-api",
@@ -888,7 +888,7 @@
             "type": "api",
             "description": "",
             "repository": "https://github.com/hmcts/snl-events",
-            "spec": "https://hmcts.github.io/reform-api-docs/specs/snl-events.json",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/snl-events.json",
             "dependencies": [
                 {
                     "id": "snl-rules",
@@ -906,7 +906,7 @@
             "type": "api",
             "description": "",
             "repository": "https://github.com/hmcts/snl-rules",
-            "spec": "https://hmcts.github.io/reform-api-docs/specs/snl-rules.json",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/snl-rules.json",
             "dependencies": [
             ],
             "apis": [],
@@ -919,7 +919,7 @@
             "type": "api",
             "description": "",
             "repository": "https://github.com/hmcts/private-beta-invitation-service",
-            "spec": "https://hmcts.github.io/reform-api-docs/specs/private-beta-invitation-service.json",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/private-beta-invitation-service.json",
             "dependencies": [
             ],
             "apis": [],
@@ -932,7 +932,7 @@
             "type": "api",
             "description": "",
             "repository": "https://github.com/hmcts/service-auth-provider-app",
-            "spec": "https://hmcts.github.io/reform-api-docs/specs/service-auth-provider-app.json",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/service-auth-provider-app.json",
             "dependencies": [
             ],
             "apis": [],
@@ -945,7 +945,7 @@
             "type": "api",
             "description": "",
             "repository": "https://github.com/hmcts/feature-toggle-api",
-            "spec": "https://hmcts.github.io/reform-api-docs/specs/feature-toggle-api.json",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/feature-toggle-api.json",
             "dependencies": [
                 {
                     "id": "rpe-service-auth-provider",
@@ -963,7 +963,7 @@
             "type": "api",
             "description": "",
             "repository": "https://github.com/hmcts/cmc-pdf-service",
-            "spec": "https://hmcts.github.io/reform-api-docs/specs/cmc-pdf-service.json",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/cmc-pdf-service.json",
             "dependencies": [
                 {
                     "id": "rpe-service-auth-provider",
@@ -981,7 +981,7 @@
             "type": "api",
             "description": "",
             "repository": "https://github.com/hmcts/draft-store",
-            "spec": "https://hmcts.github.io/reform-api-docs/specs/draft-store.json",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/draft-store.json",
             "dependencies": [
                 {
                     "id": "idam-web-public",
@@ -1004,7 +1004,7 @@
             "type": "api",
             "description": "",
             "repository": "https://github.com/hmcts/blob-router-service",
-            "spec": "https://hmcts.github.io/reform-api-docs/specs/blob-router-service.json",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/blob-router-service.json",
             "dependencies": [
             ],
             "apis": [],
@@ -1017,7 +1017,7 @@
             "type": "api",
             "description": "",
             "repository": "https://github.com/hmcts/bulk-scan-processor",
-            "spec": "https://hmcts.github.io/reform-api-docs/specs/bulk-scan-processor.json",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/bulk-scan-processor.json",
             "dependencies": [
                 {
                     "id": "bsp-blob-router",
@@ -1050,7 +1050,7 @@
             "type": "api",
             "description": "",
             "repository": "https://github.com/hmcts/bulk-scan-orchestrator",
-            "spec": "https://hmcts.github.io/reform-api-docs/specs/bulk-scan-orchestrator.json",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/bulk-scan-orchestrator.json",
             "dependencies": [
                 {
                     "id": "bsp-bulk-scan-processor",
@@ -1088,7 +1088,7 @@
             "type": "api",
             "description": "",
             "repository": "https://github.com/hmcts/bulk-scan-payment-processor",
-            "spec": "https://hmcts.github.io/reform-api-docs/specs/bulk-scan-payment-processor.json",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/bulk-scan-payment-processor.json",
             "dependencies": [
                 {
                     "id": "bsp-bulk-scan-orchestrator",
@@ -1126,7 +1126,7 @@
             "type": "api",
             "description": "",
             "repository": "https://github.com/hmcts/send-letter-service",
-            "spec": "https://hmcts.github.io/reform-api-docs/specs/send-letter-service.json",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/send-letter-service.json",
             "dependencies": [
                 {
                     "id": "rpe-service-auth-provider",
@@ -1144,7 +1144,7 @@
             "type": "web",
             "description": "",
             "repository": "https://github.com/hmcts/rpx-xui-webapp",
-            "spec": "https://hmcts.github.io/reform-api-docs/specs/xui-webapp.json",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/xui-webapp.json",
             "dependencies": [
                 {
                     "id": "idam-web-public",
@@ -1182,7 +1182,7 @@
             "type": "api",
             "description": "",
             "repository": "https://github.com/hmcts/rpa-in-court-presentation-api",
-            "spec": "https://hmcts.github.io/reform-api-docs/specs/rpa-in-court-presentation-api.json",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/rpa-in-court-presentation-api.json",
             "dependencies": [
             ],
             "apis": [],
@@ -1195,7 +1195,7 @@
             "type": "web",
             "description": "",
             "repository": "https://github.com/hmcts/rpa-in-court-presentation-web",
-            "spec": "https://hmcts.github.io/reform-api-docs/specs/rpa-in-court-presentation-web.json",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/rpa-in-court-presentation-web.json",
             "dependencies": [
                 {
                     "id": "rpa-icp",
@@ -1218,7 +1218,7 @@
             "type": "api",
             "description": "",
             "repository": "https://github.com/hmcts/ref-professional-user-profile",
-            "spec": "https://hmcts.github.io/reform-api-docs/specs/ref-professional-user-profile.json",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/ref-professional-user-profile.json",
             "dependencies": [
                 {
                     "id": "rpe-service-auth-provider",
@@ -1241,7 +1241,7 @@
             "type": "web",
             "description": "",
             "repository": "https://github.com/hmcts/cmc-citizen-frontend",
-            "spec": "https://hmcts.github.io/reform-api-docs/specs/cmc-citizen-frontend.json",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/cmc-citizen-frontend.json",
             "dependencies": [
                 {
                     "id": "cmc-claim-store",
@@ -1284,7 +1284,7 @@
             "type": "web",
             "description": "",
             "repository": "https://github.com/hmcts/cmc-legal-rep-frontend",
-            "spec": "https://hmcts.github.io/reform-api-docs/specs/cmc-legal-rep-frontend.json",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/cmc-legal-rep-frontend.json",
             "dependencies": [
                 {
                     "id": "cmc-claim-store",
@@ -1327,7 +1327,7 @@
             "type": "api",
             "description": "",
             "repository": "https://github.com/hmcts/cmc-claim-store",
-            "spec": "https://hmcts.github.io/reform-api-docs/specs/cmc-claim-store.json",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/cmc-claim-store.json",
             "dependencies": [
                 {
                     "id": "ccd-data-store-api",
@@ -1370,7 +1370,7 @@
             "type": "api",
             "description": "",
             "repository": "https://github.com/hmcts/div-evidence-management-client-api",
-            "spec": "https://hmcts.github.io/reform-api-docs/specs/div-evidence-management-client-api.json",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/div-evidence-management-client-api.json",
             "dependencies": [
                 {
                     "id": "rpe-service-auth-provider",
@@ -1393,7 +1393,7 @@
             "type": "web",
             "description": "",
             "repository": "https://github.com/hmcts/div-respondent-frontend",
-            "spec": "https://hmcts.github.io/reform-api-docs/specs/div-respondent-frontend.json",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/div-respondent-frontend.json",
             "dependencies": [
                 {
                     "id": "rpe-service-auth-provider",
@@ -1426,7 +1426,7 @@
             "type": "web",
             "description": "",
             "repository": "https://github.com/hmcts/div-petitioner-frontend",
-            "spec": "https://hmcts.github.io/reform-api-docs/specs/div-petitioner-frontend.json",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/div-petitioner-frontend.json",
             "dependencies": [
                 {
                     "id": "rpe-service-auth-provider",
@@ -1474,7 +1474,7 @@
             "type": "api",
             "description": "",
             "repository": "https://github.com/hmcts/div-case-maintenance-service",
-            "spec": "https://hmcts.github.io/reform-api-docs/specs/div-case-maintenance-service.json",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/div-case-maintenance-service.json",
             "dependencies": [
                 {
                     "id": "ccd-data-store-api",
@@ -1497,7 +1497,7 @@
             "type": "api",
             "description": "",
             "repository": "https://github.com/hmcts/div-case-progression-service",
-            "spec": "https://hmcts.github.io/reform-api-docs/specs/div-case-progression-service.json",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/div-case-progression-service.json",
             "dependencies": [
                 {
                     "id": "ccd-data-store-api",
@@ -1535,7 +1535,7 @@
             "type": "api",
             "description": "",
             "repository": "https://github.com/hmcts/div-document-generator-client",
-            "spec": "https://hmcts.github.io/reform-api-docs/specs/div-document-generator-client.json",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/div-document-generator-client.json",
             "dependencies": [
                 {
                     "id": "cmc-pdf-service",
@@ -1563,7 +1563,7 @@
             "type": "api",
             "description": "",
             "repository": "https://github.com/hmcts/div-fees-and-payments-service",
-            "spec": "https://hmcts.github.io/reform-api-docs/specs/div-fees-and-payments-service.json",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/div-fees-and-payments-service.json",
             "dependencies": [
                 {
                     "id": "fees-register-api",
@@ -1581,7 +1581,7 @@
             "type": "api",
             "description": "",
             "repository": "https://github.com/hmcts/div-validation-service",
-            "spec": "https://hmcts.github.io/reform-api-docs/specs/div-validation-service.json",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/div-validation-service.json",
             "dependencies": [
                 {
                     "id": "rpe-service-auth-provider",
@@ -1614,7 +1614,7 @@
             "type": "api",
             "description": "",
             "repository": "https://github.com/hmcts/finrem-case-orchestration-service",
-            "spec": "https://hmcts.github.io/reform-api-docs/specs/finrem-case-orchestration.json",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/finrem-case-orchestration.json",
             "dependencies": [
                 {
                     "id": "idam-web-public",
@@ -1677,7 +1677,7 @@
             "type": "api",
             "description": "",
             "repository": "https://github.com/hmcts/probate-persistence-service",
-            "spec": "https://hmcts.github.io/reform-api-docs/specs/probate-persistence-service.json",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/probate-persistence-service.json",
             "dependencies": [
             ],
             "apis": [],
@@ -1690,7 +1690,7 @@
             "type": "api",
             "description": "",
             "repository": "https://github.com/hmcts/probate-submit-service",
-            "spec": "https://hmcts.github.io/reform-api-docs/specs/probate-submit-service.json",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/probate-submit-service.json",
             "dependencies": [
                 {
                     "id": "rpe-service-auth-provider",
@@ -1718,7 +1718,7 @@
             "type": "web",
             "description": "",
             "repository": "https://github.com/hmcts/probate-frontend",
-            "spec": "https://hmcts.github.io/reform-api-docs/specs/probate-frontend.json",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/probate-frontend.json",
             "dependencies": [
                 {
                     "id": "idam-web-public",
@@ -1766,7 +1766,7 @@
             "type": "web",
             "description": "",
             "repository": "https://github.com/hmcts/probate-caveats-frontend",
-            "spec": "https://hmcts.github.io/reform-api-docs/specs/probate-caveats-frontend.json",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/probate-caveats-frontend.json",
             "dependencies": [
                 {
                     "id": "idam-web-public",
@@ -1799,7 +1799,7 @@
             "type": "api",
             "description": "",
             "repository": "https://github.com/hmcts/probate-orchestrator-service",
-            "spec": "https://hmcts.github.io/reform-api-docs/specs/probate-orchestrator-service.json",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/probate-orchestrator-service.json",
             "dependencies": [
                 {
                     "id": "idam-web-public",
@@ -1847,7 +1847,7 @@
             "type": "api",
             "description": "",
             "repository": "https://github.com/hmcts/probate-sol-ccd-services",
-            "spec": "https://hmcts.github.io/reform-api-docs/specs/probate-sol-ccd-services.json",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/probate-sol-ccd-services.json",
             "dependencies": [
                 {
                     "id": "rpe-service-auth-provider",
@@ -1900,7 +1900,7 @@
             "type": "api",
             "description": "",
             "repository": "https://github.com/hmcts/probate-business-service",
-            "spec": "https://hmcts.github.io/reform-api-docs/specs/probate-business-service.json",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/probate-business-service.json",
             "dependencies": [
                 {
                     "id": "probate-persistence-service",
@@ -1918,7 +1918,7 @@
             "type": "web",
             "description": "",
             "repository": "https://github.com/hmcts/sscs-track-your-appeal-frontend",
-            "spec": "https://hmcts.github.io/reform-api-docs/specs/track-your-appeal-frontend.json",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/track-your-appeal-frontend.json",
             "dependencies": [
                 {
                     "id": "sscs-tribunals-api",
@@ -1936,7 +1936,7 @@
             "type": "api",
             "description": "",
             "repository": "https://github.com/hmcts/sscs-tribunals-case-api",
-            "spec": "https://hmcts.github.io/reform-api-docs/specs/tribunals-case-api.json",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/tribunals-case-api.json",
             "dependencies": [
                 {
                     "id": "ccd-data-store-api",
@@ -1974,7 +1974,7 @@
             "type": "api",
             "description": "",
             "repository": "https://github.com/hmcts/sscs-case-loader",
-            "spec": "https://hmcts.github.io/reform-api-docs/specs/sscs-case-loader.json",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/sscs-case-loader.json",
             "dependencies": [
                 {
                     "id": "ccd-data-store-api",
@@ -2002,7 +2002,7 @@
             "type": "api",
             "description": "",
             "repository": "https://github.com/hmcts/sscs-track-your-appeal-notifications",
-            "spec": "https://hmcts.github.io/reform-api-docs/specs/track-your-appeal-notifications.json",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/track-your-appeal-notifications.json",
             "dependencies": [
                 {
                     "id": "ccd-data-store-api",
@@ -2114,7 +2114,7 @@
             "type": "api",
             "description": "",
             "repository": "https://github.com/hmcts/ia-case-api",
-            "spec": "https://hmcts.github.io/reform-api-docs/specs/ia-case-api.json",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/ia-case-api.json",
             "dependencies": [
                 {
                     "id": "ccd-data-store-api",
@@ -2147,7 +2147,7 @@
             "type": "api",
             "description": "",
             "repository": "https://github.com/hmcts/ia-case-documents-api",
-            "spec": "https://hmcts.github.io/reform-api-docs/specs/ia-case-documents-api.json",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/ia-case-documents-api.json",
             "dependencies": [
                 {
                     "id": "ccd-data-store-api",
@@ -2180,7 +2180,7 @@
             "type": "api",
             "description": "",
             "repository": "https://github.com/hmcts/ia-case-notifications-api",
-            "spec": "https://hmcts.github.io/reform-api-docs/specs/ia-case-notifications-api.json",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/ia-case-notifications-api.json",
             "dependencies": [
                 {
                     "id": "ccd-data-store-api",
@@ -2213,7 +2213,7 @@
             "type": "api",
             "description": "",
             "repository": "https://github.com/hmcts/rpa-em-stitching-api",
-            "spec": "https://hmcts.github.io/reform-api-docs/specs/rpa-em-stitching-api.json",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/rpa-em-stitching-api.json",
             "dependencies": [
                 {
                     "id": "idam-api",
@@ -2241,7 +2241,7 @@
             "type": "api",
             "description": "",
             "repository": "https://github.com/hmcts/rpa-em-ccd-orchestrator",
-            "spec": "https://hmcts.github.io/reform-api-docs/specs/rpa-em-ccd-orchestrator.json",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/rpa-em-ccd-orchestrator.json",
             "dependencies": [
                 {
                     "id": "rpa-em-stitching-api",
@@ -2269,7 +2269,7 @@
             "type": "api",
             "description": "",
             "repository": "https://github.com/hmcts/rpa-dg-docassembly-api",
-            "spec": "https://hmcts.github.io/reform-api-docs/specs/rpa-dg-docassembly-api.json",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/rpa-dg-docassembly-api.json",
             "dependencies": [
                 {
                     "id": "docmosis-tornado-api",
@@ -2310,7 +2310,7 @@
             "type": "api",
             "description": "CCD callback service for FPLA cases",
             "repository": "https://github.com/hmcts/fpl-ccd-configuration",
-            "spec": "https://hmcts.github.io/reform-api-docs/specs/fpla-case-service.json",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/fpla-case-service.json",
             "dependencies": [
                 {
                     "id": "idam-api",
@@ -2343,7 +2343,7 @@
             "type": "api",
             "description": "Provides APIs for managing professional reference data",
             "repository": "https://github.com/hmcts/rd-professional-api",
-            "spec": "https://hmcts.github.io/reform-api-docs/specs/rd-professional-api.json",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/rd-professional-api.json",
             "dependencies": [
                 {
                     "id": "idam-api",
@@ -2371,7 +2371,7 @@
             "type": "api",
             "description": "Provides APIs for reference data user profile",
             "repository": "https://github.com/hmcts/rd-user-profile-api",
-            "spec": "https://hmcts.github.io/reform-api-docs/specs/rd-user-profile-api.json",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/rd-user-profile-api.json",
             "dependencies": [
                 {
                     "id": "idam-api",
@@ -2422,7 +2422,7 @@
             "type": "api",
             "description": "Provides APIs for managing Staff reference data",
             "repository": "https://github.com/hmcts/rd-caseworker-ref-api",
-            "spec": "https://hmcts.github.io/reform-api-docs/specs/rd-caseworker-ref-api.json",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/rd-caseworker-ref-api.json",
             "dependencies": [
                 {
                     "id": "idam-api",
@@ -2450,7 +2450,7 @@
             "type": "api",
             "description": "Provides Fetch APIs for Location reference data",
             "repository": "https://github.com/hmcts/rd-location-ref-api",
-            "spec": "https://hmcts.github.io/reform-api-docs/specs/rd-location-ref-api.json",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/rd-location-ref-api.json",
             "dependencies": [
                 {
                     "id": "idam-api",
@@ -2473,7 +2473,7 @@
             "type": "api",
             "description": "Provides Fetch APIs for Judicial reference data",
             "repository": "https://github.com/hmcts/rd-judicial-api",
-            "spec": "https://hmcts.github.io/reform-api-docs/specs/rd-judicial-api.json",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/rd-judicial-api.json",
             "dependencies": [
                 {
                     "id": "idam-api",
@@ -2501,7 +2501,7 @@
             "type": "api",
             "description": "Provides Fetch APIs for Reference Common static data i.e. case flag and List of values",
             "repository": "https://github.com/hmcts/rd-commondata-api",
-            "spec": "https://hmcts.github.io/reform-api-docs/specs/rd-commondata-api.json",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/rd-commondata-api.json",
             "dependencies": [
                 {
                     "id": "idam-api",
@@ -2523,7 +2523,7 @@
             "group": "WA",
             "description": "API to kick off work allocation work flow",
             "repository": "https://github.com/hmcts/wa-workflow-api",
-            "spec": "https://hmcts.github.io/reform-api-docs/specs/wa-workflow-api.json",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/wa-workflow-api.json",
             "dependencies": [],
             "apis": [],
             "version": null
@@ -2534,7 +2534,7 @@
             "group": "WA",
             "description": "API that helps you manage and perform operations on tasks",
             "repository": "https://github.com/hmcts/wa-task-management-api",
-            "spec": "https://hmcts.github.io/reform-api-docs/specs/wa-task-management-api.json",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/wa-task-management-api.json",
             "dependencies": [],
             "apis": [],
             "version": null
@@ -2546,7 +2546,7 @@
             "type": "api",
             "description": "Provides a capability for service users to maintain Welsh translations.",
             "repository": "https://github.com/hmcts/ts-translation-service",
-            "spec": "https://hmcts.github.io/reform-api-docs/specs/ts-translation-service.json",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/ts-translation-service.json",
             "dependencies": [
                 {
                     "id": "idam-api",
@@ -2569,7 +2569,7 @@
             "type": "web",
             "description": "Citizen frontend for the No Fault Divorce system",
             "repository": "https://github.com/hmcts/nfdiv-frontend",
-            "spec": "https://hmcts.github.io/reform-api-docs/specs/nfdiv-frontend.json",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/nfdiv-frontend.json",
             "dependencies": [
                 {
                     "id": "idam-api",
@@ -2612,7 +2612,7 @@
             "type": "api",
             "description": "Business logic for the No Fault Divorce system",
             "repository": "https://github.com/hmcts/nfdiv-case-api",
-            "spec": "https://hmcts.github.io/reform-api-docs/specs/nfdiv-case-api.json",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/nfdiv-case-api.json",
             "dependencies": [
                 {
                     "id": "idam-api",
@@ -2690,7 +2690,7 @@
             "type": "api",
             "description": "PCQ Backend",
             "repository": "https://github.com/hmcts/pcq-backend",
-            "spec": "https://hmcts.github.io/reform-api-docs/specs/pcq-backend.json",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/pcq-backend.json",
             "dependencies": [
                 {
                     "id": "rpe-service-auth-provider",

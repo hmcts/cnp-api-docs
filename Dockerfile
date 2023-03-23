@@ -1,7 +1,7 @@
 FROM node:8.1.4
 
-MAINTAINER "HMCTS Reform"
-LABEL maintainer="HMCTS Reform"
+MAINTAINER "HMCTS"
+LABEL maintainer="HMCTS"
 
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
