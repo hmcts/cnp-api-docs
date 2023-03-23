@@ -82,7 +82,7 @@ window.onload = function() {
   var apis = result['apis'] ? JSON.parse(result['apis']) : undefined;
 
   // default swagger doc if none provided
-  var swaggerUrl = "https://hmcts.github.io/reform-api-docs/swagger.yaml";
+  var swaggerUrl = "https://hmcts.github.io/cnp-api-docs/swagger.yaml";
   if (result.hasOwnProperty("url")) {
     swaggerUrl = result.url
   }

@@ -19,7 +19,7 @@ for (const service of microservices.apis) {
 const getServiceLi = service => {
     const swaggerFile = __dirname + "/specs" + service.spec?.substring(service.spec.lastIndexOf("/"));
     const swaggerLink = existsSync(swaggerFile)
-        ? ` - <a href="https://hmcts.github.io/reform-api-docs/swagger.html?url=${service.spec}">Swagger</a>`
+        ? ` - <a href="https://hmcts.github.io/cnp-api-docs/swagger.html?url=${service.spec}">Swagger</a>`
         : '';
 
     return `<li><a href="${service.repository}">${service.name}</a>${swaggerLink}</li>`;
@@ -54,8 +54,8 @@ const getHTML = group => `
     <div class="container">
       <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
         <ul class="nav">
-          <li class="nav-item"><a href="https://hmcts.github.io/reform-api-docs/" class="nav-link px-2 text-muted">Home</a></li>
-          <li class="nav-item"><a href="https://github.com/hmcts/reform-api-docs/" class="nav-link px-2 text-muted">About</a></li>
+          <li class="nav-item"><a href="https://hmcts.github.io/cnp-api-docs/" class="nav-link px-2 text-muted">Home</a></li>
+          <li class="nav-item"><a href="https://github.com/hmcts/cnp-api-docs/" class="nav-link px-2 text-muted">About</a></li>
         </ul>
       </footer>
     </div>

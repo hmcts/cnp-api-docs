@@ -1,13 +1,13 @@
 {
-  "name": "reform-api-docs",
+  "name": "cnp-api-docs",
   "version": "2.0.0",
-  "description": "Swagger docs for all Reform Program APIs",
+  "description": "Swagger docs for all CNP APIs",
   "directories": {
     "doc": "docs"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/hmcts/reform-api-docs.git"
+    "url": "git+https://github.com/hmcts/cnp-api-docs.git"
   },
   "scripts": {
     "start": "http-server -p 8080 docs/",
@@ -18,9 +18,9 @@
   "author": "",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/hmcts/reform-api-docs/issues"
+    "url": "https://github.com/hmcts/cnp-api-docs/issues"
   },
-  "homepage": "https://github.com/hmcts/reform-api-docs#readme",
+  "homepage": "https://github.com/hmcts/cnp-api-docs#readme",
   "dependencies": {
     "djv": "^2.1.4",
     "jasmine": "^4.3.0",

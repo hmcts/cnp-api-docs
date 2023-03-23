@@ -1,7 +1,7 @@
 {
     "definitions": {},
     "type": "object",
-    "$id": "https://raw.githubusercontent.com/hmcts/reform-api-docs/master/docs/microservices.json",
+    "$id": "https://raw.githubusercontent.com/hmcts/cnp-api-docs/master/docs/microservices.json",
     "required": [
         "groups",
         "apis"
@@ -86,7 +86,7 @@
                     },
                     "repository": {
                         "type": ["string", "null"],
-                        "$id": "https://raw.githubusercontent.com/hmcts/reform-api-docs/master/docs/microservices.json/items/properties/repository",
+                        "$id": "https://raw.githubusercontent.com/hmcts/cnp-api-docs/master/docs/microservices.json/items/properties/repository",
                         "title": "API repository",
                         "description": "Link to the API repository",
                         "default": null,
@@ -100,7 +100,7 @@
                         "description": "Link to API specification json file",
                         "default": null,
                         "examples": [
-                            "https://hmcts.github.io/reform-api-docs/specs/payments.json"
+                            "https://hmcts.github.io/cnp-api-docs/specs/payments.json"
                         ]
                     },
                     "urls": {
@@ -118,7 +118,7 @@
                                     "description": "Link to API specification json file",
                                     "default": "",
                                     "examples": [
-                                        "https://hmcts.github.io/reform-api-docs/specs/ccd-data-store-api.v1_external.json"
+                                        "https://hmcts.github.io/cnp-api-docs/specs/ccd-data-store-api.v1_external.json"
                                     ]
                                 },
                                 "name": {
