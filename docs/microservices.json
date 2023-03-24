@@ -1,2859 +1,2779 @@
 {
-  "appTypes": [
-    {
-      "type": "",
-      "shape": "diamond"
-    },
-    {
-      "type": "-api",
-      "shape": "dot"
-    },
-    {
-      "type": "-web",
-      "shape": "triangle"
-    }
-  ],
-  "groups": [
-    {
-      "name": "HMI Gateway",
-      "colour": "#cc3300"
-    },
-    {
-      "name": "PIH Gateway",
-      "colour": "#cc3300"
-    },
-    {
-      "name": "IDAM",
-      "colour": "#000000"
-    },
-    {
-      "name": "RPE",
-      "colour": "#999999"
-    },
-    {
-      "name": "BSP",
-      "colour": "#FFDFD3"
-    },
-    {
-      "name": "CCD",
-      "colour": "#AF9F2E"
-    },
-    {
-      "name": "Evidence",
-      "colour": "#532F0C"
-    },
-    {
-      "name": "BAR, Fee & Pay",
-      "colour": "#3B7FC0"
-    },
-    {
-      "name": "RPA",
-      "colour": "#28C5C7"
-    },
-    {
-      "name": "XUI",
-      "colour": "#28C5C7"
-    },
-    {
-      "name": "SNL",
-      "colour": "#97370E"
-    },
-    {
-      "name": "SSCS",
-      "colour": "#C728C5"
-    },
-    {
-      "name": "Probate",
-      "colour": "#DD7F00",
-      "info": "Overview of the Probate components and how they interact with other CFT components. View our <a href=\"https://tools.hmcts.net/confluence/display/DATS/DTS+-+Probate+Service?src=contextnavpagetreemode\">confluence</a> page for fore details about the Probate services and the <a href=\"https://tools.hmcts.net/confluence/display/DATS/How-to+technical\">how-to page</a> for guides to common tasks and setup."
-    },
-    {
-      "name": "CMC",
-      "colour": "#DD0000"
-    },
-    {
-      "name": "DIV",
-      "colour": "#119F5A"
-    },
-    {
-      "name": "NFDIV",
-      "colour": "#FF9F5A"
-    },
-    {
-      "name": "FINREM",
-      "colour": "#A4DD00"
-    },
-    {
-      "name": "IA",
-      "colour": "#FF5733"
-    },
-    {
-      "name": "Video Hearing",
-      "colour": "#222222"
-    },
-    {
-      "name": "FPLA",
-      "colour": "#64fc30"
-    },
-    {
-      "name": "RD",
-      "colour": "#800020"
-    },
-    {
-      "name": "WA",
-      "colour": "#8e44ad"
-    },
-    {
-      "name": "LAU",
-      "colour": "#f0f709"
-    },
-    {
-      "name": "PCQ",
-      "colour": "#B87333"
-    },
-    {
-      "name": "DARTS",
-      "colour": "#3498DB"
-    }
-  ],
-  "apis": [
-    {
-      "id": "hmi-gateway-api",
-      "name": "HMI API",
-      "group": "HMI Gateway",
-      "type": "api",
-      "description": "Future Hearings Gateway",
-      "repository": "https://github.com/hmcts/hmi-api-gateway-fh",
-      "spec": "https://hmcts.github.io/cnp-api-docs/specs/future-hearings-hmi-api.json",
-      "dependencies": [
-      ],
-      "apis": [],
-      "version": null
-    },
-    {
-      "id": "pip-data-management",
-      "name": "CaTH Data Management API",
-      "group": "CaTH",
-      "type": "api",
-      "description": "Handles postgres and Azure Blob Storage traffic for CaTH",
-      "repository": "https://github.com/hmcts/pip-data-management",
-      "dependencies": [],
-      "apis": [],
-      "urls": [
-        {
-          "url": "https://github.com/hmcts/pip-data-management",
-          "name": "CaTH Data Management API"
-        }
-      ],
-      "version": null
-    },
-    {
-      "id": "pip-subscription-management",
-      "name": "CaTH Subscription Management API",
-      "group": "CaTH",
-      "type": "api",
-      "description": "Handles subscriptions and triggers for CaTH",
-      "repository": "https://github.com/hmcts/pip-subscription-management",
-      "dependencies": [],
-      "apis": [],
-      "urls": [
-        {
-          "url": "https://github.com/hmcts/pip-subscription-management",
-          "name": "CaTH Subscription Management API"
-        }
-      ],
-      "version": null
-    },
-    {
-      "id": "pip-channel-management",
-      "name": "CaTH channel Management API",
-      "group": "CaTH",
-      "type": "api",
-      "description": "Handles third-party services and file generation for CaTH",
-      "repository": "https://github.com/hmcts/pip-channel-management",
-      "dependencies": [],
-      "apis": [],
-      "urls": [
-        {
-          "url": "https://github.com/hmcts/pip-channel-management",
-          "name": "CaTH Channel Management API"
-        }
-      ],
-      "version": null
-    },
-    {
-      "id": "pip-account-management",
-      "name": "CaTH Account Management API",
-      "group": "CaTH",
-      "type": "api",
-      "description": "Handles authentication and authorisation for CaTH",
-      "repository": "https://github.com/hmcts/pip-account-management",
-      "dependencies": [],
-      "apis": [],
-      "urls": [
-        {
-          "url": "https://github.com/hmcts/pip-account-management",
-          "name": "CaTH Account Management API"
-        }
-      ],
-      "version": null
-    },
-    {
-      "id": "pip-publication-services",
-      "name": "CaTH Publication Services API",
-      "group": "CaTH",
-      "type": "api",
-      "description": "Handles email correspondence sent from CaTH",
-      "repository": "https://github.com/hmcts/pip-publication-services",
-      "dependencies": [],
-      "apis": [],
-      "urls": [
-        {
-          "url": "https://github.com/hmcts/pip-publication-services",
-          "name": "CaTH Publication Services API"
-        }
-      ],
-      "version": null
-    },
-    {
-      "id": "idam-api",
-      "name": "IDAM API",
-      "group": "IDAM",
-      "type": "api",
-      "description": "Authentication APIs",
-      "repository": "https://github.com/hmcts/idam-api",
-      "spec": "https://hmcts.github.io/cnp-api-docs/specs/idam-api.json",
-      "dependencies": [
-        {
-          "id": "lau-idam-backend",
-          "hard": true,
-          "apis": []
-        }
-      ],
-      "apis": [],
-      "version": null
-    },
-    {
-      "id": "idam-web-admin",
-      "name": "IDAM Admin UI",
-      "group": "IDAM",
-      "type": "web",
-      "description": "Administrative interface for managing services and users within IDAM",
-      "repository": "https://github.com/hmcts/idam-web-admin",
-      "spec": "https://hmcts.github.io/cnp-api-docs/specs/idam-web-admin.json",
-      "dependencies": [
-      ],
-      "apis": [],
-      "version": null
-    },
-    {
-      "id": "idam-web-public",
-      "name": "IDAM Web",
-      "group": "IDAM",
-      "type": "web",
-      "description": "Login and signup pages",
-      "repository": "https://github.com/hmcts/idam-web-public",
-      "spec": "https://hmcts.github.io/cnp-api-docs/specs/idam-web-public.json",
-      "dependencies": [
-      ],
-      "apis": [],
-      "version": null
-    },
-    {
-      "id": "bar-web",
-      "name": "Bar Web",
-      "group": "BAR, Fee & Pay",
-      "type": "web",
-      "description": "",
-      "repository": "https://github.com/hmcts/bar-web",
-      "spec": "https://hmcts.github.io/cnp-api-docs/specs/bar-web.json",
-      "dependencies": [
-        {
-          "id": "bar-api",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "fees-register-api",
-          "hard": true,
-          "apis": []
-        }
-      ],
-      "apis": [],
-      "version": null
-    },
-    {
-      "id": "bar-api",
-      "name": "Bar App",
-      "group": "BAR, Fee & Pay",
-      "type": "api",
-      "description": "",
-      "repository": "https://github.com/hmcts/bar-apps",
-      "spec": "https://hmcts.github.io/cnp-api-docs/specs/bar-apps.json",
-      "dependencies": [
-        {
-          "id": "idam-web-public",
-          "hard": true,
-          "apis": []
-        }
-      ],
-      "apis": [],
-      "version": null
-    },
-    {
-      "id": "fees-register-frontend",
-      "name": "Fees Admin Frontend",
-      "group": "BAR, Fee & Pay",
-      "type": "web",
-      "description": "",
-      "repository": "https://github.com/hmcts/ccfr-fees-register-admin-web",
-      "spec": "https://hmcts.github.io/cnp-api-docs/specs/ccfr-fees-register-admin-web.json",
-      "dependencies": [
-        {
-          "id": "idam-web-public",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "fees-register-api",
-          "hard": true,
-          "apis": []
-        }
-      ],
-      "apis": [],
-      "version": null
-    },
-    {
-      "id": "fees-register-api",
-      "name": "Fees App",
-      "group": "BAR, Fee & Pay",
-      "type": "api",
-      "description": "",
-      "repository": "https://github.com/hmcts/ccfr-fees-register-app",
-      "spec": "https://hmcts.github.io/cnp-api-docs/specs/ccfr-fees-register-app.json",
-      "dependencies": [
-        {
-          "id": "idam-web-public",
-          "hard": true,
-          "apis": []
-        }
-      ],
-      "apis": [],
-      "version": null
-    },
-    {
-      "id": "payment-api",
-      "name": "Payments API",
-      "group": "BAR, Fee & Pay",
-      "type": "api",
-      "description": "",
-      "repository": "https://github.com/hmcts/ccpay-payment-app",
-      "spec": "https://hmcts.github.io/cnp-api-docs/specs/ccpay-payment-app.payment2.json",
-      "dependencies": [
-        {
-          "id": "rpe-service-auth-provider",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "fees-register-api",
-          "hard": true,
-          "apis": []
-        }
-      ],
-      "apis": [],
-      "version": null
-    },
-    {
-      "id": "lau-case-backend",
-      "name": "LAU Case Backend",
-      "group": "LAU",
-      "type": "api",
-      "description": "LAU Case Search and Actions Backend",
-      "repository": "https://github.com/hmcts/lau-case-backend",
-      "spec": "https://hmcts.github.io/cnp-api-docs/specs/lau-case-backend.json",
-      "dependencies": [
-        {
-          "id": "idam-api",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "rpe-service-auth-provider",
-          "hard": true,
-          "apis": []
-        }
-      ],
-      "apis": [],
-      "version": null
-    },
-    {
-      "id": "lau-idam-backend",
-      "name": "LAU IdAM Backend",
-      "group": "LAU",
-      "type": "api",
-      "description": "LAU IdAM Logons Backend",
-      "repository": "https://github.com/hmcts/lau-idam-backend",
-      "spec": "https://hmcts.github.io/cnp-api-docs/specs/lau-idam-backend.json",
-      "dependencies": [
-        {
-          "id": "idam-api",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "rpe-service-auth-provider",
-          "hard": true,
-          "apis": []
-        }
-      ],
-      "apis": [],
-      "version": null
-    },
-    {
-      "id": "lau-frontend",
-      "name": "LAU Frontend",
-      "group": "LAU",
-      "type": "web",
-      "description": "LAU Frontend Web application",
-      "repository": "https://github.com/hmcts/lau-frontend",
-      "spec": null,
-      "dependencies": [
-        {
-          "id": "lau-case-backend",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "lau-idam-backend",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "idam-web-public",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "idam-api",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "rpe-service-auth-provider",
-          "hard": true,
-          "apis": []
-        }
-      ],
-      "apis": [],
-      "version": null
-    },
-    {
-      "id": "ccd-case-activity-api",
-      "name": "CCD Case Activities Api",
-      "group": "CCD",
-      "type": "api",
-      "description": "",
-      "repository": "https://github.com/hmcts/ccd-case-activity-api",
-      "spec": "https://hmcts.github.io/cnp-api-docs/specs/ccd-case-activity-api.json",
-      "dependencies": [
-        {
-          "id": "idam-web-public",
-          "hard": true,
-          "apis": []
-        }
-      ],
-      "apis": [],
-      "version": null
-    },
-    {
-      "id": "ccd-case-print-service",
-      "name": "CCD Case Print Service",
-      "group": "CCD",
-      "type": "api",
-      "description": "",
-      "repository": "https://github.com/hmcts/ccd-case-print-service",
-      "spec": "https://hmcts.github.io/cnp-api-docs/specs/ccd-case-print-service.json",
-      "dependencies": [
-        {
-          "id": "rpe-service-auth-provider",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "ccd-data-store-api",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "idam-web-public",
-          "hard": true,
-          "apis": []
-        }
-      ],
-      "apis": [],
-      "version": null
-    },
-    {
-      "id": "ccd-api-gateway-web",
-      "name": "CCD API GW",
-      "group": "CCD",
-      "type": "api-gw",
-      "description": "",
-      "repository": "https://github.com/hmcts/ccd-api-gateway",
-      "spec": "https://hmcts.github.io/cnp-api-docs/specs/ccd-api-gateway.json",
-      "dependencies": [
-        {
-          "id": "ccd-data-store-api",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "ccd-definition-store-api",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "ccd-case-activity-api",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "ccd-user-profile-api",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "ccd-case-print-service",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "idam-web-public",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "rpe-service-auth-provider",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "dm-store",
-          "hard": true,
-          "apis": []
-        }
-      ],
-      "apis": [],
-      "version": null
-    },
-    {
-      "id": "ccd-admin-web",
-      "name": "CCD Admin Web",
-      "group": "CCD",
-      "type": "web",
-      "description": "",
-      "repository": "https://github.com/hmcts/ccd-admin-web",
-      "spec": "https://hmcts.github.io/cnp-api-docs/specs/ccd-admin-web.json",
-      "dependencies": [
-        {
-          "id": "idam-web-public",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "ccd-definition-store-api",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "rpe-service-auth-provider",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "ts-translation-service",
-          "hard": true,
-          "apis": []
-        }
-      ],
-      "apis": [],
-      "version": null
-    },
-    {
-      "id": "ccd-case-management-web",
-      "name": "CCD Case Managment Web",
-      "group": "CCD",
-      "type": "web",
-      "description": "",
-      "repository": "https://github.com/hmcts/ccd-case-management-web",
-      "spec": "https://hmcts.github.io/cnp-api-docs/specs/ccd-case-management-web.json",
-      "dependencies": [
-        {
-          "id": "ccd-api-gateway-web",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "ccd-case-activity-api",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "idam-web-public",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "dm-store",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "ccd-case-print-service",
-          "hard": true,
-          "apis": []
-        }
-      ],
-      "apis": [],
-      "version": null
-    },
-    {
-      "id": "ccd-data-store-api",
-      "name": "CCD Data Store",
-      "group": "CCD",
-      "type": "api",
-      "description": "",
-      "repository": "https://github.com/hmcts/ccd-data-store-api",
-      "urls": [
-        {
-          "url": "https://hmcts.github.io/cnp-api-docs/specs/ccd-data-store-api.v1_internal.json",
-          "name": "v1_internal"
-        },
-        {
-          "url": "https://hmcts.github.io/cnp-api-docs/specs/ccd-data-store-api.v1_external.json",
-          "name": "v1_external"
-        },
-        {
-          "url": "https://hmcts.github.io/cnp-api-docs/specs/ccd-data-store-api.v2_internal.json",
-          "name": "v2_internal"
-        },
-        {
-          "url": "https://hmcts.github.io/cnp-api-docs/specs/ccd-data-store-api.v2_external.json",
-          "name": "v2_external"
-        }
-      ],
-      "dependencies": [
-        {
-          "id": "ccd-definition-store-api",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "ccd-user-profile-api",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "ccd-case-print-service",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "idam-web-public",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "rpe-service-auth-provider",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "dm-store",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "ccd-case-document-am-api",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "lau-case-backend",
-          "hard": true,
-          "apis": []
-        }
-      ],
-      "apis": [],
-      "version": null
-    },
-    {
-      "id": "ccd-definition-store-api",
-      "name": "CCD Definition Store",
-      "group": "CCD",
-      "type": "api",
-      "description": "",
-      "repository": "https://github.com/hmcts/ccd-definition-store-api",
-      "spec": "https://hmcts.github.io/cnp-api-docs/specs/ccd-definition-store-api.json",
-      "dependencies": [
-        {
-          "id": "ccd-user-profile-api",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "idam-web-public",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "rpe-service-auth-provider",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "ts-translation-service",
-          "hard": true,
-          "apis": []
-        }
-      ],
-      "apis": [],
-      "version": null
-    },
-    {
-      "id": "ccd-user-profile-api",
-      "name": "CCD User Profile",
-      "group": "CCD",
-      "type": "api",
-      "description": "",
-      "repository": "https://github.com/hmcts/ccd-user-profile-api",
-      "spec": "https://hmcts.github.io/cnp-api-docs/specs/ccd-user-profile-api.json",
-      "dependencies": [
-        {
-          "id": "rpe-service-auth-provider",
-          "hard": true,
-          "apis": []
-        }
-      ],
-      "apis": [],
-      "version": null
-    },
-    {
-      "id": "ccd-case-document-am-api",
-      "name": "CCD Case Doc Store",
-      "group": "CCD",
-      "type": "api",
-      "description": "",
-      "repository": "https://github.com/hmcts/ccd-case-document-am-api",
-      "spec": "https://hmcts.github.io/cnp-api-docs/specs/ccd-case-document-am-api.json",
-      "dependencies": [
-        {
-          "id": "rpe-service-auth-provider",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "idam-api",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "ccd-data-store-api",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "ccd-definition-store-api",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "dm-store",
-          "hard": true,
-          "apis": []
-        }
-      ],
-      "apis": [],
-      "version": null
-    },
-    {
-      "id": "dm-show",
-      "name": "DM Show",
-      "group": "Evidence",
-      "type": "web",
-      "description": "",
-      "repository": "https://github.com/hmcts/document-management-node-demo",
-      "spec": "https://hmcts.github.io/cnp-api-docs/specs/document-management-node-demo.json",
-      "dependencies": [
-        {
-          "id": "idam-web-public",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "rpe-service-auth-provider",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "dm-store",
-          "hard": true,
-          "apis": []
-        }
-      ],
-      "apis": [],
-      "version": null
-    },
-    {
-      "id": "aac-manage-case-assignment",
-      "name": "Manage Case Assignment",
-      "group": "CCD",
-      "type": "api",
-      "description": "",
-      "repository": "https://github.com/hmcts/aac-manage-case-assignment",
-      "spec": "https://hmcts.github.io/cnp-api-docs/specs/aac-manage-case-assignment.json",
-      "dependencies": [
-        {
-          "id": "ccd-data-store-api",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "rd-professional-api",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "idam-api",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "rpe-service-auth-provider",
-          "hard": true,
-          "apis": []
-        }
-      ],
-      "apis": [],
-      "version": null
-    },
-    {
-      "id": "cpo-case-payment-orders-api",
-      "name": "Case Payment Orders API",
-      "group": "CCD",
-      "type": "api",
-      "description": "",
-      "repository": "https://github.com/hmcts/cpo-case-payment-orders-api",
-      "spec": "https://hmcts.github.io/cnp-api-docs/specs/cpo-case-payment-orders-api.json",
-      "dependencies": [
-        {
-          "id": "idam-api",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "rpe-service-auth-provider",
-          "hard": true,
-          "apis": []
-        }
-      ],
-      "apis": [],
-      "version": null
-    },
-    {
-      "id": "dm-store",
-      "name": "DM Store",
-      "group": "Evidence",
-      "type": "api",
-      "description": "",
-      "repository": "https://github.com/hmcts/document-management-store-app",
-      "spec": "https://hmcts.github.io/cnp-api-docs/specs/document-management-store-app.json",
-      "dependencies": [
-        {
-          "id": "rpe-service-auth-provider",
-          "hard": true,
-          "apis": []
-        }
-      ],
-      "apis": [],
-      "version": null
-    },
-    {
-      "id": "em-anno",
-      "name": "EM Annotation API",
-      "group": "Evidence",
-      "type": "api",
-      "description": "",
-      "repository": "https://github.com/hmcts/rpa-em-annotation-api",
-      "spec": "https://hmcts.github.io/cnp-api-docs/specs/em-annotation-api.json",
-      "dependencies": [
-        {
-          "id": "idam-api",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "rpe-service-auth-provider",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "dm-store",
-          "hard": true,
-          "apis": []
-        }
-      ],
-      "apis": [],
-      "version": null
-    },
-    {
-      "id": "snl-notes",
-      "name": "SNL Notes",
-      "group": "SNL",
-      "type": "api",
-      "description": "",
-      "repository": "https://github.com/hmcts/snl-notes",
-      "spec": "https://hmcts.github.io/cnp-api-docs/specs/snl-notes.json",
-      "dependencies": [
-      ],
-      "apis": [],
-      "version": null
-    },
-    {
-      "id": "snl-api",
-      "name": "SNL API",
-      "group": "SNL",
-      "type": "api",
-      "description": "",
-      "repository": "https://github.com/hmcts/snl-api",
-      "spec": "https://hmcts.github.io/cnp-api-docs/specs/snl-api.json",
-      "dependencies": [
-        {
-          "id": "snl-events",
-          "hard": true,
-          "apis": []
-        }
-      ],
-      "apis": [],
-      "version": null
-    },
-    {
-      "id": "snl-frontend",
-      "name": "SNL Frontend",
-      "group": "SNL",
-      "type": "web",
-      "description": "",
-      "repository": "https://github.com/hmcts/snl-frontend",
-      "spec": "https://hmcts.github.io/cnp-api-docs/specs/snl-frontend.json",
-      "dependencies": [
-        {
-          "id": "snl-api",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "snl-notes",
-          "hard": true,
-          "apis": []
-        }
-      ],
-      "apis": [],
-      "version": null
-    },
-    {
-      "id": "snl-events",
-      "name": "SNL Event",
-      "group": "SNL",
-      "type": "api",
-      "description": "",
-      "repository": "https://github.com/hmcts/snl-events",
-      "spec": "https://hmcts.github.io/cnp-api-docs/specs/snl-events.json",
-      "dependencies": [
-        {
-          "id": "snl-rules",
-          "hard": true,
-          "apis": []
-        }
-      ],
-      "apis": [],
-      "version": null
-    },
-    {
-      "id": "snl-rules",
-      "name": "SNL Rules",
-      "group": "SNL",
-      "type": "api",
-      "description": "",
-      "repository": "https://github.com/hmcts/snl-rules",
-      "spec": "https://hmcts.github.io/cnp-api-docs/specs/snl-rules.json",
-      "dependencies": [
-      ],
-      "apis": [],
-      "version": null
-    },
-    {
-      "id": "pbi-service",
-      "name": "RPE Private Beta Inivation",
-      "group": "RPE",
-      "type": "api",
-      "description": "",
-      "repository": "https://github.com/hmcts/private-beta-invitation-service",
-      "spec": "https://hmcts.github.io/cnp-api-docs/specs/private-beta-invitation-service.json",
-      "dependencies": [
-      ],
-      "apis": [],
-      "version": null
-    },
-    {
-      "id": "rpe-service-auth-provider",
-      "name": "RPE Serivce Auth Provider (S2S)",
-      "group": "RPE",
-      "type": "api",
-      "description": "",
-      "repository": "https://github.com/hmcts/service-auth-provider-app",
-      "spec": "https://hmcts.github.io/cnp-api-docs/specs/service-auth-provider-app.json",
-      "dependencies": [
-      ],
-      "apis": [],
-      "version": null
-    },
-    {
-      "id": "rpe-feature-toggle-api",
-      "name": "RPE Feature Toggle",
-      "group": "RPE",
-      "type": "api",
-      "description": "",
-      "repository": "https://github.com/hmcts/feature-toggle-api",
-      "spec": "https://hmcts.github.io/cnp-api-docs/specs/feature-toggle-api.json",
-      "dependencies": [
-        {
-          "id": "rpe-service-auth-provider",
-          "hard": true,
-          "apis": []
-        }
-      ],
-      "apis": [],
-      "version": null
-    },
-    {
-      "id": "cmc-pdf-service",
-      "name": "CMC PDF Service",
-      "group": "RPE",
-      "type": "api",
-      "description": "",
-      "repository": "https://github.com/hmcts/cmc-pdf-service",
-      "spec": "https://hmcts.github.io/cnp-api-docs/specs/cmc-pdf-service.json",
-      "dependencies": [
-        {
-          "id": "rpe-service-auth-provider",
-          "hard": true,
-          "apis": []
-        }
-      ],
-      "apis": [],
-      "version": null
-    },
-    {
-      "id": "draft-store-service",
-      "name": "RPE Draft Store",
-      "group": "RPE",
-      "type": "api",
-      "description": "",
-      "repository": "https://github.com/hmcts/draft-store",
-      "spec": "https://hmcts.github.io/cnp-api-docs/specs/draft-store.json",
-      "dependencies": [
-        {
-          "id": "idam-web-public",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "rpe-service-auth-provider",
-          "hard": true,
-          "apis": []
-        }
-      ],
-      "apis": [],
-      "version": null
-    },
-    {
-      "id": "bsp-blob-router",
-      "name": "Bulk scan router",
-      "group": "BSP",
-      "type": "api",
-      "description": "",
-      "repository": "https://github.com/hmcts/blob-router-service",
-      "spec": "https://hmcts.github.io/cnp-api-docs/specs/blob-router-service.json",
-      "dependencies": [
-      ],
-      "apis": [],
-      "version": null
-    },
-    {
-      "id": "bsp-bulk-scan-processor",
-      "name": "Bulk scan processor",
-      "group": "BSP",
-      "type": "api",
-      "description": "",
-      "repository": "https://github.com/hmcts/bulk-scan-processor",
-      "spec": "https://hmcts.github.io/cnp-api-docs/specs/bulk-scan-processor.json",
-      "dependencies": [
-        {
-          "id": "bsp-blob-router",
-          "hard": false,
-          "apis": []
-        },
-        {
-          "id": "rpe-service-auth-provider",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "dm-store",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "probate-back-office",
-          "hard": false,
-          "apis": []
-        }
-      ],
-      "apis": [],
-      "version": null
-    },
-    {
-      "id": "bsp-bulk-scan-orchestrator",
-      "name": "Bulk scan orchestrator",
-      "group": "BSP",
-      "type": "api",
-      "description": "",
-      "repository": "https://github.com/hmcts/bulk-scan-orchestrator",
-      "spec": "https://hmcts.github.io/cnp-api-docs/specs/bulk-scan-orchestrator.json",
-      "dependencies": [
-        {
-          "id": "bsp-bulk-scan-processor",
-          "hard": false,
-          "apis": []
-        },
-        {
-          "id": "rpe-service-auth-provider",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "idam-api",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "ccd-data-store-api",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "probate-back-office",
-          "hard": false,
-          "apis": []
-        }
-      ],
-      "apis": [],
-      "version": null
-    },
-    {
-      "id": "bsp-bulk-scan-payment-processor",
-      "name": "Bulk scan payment processor",
-      "group": "BSP",
-      "type": "api",
-      "description": "",
-      "repository": "https://github.com/hmcts/bulk-scan-payment-processor",
-      "spec": "https://hmcts.github.io/cnp-api-docs/specs/bulk-scan-payment-processor.json",
-      "dependencies": [
-        {
-          "id": "bsp-bulk-scan-orchestrator",
-          "hard": false,
-          "apis": []
-        },
-        {
-          "id": "rpe-service-auth-provider",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "idam-api",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "ccd-data-store-api",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "payment-api",
-          "hard": true,
-          "apis": []
-        }
-      ],
-      "apis": [],
-      "version": null
-    },
-    {
-      "id": "bsp-send-letter-service",
-      "name": "Bulk Printing (Send Letter)",
-      "group": "BSP",
-      "type": "api",
-      "description": "",
-      "repository": "https://github.com/hmcts/send-letter-service",
-      "spec": "https://hmcts.github.io/cnp-api-docs/specs/send-letter-service.json",
-      "dependencies": [
-        {
-          "id": "rpe-service-auth-provider",
-          "hard": true,
-          "apis": []
-        }
-      ],
-      "apis": [],
-      "version": null
-    },
-    {
-      "id": "xui-webapp",
-      "name": "XUI Webapp",
-      "group": "XUI",
-      "type": "web",
-      "description": "",
-      "repository": "https://github.com/hmcts/rpx-xui-webapp",
-      "spec": "https://hmcts.github.io/cnp-api-docs/specs/xui-webapp.json",
-      "dependencies": [
-        {
-          "id": "idam-web-public",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "rpe-service-auth-provider",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "dm-store",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "ccd-data-store-api",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "ccd-definition-store-api",
-          "hard": true,
-          "apis": []
-        }
-      ],
-      "apis": [],
-      "version": null
-    },
-    {
-      "id": "rpa-icp",
-      "name": "RPA In Court Presentation API",
-      "group": "RPA",
-      "type": "api",
-      "description": "",
-      "repository": "https://github.com/hmcts/rpa-in-court-presentation-api",
-      "spec": "https://hmcts.github.io/cnp-api-docs/specs/rpa-in-court-presentation-api.json",
-      "dependencies": [
-      ],
-      "apis": [],
-      "version": null
-    },
-    {
-      "id": "rpa-icp-w",
-      "name": "RPA In Court Presentation Web",
-      "group": "RPA",
-      "type": "web",
-      "description": "",
-      "repository": "https://github.com/hmcts/rpa-in-court-presentation-web",
-      "spec": "https://hmcts.github.io/cnp-api-docs/specs/rpa-in-court-presentation-web.json",
-      "dependencies": [
-        {
-          "id": "rpa-icp",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "dm-store",
-          "hard": true,
-          "apis": []
-        }
-      ],
-      "apis": [],
-      "version": null
-    },
-    {
-      "id": "ref-pup",
-      "name": "PUP Reference Data",
-      "group": "RPA",
-      "type": "api",
-      "description": "",
-      "repository": "https://github.com/hmcts/ref-professional-user-profile",
-      "spec": "https://hmcts.github.io/cnp-api-docs/specs/ref-professional-user-profile.json",
-      "dependencies": [
-        {
-          "id": "rpe-service-auth-provider",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "idam-web-public",
-          "hard": true,
-          "apis": []
-        }
-      ],
-      "apis": [],
-      "version": null
-    },
-    {
-      "id": "cmc-citizen-frontend",
-      "name": "CMC Citzen Frontend",
-      "group": "CMC",
-      "type": "web",
-      "description": "",
-      "repository": "https://github.com/hmcts/cmc-citizen-frontend",
-      "spec": "https://hmcts.github.io/cnp-api-docs/specs/cmc-citizen-frontend.json",
-      "dependencies": [
-        {
-          "id": "cmc-claim-store",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "draft-store-service",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "idam-web-public",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "rpe-service-auth-provider",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "payment-api",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "fees-register-api",
-          "hard": true,
-          "apis": []
-        }
-      ],
-      "apis": [],
-      "version": null
-    },
-    {
-      "id": "cmc-legal-frontend",
-      "name": "CMC Leagal Rep Frontend",
-      "group": "CMC",
-      "type": "web",
-      "description": "",
-      "repository": "https://github.com/hmcts/cmc-legal-rep-frontend",
-      "spec": "https://hmcts.github.io/cnp-api-docs/specs/cmc-legal-rep-frontend.json",
-      "dependencies": [
-        {
-          "id": "cmc-claim-store",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "draft-store-service",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "idam-web-public",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "payment-api",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "fees-register-api",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "rpe-service-auth-provider",
-          "hard": true,
-          "apis": []
-        }
-      ],
-      "apis": [],
-      "version": null
-    },
-    {
-      "id": "cmc-claim-store",
-      "name": "CMC Claim Store",
-      "group": "CMC",
-      "type": "api",
-      "description": "",
-      "repository": "https://github.com/hmcts/cmc-claim-store",
-      "spec": "https://hmcts.github.io/cnp-api-docs/specs/cmc-claim-store.json",
-      "dependencies": [
+    "appTypes": [
         {
-          "id": "ccd-data-store-api",
-          "hard": true,
-          "apis": []
+            "type": "",
+            "shape": "diamond"
         },
         {
-          "id": "rpe-service-auth-provider",
-          "hard": true,
-          "apis": []
+            "type": "-api",
+            "shape": "dot"
         },
         {
-          "id": "idam-web-public",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "dm-store",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "bsp-send-letter-service",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "cmc-pdf-service",
-          "hard": true,
-          "apis": []
-        }
-      ],
-      "apis": [],
-      "version": null
-    },
-    {
-      "id": "div-emca",
-      "name": "Divorce Evidence Managment Client",
-      "group": "DIV",
-      "type": "api",
-      "description": "",
-      "repository": "https://github.com/hmcts/div-evidence-management-client-api",
-      "spec": "https://hmcts.github.io/cnp-api-docs/specs/div-evidence-management-client-api.json",
-      "dependencies": [
-        {
-          "id": "rpe-service-auth-provider",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "dm-store",
-          "hard": true,
-          "apis": []
-        }
-      ],
-      "apis": [],
-      "version": null
-    },
-    {
-      "id": "div-bfe",
-      "name": "Divorce Respondent Frontend",
-      "group": "DIV",
-      "type": "web",
-      "description": "",
-      "repository": "https://github.com/hmcts/div-respondent-frontend",
-      "spec": "https://hmcts.github.io/cnp-api-docs/specs/div-respondent-frontend.json",
-      "dependencies": [
-        {
-          "id": "rpe-service-auth-provider",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "idam-web-public",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "div-cps",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "div-emca",
-          "hard": true,
-          "apis": []
-        }
-      ],
-      "apis": [],
-      "version": null
-    },
-    {
-      "id": "div-pfe",
-      "name": "Divorce Petitioner Frontend",
-      "group": "DIV",
-      "type": "web",
-      "description": "",
-      "repository": "https://github.com/hmcts/div-petitioner-frontend",
-      "spec": "https://hmcts.github.io/cnp-api-docs/specs/div-petitioner-frontend.json",
-      "dependencies": [
-        {
-          "id": "rpe-service-auth-provider",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "idam-web-public",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "div-cps",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "div-emca",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "div-fps",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "fees-register-api",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "payment-api",
-          "hard": true,
-          "apis": []
-        }
-      ],
-      "apis": [],
-      "version": null
-    },
-    {
-      "id": "div-cms",
-      "name": "Divorce Case Maintance Service",
-      "group": "DIV",
-      "type": "api",
-      "description": "",
-      "repository": "https://github.com/hmcts/div-case-maintenance-service",
-      "spec": "https://hmcts.github.io/cnp-api-docs/specs/div-case-maintenance-service.json",
-      "dependencies": [
-        {
-          "id": "ccd-data-store-api",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "rpe-service-auth-provider",
-          "hard": true,
-          "apis": []
-        }
-      ],
-      "apis": [],
-      "version": null
-    },
-    {
-      "id": "div-cps",
-      "name": "Divorce (Transform) Case Progression Service",
-      "group": "DIV",
-      "type": "api",
-      "description": "",
-      "repository": "https://github.com/hmcts/div-case-progression-service",
-      "spec": "https://hmcts.github.io/cnp-api-docs/specs/div-case-progression-service.json",
-      "dependencies": [
-        {
-          "id": "ccd-data-store-api",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "rpe-service-auth-provider",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "div-dgs",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "draft-store-service",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "dm-store",
-          "hard": true,
-          "apis": []
-        }
-      ],
-      "apis": [],
-      "version": null
-    },
-    {
-      "id": "div-dgs",
-      "name": "Divorce Document Generator Client",
-      "group": "DIV",
-      "type": "api",
-      "description": "",
-      "repository": "https://github.com/hmcts/div-document-generator-client",
-      "spec": "https://hmcts.github.io/cnp-api-docs/specs/div-document-generator-client.json",
-      "dependencies": [
-        {
-          "id": "cmc-pdf-service",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "rpe-service-auth-provider",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "div-emca",
-          "hard": true,
-          "apis": []
-        }
-      ],
-      "apis": [],
-      "version": null
-    },
-    {
-      "id": "div-fps",
-      "name": "Divorce Fees and payments Service",
-      "group": "DIV",
-      "type": "api",
-      "description": "",
-      "repository": "https://github.com/hmcts/div-fees-and-payments-service",
-      "spec": "https://hmcts.github.io/cnp-api-docs/specs/div-fees-and-payments-service.json",
-      "dependencies": [
-        {
-          "id": "fees-register-api",
-          "hard": true,
-          "apis": []
-        }
-      ],
-      "apis": [],
-      "version": null
-    },
-    {
-      "id": "div-vs",
-      "name": "Divorce Validation",
-      "group": "DIV",
-      "type": "api",
-      "description": "",
-      "repository": "https://github.com/hmcts/div-validation-service",
-      "spec": "https://hmcts.github.io/cnp-api-docs/specs/div-validation-service.json",
-      "dependencies": [
-        {
-          "id": "rpe-service-auth-provider",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "ccd-data-store-api",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "bsp-send-letter-service",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "idam-web-public",
-          "hard": true,
-          "apis": []
-        }
-      ],
-      "apis": [],
-      "version": null
-    },
-    {
-      "id": "finrem-cos",
-      "name": "Finrem Case Orchestration Service",
-      "group": "FINREM",
-      "type": "api",
-      "description": "",
-      "repository": "https://github.com/hmcts/finrem-case-orchestration-service",
-      "spec": "https://hmcts.github.io/cnp-api-docs/specs/finrem-case-orchestration.json",
-      "dependencies": [
-        {
-          "id": "idam-web-public",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "rpe-service-auth-provider",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "fees-register-api",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "payment-api",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "ccd-data-store-api",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "aac-manage-case-assignment",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "bsp-send-letter-service",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "cmc-pdf-service",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "dm-store",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "rd-professional-api",
-          "hard": true,
-          "apis": []
-        }
-      ],
-      "apis": [],
-      "version": null
-    },
-    {
-      "id": "probate-persistence-service",
-      "name": "Probate Persitance Service",
-      "group": "Probate",
-      "type": "api",
-      "description": "",
-      "repository": "https://github.com/hmcts/probate-persistence-service",
-      "spec": "https://hmcts.github.io/cnp-api-docs/specs/probate-persistence-service.json",
-      "dependencies": [
-      ],
-      "apis": [],
-      "version": null
-    },
-    {
-      "id": "probate-submit-service",
-      "name": "Probate Submission Service",
-      "group": "Probate",
-      "type": "api",
-      "description": "",
-      "repository": "https://github.com/hmcts/probate-submit-service",
-      "spec": "https://hmcts.github.io/cnp-api-docs/specs/probate-submit-service.json",
-      "dependencies": [
-        {
-          "id": "rpe-service-auth-provider",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "ccd-data-store-api",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "probate-persistence-service",
-          "hard": true,
-          "apis": []
-        }
-      ],
-      "apis": [],
-      "version": null
-    },
-    {
-      "id": "probate-frontend",
-      "name": "Probate Frontend",
-      "group": "Probate",
-      "type": "web",
-      "description": "",
-      "repository": "https://github.com/hmcts/probate-frontend",
-      "spec": "https://hmcts.github.io/cnp-api-docs/specs/probate-frontend.json",
-      "dependencies": [
-        {
-          "id": "idam-web-public",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "rpe-service-auth-provider",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "fees-register-api",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "payment-api",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "probate-business-service",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "probate-persistence-service",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "probate-submit-service",
-          "hard": true,
-          "apis": []
-        }
-      ],
-      "apis": [],
-      "version": null
-    },
-    {
-      "id": "probate-caveats-frontend",
-      "name": "Probate Caveats Frontend",
-      "group": "Probate",
-      "type": "web",
-      "description": "",
-      "repository": "https://github.com/hmcts/probate-caveats-frontend",
-      "spec": "https://hmcts.github.io/cnp-api-docs/specs/probate-caveats-frontend.json",
-      "dependencies": [
-        {
-          "id": "idam-web-public",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "rpe-service-auth-provider",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "payment-api",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "probate-orchestrator-service",
-          "hard": true,
-          "apis": []
+            "type": "-web",
+            "shape": "triangle"
         }
-      ],
-      "apis": [],
-      "version": null
-    },
-    {
-      "id": "probate-orchestrator-service",
-      "name": "Probate Orchestrator",
-      "group": "Probate",
-      "type": "api",
-      "description": "",
-      "repository": "https://github.com/hmcts/probate-orchestrator-service",
-      "spec": "https://hmcts.github.io/cnp-api-docs/specs/probate-orchestrator-service.json",
-      "dependencies": [
-        {
-          "id": "idam-web-public",
-          "hard": true,
-          "apis": []
-        },
+    ],
+    "groups": [
         {
-          "id": "rpe-service-auth-provider",
-          "hard": true,
-          "apis": []
+            "name": "HMI Gateway",
+            "colour": "#cc3300"
         },
         {
-          "id": "probate-submit-service",
-          "hard": true,
-          "apis": []
+            "name": "PIH Gateway",
+            "colour": "#cc3300"
         },
         {
-          "id": "probate-business-service",
-          "hard": true,
-          "apis": []
+            "name": "IDAM",
+            "colour": "#000000"
         },
         {
-          "id": "probate-back-office",
-          "hard": true,
-          "apis": []
+            "name": "RPE",
+            "colour": "#999999"
         },
         {
-          "id": "fees-register-api",
-          "hard": true,
-          "apis": []
+            "name": "BSP",
+            "colour": "#FFDFD3"
         },
         {
-          "id": "ccd-data-store-api",
-          "hard": true,
-          "apis": []
-        }
-      ],
-      "apis": [],
-      "version": null
-    },
-    {
-      "id": "probate-back-office",
-      "name": "Probate Back Office",
-      "group": "Probate",
-      "type": "api",
-      "description": "",
-      "repository": "https://github.com/hmcts/probate-sol-ccd-services",
-      "spec": "https://hmcts.github.io/cnp-api-docs/specs/probate-sol-ccd-services.json",
-      "dependencies": [
-        {
-          "id": "rpe-service-auth-provider",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "cmc-pdf-service",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "ccd-case-print-service",
-          "hard": true,
-          "apis": []
+            "name": "CCD",
+            "colour": "#AF9F2E"
         },
         {
-          "id": "fees-register-api",
-          "hard": true,
-          "apis": []
+            "name": "Evidence",
+            "colour": "#532F0C"
         },
         {
-          "id": "dm-store",
-          "hard": true,
-          "apis": []
+            "name": "BAR, Fee & Pay",
+            "colour": "#3B7FC0"
         },
         {
-          "id": "ccd-api-gateway-web",
-          "hard": true,
-          "apis": []
+            "name": "RPA",
+            "colour": "#28C5C7"
         },
         {
-          "id": "bsp-send-letter-service",
-          "hard": true,
-          "apis": []
+            "name": "XUI",
+            "colour": "#28C5C7"
         },
-        {
-          "id": "docmosis-tornado-api",
-          "hard": true,
-          "apis": []
-        }
-      ],
-      "apis": [],
-      "version": null
-    },
-    {
-      "id": "probate-business-service",
-      "name": "Probate Validation (Business) Service",
-      "group": "Probate",
-      "type": "api",
-      "description": "",
-      "repository": "https://github.com/hmcts/probate-business-service",
-      "spec": "https://hmcts.github.io/cnp-api-docs/specs/probate-business-service.json",
-      "dependencies": [
-        {
-          "id": "probate-persistence-service",
-          "hard": true,
-          "apis": []
-        }
-      ],
-      "apis": [],
-      "version": null
-    },
-    {
-      "id": "sscs-tya-frontend",
-      "name": "SSCS Track Your Appeal Frontend",
-      "group": "SSCS",
-      "type": "web",
-      "description": "",
-      "repository": "https://github.com/hmcts/sscs-track-your-appeal-frontend",
-      "spec": "https://hmcts.github.io/cnp-api-docs/specs/track-your-appeal-frontend.json",
-      "dependencies": [
-        {
-          "id": "sscs-tribunals-api",
-          "hard": true,
-          "apis": []
-        }
-      ],
-      "apis": [],
-      "version": null
-    },
-    {
-      "id": "sscs-tribunals-api",
-      "name": "SSCS Tribunal Case API",
-      "group": "SSCS",
-      "type": "api",
-      "description": "",
-      "repository": "https://github.com/hmcts/sscs-tribunals-case-api",
-      "spec": "https://hmcts.github.io/cnp-api-docs/specs/tribunals-case-api.json",
-      "dependencies": [
-        {
-          "id": "ccd-data-store-api",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "rpe-service-auth-provider",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "cmc-pdf-service",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "dm-store",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "idam-api",
-          "hard": true,
-          "apis": []
-        }
-      ],
-      "apis": [],
-      "version": null
-    },
-    {
-      "id": "sscs-case-loader",
-      "name": "SSCS Case Loader",
-      "group": "SSCS",
-      "type": "api",
-      "description": "",
-      "repository": "https://github.com/hmcts/sscs-case-loader",
-      "spec": "https://hmcts.github.io/cnp-api-docs/specs/sscs-case-loader.json",
-      "dependencies": [
-        {
-          "id": "ccd-data-store-api",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "rpe-service-auth-provider",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "idam-api",
-          "hard": true,
-          "apis": []
-        }
-      ],
-      "apis": [],
-      "version": null
-    },
-    {
-      "id": "sscs-tya-notif",
-      "name": "SSCS Track Your Appeal Notification",
-      "group": "SSCS",
-      "type": "api",
-      "description": "",
-      "repository": "https://github.com/hmcts/sscs-track-your-appeal-notifications",
-      "spec": "https://hmcts.github.io/cnp-api-docs/specs/track-your-appeal-notifications.json",
-      "dependencies": [
-        {
-          "id": "ccd-data-store-api",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "dm-store",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "rpe-service-auth-provider",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "cmc-pdf-service",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "idam-api",
-          "hard": true,
-          "apis": []
-        }
-      ],
-      "apis": [],
-      "version": null
-    },
-    {
-      "id": "sscs-submit-your-appeal",
-      "name": "SSCS Submit Your Appeal Frontend",
-      "group": "SSCS",
-      "type": "web",
-      "description": "",
-      "repository": "https://github.com/hmcts/sscs-submit-your-appeal",
-      "spec": null,
-      "dependencies": [
-        {
-          "id": "sscs-tribunals-api",
-          "hard": true,
-          "apis": []
-        }
-      ],
-      "apis": [],
-      "version": null
-    },
-    {
-      "id": "sscs-evidence-share",
-      "name": "SSCS Evidence Share Service",
-      "group": "SSCS",
-      "type": "api",
-      "description": "",
-      "repository": "https://github.com/hmcts/sscs-evidence-share",
-      "spec": null,
-      "dependencies": [
-        {
-          "id": "ccd-data-store-api",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "dm-store",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "idam-api",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "bsp-send-letter-service",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "docmosis-tornado-api",
-          "hard": true,
-          "apis": []
-        }
-      ],
-      "apis": [],
-      "version": null
-    },
-    {
-      "id": "sscs-cor-frontend",
-      "name": "SSCS COR Frontend",
-      "group": "SSCS",
-      "type": "web",
-      "description": "",
-      "repository": "https://github.com/hmcts/sscs-cor-frontend",
-      "spec": null,
-      "dependencies": [
-        {
-          "id": "sscs-cor-backend",
-          "hard": true,
-          "apis": []
-        }
-      ],
-      "apis": [],
-      "version": null
-    },
-    {
-      "id": "ia-case-api",
-      "name": "Immigration & Asylum case API",
-      "group": "IA",
-      "type": "api",
-      "description": "",
-      "repository": "https://github.com/hmcts/ia-case-api",
-      "spec": "https://hmcts.github.io/cnp-api-docs/specs/ia-case-api.json",
-      "dependencies": [
-        {
-          "id": "ccd-data-store-api",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "rpe-service-auth-provider",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "cmc-pdf-service",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "idam-api",
-          "hard": true,
-          "apis": []
-        }
-      ],
-      "apis": [],
-      "version": null
-    },
-    {
-      "id": "ia-case-documents-api",
-      "name": "IA case documents API",
-      "group": "IA",
-      "type": "api",
-      "description": "",
-      "repository": "https://github.com/hmcts/ia-case-documents-api",
-      "spec": "https://hmcts.github.io/cnp-api-docs/specs/ia-case-documents-api.json",
-      "dependencies": [
-        {
-          "id": "ccd-data-store-api",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "rpe-service-auth-provider",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "cmc-pdf-service",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "idam-api",
-          "hard": true,
-          "apis": []
-        }
-      ],
-      "apis": [],
-      "version": null
-    },
-    {
-      "id": "ia-case-notifications-api",
-      "name": "IA case notifications API",
-      "group": "IA",
-      "type": "api",
-      "description": "",
-      "repository": "https://github.com/hmcts/ia-case-notifications-api",
-      "spec": "https://hmcts.github.io/cnp-api-docs/specs/ia-case-notifications-api.json",
-      "dependencies": [
-        {
-          "id": "ccd-data-store-api",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "rpe-service-auth-provider",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "cmc-pdf-service",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "idam-api",
-          "hard": true,
-          "apis": []
-        }
-      ],
-      "apis": [],
-      "version": null
-    },
-    {
-      "id": "rpa-em-stitching-api",
-      "name": "Stitching API",
-      "group": "Evidence",
-      "type": "api",
-      "description": "",
-      "repository": "https://github.com/hmcts/rpa-em-stitching-api",
-      "spec": "https://hmcts.github.io/cnp-api-docs/specs/rpa-em-stitching-api.json",
-      "dependencies": [
-        {
-          "id": "idam-api",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "rpe-service-auth-provider",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "dm-store",
-          "hard": true,
-          "apis": []
-        }
-      ],
-      "apis": [],
-      "version": null
-    },
-    {
-      "id": "rpa-em-ccd-orchestrator",
-      "name": "CCD Bundle Orchestrator",
-      "group": "Evidence",
-      "type": "api",
-      "description": "",
-      "repository": "https://github.com/hmcts/rpa-em-ccd-orchestrator",
-      "spec": "https://hmcts.github.io/cnp-api-docs/specs/rpa-em-ccd-orchestrator.json",
-      "dependencies": [
-        {
-          "id": "rpa-em-stitching-api",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "idam-api",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "rpe-service-auth-provider",
-          "hard": true,
-          "apis": []
-        }
-      ],
-      "apis": [],
-      "version": null
-    },
-    {
-      "id": "rpa-dg-docassembly-api",
-      "name": "DG Document Assembly API",
-      "group": "Evidence",
-      "type": "api",
-      "description": "",
-      "repository": "https://github.com/hmcts/rpa-dg-docassembly-api",
-      "spec": "https://hmcts.github.io/cnp-api-docs/specs/rpa-dg-docassembly-api.json",
-      "dependencies": [
-        {
-          "id": "docmosis-tornado-api",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "idam-api",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "rpe-service-auth-provider",
-          "hard": true,
-          "apis": []
-        }
-      ],
-      "apis": [],
-      "version": null
-    },
-    {
-      "id": "docmosis-tornado-api",
-      "name": "Docmosis Tornado API",
-      "group": "Evidence",
-      "type": "api",
-      "description": "Documentation can be found here https://www.docmosis.com/download/tornado2.7/Tornado-Web-Services-Guide2.7.pdf",
-      "repository": "",
-      "spec": "",
-      "dependencies": [
-      ],
-      "apis": [],
-      "version": null
-    },
-    {
-      "id": "fpla-case-service",
-      "name": "FPLA Case Service",
-      "group": "FPLA",
-      "type": "api",
-      "description": "CCD callback service for FPLA cases",
-      "repository": "https://github.com/hmcts/fpl-ccd-configuration",
-      "spec": "https://hmcts.github.io/cnp-api-docs/specs/fpla-case-service.json",
-      "dependencies": [
-        {
-          "id": "idam-api",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "rpe-service-auth-provider",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "dm-store",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "ccd-data-store-api",
-          "hard": true,
-          "apis": []
-        }
-      ],
-      "apis": [],
-      "version": null
-    },
-    {
-      "id": "rd-professional-api",
-      "name": "Professional reference data API",
-      "group": "RD",
-      "type": "api",
-      "description": "Provides APIs for managing professional reference data",
-      "repository": "https://github.com/hmcts/rd-professional-api",
-      "spec": "https://hmcts.github.io/cnp-api-docs/specs/rd-professional-api.json",
-      "dependencies": [
-        {
-          "id": "idam-api",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "rpe-service-auth-provider",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "rd-user-profile-api",
-          "hard": true,
-          "apis": []
-        }
-      ],
-      "apis": [],
-      "version": null
-    },
-    {
-      "id": "rd-user-profile-api",
-      "name": "Reference data user profile API",
-      "group": "RD",
-      "type": "api",
-      "description": "Provides APIs for reference data user profile",
-      "repository": "https://github.com/hmcts/rd-user-profile-api",
-      "spec": "https://hmcts.github.io/cnp-api-docs/specs/rd-user-profile-api.json",
-      "dependencies": [
-        {
-          "id": "idam-api",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "rpe-service-auth-provider",
-          "hard": true,
-          "apis": []
-        }
-      ],
-      "apis": [],
-      "version": null
-    },
-    {
-      "id": "rd-profile-sync",
-      "name": "Professional user profile scheduler",
-      "group": "RD",
-      "type": "scheduler",
-      "description": "Scheduler for updating user profile info in ref data user profile api",
-      "repository": "https://github.com/hmcts/rd-profile-sync",
-      "spec": null,
-      "dependencies": [
-        {
-          "id": "idam-api",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "rpe-service-auth-provider",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "rd-user-profile-api",
-          "hard": true,
-          "apis": []
-        }
-      ],
-      "apis": [],
-      "version": null
-    },
-    {
-      "id": "rd-caseworker-ref-api",
-      "name": "Staff reference data API",
-      "group": "RD",
-      "type": "api",
-      "description": "Provides APIs for managing Staff reference data",
-      "repository": "https://github.com/hmcts/rd-caseworker-ref-api",
-      "spec": "https://hmcts.github.io/cnp-api-docs/specs/rd-caseworker-ref-api.json",
-      "dependencies": [
-        {
-          "id": "idam-api",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "rpe-service-auth-provider",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "rd-user-profile-api",
-          "hard": true,
-          "apis": []
-        }
-      ],
-      "apis": [],
-      "version": null
-    },
-    {
-      "id": "rd-location-ref-api",
-      "name": "Location reference data API",
-      "group": "RD",
-      "type": "api",
-      "description": "Provides Fetch APIs for Location reference data",
-      "repository": "https://github.com/hmcts/rd-location-ref-api",
-      "spec": "https://hmcts.github.io/cnp-api-docs/specs/rd-location-ref-api.json",
-      "dependencies": [
-        {
-          "id": "idam-api",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "rpe-service-auth-provider",
-          "hard": true,
-          "apis": []
-        }
-      ],
-      "apis": [],
-      "version": null
-    },
-    {
-      "id": "rd-judicial-api",
-      "name": "Judicial reference data API",
-      "group": "RD",
-      "type": "api",
-      "description": "Provides Fetch APIs for Judicial reference data",
-      "repository": "https://github.com/hmcts/rd-judicial-api",
-      "spec": "https://hmcts.github.io/cnp-api-docs/specs/rd-judicial-api.json",
-      "dependencies": [
-        {
-          "id": "idam-api",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "rpe-service-auth-provider",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "rd-location-ref-api",
-          "hard": true,
-          "apis": []
-        }
-      ],
-      "apis": [],
-      "version": null
-    },
-    {
-      "id": "rd-commondata-api",
-      "name": "Common reference data API",
-      "group": "RD",
-      "type": "api",
-      "description": "Provides Fetch APIs for Reference Common static data i.e. case flag and List of values",
-      "repository": "https://github.com/hmcts/rd-commondata-api",
-      "spec": "https://hmcts.github.io/cnp-api-docs/specs/rd-commondata-api.json",
-      "dependencies": [
-        {
-          "id": "idam-api",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "rpe-service-auth-provider",
-          "hard": true,
-          "apis": []
-        }
-      ],
-      "apis": [],
-      "version": null
-    },
-    {
-      "id": "wa-workflow-api",
-      "name": "Workflow API",
-      "group": "WA",
-      "description": "API to kick off work allocation work flow",
-      "repository": "https://github.com/hmcts/wa-workflow-api",
-      "spec": "https://hmcts.github.io/cnp-api-docs/specs/wa-workflow-api.json",
-      "dependencies": [],
-      "apis": [],
-      "version": null
-    },
-    {
-      "id": "wa-task-management-api",
-      "name": "WA Task Management API",
-      "group": "WA",
-      "description": "API that helps you manage and perform operations on tasks",
-      "repository": "https://github.com/hmcts/wa-task-management-api",
-      "spec": "https://hmcts.github.io/cnp-api-docs/specs/wa-task-management-api.json",
-      "dependencies": [],
-      "apis": [],
-      "version": null
-    },
-    {
-      "id": "ts-translation-service",
-      "name": "Translation Service",
-      "group": "CCD",
-      "type": "api",
-      "description": "Provides a capability for service users to maintain Welsh translations.",
-      "repository": "https://github.com/hmcts/ts-translation-service",
-      "spec": "https://hmcts.github.io/cnp-api-docs/specs/ts-translation-service.json",
-      "dependencies": [
-        {
-          "id": "idam-api",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "rpe-service-auth-provider",
-          "hard": true,
-          "apis": []
-        }
-      ],
-      "apis": [],
-      "version": null
-    },
-    {
-      "id": "nfdiv-frontend",
-      "name": "NFDIV Frontend",
-      "group": "NFDIV",
-      "type": "web",
-      "description": "Citizen frontend for the No Fault Divorce system",
-      "repository": "https://github.com/hmcts/nfdiv-frontend",
-      "spec": "https://hmcts.github.io/cnp-api-docs/specs/nfdiv-frontend.json",
-      "dependencies": [
         {
-          "id": "idam-api",
-          "hard": true,
-          "apis": []
+            "name": "SNL",
+            "colour": "#97370E"
         },
         {
-          "id": "rpe-service-auth-provider",
-          "hard": true,
-          "apis": []
+            "name": "SSCS",
+            "colour": "#C728C5"
         },
         {
-          "id": "ccd-data-store-api",
-          "hard": true,
-          "apis": []
+            "name": "Probate",
+            "colour": "#DD7F00",
+            "info": "Overview of the Probate components and how they interact with other CFT components. View our <a href=\"https://tools.hmcts.net/confluence/display/DATS/DTS+-+Probate+Service?src=contextnavpagetreemode\">confluence</a> page for fore details about the Probate services and the <a href=\"https://tools.hmcts.net/confluence/display/DATS/How-to+technical\">how-to page</a> for guides to common tasks and setup."
         },
         {
-          "id": "fees-register-api",
-          "hard": true,
-          "apis": []
+            "name": "CMC",
+            "colour": "#DD0000"
         },
         {
-          "id": "payment-api",
-          "hard": true,
-          "apis": []
+            "name": "DIV",
+            "colour": "#119F5A"
         },
-        {
-          "id": "dm-store",
-          "hard": true,
-          "apis": []
-        }
-      ],
-      "apis": [],
-      "version": null
-    },
-    {
-      "id": "nfdiv-case-api",
-      "name": "NFDIV Case API",
-      "group": "NFDIV",
-      "type": "api",
-      "description": "Business logic for the No Fault Divorce system",
-      "repository": "https://github.com/hmcts/nfdiv-case-api",
-      "spec": "https://hmcts.github.io/cnp-api-docs/specs/nfdiv-case-api.json",
-      "dependencies": [
         {
-          "id": "idam-api",
-          "hard": true,
-          "apis": []
+            "name": "NFDIV",
+            "colour": "#FF9F5A"
         },
         {
-          "id": "rpe-service-auth-provider",
-          "hard": true,
-          "apis": []
+            "name": "FINREM",
+            "colour": "#A4DD00"
         },
         {
-          "id": "ccd-data-store-api",
-          "hard": true,
-          "apis": []
+            "name": "IA",
+            "colour": "#FF5733"
         },
         {
-          "id": "fees-register-api",
-          "hard": true,
-          "apis": []
+            "name": "Video Hearing",
+            "colour": "#222222"
         },
         {
-          "id": "payment-api",
-          "hard": true,
-          "apis": []
+            "name": "FPLA",
+            "colour": "#64fc30"
         },
         {
-          "id": "rpa-dg-docassembly-api",
-          "hard": true,
-          "apis": []
+            "name": "RD",
+            "colour": "#800020"
         },
         {
-          "id": "bsp-send-letter-service",
-          "hard": true,
-          "apis": []
-        }
-      ],
-      "apis": [],
-      "version": null
-    },
-    {
-      "id": "darts-api",
-      "name": "DARTS API",
-      "group": "DARTS",
-      "type": "api",
-      "description": "Backend for DARTS modernisation project",
-      "repository": "https://github.com/hmcts/darts-api",
-      "spec": null,
-      "dependencies": [],
-      "apis": [],
-      "version": null
-    },
-    {
-      "id": "darts-portal",
-      "name": "DARTS Portal",
-      "group": "DARTS",
-      "type": "web",
-      "description": "Frontend for DARTS modernisation project",
-      "repository": "https://github.com/hmcts/darts-portal",
-      "spec": null,
-      "dependencies": [
-        {
-          "id": "darts-api",
-          "hard": true,
-          "apis": []
-        }
-      ],
-      "apis": [],
-      "version": null
-    },
-    {
-      "id": "pcq-backend",
-      "name": "PCQ Backend",
-      "group": "PCQ",
-      "type": "api",
-      "description": "PCQ Backend",
-      "repository": "https://github.com/hmcts/pcq-backend",
-      "spec": "https://hmcts.github.io/cnp-api-docs/specs/pcq-backend.json",
-      "dependencies": [
-        {
-          "id": "rpe-service-auth-provider",
-          "hard": true,
-          "apis": []
-        }
-      ],
-      "apis": [],
-      "version": null
-    },
-    {
-      "id": "pcq-loader",
-      "name": "PCQ Loader",
-      "group": "PCQ",
-      "type": "api",
-      "description": "PCQ Loader",
-      "repository": "https://github.com/hmcts/pcq-loader",
-      "spec": null,
-      "dependencies": [
-        {
-          "id": "pcq-backend",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "rpe-service-auth-provider",
-          "hard": true,
-          "apis": []
-        }
-      ],
-      "apis": [],
-      "version": null
-    },
-    {
-      "id": "pcq-consolidation-service",
-      "name": "PCQ Consolidation Service",
-      "group": "PCQ",
-      "type": "api",
-      "description": "PCQ Consolidation Service",
-      "repository": "https://github.com/hmcts/pcq-consolidation-service",
-      "spec": null,
-      "dependencies": [
-        {
-          "id": "pcq-backend",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "rpe-service-auth-provider",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "idam-api",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "ccd-data-store-api",
-          "hard": true,
-          "apis": []
-        }
-      ],
-      "apis": [],
-      "version": null
-    },
-    {
-      "id": "pcq-frontend",
-      "name": "PCQ Frontend",
-      "group": "PCQ",
-      "type": "web",
-      "description": "PCQ Frontend Web application",
-      "repository": "https://github.com/hmcts/pcq-frontend",
-      "spec": null,
-      "dependencies": [
-        {
-          "id": "pcq-backend",
-          "hard": true,
-          "apis": []
-        }
-      ],
-      "apis": [],
-      "version": null
-    }
-  ]
+            "name": "WA",
+            "colour": "#8e44ad"
+        },
+        {
+            "name": "LAU",
+            "colour": "#f0f709"
+        },
+        {
+            "name": "PCQ",
+            "colour": "#B87333"
+        },
+        {
+            "name": "DARTS",
+            "colour": "#3498DB"
+        }
+    ],
+    "apis": [
+        {
+            "id": "hmi-gateway-api",
+            "name": "HMI API",
+            "group": "HMI Gateway",
+            "type": "api",
+            "description": "Future Hearings Gateway",
+            "repository": "https://github.com/hmcts/hmi-api-gateway-fh",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/future-hearings-hmi-api.json",
+            "dependencies": [
+                {
+                    "id": "pih-gateway-api",
+                    "hard": true,
+                    "apis": []
+                }
+            ],
+            "apis": [],
+            "version": null
+        },{
+            "id": "pih-gateway-api",
+            "name": "PIH API",
+            "group": "PIH Gateway",
+            "type": "api",
+            "description": "Publishing Information Hub Gateway",
+            "repository": "https://github.com/hmcts/pih-api-gateway",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/pip-gateway-api.json",
+            "dependencies": [
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "idam-api",
+            "name": "IDAM API",
+            "group": "IDAM",
+            "type": "api",
+            "description": "Authentication APIs",
+            "repository": "https://github.com/hmcts/idam-api",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/idam-api.json",
+            "dependencies": [
+              {
+                "id": "lau-idam-backend",
+                "hard": true,
+                "apis": []
+              }
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "idam-web-admin",
+            "name": "IDAM Admin UI",
+            "group": "IDAM",
+            "type": "web",
+            "description": "Administrative interface for managing services and users within IDAM",
+            "repository": "https://github.com/hmcts/idam-web-admin",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/idam-web-admin.json",
+            "dependencies": [
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "idam-web-public",
+            "name": "IDAM Web",
+            "group": "IDAM",
+            "type": "web",
+            "description": "Login and singup pages",
+            "repository": "https://github.com/hmcts/idam-web-public",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/idam-web-public.json",
+            "dependencies": [
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "bar-web",
+            "name": "Bar Web",
+            "group": "BAR, Fee & Pay",
+            "type": "web",
+            "description": "",
+            "repository": "https://github.com/hmcts/bar-web",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/bar-web.json",
+            "dependencies": [
+                {
+                    "id": "bar-api",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "fees-register-api",
+                    "hard": true,
+                    "apis": []
+                }
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "bar-api",
+            "name": "Bar App",
+            "group": "BAR, Fee & Pay",
+            "type": "api",
+            "description": "",
+            "repository": "https://github.com/hmcts/bar-apps",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/bar-apps.json",
+            "dependencies": [
+                {
+                    "id": "idam-web-public",
+                    "hard": true,
+                    "apis": []
+                }
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "fees-register-frontend",
+            "name": "Fees Admin Frontend",
+            "group": "BAR, Fee & Pay",
+            "type": "web",
+            "description": "",
+            "repository": "https://github.com/hmcts/ccfr-fees-register-admin-web",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/ccfr-fees-register-admin-web.json",
+            "dependencies": [
+                {
+                    "id": "idam-web-public",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "fees-register-api",
+                    "hard": true,
+                    "apis": []
+                }
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "fees-register-api",
+            "name": "Fees App",
+            "group": "BAR, Fee & Pay",
+            "type": "api",
+            "description": "",
+            "repository": "https://github.com/hmcts/ccfr-fees-register-app",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/ccfr-fees-register-app.json",
+            "dependencies": [
+                {
+                    "id": "idam-web-public",
+                    "hard": true,
+                    "apis": []
+                }
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "payment-api",
+            "name": "Payments API",
+            "group": "BAR, Fee & Pay",
+            "type": "api",
+            "description": "",
+            "repository": "https://github.com/hmcts/ccpay-payment-app",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/ccpay-payment-app.payment2.json",
+            "dependencies": [
+                {
+                    "id": "rpe-service-auth-provider",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "fees-register-api",
+                    "hard": true,
+                    "apis": []
+                }
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "lau-case-backend",
+            "name": "LAU Case Backend",
+            "group": "LAU",
+            "type": "api",
+            "description": "LAU Case Search and Actions Backend",
+            "repository": "https://github.com/hmcts/lau-case-backend",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/lau-case-backend.json",
+            "dependencies": [
+                {
+                    "id": "idam-api",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "rpe-service-auth-provider",
+                    "hard": true,
+                    "apis": []
+                }
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "lau-idam-backend",
+            "name": "LAU IdAM Backend",
+            "group": "LAU",
+            "type": "api",
+            "description": "LAU IdAM Logons Backend",
+            "repository": "https://github.com/hmcts/lau-idam-backend",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/lau-idam-backend.json",
+            "dependencies": [
+                {
+                    "id": "idam-api",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "rpe-service-auth-provider",
+                    "hard": true,
+                    "apis": []
+                }
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "lau-frontend",
+            "name": "LAU Frontend",
+            "group": "LAU",
+            "type": "web",
+            "description": "LAU Frontend Web application",
+            "repository": "https://github.com/hmcts/lau-frontend",
+            "spec": null,
+            "dependencies": [
+                {
+                    "id": "lau-case-backend",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "lau-idam-backend",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "idam-web-public",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "idam-api",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "rpe-service-auth-provider",
+                    "hard": true,
+                    "apis": []
+                }
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "ccd-case-activity-api",
+            "name": "CCD Case Activities Api",
+            "group": "CCD",
+            "type": "api",
+            "description": "",
+            "repository": "https://github.com/hmcts/ccd-case-activity-api",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/ccd-case-activity-api.json",
+            "dependencies": [
+                {
+                    "id": "idam-web-public",
+                    "hard": true,
+                    "apis": []
+                }
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "ccd-case-print-service",
+            "name": "CCD Case Print Service",
+            "group": "CCD",
+            "type": "api",
+            "description": "",
+            "repository": "https://github.com/hmcts/ccd-case-print-service",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/ccd-case-print-service.json",
+            "dependencies": [
+                {
+                    "id": "rpe-service-auth-provider",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "ccd-data-store-api",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "idam-web-public",
+                    "hard": true,
+                    "apis": []
+                }
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "ccd-api-gateway-web",
+            "name": "CCD API GW",
+            "group": "CCD",
+            "type": "api-gw",
+            "description": "",
+            "repository": "https://github.com/hmcts/ccd-api-gateway",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/ccd-api-gateway.json",
+            "dependencies": [
+                {
+                    "id": "ccd-data-store-api",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "ccd-definition-store-api",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "ccd-case-activity-api",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "ccd-user-profile-api",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "ccd-case-print-service",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "idam-web-public",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "rpe-service-auth-provider",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "dm-store",
+                    "hard": true,
+                    "apis": []
+                }
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "ccd-admin-web",
+            "name": "CCD Admin Web",
+            "group": "CCD",
+            "type": "web",
+            "description": "",
+            "repository": "https://github.com/hmcts/ccd-admin-web",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/ccd-admin-web.json",
+            "dependencies": [
+                {
+                    "id": "idam-web-public",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "ccd-definition-store-api",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "rpe-service-auth-provider",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "ts-translation-service",
+                    "hard": true,
+                    "apis": []
+                }
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "ccd-case-management-web",
+            "name": "CCD Case Managment Web",
+            "group": "CCD",
+            "type": "web",
+            "description": "",
+            "repository": "https://github.com/hmcts/ccd-case-management-web",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/ccd-case-management-web.json",
+            "dependencies": [
+                {
+                    "id": "ccd-api-gateway-web",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "ccd-case-activity-api",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "idam-web-public",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "dm-store",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "ccd-case-print-service",
+                    "hard": true,
+                    "apis": []
+                }
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "ccd-data-store-api",
+            "name": "CCD Data Store",
+            "group": "CCD",
+            "type": "api",
+            "description": "",
+            "repository": "https://github.com/hmcts/ccd-data-store-api",
+            "urls": [
+                {"url": "https://hmcts.github.io/cnp-api-docs/specs/ccd-data-store-api.v1_internal.json", "name": "v1_internal"},
+                {"url": "https://hmcts.github.io/cnp-api-docs/specs/ccd-data-store-api.v1_external.json", "name": "v1_external"},
+                {"url": "https://hmcts.github.io/cnp-api-docs/specs/ccd-data-store-api.v2_internal.json", "name": "v2_internal"},
+                {"url": "https://hmcts.github.io/cnp-api-docs/specs/ccd-data-store-api.v2_external.json", "name": "v2_external"}
+            ],
+            "dependencies": [
+                {
+                    "id": "ccd-definition-store-api",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "ccd-user-profile-api",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "ccd-case-print-service",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "idam-web-public",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "rpe-service-auth-provider",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "dm-store",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "ccd-case-document-am-api",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "lau-case-backend",
+                    "hard": true,
+                    "apis": []
+                }
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "ccd-definition-store-api",
+            "name": "CCD Definition Store",
+            "group": "CCD",
+            "type": "api",
+            "description": "",
+            "repository": "https://github.com/hmcts/ccd-definition-store-api",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/ccd-definition-store-api.json",
+            "dependencies": [
+                {
+                    "id": "ccd-user-profile-api",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "idam-web-public",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "rpe-service-auth-provider",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "ts-translation-service",
+                    "hard": true,
+                    "apis": []
+                }
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "ccd-user-profile-api",
+            "name": "CCD User Profile",
+            "group": "CCD",
+            "type": "api",
+            "description": "",
+            "repository": "https://github.com/hmcts/ccd-user-profile-api",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/ccd-user-profile-api.json",
+            "dependencies": [
+                {
+                    "id": "rpe-service-auth-provider",
+                    "hard": true,
+                    "apis": []
+                }
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "ccd-case-document-am-api",
+            "name": "CCD Case Doc Store",
+            "group": "CCD",
+            "type": "api",
+            "description": "",
+            "repository": "https://github.com/hmcts/ccd-case-document-am-api",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/ccd-case-document-am-api.json",
+            "dependencies": [
+                {
+                    "id": "rpe-service-auth-provider",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "idam-api",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "ccd-data-store-api",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "ccd-definition-store-api",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "dm-store",
+                    "hard": true,
+                    "apis": []
+                }
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "dm-show",
+            "name": "DM Show",
+            "group": "Evidence",
+            "type": "web",
+            "description": "",
+            "repository": "https://github.com/hmcts/document-management-node-demo",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/document-management-node-demo.json",
+            "dependencies": [
+                {
+                    "id": "idam-web-public",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "rpe-service-auth-provider",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "dm-store",
+                    "hard": true,
+                    "apis": []
+                }
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "aac-manage-case-assignment",
+            "name": "Manage Case Assignment",
+            "group": "CCD",
+            "type": "api",
+            "description": "",
+            "repository": "https://github.com/hmcts/aac-manage-case-assignment",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/aac-manage-case-assignment.json",
+            "dependencies": [
+                {
+                    "id": "ccd-data-store-api",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "rd-professional-api",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "idam-api",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "rpe-service-auth-provider",
+                    "hard": true,
+                    "apis": []
+                }
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "cpo-case-payment-orders-api",
+            "name": "Case Payment Orders API",
+            "group": "CCD",
+            "type": "api",
+            "description": "",
+            "repository": "https://github.com/hmcts/cpo-case-payment-orders-api",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/cpo-case-payment-orders-api.json",
+            "dependencies": [
+                {
+                    "id": "idam-api",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "rpe-service-auth-provider",
+                    "hard": true,
+                    "apis": []
+                }
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "dm-store",
+            "name": "DM Store",
+            "group": "Evidence",
+            "type": "api",
+            "description": "",
+            "repository": "https://github.com/hmcts/document-management-store-app",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/document-management-store-app.json",
+            "dependencies": [
+                {
+                    "id": "rpe-service-auth-provider",
+                    "hard": true,
+                    "apis": []
+                }
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "em-anno",
+            "name": "EM Annotation API",
+            "group": "Evidence",
+            "type": "api",
+            "description": "",
+            "repository": "https://github.com/hmcts/rpa-em-annotation-api",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/em-annotation-api.json",
+            "dependencies": [
+                {
+                    "id": "idam-api",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "rpe-service-auth-provider",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "dm-store",
+                    "hard": true,
+                    "apis": []
+                }
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "snl-notes",
+            "name": "SNL Notes",
+            "group": "SNL",
+            "type": "api",
+            "description": "",
+            "repository": "https://github.com/hmcts/snl-notes",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/snl-notes.json",
+            "dependencies": [
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "snl-api",
+            "name": "SNL API",
+            "group": "SNL",
+            "type": "api",
+            "description": "",
+            "repository": "https://github.com/hmcts/snl-api",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/snl-api.json",
+            "dependencies": [
+                {
+                    "id": "snl-events",
+                    "hard": true,
+                    "apis": []
+                }
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "snl-frontend",
+            "name": "SNL Frontend",
+            "group": "SNL",
+            "type": "web",
+            "description": "",
+            "repository": "https://github.com/hmcts/snl-frontend",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/snl-frontend.json",
+            "dependencies": [
+                {
+                    "id": "snl-api",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "snl-notes",
+                    "hard": true,
+                    "apis": []
+                }
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "snl-events",
+            "name": "SNL Event",
+            "group": "SNL",
+            "type": "api",
+            "description": "",
+            "repository": "https://github.com/hmcts/snl-events",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/snl-events.json",
+            "dependencies": [
+                {
+                    "id": "snl-rules",
+                    "hard": true,
+                    "apis": []
+                }
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "snl-rules",
+            "name": "SNL Rules",
+            "group": "SNL",
+            "type": "api",
+            "description": "",
+            "repository": "https://github.com/hmcts/snl-rules",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/snl-rules.json",
+            "dependencies": [
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "pbi-service",
+            "name": "RPE Private Beta Inivation",
+            "group": "RPE",
+            "type": "api",
+            "description": "",
+            "repository": "https://github.com/hmcts/private-beta-invitation-service",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/private-beta-invitation-service.json",
+            "dependencies": [
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "rpe-service-auth-provider",
+            "name": "RPE Serivce Auth Provider (S2S)",
+            "group": "RPE",
+            "type": "api",
+            "description": "",
+            "repository": "https://github.com/hmcts/service-auth-provider-app",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/service-auth-provider-app.json",
+            "dependencies": [
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "rpe-feature-toggle-api",
+            "name": "RPE Feature Toggle",
+            "group": "RPE",
+            "type": "api",
+            "description": "",
+            "repository": "https://github.com/hmcts/feature-toggle-api",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/feature-toggle-api.json",
+            "dependencies": [
+                {
+                    "id": "rpe-service-auth-provider",
+                    "hard": true,
+                    "apis": []
+                }
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "cmc-pdf-service",
+            "name": "CMC PDF Service",
+            "group": "RPE",
+            "type": "api",
+            "description": "",
+            "repository": "https://github.com/hmcts/cmc-pdf-service",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/cmc-pdf-service.json",
+            "dependencies": [
+                {
+                    "id": "rpe-service-auth-provider",
+                    "hard": true,
+                    "apis": []
+                }
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "draft-store-service",
+            "name": "RPE Draft Store",
+            "group": "RPE",
+            "type": "api",
+            "description": "",
+            "repository": "https://github.com/hmcts/draft-store",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/draft-store.json",
+            "dependencies": [
+                {
+                    "id": "idam-web-public",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "rpe-service-auth-provider",
+                    "hard": true,
+                    "apis": []
+                }
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "bsp-blob-router",
+            "name": "Bulk scan router",
+            "group": "BSP",
+            "type": "api",
+            "description": "",
+            "repository": "https://github.com/hmcts/blob-router-service",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/blob-router-service.json",
+            "dependencies": [
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "bsp-bulk-scan-processor",
+            "name": "Bulk scan processor",
+            "group": "BSP",
+            "type": "api",
+            "description": "",
+            "repository": "https://github.com/hmcts/bulk-scan-processor",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/bulk-scan-processor.json",
+            "dependencies": [
+                {
+                    "id": "bsp-blob-router",
+                    "hard": false,
+                    "apis": []
+                },
+                {
+                    "id": "rpe-service-auth-provider",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "dm-store",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "probate-back-office",
+                    "hard": false,
+                    "apis": []
+                }
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "bsp-bulk-scan-orchestrator",
+            "name": "Bulk scan orchestrator",
+            "group": "BSP",
+            "type": "api",
+            "description": "",
+            "repository": "https://github.com/hmcts/bulk-scan-orchestrator",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/bulk-scan-orchestrator.json",
+            "dependencies": [
+                {
+                    "id": "bsp-bulk-scan-processor",
+                    "hard": false,
+                    "apis": []
+                },
+                {
+                    "id": "rpe-service-auth-provider",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "idam-api",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "ccd-data-store-api",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "probate-back-office",
+                    "hard": false,
+                    "apis": []
+                }
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "bsp-bulk-scan-payment-processor",
+            "name": "Bulk scan payment processor",
+            "group": "BSP",
+            "type": "api",
+            "description": "",
+            "repository": "https://github.com/hmcts/bulk-scan-payment-processor",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/bulk-scan-payment-processor.json",
+            "dependencies": [
+                {
+                    "id": "bsp-bulk-scan-orchestrator",
+                    "hard": false,
+                    "apis": []
+                },
+                {
+                    "id": "rpe-service-auth-provider",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "idam-api",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "ccd-data-store-api",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "payment-api",
+                    "hard": true,
+                    "apis": []
+                }
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "bsp-send-letter-service",
+            "name": "Bulk Printing (Send Letter)",
+            "group": "BSP",
+            "type": "api",
+            "description": "",
+            "repository": "https://github.com/hmcts/send-letter-service",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/send-letter-service.json",
+            "dependencies": [
+                {
+                    "id": "rpe-service-auth-provider",
+                    "hard": true,
+                    "apis": []
+                }
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "xui-webapp",
+            "name": "XUI Webapp",
+            "group": "XUI",
+            "type": "web",
+            "description": "",
+            "repository": "https://github.com/hmcts/rpx-xui-webapp",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/xui-webapp.json",
+            "dependencies": [
+                {
+                    "id": "idam-web-public",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "rpe-service-auth-provider",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "dm-store",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "ccd-data-store-api",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "ccd-definition-store-api",
+                    "hard": true,
+                    "apis": []
+                }
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "rpa-icp",
+            "name": "RPA In Court Presentation API",
+            "group": "RPA",
+            "type": "api",
+            "description": "",
+            "repository": "https://github.com/hmcts/rpa-in-court-presentation-api",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/rpa-in-court-presentation-api.json",
+            "dependencies": [
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "rpa-icp-w",
+            "name": "RPA In Court Presentation Web",
+            "group": "RPA",
+            "type": "web",
+            "description": "",
+            "repository": "https://github.com/hmcts/rpa-in-court-presentation-web",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/rpa-in-court-presentation-web.json",
+            "dependencies": [
+                {
+                    "id": "rpa-icp",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "dm-store",
+                    "hard": true,
+                    "apis": []
+                }
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "ref-pup",
+            "name": "PUP Reference Data",
+            "group": "RPA",
+            "type": "api",
+            "description": "",
+            "repository": "https://github.com/hmcts/ref-professional-user-profile",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/ref-professional-user-profile.json",
+            "dependencies": [
+                {
+                    "id": "rpe-service-auth-provider",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "idam-web-public",
+                    "hard": true,
+                    "apis": []
+                }
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "cmc-citizen-frontend",
+            "name": "CMC Citzen Frontend",
+            "group": "CMC",
+            "type": "web",
+            "description": "",
+            "repository": "https://github.com/hmcts/cmc-citizen-frontend",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/cmc-citizen-frontend.json",
+            "dependencies": [
+                {
+                    "id": "cmc-claim-store",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "draft-store-service",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "idam-web-public",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "rpe-service-auth-provider",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "payment-api",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "fees-register-api",
+                    "hard": true,
+                    "apis": []
+                }
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "cmc-legal-frontend",
+            "name": "CMC Leagal Rep Frontend",
+            "group": "CMC",
+            "type": "web",
+            "description": "",
+            "repository": "https://github.com/hmcts/cmc-legal-rep-frontend",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/cmc-legal-rep-frontend.json",
+            "dependencies": [
+                {
+                    "id": "cmc-claim-store",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "draft-store-service",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "idam-web-public",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "payment-api",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "fees-register-api",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "rpe-service-auth-provider",
+                    "hard": true,
+                    "apis": []
+                }
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "cmc-claim-store",
+            "name": "CMC Claim Store",
+            "group": "CMC",
+            "type": "api",
+            "description": "",
+            "repository": "https://github.com/hmcts/cmc-claim-store",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/cmc-claim-store.json",
+            "dependencies": [
+                {
+                    "id": "ccd-data-store-api",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "rpe-service-auth-provider",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "idam-web-public",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "dm-store",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "bsp-send-letter-service",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "cmc-pdf-service",
+                    "hard": true,
+                    "apis": []
+                }
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "div-emca",
+            "name": "Divorce Evidence Managment Client",
+            "group": "DIV",
+            "type": "api",
+            "description": "",
+            "repository": "https://github.com/hmcts/div-evidence-management-client-api",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/div-evidence-management-client-api.json",
+            "dependencies": [
+                {
+                    "id": "rpe-service-auth-provider",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "dm-store",
+                    "hard": true,
+                    "apis": []
+                }
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "div-bfe",
+            "name": "Divorce Respondent Frontend",
+            "group": "DIV",
+            "type": "web",
+            "description": "",
+            "repository": "https://github.com/hmcts/div-respondent-frontend",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/div-respondent-frontend.json",
+            "dependencies": [
+                {
+                    "id": "rpe-service-auth-provider",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "idam-web-public",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "div-cps",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "div-emca",
+                    "hard": true,
+                    "apis": []
+                }
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "div-pfe",
+            "name": "Divorce Petitioner Frontend",
+            "group": "DIV",
+            "type": "web",
+            "description": "",
+            "repository": "https://github.com/hmcts/div-petitioner-frontend",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/div-petitioner-frontend.json",
+            "dependencies": [
+                {
+                    "id": "rpe-service-auth-provider",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "idam-web-public",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "div-cps",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "div-emca",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "div-fps",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "fees-register-api",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "payment-api",
+                    "hard": true,
+                    "apis": []
+                }
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "div-cms",
+            "name": "Divorce Case Maintance Service",
+            "group": "DIV",
+            "type": "api",
+            "description": "",
+            "repository": "https://github.com/hmcts/div-case-maintenance-service",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/div-case-maintenance-service.json",
+            "dependencies": [
+                {
+                    "id": "ccd-data-store-api",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "rpe-service-auth-provider",
+                    "hard": true,
+                    "apis": []
+                }
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "div-cps",
+            "name": "Divorce (Transform) Case Progression Service",
+            "group": "DIV",
+            "type": "api",
+            "description": "",
+            "repository": "https://github.com/hmcts/div-case-progression-service",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/div-case-progression-service.json",
+            "dependencies": [
+                {
+                    "id": "ccd-data-store-api",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "rpe-service-auth-provider",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "div-dgs",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "draft-store-service",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "dm-store",
+                    "hard": true,
+                    "apis": []
+                }
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "div-dgs",
+            "name": "Divorce Document Generator Client",
+            "group": "DIV",
+            "type": "api",
+            "description": "",
+            "repository": "https://github.com/hmcts/div-document-generator-client",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/div-document-generator-client.json",
+            "dependencies": [
+                {
+                    "id": "cmc-pdf-service",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "rpe-service-auth-provider",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "div-emca",
+                    "hard": true,
+                    "apis": []
+                }
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "div-fps",
+            "name": "Divorce Fees and payments Service",
+            "group": "DIV",
+            "type": "api",
+            "description": "",
+            "repository": "https://github.com/hmcts/div-fees-and-payments-service",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/div-fees-and-payments-service.json",
+            "dependencies": [
+                {
+                    "id": "fees-register-api",
+                    "hard": true,
+                    "apis": []
+                }
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "div-vs",
+            "name": "Divorce Validation",
+            "group": "DIV",
+            "type": "api",
+            "description": "",
+            "repository": "https://github.com/hmcts/div-validation-service",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/div-validation-service.json",
+            "dependencies": [
+                {
+                    "id": "rpe-service-auth-provider",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "ccd-data-store-api",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "bsp-send-letter-service",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "idam-web-public",
+                    "hard": true,
+                    "apis": []
+                }
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "finrem-cos",
+            "name": "Finrem Case Orchestration Service",
+            "group": "FINREM",
+            "type": "api",
+            "description": "",
+            "repository": "https://github.com/hmcts/finrem-case-orchestration-service",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/finrem-case-orchestration.json",
+            "dependencies": [
+                {
+                    "id": "idam-web-public",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "rpe-service-auth-provider",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "fees-register-api",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "payment-api",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "ccd-data-store-api",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "aac-manage-case-assignment",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "bsp-send-letter-service",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "cmc-pdf-service",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "dm-store",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "rd-professional-api",
+                    "hard": true,
+                    "apis": []
+                }
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "probate-persistence-service",
+            "name": "Probate Persitance Service",
+            "group": "Probate",
+            "type": "api",
+            "description": "",
+            "repository": "https://github.com/hmcts/probate-persistence-service",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/probate-persistence-service.json",
+            "dependencies": [
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "probate-submit-service",
+            "name": "Probate Submission Service",
+            "group": "Probate",
+            "type": "api",
+            "description": "",
+            "repository": "https://github.com/hmcts/probate-submit-service",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/probate-submit-service.json",
+            "dependencies": [
+                {
+                    "id": "rpe-service-auth-provider",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "ccd-data-store-api",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "probate-persistence-service",
+                    "hard": true,
+                    "apis": []
+                }
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "probate-frontend",
+            "name": "Probate Frontend",
+            "group": "Probate",
+            "type": "web",
+            "description": "",
+            "repository": "https://github.com/hmcts/probate-frontend",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/probate-frontend.json",
+            "dependencies": [
+                {
+                    "id": "idam-web-public",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "rpe-service-auth-provider",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "fees-register-api",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "payment-api",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "probate-business-service",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "probate-persistence-service",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "probate-submit-service",
+                    "hard": true,
+                    "apis": []
+                }
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "probate-caveats-frontend",
+            "name": "Probate Caveats Frontend",
+            "group": "Probate",
+            "type": "web",
+            "description": "",
+            "repository": "https://github.com/hmcts/probate-caveats-frontend",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/probate-caveats-frontend.json",
+            "dependencies": [
+                {
+                    "id": "idam-web-public",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "rpe-service-auth-provider",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "payment-api",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "probate-orchestrator-service",
+                    "hard": true,
+                    "apis": []
+                }
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "probate-orchestrator-service",
+            "name": "Probate Orchestrator",
+            "group": "Probate",
+            "type": "api",
+            "description": "",
+            "repository": "https://github.com/hmcts/probate-orchestrator-service",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/probate-orchestrator-service.json",
+            "dependencies": [
+                {
+                    "id": "idam-web-public",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "rpe-service-auth-provider",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "probate-submit-service",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "probate-business-service",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "probate-back-office",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "fees-register-api",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "ccd-data-store-api",
+                    "hard": true,
+                    "apis": []
+                }
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "probate-back-office",
+            "name": "Probate Back Office",
+            "group": "Probate",
+            "type": "api",
+            "description": "",
+            "repository": "https://github.com/hmcts/probate-sol-ccd-services",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/probate-sol-ccd-services.json",
+            "dependencies": [
+                {
+                    "id": "rpe-service-auth-provider",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "cmc-pdf-service",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "ccd-case-print-service",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "fees-register-api",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "dm-store",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "ccd-api-gateway-web",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "bsp-send-letter-service",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "docmosis-tornado-api",
+                    "hard": true,
+                    "apis": []
+                }
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "probate-business-service",
+            "name": "Probate Validation (Business) Service",
+            "group": "Probate",
+            "type": "api",
+            "description": "",
+            "repository": "https://github.com/hmcts/probate-business-service",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/probate-business-service.json",
+            "dependencies": [
+                {
+                    "id": "probate-persistence-service",
+                    "hard": true,
+                    "apis": []
+                }
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "sscs-tya-frontend",
+            "name": "SSCS Track Your Appeal Frontend",
+            "group": "SSCS",
+            "type": "web",
+            "description": "",
+            "repository": "https://github.com/hmcts/sscs-track-your-appeal-frontend",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/track-your-appeal-frontend.json",
+            "dependencies": [
+                {
+                    "id": "sscs-tribunals-api",
+                    "hard": true,
+                    "apis": []
+                }
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "sscs-tribunals-api",
+            "name": "SSCS Tribunal Case API",
+            "group": "SSCS",
+            "type": "api",
+            "description": "",
+            "repository": "https://github.com/hmcts/sscs-tribunals-case-api",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/tribunals-case-api.json",
+            "dependencies": [
+                {
+                    "id": "ccd-data-store-api",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "rpe-service-auth-provider",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "cmc-pdf-service",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "dm-store",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "idam-api",
+                    "hard": true,
+                    "apis": []
+                }
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "sscs-case-loader",
+            "name": "SSCS Case Loader",
+            "group": "SSCS",
+            "type": "api",
+            "description": "",
+            "repository": "https://github.com/hmcts/sscs-case-loader",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/sscs-case-loader.json",
+            "dependencies": [
+                {
+                    "id": "ccd-data-store-api",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "rpe-service-auth-provider",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "idam-api",
+                    "hard": true,
+                    "apis": []
+                }
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "sscs-tya-notif",
+            "name": "SSCS Track Your Appeal Notification",
+            "group": "SSCS",
+            "type": "api",
+            "description": "",
+            "repository": "https://github.com/hmcts/sscs-track-your-appeal-notifications",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/track-your-appeal-notifications.json",
+            "dependencies": [
+                {
+                    "id": "ccd-data-store-api",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "dm-store",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "rpe-service-auth-provider",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "cmc-pdf-service",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "idam-api",
+                    "hard": true,
+                    "apis": []
+                }
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "sscs-submit-your-appeal",
+            "name": "SSCS Submit Your Appeal Frontend",
+            "group": "SSCS",
+            "type": "web",
+            "description": "",
+            "repository": "https://github.com/hmcts/sscs-submit-your-appeal",
+            "spec": null,
+            "dependencies": [
+                {
+                    "id": "sscs-tribunals-api",
+                    "hard": true,
+                    "apis": []
+                }
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "sscs-evidence-share",
+            "name": "SSCS Evidence Share Service",
+            "group": "SSCS",
+            "type": "api",
+            "description": "",
+            "repository": "https://github.com/hmcts/sscs-evidence-share",
+            "spec": null,
+            "dependencies": [
+                {
+                    "id": "ccd-data-store-api",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "dm-store",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "idam-api",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "bsp-send-letter-service",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "docmosis-tornado-api",
+                    "hard": true,
+                    "apis": []
+                }
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "sscs-cor-frontend",
+            "name": "SSCS COR Frontend",
+            "group": "SSCS",
+            "type": "web",
+            "description": "",
+            "repository": "https://github.com/hmcts/sscs-cor-frontend",
+            "spec": null,
+            "dependencies": [
+                {
+                    "id": "sscs-cor-backend",
+                    "hard": true,
+                    "apis": []
+                }
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "ia-case-api",
+            "name": "Immigration & Asylum case API",
+            "group": "IA",
+            "type": "api",
+            "description": "",
+            "repository": "https://github.com/hmcts/ia-case-api",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/ia-case-api.json",
+            "dependencies": [
+                {
+                    "id": "ccd-data-store-api",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "rpe-service-auth-provider",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "cmc-pdf-service",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "idam-api",
+                    "hard": true,
+                    "apis": []
+                }
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "ia-case-documents-api",
+            "name": "IA case documents API",
+            "group": "IA",
+            "type": "api",
+            "description": "",
+            "repository": "https://github.com/hmcts/ia-case-documents-api",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/ia-case-documents-api.json",
+            "dependencies": [
+                {
+                    "id": "ccd-data-store-api",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "rpe-service-auth-provider",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "cmc-pdf-service",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "idam-api",
+                    "hard": true,
+                    "apis": []
+                }
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "ia-case-notifications-api",
+            "name": "IA case notifications API",
+            "group": "IA",
+            "type": "api",
+            "description": "",
+            "repository": "https://github.com/hmcts/ia-case-notifications-api",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/ia-case-notifications-api.json",
+            "dependencies": [
+                {
+                    "id": "ccd-data-store-api",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "rpe-service-auth-provider",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "cmc-pdf-service",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "idam-api",
+                    "hard": true,
+                    "apis": []
+                }
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "rpa-em-stitching-api",
+            "name": "Stitching API",
+            "group": "Evidence",
+            "type": "api",
+            "description": "",
+            "repository": "https://github.com/hmcts/rpa-em-stitching-api",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/rpa-em-stitching-api.json",
+            "dependencies": [
+                {
+                    "id": "idam-api",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "rpe-service-auth-provider",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "dm-store",
+                    "hard": true,
+                    "apis": []
+                }
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "rpa-em-ccd-orchestrator",
+            "name": "CCD Bundle Orchestrator",
+            "group": "Evidence",
+            "type": "api",
+            "description": "",
+            "repository": "https://github.com/hmcts/rpa-em-ccd-orchestrator",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/rpa-em-ccd-orchestrator.json",
+            "dependencies": [
+                {
+                    "id": "rpa-em-stitching-api",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "idam-api",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "rpe-service-auth-provider",
+                    "hard": true,
+                    "apis": []
+                }
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "rpa-dg-docassembly-api",
+            "name": "DG Document Assembly API",
+            "group": "Evidence",
+            "type": "api",
+            "description": "",
+            "repository": "https://github.com/hmcts/rpa-dg-docassembly-api",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/rpa-dg-docassembly-api.json",
+            "dependencies": [
+                {
+                    "id": "docmosis-tornado-api",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "idam-api",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "rpe-service-auth-provider",
+                    "hard": true,
+                    "apis": []
+                }
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "docmosis-tornado-api",
+            "name": "Docmosis Tornado API",
+            "group": "Evidence",
+            "type": "api",
+            "description": "Documentation can be found here https://www.docmosis.com/download/tornado2.7/Tornado-Web-Services-Guide2.7.pdf",
+            "repository": "",
+            "spec": "",
+            "dependencies": [
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "fpla-case-service",
+            "name": "FPLA Case Service",
+            "group": "FPLA",
+            "type": "api",
+            "description": "CCD callback service for FPLA cases",
+            "repository": "https://github.com/hmcts/fpl-ccd-configuration",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/fpla-case-service.json",
+            "dependencies": [
+                {
+                    "id": "idam-api",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "rpe-service-auth-provider",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "dm-store",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "ccd-data-store-api",
+                    "hard": true,
+                    "apis": []
+                }
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "rd-professional-api",
+            "name": "Professional reference data API",
+            "group": "RD",
+            "type": "api",
+            "description": "Provides APIs for managing professional reference data",
+            "repository": "https://github.com/hmcts/rd-professional-api",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/rd-professional-api.json",
+            "dependencies": [
+                {
+                    "id": "idam-api",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "rpe-service-auth-provider",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "rd-user-profile-api",
+                    "hard": true,
+                    "apis": []
+                }
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "rd-user-profile-api",
+            "name": "Reference data user profile API",
+            "group": "RD",
+            "type": "api",
+            "description": "Provides APIs for reference data user profile",
+            "repository": "https://github.com/hmcts/rd-user-profile-api",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/rd-user-profile-api.json",
+            "dependencies": [
+                {
+                    "id": "idam-api",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "rpe-service-auth-provider",
+                    "hard": true,
+                    "apis": []
+                }
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "rd-profile-sync",
+            "name": "Professional user profile scheduler",
+            "group": "RD",
+            "type": "scheduler",
+            "description": "Scheduler for updating user profile info in ref data user profile api",
+            "repository": "https://github.com/hmcts/rd-profile-sync",
+            "spec": null,
+            "dependencies": [
+                {
+                    "id": "idam-api",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "rpe-service-auth-provider",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "rd-user-profile-api",
+                    "hard": true,
+                    "apis": []
+                }
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "rd-caseworker-ref-api",
+            "name": "Staff reference data API",
+            "group": "RD",
+            "type": "api",
+            "description": "Provides APIs for managing Staff reference data",
+            "repository": "https://github.com/hmcts/rd-caseworker-ref-api",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/rd-caseworker-ref-api.json",
+            "dependencies": [
+                {
+                    "id": "idam-api",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "rpe-service-auth-provider",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "rd-user-profile-api",
+                    "hard": true,
+                    "apis": []
+                }
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "rd-location-ref-api",
+            "name": "Location reference data API",
+            "group": "RD",
+            "type": "api",
+            "description": "Provides Fetch APIs for Location reference data",
+            "repository": "https://github.com/hmcts/rd-location-ref-api",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/rd-location-ref-api.json",
+            "dependencies": [
+                {
+                    "id": "idam-api",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "rpe-service-auth-provider",
+                    "hard": true,
+                    "apis": []
+                }
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "rd-judicial-api",
+            "name": "Judicial reference data API",
+            "group": "RD",
+            "type": "api",
+            "description": "Provides Fetch APIs for Judicial reference data",
+            "repository": "https://github.com/hmcts/rd-judicial-api",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/rd-judicial-api.json",
+            "dependencies": [
+                {
+                    "id": "idam-api",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "rpe-service-auth-provider",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "rd-location-ref-api",
+                    "hard": true,
+                    "apis": []
+                }
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "rd-commondata-api",
+            "name": "Common reference data API",
+            "group": "RD",
+            "type": "api",
+            "description": "Provides Fetch APIs for Reference Common static data i.e. case flag and List of values",
+            "repository": "https://github.com/hmcts/rd-commondata-api",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/rd-commondata-api.json",
+            "dependencies": [
+                {
+                    "id": "idam-api",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "rpe-service-auth-provider",
+                    "hard": true,
+                    "apis": []
+                }
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "wa-workflow-api",
+            "name": "Workflow API",
+            "group": "WA",
+            "description": "API to kick off work allocation work flow",
+            "repository": "https://github.com/hmcts/wa-workflow-api",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/wa-workflow-api.json",
+            "dependencies": [],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "wa-task-management-api",
+            "name": "WA Task Management API",
+            "group": "WA",
+            "description": "API that helps you manage and perform operations on tasks",
+            "repository": "https://github.com/hmcts/wa-task-management-api",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/wa-task-management-api.json",
+            "dependencies": [],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "ts-translation-service",
+            "name": "Translation Service",
+            "group": "CCD",
+            "type": "api",
+            "description": "Provides a capability for service users to maintain Welsh translations.",
+            "repository": "https://github.com/hmcts/ts-translation-service",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/ts-translation-service.json",
+            "dependencies": [
+                {
+                    "id": "idam-api",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "rpe-service-auth-provider",
+                    "hard": true,
+                    "apis": []
+                }
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "nfdiv-frontend",
+            "name": "NFDIV Frontend",
+            "group": "NFDIV",
+            "type": "web",
+            "description": "Citizen frontend for the No Fault Divorce system",
+            "repository": "https://github.com/hmcts/nfdiv-frontend",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/nfdiv-frontend.json",
+            "dependencies": [
+                {
+                    "id": "idam-api",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "rpe-service-auth-provider",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "ccd-data-store-api",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "fees-register-api",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "payment-api",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "dm-store",
+                    "hard": true,
+                    "apis": []
+                }
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "nfdiv-case-api",
+            "name": "NFDIV Case API",
+            "group": "NFDIV",
+            "type": "api",
+            "description": "Business logic for the No Fault Divorce system",
+            "repository": "https://github.com/hmcts/nfdiv-case-api",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/nfdiv-case-api.json",
+            "dependencies": [
+                {
+                    "id": "idam-api",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "rpe-service-auth-provider",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "ccd-data-store-api",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "fees-register-api",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "payment-api",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "rpa-dg-docassembly-api",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "bsp-send-letter-service",
+                    "hard": true,
+                    "apis": []
+                }
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "darts-api",
+            "name": "DARTS API",
+            "group": "DARTS",
+            "type": "api",
+            "description": "Backend for DARTS modernisation project",
+            "repository": "https://github.com/hmcts/darts-api",
+            "spec": null,
+            "dependencies": [],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "darts-portal",
+            "name": "DARTS Portal",
+            "group": "DARTS",
+            "type": "web",
+            "description": "Frontend for DARTS modernisation project",
+            "repository": "https://github.com/hmcts/darts-portal",
+            "spec": null,
+            "dependencies": [
+                {
+                    "id": "darts-api",
+                    "hard": true,
+                    "apis": []
+                }
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "pcq-backend",
+            "name": "PCQ Backend",
+            "group": "PCQ",
+            "type": "api",
+            "description": "PCQ Backend",
+            "repository": "https://github.com/hmcts/pcq-backend",
+            "spec": "https://hmcts.github.io/cnp-api-docs/specs/pcq-backend.json",
+            "dependencies": [
+                {
+                    "id": "rpe-service-auth-provider",
+                    "hard": true,
+                    "apis": []
+                }
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "pcq-loader",
+            "name": "PCQ Loader",
+            "group": "PCQ",
+            "type": "api",
+            "description": "PCQ Loader",
+            "repository": "https://github.com/hmcts/pcq-loader",
+            "spec": null,
+            "dependencies": [
+                {
+                    "id": "pcq-backend",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "rpe-service-auth-provider",
+                    "hard": true,
+                    "apis": []
+                }
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "pcq-consolidation-service",
+            "name": "PCQ Consolidation Service",
+            "group": "PCQ",
+            "type": "api",
+            "description": "PCQ Consolidation Service",
+            "repository": "https://github.com/hmcts/pcq-consolidation-service",
+            "spec": null,
+            "dependencies": [
+                {
+                    "id": "pcq-backend",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "rpe-service-auth-provider",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "idam-api",
+                    "hard": true,
+                    "apis": []
+                },
+                {
+                    "id": "ccd-data-store-api",
+                    "hard": true,
+                    "apis": []
+                }
+            ],
+            "apis": [],
+            "version": null
+        },
+        {
+            "id": "pcq-frontend",
+            "name": "PCQ Frontend",
+            "group": "PCQ",
+            "type": "web",
+            "description": "PCQ Frontend Web application",
+            "repository": "https://github.com/hmcts/pcq-frontend",
+            "spec": null,
+            "dependencies": [
+                {
+                  "id": "pcq-backend",
+                  "hard": true,
+                  "apis": []
+                }
+            ],
+            "apis": [],
+            "version": null
+        }
+    ]
 }
