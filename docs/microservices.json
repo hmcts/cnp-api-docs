@@ -165,7 +165,7 @@
     },
     {
       "id": "pip-channel-management",
-      "name": "CaTH channel Management API",
+      "name": "CaTH Channel Management API",
       "group": "CaTH",
       "type": "api",
       "description": "Handles third-party services and file generation for CaTH",
