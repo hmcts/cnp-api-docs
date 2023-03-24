@@ -125,27 +125,93 @@
       "description": "Future Hearings Gateway",
       "repository": "https://github.com/hmcts/hmi-api-gateway-fh",
       "spec": "https://hmcts.github.io/cnp-api-docs/specs/future-hearings-hmi-api.json",
-      "dependencies": [
-        {
-          "id": "pih-gateway-api",
-          "hard": true,
-          "apis": []
-        }
-      ],
+      "dependencies": [],
       "apis": [],
       "version": null
     },
     {
-      "id": "pih-gateway-api",
-      "name": "PIH API",
-      "group": "PIH Gateway",
+      "id": "pip-data-management",
+      "name": "CaTH Data Management API",
+      "group": "CaTH",
       "type": "api",
-      "description": "Publishing Information Hub Gateway",
-      "repository": "https://github.com/hmcts/pih-api-gateway",
-      "spec": "https://hmcts.github.io/cnp-api-docs/specs/pip-gateway-api.json",
-      "dependencies": [
-      ],
+      "description": "Handles postgres and Azure Blob Storage traffic for CaTH",
+      "repository": "https://github.com/hmcts/pip-data-management",
+      "dependencies": [],
       "apis": [],
+      "urls": [
+        {
+          "url": "https://github.com/hmcts/pip-data-management",
+          "name": "CaTH Data Management API"
+        }
+      ],
+      "version": null
+    },
+    {
+      "id": "pip-subscription-management",
+      "name": "CaTH Subscription Management API",
+      "group": "CaTH",
+      "type": "api",
+      "description": "Handles subscriptions and triggers for CaTH",
+      "repository": "https://github.com/hmcts/pip-subscription-management",
+      "dependencies": [],
+      "apis": [],
+      "urls": [
+        {
+          "url": "https://github.com/hmcts/pip-subscription-management",
+          "name": "CaTH Subscription Management API"
+        }
+      ],
+      "version": null
+    },
+    {
+      "id": "pip-channel-management",
+      "name": "CaTH channel Management API",
+      "group": "CaTH",
+      "type": "api",
+      "description": "Handles third-party services and file generation for CaTH",
+      "repository": "https://github.com/hmcts/pip-channel-management",
+      "dependencies": [],
+      "apis": [],
+      "urls": [
+        {
+          "url": "https://github.com/hmcts/pip-channel-management",
+          "name": "CaTH Channel Management API"
+        }
+      ],
+      "version": null
+    },
+    {
+      "id": "pip-account-management",
+      "name": "CaTH Account Management API",
+      "group": "CaTH",
+      "type": "api",
+      "description": "Handles authentication and authorisation for CaTH",
+      "repository": "https://github.com/hmcts/pip-account-management",
+      "dependencies": [],
+      "apis": [],
+      "urls": [
+        {
+          "url": "https://github.com/hmcts/pip-account-management",
+          "name": "CaTH Account Management API"
+        }
+      ],
+      "version": null
+    },
+    {
+      "id": "pip-publication-services",
+      "name": "CaTH Publication Services API",
+      "group": "CaTH",
+      "type": "api",
+      "description": "Handles email correspondence sent from CaTH",
+      "repository": "https://github.com/hmcts/pip-publication-services",
+      "dependencies": [],
+      "apis": [],
+      "urls": [
+        {
+          "url": "https://github.com/hmcts/pip-publication-services",
+          "name": "CaTH Publication Services API"
+        }
+      ],
       "version": null
     },
     {
