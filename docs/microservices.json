@@ -19,7 +19,7 @@
       "colour": "#cc3300"
     },
     {
-      "name": "PIH Gateway",
+      "name": "CaTH",
       "colour": "#cc3300"
     },
     {
@@ -125,27 +125,136 @@
       "description": "Future Hearings Gateway",
       "repository": "https://github.com/hmcts/hmi-api-gateway-fh",
       "spec": "https://hmcts.github.io/cnp-api-docs/specs/future-hearings-hmi-api.json",
+      "dependencies": [],
+      "apis": [],
+      "version": null
+    },
+    {
+      "id": "pip-data-management",
+      "name": "CaTH Data Management API",
+      "group": "CaTH",
+      "type": "api",
+      "description": "Handles postgres and Azure Blob Storage traffic for CaTH",
+      "repository": "https://github.com/hmcts/pip-data-management",
+      "dependencies": [],
+      "apis": [],
+      "urls": [
+        {
+          "url": "https://github.com/hmcts/pip-data-management",
+          "name": "CaTH Data Management API"
+        }
+      ],
+      "version": null
+    },
+    {
+      "id": "pip-subscription-management",
+      "name": "CaTH Subscription Management API",
+      "group": "CaTH",
+      "type": "api",
+      "description": "Handles subscriptions and triggers for CaTH",
+      "repository": "https://github.com/hmcts/pip-subscription-management",
+      "dependencies": [],
+      "apis": [],
+      "urls": [
+        {
+          "url": "https://github.com/hmcts/pip-subscription-management",
+          "name": "CaTH Subscription Management API"
+        }
+      ],
+      "version": null
+    },
+    {
+      "id": "pip-channel-management",
+      "name": "CaTH Channel Management API",
+      "group": "CaTH",
+      "type": "api",
+      "description": "Handles third-party services and file generation for CaTH",
+      "repository": "https://github.com/hmcts/pip-channel-management",
+      "dependencies": [],
+      "apis": [],
+      "urls": [
+        {
+          "url": "https://github.com/hmcts/pip-channel-management",
+          "name": "CaTH Channel Management API"
+        }
+      ],
+      "version": null
+    },
+    {
+      "id": "pip-account-management",
+      "name": "CaTH Account Management API",
+      "group": "CaTH",
+      "type": "api",
+      "description": "Handles authentication and authorisation for CaTH",
+      "repository": "https://github.com/hmcts/pip-account-management",
+      "dependencies": [],
+      "apis": [],
+      "urls": [
+        {
+          "url": "https://github.com/hmcts/pip-account-management",
+          "name": "CaTH Account Management API"
+        }
+      ],
+      "version": null
+    },
+    {
+      "id": "pip-publication-services",
+      "name": "CaTH Publication Services API",
+      "group": "CaTH",
+      "type": "api",
+      "description": "Handles email correspondence sent from CaTH",
+      "repository": "https://github.com/hmcts/pip-publication-services",
+      "dependencies": [],
+      "apis": [],
+      "urls": [
+        {
+          "url": "https://github.com/hmcts/pip-publication-services",
+          "name": "CaTH Publication Services API"
+        }
+      ],
+      "version": null
+    },
+    {
+      "id": "pip-frontend",
+      "name": "CaTH Frontend Service",
+      "group": "CaTH",
+      "type": "web",
+      "description": "Handles user and admin interactions with the service",
+      "repository": "https://github.com/hmcts/pip-frontend",
       "dependencies": [
         {
-          "id": "pih-gateway-api",
+          "id": "pip-data-management",
+          "hard": true,
+          "apis": []
+        },
+        {
+          "id": "pip-subscription-management",
+          "hard": true,
+          "apis": []
+        },
+        {
+          "id": "pip-channel-management",
+          "hard": true,
+          "apis": []
+        },
+        {
+          "id": "pip-publication-services",
+          "hard": true,
+          "apis": []
+        },
+        {
+          "id": "pip-account-management",
           "hard": true,
           "apis": []
         }
       ],
       "apis": [],
-      "version": null
-    },
-    {
-      "id": "pih-gateway-api",
-      "name": "PIH API",
-      "group": "PIH Gateway",
-      "type": "api",
-      "description": "Publishing Information Hub Gateway",
-      "repository": "https://github.com/hmcts/pih-api-gateway",
-      "spec": "https://hmcts.github.io/cnp-api-docs/specs/pip-gateway-api.json",
-      "dependencies": [
+      "urls": [
+        {
+          "url": "https://github.com/hmcts/pip-frontend",
+          "name": "CaTH Frontend Service"
+        }
       ],
-      "apis": [],
       "version": null
     },
     {

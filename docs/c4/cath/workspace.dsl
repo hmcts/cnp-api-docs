@@ -18,7 +18,7 @@ workspace {
     views {
         !include ../hmcts.vdsl
 
-        systemContext pih_gateway "pih_gateway-context" {
+        systemContext CaTH "cath-context" {
             include *
             # exclude caseworker
             # exclude citizen
@@ -29,7 +29,7 @@ workspace {
             autoLayout
         }
 
-        container pih_gateway "pih_gateway-overview" {
+        container cath "cath-overview" {
             include *
             # exclude caseworker
             # exclude citizen
