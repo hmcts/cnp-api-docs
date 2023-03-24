@@ -215,6 +215,49 @@
       "version": null
     },
     {
+      "id": "pip-frontend",
+      "name": "CaTH Frontend Service",
+      "group": "CaTH",
+      "type": "web",
+      "description": "Handles user and admin interactions with the service",
+      "repository": "https://github.com/hmcts/pip-frontend",
+      "dependencies": [
+        {
+          "id": "pip-data-management",
+          "hard": true,
+          "apis": []
+        },
+        {
+          "id": "pip-subscription-management",
+          "hard": true,
+          "apis": []
+        },
+        {
+          "id": "pip-channel-management",
+          "hard": true,
+          "apis": []
+        },
+        {
+          "id": "pip-publication-services",
+          "hard": true,
+          "apis": []
+        },
+        {
+          "id": "pip-account-management",
+          "hard": true,
+          "apis": []
+        }
+      ],
+      "apis": [],
+      "urls": [
+        {
+          "url": "https://github.com/hmcts/pip-frontend",
+          "name": "CaTH Frontend Service"
+        }
+      ],
+      "version": null
+    },
+    {
       "id": "idam-api",
       "name": "IDAM API",
       "group": "IDAM",

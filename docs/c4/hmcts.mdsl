@@ -3,8 +3,13 @@
 hmi_gateway = softwareSystem "HMI Gateway" {
    hmi_gateway_api = container "HMI API" "Future Hearings Gateway"
 }
-pih_gateway = softwareSystem "PIH Gateway" {
-   pih_gateway_api = container "PIH API" "Publishing Information Hub Gateway"
+cath = softwareSystem "CaTH" {
+   pip_data_management = container "CaTH Data Management API" "Handles postgres and Azure Blob Storage traffic for CaTH"
+   pip_subscription_management = container "CaTH Subscription Management API" "Handles subscriptions and triggers for CaTH"
+   pip_channel_management = container "CaTH Channel Management API" "Handles third-party services and file generation for CaTH"
+   pip_account_management = container "CaTH Account Management API" "Handles authentication and authorisation for CaTH"
+   pip_publication_services = container "CaTH Publication Services API" "Handles email correspondence sent from CaTH"
+   pip_frontend = container "CaTH Frontend Service" "Handles user and admin interactions with the service"
 }
 idam = softwareSystem "IDAM" {
    idam_api = container "IDAM API" "Authentication APIs"
@@ -146,7 +151,11 @@ pcq = softwareSystem "PCQ" {
    pcq_consolidation_service = container "PCQ Consolidation Service" "PCQ Consolidation Service"
    pcq_frontend = container "PCQ Frontend" "PCQ Frontend Web application"
 }
-hmi_gateway_api -> pih_gateway_api "Depends on"
+pip_frontend -> pip_data_management "Depends on"
+pip_frontend -> pip_subscription_management "Depends on"
+pip_frontend -> pip_channel_management "Depends on"
+pip_frontend -> pip_publication_services "Depends on"
+pip_frontend -> pip_account_management "Depends on"
 
 idam_api -> lau_idam_backend "Depends on"
 
