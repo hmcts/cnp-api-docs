@@ -2968,9 +2968,9 @@
                     "name": "Destination-System",
                     "in": "header",
                     "required": true,
-                    "enum": ["PIH"],
+                    "enum": ["CaTH"],
                     "type": "string",
-                    "default": "PIH"
+                    "default": "CaTH"
                 }, {
                     "name": "Request-Created-At",
                     "in": "header",
