@@ -1,1 +1,687 @@
-{"swagger":"2.0","info":{"description":"Log and Audit Case Back-End API, used for auditing case searches and actions.","version":"0.1","title":"LAU Case Back-End API","contact":{},"license":{"name":"REFORM Common Components"}},"host":"localhost","basePath":"/","tags":[{"name":"Case action database operations.","description":"Case Action Controller"},{"name":"Case search database operations.","description":"Case Search Controller"},{"name":"root-controller","description":"Root Controller"}],"paths":{"/":{"get":{"tags":["root-controller"],"summary":"welcome","operationId":"welcomeUsingGET","produces":["*/*"],"responses":{"200":{"description":"OK","schema":{"type":"string"}}}}},"/audit/caseAction":{"get":{"tags":["Case action database operations.","GET end-points"],"summary":"Retrieve case action audits","description":"This operation will query and return a list of case actions based on the search conditions provided in the URL path.","operationId":"getCaseActionUsingGET","produces":["application/json"],"parameters":[{"name":"Authorization","in":"header","description":"Authorization","required":true,"type":"string","x-example":"Bearer eyJ0eXAiOiJK........."},{"name":"caseAction","in":"query","description":"Case Action","required":false,"type":"string","x-example":"VIEW"},{"name":"caseJurisdictionId","in":"query","description":"Case Jurisdiction ID","required":false,"type":"string","x-example":"PROBATE"},{"name":"caseRef","in":"query","description":"Case Reference ID","required":false,"type":"string","x-example":"1615817621013640"},{"name":"caseTypeId","in":"query","description":"Case Type ID","required":false,"type":"string","x-example":"GrantOfRepresentation"},{"name":"endTimestamp","in":"query","description":"End Timestamp","required":false,"type":"string","x-example":"2021-08-23T22:20:05"},{"name":"page","in":"query","description":"Page","required":false,"type":"string","x-example":"1"},{"name":"ServiceAuthorization","in":"header","description":"Service Authorization","required":true,"type":"string","x-example":"Bearer eyJ0eXAiOiJK........."},{"name":"size","in":"query","description":"Size","required":false,"type":"string","x-example":"500"},{"name":"startTimestamp","in":"query","description":"Start Timestamp","required":false,"type":"string","x-example":"2021-06-23T22:20:05"},{"name":"userId","in":"query","description":"User ID","required":false,"type":"string","x-example":"3748238"}],"responses":{"200":{"description":"Request executed successfully. Response contains of case view logs","schema":{"$ref":"#/definitions/CaseActionGetResponse"}},"400":{"description":"Missing userId, caseTypeId, caseJurisdictionId, caseRef, startTimestamp or endTimestamp parameters.","schema":{"$ref":"#/definitions/CaseActionGetResponse"}},"401":{"description":"Unauthorized","schema":{"$ref":"#/definitions/CaseActionGetResponse"}},"403":{"description":"Forbidden","schema":{"$ref":"#/definitions/CaseActionGetResponse"}},"500":{"description":"Internal Server Error","schema":{"$ref":"#/definitions/CaseActionGetResponse"}}}},"post":{"tags":["Case action database operations.","POST end-points"],"summary":"Save case action audits","description":"This operation will persist CCD case action entries which are posted in the request. Single CaseAction per request will be stored in the database.","operationId":"saveCaseActionUsingPOST","consumes":["application/json"],"produces":["application/json"],"parameters":[{"in":"body","name":"caseActionPostRequest","description":"caseActionPostRequest","required":true,"schema":{"$ref":"#/definitions/CaseActionPostRequest"}},{"name":"ServiceAuthorization","in":"header","description":"Service Authorization","required":true,"type":"string","x-example":"Bearer eyJ0eXAiOiJK........."}],"responses":{"200":{"description":"OK","schema":{"$ref":"#/definitions/CaseActionPostResponse"}},"201":{"description":"Created actionLog case response - includes caseActionId from DB.","schema":{"$ref":"#/definitions/CaseActionPostResponse"}},"400":{"description":"Invalid case action","schema":{"$ref":"#/definitions/CaseActionPostResponse"}},"403":{"description":"Forbidden","schema":{"$ref":"#/definitions/CaseActionPostResponse"}},"500":{"description":"Internal Server Error","schema":{"$ref":"#/definitions/CaseActionPostResponse"}}}}},"/audit/caseSearch":{"get":{"tags":["Case search database operations.","GET end-points"],"summary":"Retrieve case search audits","description":"This operation will query and return a list of case searches based on the search conditions provided in the URL path.","operationId":"getCaseSearchUsingGET","produces":["application/json"],"parameters":[{"name":"Authorization","in":"header","description":"Authorization","required":true,"type":"string","x-example":"Bearer eyJ0eXAiOiJK........."},{"name":"caseRef","in":"query","description":"Case Reference ID","required":false,"type":"string","x-example":"1615817621013640"},{"name":"endTimestamp","in":"query","description":"End Timestamp","required":false,"type":"string","x-example":"2021-08-23T22:20:05"},{"name":"page","in":"query","description":"Page","required":false,"type":"string","x-example":"1"},{"name":"ServiceAuthorization","in":"header","description":"Service Authorization","required":true,"type":"string","x-example":"Bearer eyJ0eXAiOiJK........."},{"name":"size","in":"query","description":"Size","required":false,"type":"string","x-example":"500"},{"name":"startTimestamp","in":"query","description":"Start Timestamp","required":false,"type":"string","x-example":"2021-06-23T22:20:05"},{"name":"userId","in":"query","description":"User ID","required":false,"type":"string","x-example":"3748238"}],"responses":{"200":{"description":"Request executed successfully. Response contains of case search logs","schema":{"$ref":"#/definitions/CaseSearchGetResponse"}},"400":{"description":"Missing userId, caseRef, startTimestamp or endTimestamp parameters.","schema":{"$ref":"#/definitions/CaseSearchGetResponse"}},"401":{"description":"Unauthorized","schema":{"$ref":"#/definitions/CaseSearchGetResponse"}},"403":{"description":"Forbidden","schema":{"$ref":"#/definitions/CaseSearchGetResponse"}},"500":{"description":"Internal Server Error","schema":{"$ref":"#/definitions/CaseSearchGetResponse"}}}},"post":{"tags":["Case search database operations.","POST end-points"],"summary":"Save case search audits","description":"This operation will persist CCD case search entries which are posted in the request. Single CaseSearch per request will be stored in the database.","operationId":"saveCaseSearchUsingPOST","consumes":["application/json"],"produces":["application/json"],"parameters":[{"in":"body","name":"caseSearchPostRequest","description":"caseSearchPostRequest","required":true,"schema":{"$ref":"#/definitions/CaseSearchPostRequest"}},{"name":"ServiceAuthorization","in":"header","description":"Service Authorization","required":true,"type":"string","x-example":"Bearer eyJ0eXAiOiJK........."}],"responses":{"200":{"description":"OK","schema":{"$ref":"#/definitions/CaseSearchPostResponse"}},"201":{"description":"Created SearchLog case response - includes caseSearchId from DB.","schema":{"$ref":"#/definitions/CaseSearchPostResponse"}},"400":{"description":"Invalid case search","schema":{"$ref":"#/definitions/CaseSearchPostResponse"}},"403":{"description":"Forbidden","schema":{"$ref":"#/definitions/CaseSearchPostResponse"}},"500":{"description":"Internal Server Error","schema":{"$ref":"#/definitions/CaseSearchPostResponse"}}}}}},"definitions":{"ActionLog":{"type":"object","properties":{"caseAction":{"type":"string","description":"The action carried out on the case, i.e. CREATE, UPDATE, VIEW, DELETE"},"caseJurisdictionId":{"type":"string","description":"The Jurisdiction Id of the case affected by the action"},"caseRef":{"type":"string","description":"The caseRef effected by the action"},"caseTypeId":{"type":"string","description":"The Case Type Id of the case affected by the action"},"timestamp":{"type":"string","description":"When the operation took place with microseconds in iso-8601-date-and-time-format"},"userId":{"type":"string","description":"The user on whose behalf the operation took place"}},"title":"ActionLog","description":"Data model for the case action log"},"ActionLogPostResponse":{"type":"object","properties":{"caseAction":{"type":"string"},"caseActionId":{"type":"string"},"caseJurisdictionId":{"type":"string"},"caseRef":{"type":"string"},"caseTypeId":{"type":"string"},"timestamp":{"type":"string"},"userId":{"type":"string"}},"title":"ActionLogPostResponse"},"CaseActionGetResponse":{"type":"object","properties":{"actionLog":{"type":"array","items":{"$ref":"#/definitions/ActionLog"}},"moreRecords":{"type":"boolean","description":"Indicates whether there are more records beyond the current page in the full result set"},"startRecordNumber":{"type":"integer","format":"int32","description":"The index of the first record out of the full result set provided in the result set"},"totalNumberOfRecords":{"type":"integer","format":"int64","description":"The total number of records in the full result set"}},"title":"CaseActionGetResponse","description":"Case Action GET Response"},"CaseActionPostRequest":{"type":"object","properties":{"actionLog":{"$ref":"#/definitions/ActionLog"}},"title":"CaseActionPostRequest"},"CaseActionPostResponse":{"type":"object","properties":{"actionLog":{"$ref":"#/definitions/ActionLogPostResponse"}},"title":"CaseActionPostResponse"},"CaseSearchGetResponse":{"type":"object","properties":{"moreRecords":{"type":"boolean","description":"Indicates whether there are more records beyond the current page in the full result set"},"searchLog":{"type":"array","items":{"$ref":"#/definitions/SearchLog"}},"startRecordNumber":{"type":"integer","format":"int32","description":"The index of the first record out of the full result set provided in the result set"},"totalNumberOfRecords":{"type":"integer","format":"int64","description":"The total number of records for a query"}},"title":"CaseSearchGetResponse","description":"Case Search GET Response"},"CaseSearchPostRequest":{"type":"object","properties":{"searchLog":{"$ref":"#/definitions/SearchLog"}},"title":"CaseSearchPostRequest"},"CaseSearchPostResponse":{"type":"object","properties":{"searchLog":{"$ref":"#/definitions/SearchLogPostResponse"}},"title":"CaseSearchPostResponse"},"SearchLog":{"type":"object","properties":{"caseRefs":{"type":"array","description":"The caseRefs effected by the search operation","items":{"type":"string"}},"timestamp":{"type":"string","description":"When the operation took place with microseconds in iso-8601-date-and-time-format"},"userId":{"type":"string","description":"The user on whose behalf the operation took place"}},"title":"SearchLog","description":"Data model for the case search log"},"SearchLogPostResponse":{"type":"object","properties":{"caseRefs":{"type":"array","description":"The caseRefs effected by the search operation","items":{"type":"string"}},"id":{"type":"string","description":"The database unique id"},"timestamp":{"type":"string","description":"When the operation took place with microseconds in iso-8601-date-and-time-format"},"userId":{"type":"string","description":"The user on whose behalf the operation took place"}},"title":"SearchLogPostResponse","description":"Data model for the case search log"}}}
+{
+    "openapi": "3.0.1",
+    "info": {
+        "title": "LAU Case Back-End API",
+        "description": "Log and Audit Case Back-End API, used for auditing case searches and actions.",
+        "license": {
+            "name": "REFORM Common Components",
+            "url": ""
+        },
+        "version": "0.1"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:4550",
+            "description": "Generated server url"
+        }
+    ],
+    "tags": [
+        {
+            "name": "Case action database operations.",
+            "description": "This is the Log and Audit Back-End API that will audit case actions. The API will be invoked by both the CCD (POST) and the LAU front-end service (GET)."
+        },
+        {
+            "name": "Case search database operations.",
+            "description": "This is the Log and Audit Back-End API that will audit case searches. The API will be invoked by both the CCD (POST) and the LAU front-end service (GET)."
+        }
+    ],
+    "paths": {
+        "/audit/caseSearch/": {
+            "get": {
+                "tags": [
+                    "GET end-points",
+                    "Case search database operations."
+                ],
+                "summary": "Retrieve case search audits",
+                "description": "This operation will query and return a list of case searches based on the search conditions provided in the URL path.",
+                "operationId": "getCaseSearch",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "Bearer eyJ0eXAiOiJK........."
+                    },
+                    {
+                        "name": "Service Authorization",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "Bearer eyJ0eXAiOiJK........."
+                    },
+                    {
+                        "name": "User ID",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": 3748238
+                    },
+                    {
+                        "name": "Case Reference ID",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": 1615817621013640
+                    },
+                    {
+                        "name": "Start Timestamp",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "2021-06-23T22:20:05"
+                    },
+                    {
+                        "name": "End Timestamp",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "2021-08-23T22:20:05"
+                    },
+                    {
+                        "name": "Size",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": 500
+                    },
+                    {
+                        "name": "Page",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": 1
+                    }
+                ],
+                "responses": {
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CaseSearchGetResponse"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CaseSearchGetResponse"
+                                }
+                            }
+                        }
+                    },
+                    "200": {
+                        "description": "Request executed successfully. Response contains of case search logs",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CaseSearchGetResponse"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CaseSearchGetResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Missing userId, caseRef, startTimestamp or endTimestamp parameters.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CaseSearchGetResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Case search database operations.",
+                    "POST end-points"
+                ],
+                "summary": "Save case search audits",
+                "description": "This operation will persist CCD case search entries which are posted in the request. Single CaseSearch per request will be stored in the database.",
+                "operationId": "saveCaseSearch",
+                "parameters": [
+                    {
+                        "name": "Service Authorization",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "Bearer eyJ0eXAiOiJK........."
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CaseSearchPostRequest"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "400": {
+                        "description": "Invalid case search",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CaseSearchPostResponse"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CaseSearchPostResponse"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CaseSearchPostResponse"
+                                }
+                            }
+                        }
+                    },
+                    "201": {
+                        "description": "Created SearchLog case response - includes caseSearchId from DB.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CaseSearchPostResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/audit/caseAction/": {
+            "get": {
+                "tags": [
+                    "GET end-points",
+                    "Case action database operations."
+                ],
+                "summary": "Retrieve case action audits",
+                "description": "This operation will query and return a list of case actions based on the search conditions provided in the URL path.",
+                "operationId": "getCaseAction",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "Bearer eyJ0eXAiOiJK........."
+                    },
+                    {
+                        "name": "Service Authorization",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "Bearer eyJ0eXAiOiJK........."
+                    },
+                    {
+                        "name": "User ID",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": 3748238
+                    },
+                    {
+                        "name": "Case Reference ID",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": 1615817621013640
+                    },
+                    {
+                        "name": "Case Type ID",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "GrantOfRepresentation"
+                    },
+                    {
+                        "name": "Case Action",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "VIEW"
+                    },
+                    {
+                        "name": "Case Jurisdiction ID",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "PROBATE"
+                    },
+                    {
+                        "name": "Start Timestamp",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "2021-06-23T22:20:05"
+                    },
+                    {
+                        "name": "End Timestamp",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "2021-08-23T22:20:05"
+                    },
+                    {
+                        "name": "Size",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": 500
+                    },
+                    {
+                        "name": "Page",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": 1
+                    }
+                ],
+                "responses": {
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CaseActionGetResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Missing userId, caseTypeId, caseJurisdictionId, caseRef, startTimestamp or endTimestamp parameters.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CaseActionGetResponse"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CaseActionGetResponse"
+                                }
+                            }
+                        }
+                    },
+                    "200": {
+                        "description": "Request executed successfully. Response contains of case view logs",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CaseActionGetResponse"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CaseActionGetResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Case action database operations.",
+                    "POST end-points"
+                ],
+                "summary": "Save case action audits",
+                "description": "This operation will persist CCD case action entries which are posted in the request. Single CaseAction per request will be stored in the database.",
+                "operationId": "saveCaseAction",
+                "parameters": [
+                    {
+                        "name": "Service Authorization",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "Bearer eyJ0eXAiOiJK........."
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CaseActionPostRequest"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CaseActionPostResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid case action",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CaseActionPostResponse"
+                                }
+                            }
+                        }
+                    },
+                    "201": {
+                        "description": "Created actionLog case response - includes caseActionId from DB.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CaseActionPostResponse"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CaseActionPostResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/": {
+            "get": {
+                "tags": [
+                    "root-controller"
+                ],
+                "operationId": "welcome",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "CaseSearchPostRequest": {
+                "type": "object",
+                "properties": {
+                    "searchLog": {
+                        "$ref": "#/components/schemas/SearchLog"
+                    }
+                }
+            },
+            "SearchLog": {
+                "type": "object",
+                "properties": {
+                    "userId": {
+                        "type": "string",
+                        "description": "The user on whose behalf the operation took place"
+                    },
+                    "caseRefs": {
+                        "type": "array",
+                        "description": "The caseRefs effected by the search operation",
+                        "items": {
+                            "type": "string",
+                            "description": "The caseRefs effected by the search operation"
+                        }
+                    },
+                    "timestamp": {
+                        "type": "string",
+                        "description": "When the operation took place with microseconds in iso-8601-date-and-time-format"
+                    }
+                },
+                "description": "Data model for the case search log"
+            },
+            "CaseSearchPostResponse": {
+                "type": "object",
+                "properties": {
+                    "searchLog": {
+                        "$ref": "#/components/schemas/SearchLogPostResponse"
+                    }
+                }
+            },
+            "SearchLogPostResponse": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "description": "The database unique id"
+                    },
+                    "userId": {
+                        "type": "string",
+                        "description": "The user on whose behalf the operation took place"
+                    },
+                    "caseRefs": {
+                        "type": "array",
+                        "description": "The caseRefs effected by the search operation",
+                        "items": {
+                            "type": "string",
+                            "description": "The caseRefs effected by the search operation"
+                        }
+                    },
+                    "timestamp": {
+                        "type": "string",
+                        "description": "When the operation took place with microseconds in iso-8601-date-and-time-format"
+                    }
+                },
+                "description": "Data model for the case search log"
+            },
+            "ActionLog": {
+                "type": "object",
+                "properties": {
+                    "userId": {
+                        "type": "string",
+                        "description": "The user on whose behalf the operation took place"
+                    },
+                    "caseAction": {
+                        "type": "string",
+                        "description": "The action carried out on the case, i.e. CREATE, UPDATE, VIEW, DELETE"
+                    },
+                    "caseRef": {
+                        "type": "string",
+                        "description": "The caseRef effected by the action"
+                    },
+                    "caseJurisdictionId": {
+                        "type": "string",
+                        "description": "The Jurisdiction Id of the case affected by the action"
+                    },
+                    "caseTypeId": {
+                        "type": "string",
+                        "description": "The Case Type Id of the case affected by the action"
+                    },
+                    "timestamp": {
+                        "type": "string",
+                        "description": "When the operation took place with microseconds in iso-8601-date-and-time-format"
+                    }
+                },
+                "description": "Data model for the case action log"
+            },
+            "CaseActionPostRequest": {
+                "type": "object",
+                "properties": {
+                    "actionLog": {
+                        "$ref": "#/components/schemas/ActionLog"
+                    }
+                }
+            },
+            "ActionLogPostResponse": {
+                "type": "object",
+                "properties": {
+                    "caseActionId": {
+                        "type": "string"
+                    },
+                    "userId": {
+                        "type": "string"
+                    },
+                    "caseRef": {
+                        "type": "string"
+                    },
+                    "caseJurisdictionId": {
+                        "type": "string"
+                    },
+                    "caseTypeId": {
+                        "type": "string"
+                    },
+                    "caseAction": {
+                        "type": "string"
+                    },
+                    "timestamp": {
+                        "type": "string"
+                    }
+                }
+            },
+            "CaseActionPostResponse": {
+                "type": "object",
+                "properties": {
+                    "actionLog": {
+                        "$ref": "#/components/schemas/ActionLogPostResponse"
+                    }
+                }
+            },
+            "CaseSearchGetResponse": {
+                "type": "object",
+                "properties": {
+                    "searchLog": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/SearchLog"
+                        }
+                    },
+                    "startRecordNumber": {
+                        "type": "integer",
+                        "description": "The index of the first record out of the full result set provided in the result set",
+                        "format": "int32"
+                    },
+                    "moreRecords": {
+                        "type": "boolean",
+                        "description": "Indicates whether there are more records beyond the current page in the full result set"
+                    },
+                    "totalNumberOfRecords": {
+                        "type": "integer",
+                        "description": "The total number of records for a query",
+                        "format": "int64"
+                    }
+                },
+                "description": "Case Search GET Response"
+            },
+            "CaseActionGetResponse": {
+                "type": "object",
+                "properties": {
+                    "actionLog": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ActionLog"
+                        }
+                    },
+                    "startRecordNumber": {
+                        "type": "integer",
+                        "description": "The index of the first record out of the full result set provided in the result set",
+                        "format": "int32"
+                    },
+                    "moreRecords": {
+                        "type": "boolean",
+                        "description": "Indicates whether there are more records beyond the current page in the full result set"
+                    },
+                    "totalNumberOfRecords": {
+                        "type": "integer",
+                        "description": "The total number of records in the full result set",
+                        "format": "int64"
+                    }
+                },
+                "description": "Case Action GET Response"
+            }
+        }
+    }
+}
