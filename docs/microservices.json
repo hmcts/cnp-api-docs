@@ -117,7 +117,8 @@
     },
     {
       "name": "AM",
-      "colour": "#ffcc66"
+      "colour": "#ffcc66",
+      "info": "View our <a href=\"https://tools.hmcts.net/confluence/display/AM/Access+Management+Dashboard\">Access Management Dashboard</a> page for more details about the AM services"
     }
   ],
   "apis": [
