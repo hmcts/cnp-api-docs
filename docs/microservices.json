@@ -117,7 +117,7 @@
     },
     {
       "name": "AM",
-      "colour": "#3498DB"
+      "colour": "#ffcc66"
     }
   ],
   "apis": [
@@ -2909,7 +2909,18 @@
       "description": "API will help to create bookings for fee paid judges and would provided APIs to Fetch and create booking.",
       "repository": "https://github.com/hmcts/am-judicial-booking-service",
       "spec": "https://hmcts.github.io/cnp-api-docs/specs/am-judicial-booking-service.json",
-      "dependencies": [],
+      "dependencies": [
+        {
+          "id": "idam-api",
+          "hard": true,
+          "apis": []
+        },
+        {
+          "id": "rpe-service-auth-provider",
+          "hard": true,
+          "apis": []
+        }
+      ],
       "apis": [],
       "version": null
     },
@@ -2931,6 +2942,26 @@
           "id": "am-role-assignment-service",
           "hard": true,
           "apis": []
+        },
+        {
+          "id": "rd-judicial-api",
+          "hard": true,
+          "apis": []
+        },
+        {
+          "id": "rd-caseworker-ref-api",
+          "hard": true,
+          "apis": []
+        },
+        {
+          "id": "idam-api",
+          "hard": true,
+          "apis": []
+        },
+        {
+          "id": "rpe-service-auth-provider",
+          "hard": true,
+          "apis": []
         }
       ],
       "apis": [],
@@ -2947,6 +2978,16 @@
       "dependencies": [
         {
           "id": "ccd-data-store-api",
+          "hard": true,
+          "apis": []
+        },
+        {
+          "id": "idam-api",
+          "hard": true,
+          "apis": []
+        },
+        {
+          "id": "rpe-service-auth-provider",
           "hard": true,
           "apis": []
         }
