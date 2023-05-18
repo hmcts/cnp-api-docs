@@ -2935,6 +2935,16 @@
       "spec": "https://hmcts.github.io/cnp-api-docs/specs/am-org-role-mapping-service.json",
       "dependencies": [
         {
+          "id": "idam-api",
+          "hard": true,
+          "apis": []
+        },
+        {
+          "id": "rpe-service-auth-provider",
+          "hard": true,
+          "apis": []
+        },
+        {
           "id": "am-judicial-booking-service",
           "hard": true,
           "apis": []
@@ -2953,16 +2963,6 @@
           "id": "rd-caseworker-ref-api",
           "hard": true,
           "apis": []
-        },
-        {
-          "id": "idam-api",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "rpe-service-auth-provider",
-          "hard": true,
-          "apis": []
         }
       ],
       "apis": [],
@@ -2978,17 +2978,17 @@
       "spec": "https://hmcts.github.io/cnp-api-docs/specs/am-role-assignment-service.json",
       "dependencies": [
         {
-          "id": "ccd-data-store-api",
-          "hard": true,
-          "apis": []
-        },
-        {
           "id": "idam-api",
           "hard": true,
           "apis": []
         },
         {
           "id": "rpe-service-auth-provider",
+          "hard": true,
+          "apis": []
+        },
+        {
+          "id": "ccd-data-store-api",
           "hard": true,
           "apis": []
         }
