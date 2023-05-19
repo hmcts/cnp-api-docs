@@ -114,6 +114,11 @@
     {
       "name": "DARTS",
       "colour": "#3498DB"
+    },
+    {
+      "name": "AM",
+      "colour": "#ffcc66",
+      "info": "View our <a href=\"https://tools.hmcts.net/confluence/display/AM/Access+Management+Dashboard\">Access Management Dashboard</a> page for more details about the AM services"
     }
   ],
   "apis": [
@@ -2890,6 +2895,100 @@
       "dependencies": [
         {
           "id": "pcq-backend",
+          "hard": true,
+          "apis": []
+        }
+      ],
+      "apis": [],
+      "version": null
+    },
+    {
+      "id": "am-judicial-booking-service",
+      "name": "AM Judicial Booking Service",
+      "group": "AM",
+      "type": "api",
+      "description": "API will help to create bookings for fee paid judges and would provided APIs to Fetch and create booking.",
+      "repository": "https://github.com/hmcts/am-judicial-booking-service",
+      "spec": "https://hmcts.github.io/cnp-api-docs/specs/am-judicial-booking-service.json",
+      "dependencies": [
+        {
+          "id": "idam-api",
+          "hard": true,
+          "apis": []
+        },
+        {
+          "id": "rpe-service-auth-provider",
+          "hard": true,
+          "apis": []
+        }
+      ],
+      "apis": [],
+      "version": null
+    },
+    {
+      "id": "am-org-role-mapping-service",
+      "name": "AM Organisational Role Mapping Service",
+      "group": "AM",
+      "type": "api",
+      "description": "API to provision various organisation roles for staff & judicial users based on the service specific mapping rules.",
+      "repository": "https://github.com/hmcts/am-org-role-mapping-service",
+      "spec": "https://hmcts.github.io/cnp-api-docs/specs/am-org-role-mapping-service.json",
+      "dependencies": [
+        {
+          "id": "idam-api",
+          "hard": true,
+          "apis": []
+        },
+        {
+          "id": "rpe-service-auth-provider",
+          "hard": true,
+          "apis": []
+        },
+        {
+          "id": "am-judicial-booking-service",
+          "hard": true,
+          "apis": []
+        },
+        {
+          "id": "am-role-assignment-service",
+          "hard": true,
+          "apis": []
+        },
+        {
+          "id": "rd-judicial-api",
+          "hard": true,
+          "apis": []
+        },
+        {
+          "id": "rd-caseworker-ref-api",
+          "hard": true,
+          "apis": []
+        }
+      ],
+      "apis": [],
+      "version": null
+    },
+    {
+      "id": "am-role-assignment-service",
+      "name": "AM Role Assignment Service",
+      "group": "AM",
+      "type": "api",
+      "description": "API manages the assignment of roles with attributes to actors, to support both ccd access control and work allocation requirements.",
+      "repository": "https://github.com/hmcts/am-role-assignment-service",
+      "spec": "https://hmcts.github.io/cnp-api-docs/specs/am-role-assignment-service.json",
+      "dependencies": [
+        {
+          "id": "idam-api",
+          "hard": true,
+          "apis": []
+        },
+        {
+          "id": "rpe-service-auth-provider",
+          "hard": true,
+          "apis": []
+        },
+        {
+          "id": "ccd-data-store-api",
           "hard": true,
           "apis": []
         }

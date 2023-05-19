@@ -151,6 +151,11 @@ pcq = softwareSystem "PCQ" {
    pcq_consolidation_service = container "PCQ Consolidation Service" "PCQ Consolidation Service"
    pcq_frontend = container "PCQ Frontend" "PCQ Frontend Web application"
 }
+am = softwareSystem "AM" {
+   am_judicial_booking_service = container "AM Judicial Booking Service" "API will help to create bookings for fee paid judges and would provided APIs to Fetch and create booking."
+   am_org_role_mapping_service = container "AM Organisational Role Mapping Service" "API to provision various organisation roles for staff & judicial users based on the service specific mapping rules."
+   am_role_assignment_service = container "AM Role Assignment Service" "API manages the assignment of roles with attributes to actors, to support both ccd access control and work allocation requirements."
+}
 pip_frontend -> pip_data_management "Depends on"
 pip_frontend -> pip_subscription_management "Depends on"
 pip_frontend -> pip_channel_management "Depends on"
@@ -513,3 +518,17 @@ pcq_consolidation_service -> idam_api "Depends on"
 pcq_consolidation_service -> ccd_data_store_api "Depends on"
 
 pcq_frontend -> pcq_backend "Depends on"
+
+am_judicial_booking_service -> idam_api "Depends on"
+am_judicial_booking_service -> rpe_service_auth_provider "Depends on"
+
+am_org_role_mapping_service -> idam_api "Depends on"
+am_org_role_mapping_service -> rpe_service_auth_provider "Depends on"
+am_org_role_mapping_service -> am_judicial_booking_service "Depends on"
+am_org_role_mapping_service -> am_role_assignment_service "Depends on"
+am_org_role_mapping_service -> rd_judicial_api "Depends on"
+am_org_role_mapping_service -> rd_caseworker_ref_api "Depends on"
+
+am_role_assignment_service -> idam_api "Depends on"
+am_role_assignment_service -> rpe_service_auth_provider "Depends on"
+am_role_assignment_service -> ccd_data_store_api "Depends on"
