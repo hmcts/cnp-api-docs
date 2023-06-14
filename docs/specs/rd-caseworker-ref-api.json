@@ -1,1 +1,1373 @@
-{"swagger":"2.0","info":{"description":"Api Documentation","version":"1.0","title":"Api Documentation","termsOfService":"urn:tos","contact":{},"license":{"name":"Apache 2.0","url":"http://www.apache.org/licenses/LICENSE-2.0"}},"host":"rd-caseworker-ref-api-aat.service.core-compute-aat.internal","basePath":"/","tags":[{"name":"case-worker-ref-controller","description":"Case Worker Ref Controller"},{"name":"case-worker-ref-users-controller","description":"Case Worker Ref Users Controller"},{"name":"staff-reference-internal-controller","description":"Staff Reference Internal Controller"},{"name":"welcome-controller","description":"Welcome Controller"}],"paths":{"/":{"get":{"tags":["welcome-controller"],"summary":"Welcome message for the Caseworker Ref Data API","operationId":"welcomeUsingGET","produces":["application/json"],"responses":{"200":{"description":"Welcome message","schema":{"type":"string"}}},"deprecated":false}},"/refdata/case-worker/upload-file":{"post":{"tags":["case-worker-ref-controller"],"summary":"This API allows uploading of excel files that contain caseworker information and mappings between caseworker and IDAM roles","operationId":"caseWorkerFileUploadUsingPOST","consumes":["multipart/form-data"],"produces":["*/*"],"parameters":[{"name":"file","in":"formData","description":"file","required":true,"type":"file"}],"responses":{"200":{"description":"OK","schema":{"type":"object"}},"201":{"description":"Request Completed Successfully","schema":{"type":"object"}},"400":{"description":"Bad Request"},"401":{"description":"Unauthorized Error : The requested resource is restricted and requires authentication"},"403":{"description":"Forbidden Error: Access denied for invalid permissions"},"500":{"description":"Internal Server Error"}},"security":[{"Authorization":[]},{"ServiceAuthorization":[]}],"deprecated":false}},"/refdata/case-worker/users":{"delete":{"tags":["case-worker-ref-users-controller"],"summary":"Delete Case Worker Profiles by User ID or Email Pattern","description":"This API is only for use in non Prod environments","operationId":"deleteCaseWorkerProfileByIdOrEmailPatternUsingDELETE","produces":["application/json"],"parameters":[{"name":"emailPattern","in":"query","description":"emailPattern","required":false,"type":"string"},{"name":"userId","in":"query","description":"userId","required":false,"type":"string"}],"responses":{"204":{"description":"Case Worker Profiles deleted successfully","schema":{"$ref":"#/definitions/CaseWorkerProfilesDeletionResponse"}},"400":{"description":"An invalid request has been provided"},"401":{"description":"Unauthorized Error : The requested resource is restricted and requires authentication"},"403":{"description":"Forbidden Error: Access denied"},"500":{"description":"Internal Server Error"}},"security":[{"Authorization":[]},{"ServiceAuthorization":[]}],"deprecated":false}},"/refdata/case-worker/users/fetchUsersById":{"post":{"tags":["case-worker-ref-users-controller"],"summary":"This API gets the User details from Caseworker Profile","operationId":"fetchCaseworkersByIdUsingPOST","consumes":["application/json"],"produces":["application/json"],"parameters":[{"in":"body","name":"userRequest","description":"userRequest","required":true,"schema":{"$ref":"#/definitions/UserRequest"}}],"responses":{"200":{"description":"Successfully fetched the Caseworker profile(s)","schema":{"$ref":"#/definitions/CaseWorkerProfile"}},"400":{"description":"Bad Request"},"401":{"description":"Unauthorized Error : The requested resource is restricted and requires authentication"},"403":{"description":"Forbidden Error: Access denied for invalid permissions"},"404":{"description":"The Caseworker data could not be found"},"500":{"description":"Internal Server Error"}},"security":[{"Authorization":[]},{"ServiceAuthorization":[]}],"deprecated":false}},"/refdata/internal/staff/usersByServiceName":{"get":{"tags":["staff-reference-internal-controller"],"summary":"This API returns the Staff(Case Worker) profiles based on Service Name and Pagination parameters","description":"**IDAM Role to access API** :\n cwd-system-user","operationId":"fetchStaffByCcdServiceNamesUsingGET","produces":["application/json"],"parameters":[{"name":"ccd_service_names","in":"query","description":"ccd_service_names","required":true,"type":"string"},{"name":"page_number","in":"query","description":"page_number","required":false,"type":"integer","format":"int32"},{"name":"page_size","in":"query","description":"page_size","required":false,"type":"integer","format":"int32"},{"name":"sort_column","in":"query","description":"sort_column","required":false,"type":"string"},{"name":"sort_direction","in":"query","description":"sort_direction","required":false,"type":"string"}],"responses":{"200":{"description":"The Staff profiles have been retrieved successfully","schema":{"$ref":"#/definitions/StaffProfileWithServiceName"}},"400":{"description":"Bad Request"},"401":{"description":"Unauthorized Error : The requested resource is restricted and requires authentication"},"403":{"description":"Forbidden Error: Access denied for invalid permissions"},"404":{"description":"The Caseworker data could not be found"},"500":{"description":"Internal Server Error"}},"security":[{"Authorization":[]},{"ServiceAuthorization":[]}],"deprecated":false}}},"securityDefinitions":{"Authorization":{"type":"apiKey","name":"Authorization","in":"header"},"ServiceAuthorization":{"type":"apiKey","name":"ServiceAuthorization","in":"header"}},"definitions":{"CaseWorkerIdamRoleAssociation":{"type":"object","properties":{"createdDate":{"type":"string","format":"date-time"},"cwIdamRoleAssociationId":{"type":"integer","format":"int64"},"idamRole":{"type":"string"},"lastUpdate":{"type":"string","format":"date-time"},"roleId":{"type":"integer","format":"int64"},"roleType":{"$ref":"#/definitions/RoleType"},"serviceCode":{"type":"string"}},"title":"CaseWorkerIdamRoleAssociation"},"CaseWorkerLocation":{"type":"object","properties":{"caseWorkerId":{"type":"string"},"caseWorkerLocationId":{"type":"integer","format":"int64"},"caseWorkerProfile":{"$ref":"#/definitions/CaseWorkerProfile"},"createdDate":{"type":"string","format":"date-time"},"lastUpdate":{"type":"string","format":"date-time"},"location":{"type":"string"},"locationId":{"type":"integer","format":"int32"},"primaryFlag":{"type":"boolean"}},"title":"CaseWorkerLocation"},"CaseWorkerLocationRequest":{"type":"object","properties":{"location_id":{"type":"integer","format":"int32"},"location":{"type":"string"},"is_primary":{"type":"boolean"}},"title":"CaseWorkerLocationRequest"},"CaseWorkerProfile":{"type":"object","properties":{"base_location":{"type":"array","items":{"$ref":"#/definitions/Location"}},"case_allocator":{"type":"string"},"created_time":{"type":"string","format":"date-time"},"email_id":{"type":"string"},"first_name":{"type":"string"},"id":{"type":"string"},"idam_roles":{"type":"string"},"last_name":{"type":"string"},"last_updated_time":{"type":"string","format":"date-time"},"region":{"type":"string"},"region_id":{"type":"integer","format":"int32"},"role":{"type":"array","items":{"$ref":"#/definitions/Role"}},"suspended":{"type":"string"},"task_supervisor":{"type":"string"},"user_type":{"type":"string"},"user_type_id":{"type":"integer","format":"int64"},"work_area":{"type":"array","items":{"$ref":"#/definitions/WorkArea"}}},"title":"CaseWorkerProfile"},"CaseWorkerProfilesDeletionResponse":{"type":"object","properties":{"message":{"type":"string"},"statusCode":{"type":"integer","format":"int32"}},"title":"CaseWorkerProfilesDeletionResponse"},"CaseWorkerRole":{"type":"object","properties":{"caseWorkerId":{"type":"string"},"caseWorkerProfile":{"$ref":"#/definitions/CaseWorkerProfile"},"caseWorkerRoleId":{"type":"integer","format":"int64"},"createdDate":{"type":"string","format":"date-time"},"lastUpdate":{"type":"string","format":"date-time"},"primaryFlag":{"type":"boolean"},"roleId":{"type":"integer","format":"int64"},"roleType":{"$ref":"#/definitions/RoleType"}},"title":"CaseWorkerRole"},"CaseWorkerRoleRequest":{"type":"object","properties":{"primaryFlag":{"type":"boolean"},"role":{"type":"string"},"is_primary":{"type":"boolean"}},"title":"CaseWorkerRoleRequest"},"CaseWorkerWorkArea":{"type":"object","properties":{"areaOfWork":{"type":"string"},"caseWorkerId":{"type":"string"},"caseWorkerProfile":{"$ref":"#/definitions/CaseWorkerProfile"},"caseWorkerWorkAreaId":{"type":"integer","format":"int64"},"createdDate":{"type":"string","format":"date-time"},"lastUpdate":{"type":"string","format":"date-time"},"serviceCode":{"type":"string"}},"title":"CaseWorkerWorkArea"},"CaseWorkerWorkAreaRequest":{"type":"object","properties":{"area_of_work":{"type":"string"},"service_code":{"type":"string"}},"title":"CaseWorkerWorkAreaRequest"},"CaseWorkersProfileCreationRequest":{"type":"object","properties":{"base_location":{"type":"array","items":{"$ref":"#/definitions/CaseWorkerLocationRequest"}},"case_allocator":{"type":"boolean"},"email_id":{"type":"string"},"first_name":{"type":"string"},"idam_roles":{"type":"array","items":{"type":"string"}},"last_name":{"type":"string"},"region":{"type":"string"},"region_id":{"type":"integer","format":"int32"},"roles":{"type":"array","items":{"$ref":"#/definitions/CaseWorkerRoleRequest"}},"rowId":{"type":"integer","format":"int64"},"suspended":{"type":"boolean"},"task_supervisor":{"type":"boolean"},"user_type":{"type":"string"},"work_area":{"type":"array","items":{"$ref":"#/definitions/CaseWorkerWorkAreaRequest"}}},"title":"CaseWorkersProfileCreationRequest"},"IdamRolesMappingResponse":{"type":"object","properties":{"message":{"type":"string"},"statusCode":{"type":"integer","format":"int32"}},"title":"IdamRolesMappingResponse"},"Location":{"type":"object","properties":{"created_time":{"type":"string","format":"date-time"},"is_primary":{"type":"boolean"},"last_updated_time":{"type":"string","format":"date-time"},"location":{"type":"string"},"location_id":{"type":"integer","format":"int32"}},"title":"Location"},"Role":{"type":"object","properties":{"created_time":{"type":"string","format":"date-time"},"is_primary":{"type":"boolean"},"last_updated_time":{"type":"string","format":"date-time"},"role":{"type":"string"},"role_id":{"type":"string"}},"title":"Role"},"RoleType":{"type":"object","properties":{"caseWorkerIdamRoleAssociations":{"type":"array","items":{"$ref":"#/definitions/CaseWorkerIdamRoleAssociation"}},"caseWorkerRoles":{"type":"array","items":{"$ref":"#/definitions/CaseWorkerRole"}},"createdDate":{"type":"string","format":"date-time"},"description":{"type":"string"},"lastUpdate":{"type":"string","format":"date-time"},"roleId":{"type":"integer","format":"int64"}},"title":"RoleType"},"ServiceRoleMapping":{"type":"object","properties":{"idam_roles":{"type":"string"},"role":{"type":"integer","format":"int32"},"service_code":{"type":"string"}},"title":"ServiceRoleMapping"},"StaffProfileWithServiceName":{"type":"object","properties":{"ccd_service_name":{"type":"string"},"staff_profile":{"$ref":"#/definitions/CaseWorkerProfile"}},"title":"StaffProfileWithServiceName"},"UserRequest":{"type":"object","properties":{"userIds":{"type":"array","items":{"type":"string"}}},"title":"UserRequest"},"UserType":{"type":"object","properties":{"caseWorkerProfiles":{"type":"array","items":{"$ref":"#/definitions/CaseWorkerProfile"}},"createdDate":{"type":"string","format":"date-time"},"description":{"type":"string"},"lastUpdate":{"type":"string","format":"date-time"},"userTypeId":{"type":"integer","format":"int64"}},"title":"UserType"},"WorkArea":{"type":"object","properties":{"area_of_work":{"type":"string"},"created_time":{"type":"string","format":"date-time"},"last_updated_time":{"type":"string","format":"date-time"},"service_code":{"type":"string"}},"title":"WorkArea"}}}
+{
+    "openapi": "3.0.1",
+    "info": {
+        "title": "OpenAPI definition",
+        "version": "v0"
+    },
+    "servers": [
+        {
+            "url": "http://rd-caseworker-ref-api-aat.service.core-compute-aat.internal",
+            "description": "Generated server url"
+        }
+    ],
+    "paths": {
+        "/refdata/case-worker/profile": {
+            "put": {
+                "tags": [
+                    "staff-ref-data-controller"
+                ],
+                "summary": "This API updates staff user profile",
+                "description": "This API will be invoked by user having idam role with staff-admin",
+                "operationId": "updateStaffUserProfile",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/StaffProfileCreationRequest"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successfully updated staff user profile",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/StaffProfileCreationResponse"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized Error : The requested resource is restricted and requires authentication"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "403": {
+                        "description": "Forbidden Error: Access denied for invalid permissions"
+                    }
+                },
+                "security": [
+                    {
+                        "ServiceAuthorization": []
+                    },
+                    {
+                        "Authorization": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "staff-ref-data-controller"
+                ],
+                "summary": "This API creates staff user profile",
+                "description": "This API will be invoked by user having idam role of staff-admin",
+                "operationId": "createStaffUserProfile",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/StaffProfileCreationRequest"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "201": {
+                        "description": "Successfully created staff user profile",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/StaffProfileCreationResponse"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized Error : The requested resource is restricted and requires authentication"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "403": {
+                        "description": "Forbidden Error: Access denied for invalid permissions"
+                    }
+                },
+                "security": [
+                    {
+                        "ServiceAuthorization": []
+                    },
+                    {
+                        "Authorization": []
+                    }
+                ]
+            }
+        },
+        "/refdata/case-worker/users/fetchUsersById": {
+            "post": {
+                "tags": [
+                    "case-worker-ref-users-controller"
+                ],
+                "summary": "This API gets the User details from Caseworker Profile",
+                "description": "This API will be invoked by user having idam role of cwd-system-user",
+                "operationId": "fetchCaseworkersById",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UserRequest"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "404": {
+                        "description": "The Caseworker data could not be found"
+                    },
+                    "401": {
+                        "description": "Unauthorized Error : The requested resource is restricted and requires authentication"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    },
+                    "200": {
+                        "description": "Successfully fetched the Caseworker profile(s)",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CaseWorkerProfile"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "403": {
+                        "description": "Forbidden Error: Access denied for invalid permissions"
+                    }
+                },
+                "security": [
+                    {
+                        "ServiceAuthorization": []
+                    },
+                    {
+                        "Authorization": []
+                    }
+                ]
+            }
+        },
+        "/refdata/case-worker/upload-file": {
+            "post": {
+                "tags": [
+                    "case-worker-ref-controller"
+                ],
+                "summary": "This API allows uploading of excel files that contain caseworker information and mappings between caseworker and IDAM roles",
+                "description": "This API will be invoked by user having idam role of cwd-admin",
+                "operationId": "caseWorkerFileUpload",
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "required": [
+                                    "file"
+                                ],
+                                "type": "object",
+                                "properties": {
+                                    "file": {
+                                        "type": "string",
+                                        "format": "binary"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "401": {
+                        "description": "Unauthorized Error : The requested resource is restricted and requires authentication"
+                    },
+                    "201": {
+                        "description": "Request Completed Successfully"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "403": {
+                        "description": "Forbidden Error: Access denied for invalid permissions"
+                    }
+                },
+                "security": [
+                    {
+                        "ServiceAuthorization": []
+                    },
+                    {
+                        "Authorization": []
+                    }
+                ]
+            }
+        },
+        "/refdata/internal/staff/usersByServiceName": {
+            "get": {
+                "tags": [
+                    "staff-reference-internal-controller"
+                ],
+                "summary": "This API returns the Staff(Case Worker) profiles based on Service Name and Pagination parameters",
+                "description": "**IDAM Role to access API** :\n cwd-system-user",
+                "operationId": "fetchStaffByCcdServiceNames",
+                "parameters": [
+                    {
+                        "name": "ccd_service_names",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "page_size",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int32"
+                        }
+                    },
+                    {
+                        "name": "page_number",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int32"
+                        }
+                    },
+                    {
+                        "name": "sort_direction",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "sort_column",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The Staff profiles have been retrieved successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/StaffProfileWithServiceName"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "The Caseworker data could not be found"
+                    },
+                    "401": {
+                        "description": "Unauthorized Error : The requested resource is restricted and requires authentication"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "403": {
+                        "description": "Forbidden Error: Access denied for invalid permissions"
+                    }
+                },
+                "security": [
+                    {
+                        "ServiceAuthorization": []
+                    },
+                    {
+                        "Authorization": []
+                    }
+                ]
+            }
+        },
+        "/refdata/case-worker/user-type": {
+            "get": {
+                "tags": [
+                    "staff-ref-data-controller"
+                ],
+                "summary": "This API gets the user types from staff reference data",
+                "description": "This API will be invoked by user having idam role of staff-admin",
+                "operationId": "fetchUserTypes",
+                "responses": {
+                    "401": {
+                        "description": "Unauthorized Error : The requested resource is restricted and requires authentication"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    },
+                    "403": {
+                        "description": "Forbidden Error: Access denied for invalid permissions"
+                    },
+                    "200": {
+                        "description": "Successfully fetched the user types",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/StaffRefDataUserTypesResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "ServiceAuthorization": []
+                    },
+                    {
+                        "Authorization": []
+                    }
+                ]
+            }
+        },
+        "/refdata/case-worker/skill": {
+            "get": {
+                "tags": [
+                    "staff-ref-data-controller"
+                ],
+                "summary": "This API is used to retrieve the service specific skills ",
+                "description": "This API will be invoked by user having idam role of staff-admin",
+                "operationId": "retrieveAllServiceSkills",
+                "parameters": [
+                    {
+                        "name": "service_codes",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "401": {
+                        "description": "Unauthorized Error : The requested resource is restricted and requires authentication"
+                    },
+                    "200": {
+                        "description": "Successfully retrieved list of ServiceSkills for the request provided",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/StaffWorkerSkillResponse"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    },
+                    "403": {
+                        "description": "Forbidden Error: Access denied for invalid permissions"
+                    }
+                },
+                "security": [
+                    {
+                        "ServiceAuthorization": []
+                    },
+                    {
+                        "Authorization": []
+                    }
+                ]
+            }
+        },
+        "/refdata/case-worker/profile/search": {
+            "get": {
+                "tags": [
+                    "staff-ref-data-controller"
+                ],
+                "summary": "This API allows the Advance search of staff",
+                "description": "This API will be invoked by user having idam role of staff-admin",
+                "operationId": "searchStaffProfile",
+                "parameters": [
+                    {
+                        "name": "page-number",
+                        "in": "header",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int32"
+                        }
+                    },
+                    {
+                        "name": "page-size",
+                        "in": "header",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int32"
+                        }
+                    },
+                    {
+                        "name": "serviceCode",
+                        "in": "query",
+                        "description": "Any Valid String is allowed with comma seperated values",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "location",
+                        "in": "query",
+                        "description": "Any Valid String is allowed with comma seperated values",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "userType",
+                        "in": "query",
+                        "description": "Any Valid String is allowed",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "jobTitle",
+                        "in": "query",
+                        "description": "Any Valid String is allowed",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "skill",
+                        "in": "query",
+                        "description": "Any Valid String is allowed",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "role",
+                        "in": "query",
+                        "description": "Any Valid String is allowed with comma seperated values",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "401": {
+                        "description": "Unauthorized Error : The requested resource is restricted and requires authentication"
+                    },
+                    "200": {
+                        "description": "Request Completed Successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/SearchStaffUserResponse"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "403": {
+                        "description": "Forbidden Error: Access denied for invalid permissions"
+                    }
+                },
+                "security": [
+                    {
+                        "ServiceAuthorization": []
+                    },
+                    {
+                        "Authorization": []
+                    }
+                ]
+            }
+        },
+        "/refdata/case-worker/profile/search-by-name": {
+            "get": {
+                "tags": [
+                    "staff-ref-data-controller"
+                ],
+                "summary": "This API allows the search of staff user by their name or surname.",
+                "description": "This API will be invoked by user having idam role of staff-admin",
+                "operationId": "searchStaffUserByName",
+                "parameters": [
+                    {
+                        "name": "page-number",
+                        "in": "header",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int32"
+                        }
+                    },
+                    {
+                        "name": "page-size",
+                        "in": "header",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int32"
+                        }
+                    },
+                    {
+                        "name": "search",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "401": {
+                        "description": "Unauthorized Error : The requested resource is restricted and requires authentication"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    },
+                    "200": {
+                        "description": "Request Completed Successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/SearchStaffUserResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "403": {
+                        "description": "Forbidden Error: Access denied for invalid permissions"
+                    }
+                },
+                "security": [
+                    {
+                        "ServiceAuthorization": []
+                    },
+                    {
+                        "Authorization": []
+                    }
+                ]
+            }
+        },
+        "/refdata/case-worker/profile/search-by-id": {
+            "get": {
+                "tags": [
+                    "staff-ref-data-controller"
+                ],
+                "summary": "This API search a staff user by Id",
+                "description": "This API will be invoked by user having idam role of staff-admin",
+                "operationId": "fetchStaffProfileById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Request is successful",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/SearchStaffUserByIdResponse"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized Error : The requested resource is restricted and requires authentication"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "403": {
+                        "description": "Forbidden Error: Access denied for invalid permissions"
+                    }
+                },
+                "security": [
+                    {
+                        "ServiceAuthorization": []
+                    },
+                    {
+                        "Authorization": []
+                    }
+                ]
+            }
+        },
+        "/refdata/case-worker/job-title": {
+            "get": {
+                "tags": [
+                    "staff-ref-data-controller"
+                ],
+                "summary": "This API is used to retrieve the Job Title's ",
+                "description": "This API will be invoked by user having idam role of staff-admin",
+                "operationId": "retrieveJobTitles",
+                "responses": {
+                    "200": {
+                        "description": "Successfully retrieved list of Job Titles for the request provided",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/StaffRefJobTitleResponse"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Forbidden Error: Access denied"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                },
+                "security": [
+                    {
+                        "ServiceAuthorization": []
+                    },
+                    {
+                        "Authorization": []
+                    }
+                ]
+            }
+        },
+        "/": {
+            "get": {
+                "tags": [
+                    "welcome-controller"
+                ],
+                "summary": "Welcome message for the Caseworker Ref Data API",
+                "operationId": "welcome",
+                "responses": {
+                    "200": {
+                        "description": "Welcome message",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/refdata/case-worker/users": {
+            "delete": {
+                "tags": [
+                    "case-worker-ref-users-controller"
+                ],
+                "summary": "Delete Case Worker Profiles by User ID or Email Pattern",
+                "description": "This API is only for use in non Prod environments",
+                "operationId": "deleteCaseWorkerProfileByIdOrEmailPattern",
+                "parameters": [
+                    {
+                        "name": "userId",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "emailPattern",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "400": {
+                        "description": "An invalid request has been provided"
+                    },
+                    "403": {
+                        "description": "Forbidden Error: Access denied"
+                    },
+                    "204": {
+                        "description": "Case Worker Profiles deleted successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CaseWorkerProfilesDeletionResponse"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized Error : The requested resource is restricted and requires authentication"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [
+                    {
+                        "ServiceAuthorization": []
+                    },
+                    {
+                        "Authorization": []
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "CaseWorkerLocationRequest": {
+                "type": "object",
+                "properties": {
+                    "location_id": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "location": {
+                        "type": "string"
+                    },
+                    "is_primary": {
+                        "type": "boolean"
+                    }
+                }
+            },
+            "CaseWorkerServicesRequest": {
+                "type": "object",
+                "properties": {
+                    "service": {
+                        "type": "string"
+                    },
+                    "service_code": {
+                        "type": "string"
+                    }
+                }
+            },
+            "SkillsRequest": {
+                "type": "object",
+                "properties": {
+                    "skill_id": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "description": {
+                        "type": "string"
+                    },
+                    "skill_code": {
+                        "type": "string"
+                    }
+                }
+            },
+            "StaffProfileCreationRequest": {
+                "required": [
+                    "base_locations",
+                    "email_id",
+                    "firstName",
+                    "lastName",
+                    "region",
+                    "roles",
+                    "services",
+                    "user_type"
+                ],
+                "type": "object",
+                "properties": {
+                    "email_id": {
+                        "type": "string"
+                    },
+                    "firstName": {
+                        "pattern": "^[(a-zA-Z0-9 )\\p{L}\\p{N}'’-]{1,127}$",
+                        "type": "string",
+                        "example": "string"
+                    },
+                    "lastName": {
+                        "pattern": "^[(a-zA-Z0-9 )\\p{L}\\p{N}'’-]{1,127}$",
+                        "type": "string",
+                        "example": "string"
+                    },
+                    "services": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/CaseWorkerServicesRequest"
+                        }
+                    },
+                    "region": {
+                        "type": "string"
+                    },
+                    "region_id": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "roles": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/StaffProfileRoleRequest"
+                        }
+                    },
+                    "task_supervisor": {
+                        "type": "boolean"
+                    },
+                    "suspended": {
+                        "type": "boolean"
+                    },
+                    "case_allocator": {
+                        "type": "boolean"
+                    },
+                    "staff_admin": {
+                        "type": "boolean"
+                    },
+                    "base_locations": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/CaseWorkerLocationRequest"
+                        }
+                    },
+                    "user_type": {
+                        "type": "string"
+                    },
+                    "skills": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/SkillsRequest"
+                        }
+                    },
+                    "is_resend_invite": {
+                        "type": "boolean"
+                    }
+                }
+            },
+            "StaffProfileRoleRequest": {
+                "type": "object",
+                "properties": {
+                    "role_id": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "role": {
+                        "type": "string"
+                    },
+                    "is_primary": {
+                        "type": "boolean"
+                    }
+                }
+            },
+            "StaffProfileCreationResponse": {
+                "type": "object",
+                "properties": {
+                    "case_worker_id": {
+                        "type": "string"
+                    }
+                }
+            },
+            "UserRequest": {
+                "type": "object",
+                "properties": {
+                    "userIds": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    }
+                }
+            },
+            "CaseWorkerProfile": {
+                "required": [
+                    "email_id",
+                    "firstName",
+                    "lastName",
+                    "region",
+                    "role",
+                    "user_type",
+                    "work_area"
+                ],
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "firstName": {
+                        "pattern": "^[(a-zA-Z0-9 )\\p{L}\\p{N}'’-]{1,127}$",
+                        "type": "string",
+                        "example": "string"
+                    },
+                    "lastName": {
+                        "pattern": "^[(a-zA-Z0-9 )\\p{L}\\p{N}'’-]{1,127}$",
+                        "type": "string",
+                        "example": "string"
+                    },
+                    "region_id": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "user_type": {
+                        "type": "string"
+                    },
+                    "idam_roles": {
+                        "type": "string"
+                    },
+                    "suspended": {
+                        "type": "string"
+                    },
+                    "case_allocator": {
+                        "type": "string"
+                    },
+                    "task_supervisor": {
+                        "type": "string"
+                    },
+                    "staff_admin": {
+                        "type": "string"
+                    },
+                    "created_time": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "last_updated_time": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "email_id": {
+                        "type": "string"
+                    },
+                    "region": {
+                        "type": "string"
+                    },
+                    "base_location": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Location"
+                        }
+                    },
+                    "user_type_id": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "role": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Role"
+                        }
+                    },
+                    "skills": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Skill"
+                        }
+                    },
+                    "work_area": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/WorkArea"
+                        }
+                    }
+                }
+            },
+            "Skill": {
+                "type": "object",
+                "properties": {
+                    "skill_id": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "skill_code": {
+                        "type": "string"
+                    },
+                    "description": {
+                        "type": "string"
+                    }
+                }
+            },
+            "Location": {
+                "type": "object",
+                "properties": {
+                    "created_time": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "last_updated_time": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "location_id": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "location": {
+                        "type": "string"
+                    },
+                    "is_primary": {
+                        "type": "boolean"
+                    }
+                }
+            },
+            "Role": {
+                "type": "object",
+                "properties": {
+                    "role_id": {
+                        "type": "string"
+                    },
+                    "created_time": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "last_updated_time": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "role": {
+                        "type": "string"
+                    },
+                    "is_primary": {
+                        "type": "boolean"
+                    }
+                }
+            },
+            "StaffProfileWithServiceName": {
+                "type": "object",
+                "properties": {
+                    "ccd_service_name": {
+                        "type": "string"
+                    },
+                    "staff_profile": {
+                        "$ref": "#/components/schemas/CaseWorkerProfile"
+                    }
+                }
+            },
+            "WorkArea": {
+                "type": "object",
+                "properties": {
+                    "service_code": {
+                        "type": "string"
+                    },
+                    "area_of_work": {
+                        "type": "string"
+                    },
+                    "created_time": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "last_updated_time": {
+                        "type": "string",
+                        "format": "date-time"
+                    }
+                }
+            },
+            "StaffRefDataUserType": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "code": {
+                        "type": "string"
+                    }
+                }
+            },
+            "StaffRefDataUserTypesResponse": {
+                "type": "object",
+                "properties": {
+                    "user_type": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/StaffRefDataUserType"
+                        }
+                    }
+                }
+            },
+            "ServiceSkill": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "skills": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/SkillDTO"
+                        }
+                    }
+                }
+            },
+            "SkillDTO": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "code": {
+                        "type": "string"
+                    },
+                    "description": {
+                        "type": "string"
+                    },
+                    "user_type": {
+                        "type": "string"
+                    }
+                }
+            },
+            "StaffWorkerSkillResponse": {
+                "type": "object",
+                "properties": {
+                    "service_skill": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ServiceSkill"
+                        }
+                    }
+                }
+            },
+            "SearchStaffUserResponse": {
+                "type": "object",
+                "properties": {
+                    "first_name": {
+                        "type": "string"
+                    },
+                    "last_name": {
+                        "type": "string"
+                    },
+                    "email_id": {
+                        "type": "string"
+                    },
+                    "case_worker_id": {
+                        "type": "string"
+                    },
+                    "services": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ServiceResponse"
+                        }
+                    },
+                    "region": {
+                        "type": "string"
+                    },
+                    "region_id": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "roles": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Role"
+                        }
+                    },
+                    "task_supervisor": {
+                        "type": "boolean"
+                    },
+                    "case_allocator": {
+                        "type": "boolean"
+                    },
+                    "suspended": {
+                        "type": "boolean"
+                    },
+                    "staff_admin": {
+                        "type": "boolean"
+                    },
+                    "base_locations": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Location"
+                        }
+                    },
+                    "user_type": {
+                        "type": "string"
+                    },
+                    "skills": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/SkillResponse"
+                        }
+                    }
+                }
+            },
+            "ServiceResponse": {
+                "type": "object",
+                "properties": {
+                    "service": {
+                        "type": "string"
+                    },
+                    "service_code": {
+                        "type": "string"
+                    }
+                }
+            },
+            "SkillResponse": {
+                "type": "object",
+                "properties": {
+                    "skill_id": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "description": {
+                        "type": "string"
+                    }
+                }
+            },
+            "SearchStaffUserByIdResponse": {
+                "type": "object",
+                "properties": {
+                    "first_name": {
+                        "type": "string"
+                    },
+                    "last_name": {
+                        "type": "string"
+                    },
+                    "email_id": {
+                        "type": "string"
+                    },
+                    "case_worker_id": {
+                        "type": "string"
+                    },
+                    "services": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ServiceResponse"
+                        }
+                    },
+                    "region": {
+                        "type": "string"
+                    },
+                    "region_id": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "roles": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Role"
+                        }
+                    },
+                    "task_supervisor": {
+                        "type": "boolean"
+                    },
+                    "case_allocator": {
+                        "type": "boolean"
+                    },
+                    "suspended": {
+                        "type": "boolean"
+                    },
+                    "staff_admin": {
+                        "type": "boolean"
+                    },
+                    "base_locations": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Location"
+                        }
+                    },
+                    "user_type": {
+                        "type": "string"
+                    },
+                    "skills": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/SkillResponse"
+                        }
+                    },
+                    "up_idam_status": {
+                        "type": "string"
+                    }
+                }
+            },
+            "StaffRefDataJobTitle": {
+                "type": "object",
+                "properties": {
+                    "role_id": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "role_description": {
+                        "type": "string"
+                    }
+                }
+            },
+            "StaffRefJobTitleResponse": {
+                "type": "object",
+                "properties": {
+                    "job_title": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/StaffRefDataJobTitle"
+                        }
+                    }
+                }
+            },
+            "CaseWorkerProfilesDeletionResponse": {
+                "type": "object",
+                "properties": {
+                    "statusCode": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "message": {
+                        "type": "string"
+                    }
+                }
+            }
+        },
+        "securitySchemes": {
+            "Authorization": {
+                "type": "http",
+                "scheme": "bearer",
+                "bearerFormat": "JWT"
+            },
+            "ServiceAuthorization": {
+                "type": "apiKey",
+                "description": "ServiceAuthorization",
+                "name": "ServiceAuthorization",
+                "in": "header",
+                "bearerFormat": "JWT"
+            }
+        }
+    }
+}
