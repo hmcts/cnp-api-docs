@@ -1,0 +1,931 @@
+openapi: 3.0.0
+servers:
+  - description: Cafcass APIs to retrieve case data and docs
+    url: https://cft-api-mgmt-demo.azure-api.net,https://cft-api-mgmt-aat.azure-api.net,https://cft-api-mgmt-prod.azure-api.net
+info:
+  description: This document present details of third-party organisations to retrieve case data and documents from the CFT case management system
+  version: 1.0.0
+  title: Cafcass APIs
+  contact:
+    email: yogendra.upasani@hmcts.net
+paths:
+  /family-api/cases:
+    get:
+      security:
+        - Authorization: []
+        - Ocp-Apim-Subscription-Key: []
+      tags:
+        - Cases
+      summary: Search and return cases according to the provided parameters
+      operationId: get cases data
+      description: |
+        This API retrieve case data
+      parameters:
+        - in: query
+          name: start_date
+          description: start date timestamp
+          required: true
+          example: '2022-03-28T12:32:54.541'
+          schema:
+            type: string
+            format: datetime
+            example: '2022-03-28T12:32:54.541'
+        - in: query
+          name: end_date
+          description: end date timestamp
+          example: '2022-03-28T12:32:54.541'
+          required: true
+          schema:
+            type: string
+            format: datetime
+            example: '2022-03-28T12:32:54.541'
+      responses:
+        '200':
+          description: search results matching criteria
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/response'
+        '400':
+          description: bad input parameter
+        '403':
+          description: Auth Error
+        '429':
+          description: rate limit error or too many requests
+        '500':
+          description: Internal server error
+  /family-api/cases/documents/{documentId}/binary:
+    get:
+      security:
+        - Authorization: []
+        - Ocp-Apim-Subscription-Key: []
+      tags:
+        - Cases
+      summary: Streams contents of the most recent document associated with the case document. ResponseEntity<ByteArrayResource> more info can be find here>> https://github.com/hmcts/ccd-case-document-am-api/blob/master/src/main/java/uk/gov/hmcts/reform/ccd/documentam/controller/endpoints/CaseDocumentAmController.java#L167
+      operationId: get case document
+      description: |
+        This API retrieve case document
+      parameters:
+        - in: path
+          name: documentId
+          description: retrieve case document by document ID
+          schema:
+            type: string
+            format: string
+            example: dfe93656-a268-4fde-8f80-0152235daf95
+          required: true
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Case document Id is not valid
+        '403':
+          description: Auth Error
+        '404':
+          description: Case document not found
+        '429':
+          description: rate limit error or too many requests
+        '500':
+          description: Internal server error
+components:
+  schemas:
+    response:
+      type: object
+      properties:
+        total:
+          type: integer
+          format: number
+          example: 1
+        cases:
+          $ref: '#/components/schemas/case'
+    case:
+      type: array
+      items:
+        properties:
+          id:
+            type: integer
+            example: 1652950891557691
+          jurisdiction:
+            type: string
+            example: PRIVATELAW
+          state:
+            type: string
+            example: CASE_ISSUE
+          case_type_id:
+            type: string
+            example: PRLAPPS
+          created_date:
+            type: string
+            example: '2022-05-19T09:01:31.576'
+          last_modified:
+            type: string
+            example: '2022-05-24T14:46:15.505'
+          last_state_modified_date:
+            type: string
+            example: '2022-05-24T14:46:15.505'
+          caseTypeOfApplication:
+            type: string
+            example: C100
+          case_data:
+            $ref: '#/components/schemas/case_data'
+    case_data:
+      type: object
+      properties:
+        familymanCaseNumber:
+          type: string
+          example: LV22P70768
+        submitAndPayDownloadApplicationLink:
+          $ref: '#/components/schemas/submitAndPayDownloadApplicationLink'
+        c8Document:
+          $ref: '#/components/schemas/c8Document'
+        c1ADocument:
+          $ref: '#/components/schemas/c1ADocument'
+        dateSubmitted:
+          type: string
+          example: '2022-08-13'
+        draftConsentOrderFile:
+          $ref: '#/components/schemas/draftConsentOrderFile'
+        confidentialDetails:
+          type: object
+          properties:
+            isConfidentialDetailsAvailable:
+              type: string
+              example: 'Yes'
+        isInterpreterNeeded:
+          type: string
+          example: 'Yes'
+        interpreterNeeds:
+          type: array
+          items:
+            properties:
+              id:
+                type: string
+                example: c02f240b-fad3-4967-863b-715e3334e1a2
+              value:
+                type: object
+                properties:
+                  name:
+                    type: string
+                    example: grandmother of the applicant.
+                  otherAssistance:
+                    type: string
+                    example: grandmother of the applicant.
+                  language:
+                    type: string
+                    example: grandmother of the applicant.
+                  party:
+                    type: array
+                    items:
+                      type: string
+                      example: '[applicant,respondent,other]'
+        childrenKnownToLocalAuthority:
+          type: string
+          example: 'no'
+        otherDocuments:
+          $ref: '#/components/schemas/otherDocuments'
+        finalDocument:
+          $ref: '#/components/schemas/finalDocument'
+        ordersApplyingFor:
+          type: array
+          items:
+            type: string
+            example: childArrangementsOrder
+        children:
+          type: array
+          items:
+            properties:
+              value:
+                type: object
+                properties:
+                  lastName:
+                    type: string
+                    example: ca
+                  parentalResponsibilityDetails:
+                    type: string
+                    example: Parental responsibility
+                  gender:
+                    type: string
+                    example: male
+                  otherGender:
+                    type: string
+                    example: male
+                  relationshipToRespondent:
+                    type: string
+                    example: TEST
+                  dateOfBirth:
+                    type: string
+                    format: date
+                    example: '2012-04-21'
+                  otherApplicantsRelationshipToChild:
+                    type: string
+                    example: TEST
+                  respondentsRelationshipToChild:
+                    type: string
+                    example: other
+                  firstName:
+                    type: string
+                    example: ca
+                  orderAppliedFor:
+                    type: array
+                    items:
+                      type: string
+                      example: childArrangementsOrder
+                  childLiveWith:
+                    type: array
+                    items:
+                      type: string
+                      example: applicant
+                  applicantsRelationshipToChild:
+                    type: string
+                    example: father
+                  relationshipToApplicant:
+                    type: string
+                    example: null
+                  otherRespondentsRelationshipToChild:
+                    type: string
+                    example: other
+                  parentalResponsibilityDetails:
+                    type: string
+                    example: responsibility for parent
+                  personWhoLivesWithChild:
+                    type: object
+                    properties:
+                      lastName:
+                        type: string
+                        example: cafcca1
+                      firstName:
+                        type: string
+                        example: John
+                      relationshipToChildDetails:
+                        type: string
+                        example: Local Guardian
+                      isPersonIdentityConfidential:
+                        type: string
+                        example: Yes
+                      address:
+                        type: object
+                        properties:
+                          AddressLine1:
+                            type: string
+                            example: 1 Signet Square
+                          Country:
+                            type: string
+                            example: United Kingdom
+                          PostTown:
+                            type: string
+                            example: Coventry
+                          PostCode:
+                            type: string
+                            example: CV2 4NZ
+                          County:
+                            type: string
+                            example: TEST
+        miamCertificationDocumentUpload1:
+          $ref: '#/components/schemas/miamCertificationDocumentUpload1'
+        claimingExemptionMiam:
+          type: string
+          example: 'Yes'
+        applicantAttendedMiam:
+          type: string
+          example: 'No'
+        miamTable:
+          type: object
+          properties:
+            claimingExemptionMiam:
+              type: string
+              example: 'Yes'
+        miamExemptionsTable:
+          type: object
+          properties:
+            domesticViolenceEvidence:
+              type: string
+              example: ''
+            previousAttendenceEvidence:
+              type: string
+              example: ''
+            reasonsForMiamExemption:
+              type: string
+              example: ''
+            urgencyEvidence:
+              type: string
+              example: ''
+            childProtectionEvidence:
+              type: string
+              example: ''
+            otherGroundsEvidence:
+              type: string
+              example: ''
+        summaryTabForOrderAppliedFor:
+          type: object
+          properties:
+            ordersApplyingFor:
+              type: string
+              example: Child Arrangements Order
+            typeOfChildArrangementsOrder:
+              type: string
+              example: Spend time with order
+        applicants:
+          type: array
+          items:
+            properties:
+              value:
+                type: object
+                properties:
+                  lastName:
+                    type: string
+                    example: cafcca1
+                  otherPersonRelationshipToChildren:
+                    type: array
+                    items:
+                      type: string
+                      example: TEST
+                  gender:
+                    type: string
+                    example: male/female/other
+                  otherGender:
+                    type: string
+                    example: male
+                  representativeFirstName:
+                    type: string
+                    example: firstname
+                  solicitorOrg:
+                    type: object
+                    properties:
+                      OrganisationID:
+                        type: string
+                        example: W98ZZ5W
+                      OrganisationName:
+                        type: string
+                        example: Uday2 Test Org
+                  isCurrentAddressKnown:
+                    type: string
+                    example: TEST
+                  solicitorEmail:
+                    type: string
+                    example: cafcca@gmail.com
+                  respondentLivedWithApplicant:
+                    type: string
+                    example: ca
+                  solicitorTelephone:
+                    type: string
+                    example: TEST
+                  representativeLastName:
+                    type: string
+                    example: cafcca
+                  solicitorReference:
+                    type: string
+                    example: cafcca@gmail.com
+                  solicitorAddress:
+                    type: object
+                    properties:
+                      AddressLine1:
+                        type: string
+                        example: 1 Signet Square
+                      Country:
+                        type: string
+                        example: United Kingdom
+                      PostTown:
+                        type: string
+                        example: Coventry
+                      PostCode:
+                        type: string
+                        example: CV2 4NZ
+                      County:
+                        type: string
+                        example: TEST
+                  dxNumber:
+                    type: string
+                    example: DX1222
+                  email:
+                    type: string
+                    example: other
+                  isAddressConfidential:
+                    type: string
+                    example: 'Yes'
+                  isAtAddressLessThan5Years:
+                    type: string
+                    example: 'Yes'
+                  addressLivedLessThan5YearsDetails:
+                    type: string
+                    example: '102, Mountbatten road, London'
+                  canYouProvideEmailAddress:
+                    type: string
+                    example: 'No'
+                  placeOfBirth:
+                    type: string
+                    example: coventry
+                  isPhoneNumberConfidential:
+                    type: string
+                    example: 'Yes'
+                  address:
+                    type: object
+                    properties:
+                      AddressLine1:
+                        type: string
+                        example: 1 Signet Square
+                      Country:
+                        type: string
+                        example: United Kingdom
+                      PostTown:
+                        type: string
+                        example: Coventry
+                      PostCode:
+                        type: string
+                        example: CV2 4NZ
+                      County:
+                        type: string
+                        example: TEST
+                  isEmailAddressConfidential:
+                    type: string
+                    example: TEST
+                  relationshipToChildren:
+                    type: string
+                    example: TEST
+                  dateOfBirth:
+                    type: string
+                    example: '1982-04-21'
+                  firstName:
+                    type: string
+                    example: cafcca1
+                  previousName:
+                    type: string
+                    example: cafcca1
+                  phoneNumber:
+                    type: string
+                    example: '07424226800'
+                  isPlaceOfBirthKnown:
+                    type: string
+                    example: 'No'
+        respondents:
+          type: array
+          items:
+            properties:
+              value:
+                type: object
+                properties:
+                  lastName:
+                    type: string
+                    example: cafcca1
+                  otherPersonRelationshipToChildren:
+                    type: array
+                    items:
+                      type: string
+                      example: ''
+                  gender:
+                    type: string
+                    example: male
+                  representativeFirstName:
+                    type: string
+                    example: firstname
+                  solicitorOrg:
+                    type: object
+                    properties:
+                      OrganisationID:
+                        type: string
+                        example: W98ZZ5W
+                      OrganisationName:
+                        type: string
+                        example: Uday2 Test Org
+                  solicitorEmail:
+                    type: string
+                    example: cafcca@gmail.com
+                  solicitorTelephone:
+                    type: string
+                    example: TEST
+                  representativeLastName:
+                    type: string
+                    example: cafcca
+                  solicitorReference:
+                    type: string
+                    example: cafcca@gmail.com
+                  solicitorAddress:
+                    type: object
+                    properties:
+                      AddressLine1:
+                        type: string
+                        example: 1 Signet Square
+                      Country:
+                        type: string
+                        example: United Kingdom
+                      PostTown:
+                        type: string
+                        example: Coventry
+                      PostCode:
+                        type: string
+                        example: CV2 4NZ
+                      County:
+                        type: string
+                        example: TEST
+                  email:
+                    type: string
+                    example: other
+                  isPlaceOfBirthKnown:
+                    type: string
+                    example: 'No'
+                  isAddressConfidential:
+                    type: string
+                    example: 'Yes'
+                  placeOfBirth:
+                    type: string
+                    example: coventry
+                  isPhoneNumberConfidential:
+                    type: string
+                    example: 'Yes'
+                  address:
+                    type: object
+                    properties:
+                      AddressLine1:
+                        type: string
+                        example: 1 Signet Square
+                      Country:
+                        type: string
+                        example: United Kingdom
+                      PostTown:
+                        type: string
+                        example: Coventry
+                      PostCode:
+                        type: string
+                        example: CV2 4NZ
+                      County:
+                        type: string
+                        example: TEST
+                  isEmailAddressConfidential:
+                    type: string
+                    example: TEST
+                  relationshipToChildren:
+                    type: string
+                    example: TEST
+                  dateOfBirth:
+                    type: string
+                    example: '1982-04-21'
+                  firstName:
+                    type: string
+                    example: cafcca1
+                  phoneNumber:
+                    type: string
+                    example: '07424226800'
+        applicantsConfidentialDetails:
+          type: array
+          items:
+            properties:
+              value:
+                type: object
+                properties:
+                  lastName:
+                    type: string
+                    example: cafcca1
+                  firstName:
+                    type: string
+                    example: ca
+                  address:
+                    type: object
+                    properties:
+                      AddressLine1:
+                        type: string
+                        example: 1 Signet Square
+                      Country:
+                        type: string
+                        example: United Kingdom
+                      PostTown:
+                        type: string
+                        example: Coventry
+                      PostCode:
+                        type: string
+                        example: CV2 4NZ
+                      County:
+                        type: string
+                        example: TEST
+                  phoneNumber:
+                    type: string
+                    example: cafcca1
+                  email:
+                    type: string
+                    example: test@gmail.com
+        applicantSolicitorEmailAddress:
+          type: string
+          example: prl_caseworker_solicitor@mailinator.com
+        solicitorName:
+          type: string
+          example: prl_caseworker_solicitor@mailinator.com
+        courtEpimsId:
+          type: string
+          example: 121111
+        courtEpimsId:
+          type: string
+          example: 43333
+        courtName:
+          type: string
+          example: Coventry Combined Court Centre
+        otherPeopleInTheCaseTable:
+          type: array
+          items:
+            properties:
+              value:
+                type: object
+                properties:
+                  lastName:
+                    type: string
+                    example: cafcca1
+                  placeOfBirth:
+                    type: string
+                    example: TEST
+                  address:
+                    type: object
+                    properties:
+                      AddressLine1:
+                        type: string
+                        example: 1 Signet Square
+                      Country:
+                        type: string
+                        example: United Kingdom
+                      PostTown:
+                        type: string
+                        example: Coventry
+                      PostCode:
+                        type: string
+                        example: CV2 4NZ
+                      County:
+                        type: string
+                        example: TEST
+                  gender:
+                    type: string
+                    example: male
+                  isCurrentAddressKnown:
+                    type: string
+                    example: 'No'
+                  dateOfBirth:
+                    type: string
+                    example: TEST
+                  relationshipToChild:
+                    type: array
+                    items:
+                      properties:
+                        value:
+                          type: object
+                          properties:
+                            personRelationshipToChild:
+                              type: string
+                              example: father
+                  firstName:
+                    type: string
+                    example: ca8
+                  phoneNumber:
+                    type: string
+                    example: null
+                  otherGender:
+                    type: string
+                    example: null
+                  canYouProvideEmailAddress:
+                    type: string
+                    example: 'No'
+                  canYouProvidePhoneNumber:
+                    type: string
+                    example: 'No'
+        ordersNonMolestationDocument:
+          $ref: '#/components/schemas/ordersNonMolestationDocument'
+        HearingOutComeDocument:
+          $ref: '#/components/schemas/HearingOutComeDocument'
+        hearingData:
+          type: object
+          properties:
+            hmctsServiceCode:
+              type: string
+              example: ABA5
+            caseRef:
+              type: string
+              example: '1677494509039975'
+            caseHearings:
+              type: array
+              items:
+                properties:
+                  hearingId:
+                    type: string
+                    example: '2000005039'
+                  hearingStatus:
+                    type: string
+                    enum:
+                      - LISTED
+                      - CANCELED
+                  hearingType:
+                    type: string
+                    example: ABA5-REV
+                  hearingTypeValue:
+                    type: string
+                    example: Review
+                  hearingDaySchedule:
+                    type: array
+                    items:
+                      properties:
+                        hearingVenueName:
+                          type: string
+                          example: ROYAL COURTS OF JUSTICE - QUEENS BUILDING (AND WEST GREEN BUILDING)
+                        hearingStartDateTime:
+                          type: string
+                          example: '2023-03-10T12:00:00'
+                        hearingEndDateTime:
+                          type: string
+                          example: '2023-03-10T14:00:00'
+
+        orderCollection:
+          type: array
+          items:
+            properties:
+              id:
+                type: string
+                example: 368f1f4b-b56e-4541-9a13-78803d372d39
+              value:
+                type: object
+                properties:
+                  orderType:
+                    type: string
+                    example: Child arrangements, specific issue or prohibited steps order (C43)
+                  orderTypeId:
+                    type: string
+                    example: childArrangementsSpecificProhibitedOrder
+                  dateCreated:
+                    type: object
+                    example: '2023-03-14T13:33:32.240736'
+                  hearingId:
+                    type: string
+                    example: '2000005039'
+                  courtReportType:
+                    type: array
+                    items:
+                      value:
+                        type: string
+                        example: "Safeguarding letter","16.4 report","Child Impact report"
+                  otherDetails:
+                    type: object
+                    properties:
+                      orderRecipients:
+                        type: string
+                        example: My New Org (Applicant's Solicitor)
+                      orderCreatedDate:
+                        type: string
+                        example: 2023-06-09
+                      createdBy:
+                        type: string
+                        example: John
+                      orderRecipients:
+                        type: string
+                        example: Applicant, Respondent
+                      orderMadeDate:
+                        type: string
+                        example: 2023-03-15
+                  orderMadeDate:
+                    type: date
+                    example: 2023-12-23
+                  orderDocument:
+                    type: object
+                    properties:
+                      document_filename:
+                        type: string
+                        example: My New Org (Applicant's Solicitor)
+                      document_id:
+                        type: string
+                        example: 41bf6a26-190c-470b-ab50-e656bbd4227d
+    submitAndPayDownloadApplicationLink:
+      type: object
+      properties:
+        document_id:
+          type: string
+          format: uuid
+          example: df948a27-c5c2-461c-9fd5-d7a6a87c6385
+        document_filename:
+          type: string
+          example: Draft_C100_application.pdf
+    documentOther:
+      type: object
+      properties:
+        document_id:
+          type: string
+          format: uuid
+          example: yf948a27-c5c2-451c-9fd5-d7a6a87c6381
+        document_filename:
+          type: string
+          example: cafa-test.pdf
+    c8Document:
+      type: object
+      properties:
+        document_id:
+          type: string
+          format: uuid
+          example: yf948a27-c5c2-451c-9fd5-d7a6a87c6381
+        document_filename:
+          type: string
+          example: C8Document.pdf
+    c1ADocument:
+      type: object
+      properties:
+        document_id:
+          type: string
+          format: uuid
+          example: yf948b24-c5c2-451c-9fd5-d7a6a87c6355
+        document_filename:
+          type: string
+          example: c1A_Document.pdf
+    ordersNonMolestationDocument:
+      type: object
+      properties:
+        document_id:
+          type: string
+          format: uuid
+          example: yf948b24-c5c2-451c-9fd5-d7a6a87c6355
+        document_filename:
+          type: string
+          example: cafa-test.pdf.pdf
+    finalDocument:
+      type: object
+      properties:
+        document_id:
+          type: string
+          format: uuid
+          example: zzz48b24-c5c2-451c-9fd5-d7a6a87c6355
+        document_filename:
+          type: string
+          example: C100FinalDocument.pdf
+    miamCertificationDocumentUpload1:
+      type: object
+      properties:
+        document_id:
+          type: string
+          format: uuid
+          example: d9248b24-c5c2-451c-9fd5-d7a6a87c6355
+        document_filename:
+          type: string
+          example: cafa-test.pdf
+    caseManagementLocation:
+      type: object
+        properties:
+          regionId:
+            type: string
+            example: 2 (Either you will get regionId or region)
+          region:
+            type: string
+            example: 2 (Either you will get regionId or region)
+          baseLocation:
+            type: string
+            example: 497679 (Either you will get baseLocationId or baseLocation)
+          baseLocationId:
+            type: string
+            example: 497679 (Either you will get baseLocationId or baseLocation)
+          regionName:
+            type: string
+            example: Midlands
+          baseLocationName:
+            type: string
+            example: Coventry Combined Court Centre
+
+    draftConsentOrderFile:
+      type: object
+      properties:
+        document_id:
+          type: string
+          format: uuid
+          example: yf948b24-c5c2-451c-9fd5-d7a6a87c6355
+        document_filename:
+          type: string
+          example: c100-drft.pdf
+    HearingOutComeDocument:
+      type: object
+      properties:
+        document_id:
+          type: string
+          format: uuid
+          example: yf948b24-c5c2-451c-9fd5-d7a6a87c6355
+        document_filename:
+          type: string
+          example: placeHolder.pdf
+    otherDocuments:
+      type: array
+      items:
+        properties:
+          id:
+            type: string
+            format: uuid
+            example: yf958b24-c5c2-451c-9f22-d7a6a87c6322
+          value:
+            type: object
+            properties:
+              notes:
+                type: string
+                example: optional doc
+              documentTypeOther:
+                type: string
+                example: cafcassReports
+              documentName:
+                type: string
+                example: optional doc
+              documentOther:
+                $ref: '#/components/schemas/documentOther'
+  securitySchemes:
+    Authorization:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+    Ocp-Apim-Subscription-Key:
+      type: apiKey
+      in: header
+      name: X-API-KEY
