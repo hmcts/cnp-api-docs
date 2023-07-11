@@ -792,6 +792,22 @@
                     "phoneNumber": {
                       "type": "string",
                       "example": "07424226800"
+                    },
+                    "isDateOfBirthKnown": {
+                        "type": "string",
+                        "example": "No"
+                    },
+                    "canYouProvidePhoneNumber": {
+                        "type": "string",
+                        "example": "No"
+                    },
+                    "isAtAddressLessThan5YearsWithDontKnow": {
+                        "type": "string",
+                        "example": "no"
+                    },
+                    "doTheyHaveLegalRepresentation": {
+                        "type": "string",
+                        "example": "no"
                     }
                   }
                 }
@@ -981,6 +997,14 @@
                 "type": "string",
                 "example": "1677494509039975"
               },
+              "courtTypeId": {
+                "type": "string",
+                "example": 43333
+              },
+              "courtName": {
+                "type": "string",
+                "example": "Coventry Combined Court Centre"
+              },
               "caseHearings": {
                 "type": "array",
                 "items": {
@@ -1019,6 +1043,18 @@
                           "hearingEndDateTime": {
                             "type": "string",
                             "example": "2023-03-10T14:00:00"
+                          },
+                          "courtTypeId": {
+                            "type": "string",
+                            "example": 43333
+                          },
+                          "courtName": {
+                            "type": "string",
+                            "example": "Coventry Combined Court Centre"
+                          },
+                          "epimsId": {
+                            "type": "string",
+                            "example": 121111
                           }
                         }
                       }
