@@ -2644,8 +2644,12 @@
               }
             ],
             "responses": {
-              "200": {
-                "description": "null"
+              "204": {
+                "description": "",
+                "examples": {
+                  "updated_by": "string",
+                  "cancel_reason": "string"
+                }
               }
             }
           }
