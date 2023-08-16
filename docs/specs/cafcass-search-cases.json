@@ -26,7 +26,8 @@
         "operationId": "get cases data",
         "description": "This API retrieve case data\n",
         "parameters": [
-          {
+          "allOf": [
+            {
             "in": "query",
             "name": "start_date",
             "description": "start date timestamp",
@@ -41,7 +42,7 @@
             "example": "2022-03-28T12:32:54.541",
             "required": true,
             "type": "string"
-          }
+          }]
         ],
         "responses": {
           "200": {
@@ -72,7 +73,7 @@
 
     "schemas": {
       "required": true,
-      "allOf": [{"response": {
+      "response": {
         "type": "object",
         "required": [
           "status_message"
@@ -87,7 +88,7 @@
             "$ref": "#/components/schemas/case"
           }
         }
-      }}],
+      },
       "case": {
         "type": "object",
         "properties": {
