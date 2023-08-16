@@ -70,7 +70,7 @@
     },
   },
 
-    "schemas": {
+
       "response": {
         "type": "object",
         "required": [
@@ -5554,18 +5554,6 @@
           "items"
         ]
       }
-    },
-    "securitySchemes": {
-      "Authorization": {
-        "type": "http",
-        "scheme": "bearer",
-        "bearerFormat": "JWT"
-      },
-      "Ocp-Apim-Subscription-Key": {
-        "type": "apiKey",
-        "in": "header",
-        "name": "X-API-KEY"
-      }
-    }
+
 
 }
