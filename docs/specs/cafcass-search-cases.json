@@ -32,12 +32,7 @@
             "description": "start date timestamp",
             "required": true,
             "type": "string",
-            "example": "2022-03-28T12:32:54.541",
-            "schema": {
-              "type": "string",
-              "format": "date-time",
-              "example": "2022-03-28T12:32:54.541"
-            }
+            "example": "2022-03-28T12:32:54.541"
           },
           {
             "in": "query",
@@ -45,12 +40,7 @@
             "description": "end date timestamp",
             "example": "2022-03-28T12:32:54.541",
             "required": true,
-            "type": "string",
-            "schema": {
-              "type": "string",
-              "format": "date-time",
-              "example": "2022-03-28T12:32:54.541"
-            }
+            "type": "string"
           }
         ],
         "responses": {
