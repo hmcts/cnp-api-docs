@@ -25,7 +25,7 @@
         "summary": "Search and return cases according to the provided parameters",
         "operationId": "get cases data",
         "description": "This API retrieve case data\n",
-        "parameters": [
+        "parameters": {
           "allOf": [
             {
             "in": "query",
@@ -43,7 +43,7 @@
             "required": true,
             "type": "string"
           }]
-        ],
+        },
         "responses": {
           "200": {
             "description": "search results matching criteria",
