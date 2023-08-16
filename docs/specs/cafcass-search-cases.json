@@ -71,6 +71,7 @@
   },
 
     "schemas": {
+      "required": true,
       "response": {
         "type": "object",
         "required": [
