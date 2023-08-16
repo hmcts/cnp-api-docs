@@ -1,11 +1,5 @@
 {
-  "openapi": "3.0.0",
-  "servers": [
-    {
-      "description": "Cafcass APIs to retrieve case data and docs",
-      "url": "https://cft-api-mgmt-demo.azure-api.net,https://cft-api-mgmt-aat.azure-api.net,https://cft-api-mgmt-prod.azure-api.net"
-    }
-  ],
+  "swagger": "2.0",
   "info": {
     "description": "This document present details of third-party organisations to retrieve case data and documents from the CFT case management system",
     "version": "1.0.0",
