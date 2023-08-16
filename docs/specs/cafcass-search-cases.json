@@ -49,7 +49,7 @@
             "schema": {
               "type": "array",
               "items": {
-                "$ref": "#/components/schemas/response"
+                "$ref": "#/schemas/response"
               }
             }
           },
@@ -69,7 +69,7 @@
       }
     },
   },
-  "components": {
+
     "schemas": {
       "response": {
         "type": "object",
@@ -5567,5 +5567,5 @@
         "name": "X-API-KEY"
       }
     }
-  }
+
 }
