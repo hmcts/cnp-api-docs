@@ -814,20 +814,20 @@
                       "example": "07424226800"
                     },
                     "isDateOfBirthKnown": {
-                        "type": "string",
-                        "example": "No"
+                      "type": "string",
+                      "example": "No"
                     },
                     "canYouProvidePhoneNumber": {
-                        "type": "string",
-                        "example": "No"
+                      "type": "string",
+                      "example": "No"
                     },
                     "isAtAddressLessThan5YearsWithDontKnow": {
-                        "type": "string",
-                        "example": "no"
+                      "type": "string",
+                      "example": "no"
                     },
                     "doTheyHaveLegalRepresentation": {
-                        "type": "string",
-                        "example": "no"
+                      "type": "string",
+                      "example": "no"
                     }
                   }
                 }
@@ -1098,12 +1098,18 @@
                     "courtReportType": {
                       "type": "array",
                       "items": {
-                        "value": {
-                          "type": "string",
-                          "example": {
-                            "Safeguarding letter": null,
-                            "16.4 report": null,
-                            "Child Impact report": null
+                        "properties": {
+                          "id": {
+                            "type": "string",
+                            "example": "c02f240b-fad3-4967-863b-715e3334e1a2"
+                          },
+                          "value": {
+                            "type": "string",
+                            "example": {
+                              "Safeguarding letter": null,
+                              "16.4 report": null,
+                              "Child Impact report": null
+                            }
                           }
                         }
                       }
@@ -1130,7 +1136,8 @@
                       }
                     },
                     "orderMadeDate": {
-                      "type": "date",
+                      "type": "object",
+                      "description": "date format",
                       "example": "2023-12-23T00:00:00.000Z"
                     },
                     "orderDocument": {
@@ -1364,12 +1371,12 @@
                 "partyType": {
                   "type": "string",
                   "enum": [
-                        "APPLICANT",
-                        "RESPONDENT",
-                        "OTHERPEOPLE"
-                      ]
+                    "APPLICANT",
+                    "RESPONDENT",
+                    "OTHERPEOPLE"
+                  ]
                 },
-                 "childId": {
+                "childId": {
                   "type": "string",
                   "example": "49f18d28-782a-4bb1-b5ad-d8fd32012c7d"
                 },
@@ -1380,15 +1387,15 @@
                 "relationType": {
                   "type": "string",
                   "enum": [
-                        "father",
-                        "mother",
-                        "stepFather",
-                         "stepMother",
-                        "grandParent",
-                        "guardian",
-                         "specialGuardian",
-                        "other"
-                      ]
+                    "father",
+                    "mother",
+                    "stepFather",
+                    "stepMother",
+                    "grandParent",
+                    "guardian",
+                    "specialGuardian",
+                    "other"
+                  ]
                 },
                 "otherRelationDetails": {
                   "type": "string",
@@ -1427,12 +1434,12 @@
                 "partyType": {
                   "type": "string",
                   "enum": [
-                        "APPLICANT",
-                        "RESPONDENT",
-                        "OTHERPEOPLE"
-                      ]
+                    "APPLICANT",
+                    "RESPONDENT",
+                    "OTHERPEOPLE"
+                  ]
                 },
-                 "childId": {
+                "childId": {
                   "type": "string",
                   "example": "49f18d28-782a-4bb1-b5ad-d8fd32012c7d"
                 },
@@ -1443,15 +1450,15 @@
                 "relationType": {
                   "type": "string",
                   "enum": [
-                        "father",
-                        "mother",
-                        "stepFather",
-                         "stepMother",
-                        "grandParent",
-                        "guardian",
-                         "specialGuardian",
-                        "other"
-                      ]
+                    "father",
+                    "mother",
+                    "stepFather",
+                    "stepMother",
+                    "grandParent",
+                    "guardian",
+                    "specialGuardian",
+                    "other"
+                  ]
                 },
                 "otherRelationDetails": {
                   "type": "string",
@@ -1490,12 +1497,12 @@
                 "partyType": {
                   "type": "string",
                   "enum": [
-                        "APPLICANT",
-                        "RESPONDENT",
-                        "OTHERPEOPLE"
-                      ]
+                    "APPLICANT",
+                    "RESPONDENT",
+                    "OTHERPEOPLE"
+                  ]
                 },
-                 "childId": {
+                "childId": {
                   "type": "string",
                   "example": "49f18d28-782a-4bb1-b5ad-d8fd32012c7d"
                 },
@@ -1506,15 +1513,15 @@
                 "relationType": {
                   "type": "string",
                   "enum": [
-                        "father",
-                        "mother",
-                        "stepFather",
-                         "stepMother",
-                        "grandParent",
-                        "guardian",
-                         "specialGuardian",
-                        "other"
-                      ]
+                    "father",
+                    "mother",
+                    "stepFather",
+                    "stepMother",
+                    "grandParent",
+                    "guardian",
+                    "specialGuardian",
+                    "other"
+                  ]
                 },
                 "otherRelationDetails": {
                   "type": "string",
