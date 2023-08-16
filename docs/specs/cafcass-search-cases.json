@@ -46,14 +46,10 @@
         "responses": {
           "200": {
             "description": "search results matching criteria",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/response"
-                  }
-                }
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/response"
               }
             }
           },
@@ -77,6 +73,9 @@
     "schemas": {
       "response": {
         "type": "object",
+        "required": [
+          "status_message"
+        ],
         "properties": {
           "total": {
             "type": "integer",
