@@ -80,57 +80,6 @@
         }
       }
     },
-    "/family-api/cases/documents/{documentId}/binary": {
-      "get": {
-        "security": [
-          {
-            "Authorization": []
-          },
-          {
-            "Ocp-Apim-Subscription-Key": []
-          }
-        ],
-        "tags": [
-          "Cases"
-        ],
-        "summary": "Streams contents of the most recent document associated with the case document. ResponseEntity<ByteArrayResource> more info can be find here>> https://github.com/hmcts/ccd-case-document-am-api/blob/master/src/main/java/uk/gov/hmcts/reform/ccd/documentam/controller/endpoints/CaseDocumentAmController.java#L167",
-        "operationId": "get case document",
-        "description": "This API retrieve case document\n",
-        "parameters": [
-          {
-            "in": "path",
-            "name": "documentId",
-            "description": "retrieve case document by document ID",
-            "schema": {
-              "type": "string",
-              "format": "string",
-              "example": "dfe93656-a268-4fde-8f80-0152235daf95"
-            },
-            "required": true
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Success"
-          },
-          "400": {
-            "description": "Case document Id is not valid"
-          },
-          "403": {
-            "description": "Auth Error"
-          },
-          "404": {
-            "description": "Case document not found"
-          },
-          "429": {
-            "description": "rate limit error or too many requests"
-          },
-          "500": {
-            "description": "Internal server error"
-          }
-        }
-      }
-    }
   },
   "components": {
     "schemas": {
