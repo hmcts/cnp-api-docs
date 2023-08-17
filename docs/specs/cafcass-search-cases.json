@@ -71,6 +71,7 @@
   },
 
     "schemas": {
+      "required": true,
       "response": {
         "type": "object",
         "required": [
@@ -83,7 +84,7 @@
             "example": 1
           },
           "cases": {
-            "$ref": "#/components/schemas/case"
+            "$ref": "#/schemas/case"
           }
         }
       },
