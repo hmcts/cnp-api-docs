@@ -25,25 +25,24 @@
         "summary": "Search and return cases according to the provided parameters",
         "operationId": "get cases data",
         "description": "This API retrieve case data\n",
-        "parameters": {
-          "allOf": [
+        "parameters": [
             {
-            "in": "query",
-            "name": "start_date",
-            "description": "start date timestamp",
-            "required": true,
-            "type": "string",
-            "example": "2022-03-28T12:32:54.541"
-          },
-          {
-            "in": "query",
-            "name": "end_date",
-            "description": "end date timestamp",
-            "example": "2022-03-28T12:32:54.541",
-            "required": true,
-            "type": "string"
-          }]
-        },
+              "in": "query",
+              "name": "start_date",
+              "description": "start date timestamp",
+              "required": true,
+              "type": "string",
+              "example": "2022-03-28T12:32:54.541"
+            },
+            {
+              "in": "query",
+              "name": "end_date",
+              "description": "end date timestamp",
+              "example": "2022-03-28T12:32:54.541",
+              "required": true,
+              "type": "string"
+            }
+        ],
         "responses": {
           "200": {
             "description": "search results matching criteria",
