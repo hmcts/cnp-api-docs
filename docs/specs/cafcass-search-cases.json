@@ -3,7 +3,7 @@
   "info": {
     "version": "1.0",
     "description": "<h3>Cafcass API Documentation </h3> <b>Published Date:</b> 15-September-2022 <b>Author: </b> Jegan Maharajan, Yashar Rahvar <b> Requirement:</b> This document present details of third-party organisations to retrieve case data and documents from the CFT case management system  <b>Version History:</b> Cafcass  API is added",
-    "title": "Cafcass APIs "
+    "title": "Cafcass APIs - Search Cases, Upload document and Download document"
   },
   "host": "cft-api-mgmt-demo.azure-api.net",
   "basePath": "/",
