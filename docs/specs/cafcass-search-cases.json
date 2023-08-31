@@ -415,6 +415,26 @@
             "type": "string",
             "example": "No"
           },
+          "otherProceedingsMiam": {
+            "type": "string",
+            "example": "Yes/No"
+          },
+          "applicantConsentMiam": {
+            "type": "string",
+            "example": "Yes/No"
+          },
+          "mediatorRegistrationNumber": {
+            "type": "string",
+            "example": "Urn12345"
+          },
+          "familyMediatorServiceName": {
+            "type": "string",
+            "example": "Mediator name"
+          },
+          "soleTraderName": {
+            "type": "string",
+            "example": "Smith James"
+          },
           "miamTable": {
             "type": "object",
             "properties": {
@@ -794,20 +814,20 @@
                       "example": "07424226800"
                     },
                     "isDateOfBirthKnown": {
-                        "type": "string",
-                        "example": "No"
+                      "type": "string",
+                      "example": "No"
                     },
                     "canYouProvidePhoneNumber": {
-                        "type": "string",
-                        "example": "No"
+                      "type": "string",
+                      "example": "No"
                     },
                     "isAtAddressLessThan5YearsWithDontKnow": {
-                        "type": "string",
-                        "example": "no"
+                      "type": "string",
+                      "example": "no"
                     },
                     "doTheyHaveLegalRepresentation": {
-                        "type": "string",
-                        "example": "no"
+                      "type": "string",
+                      "example": "no"
                     }
                   }
                 }
@@ -938,22 +958,6 @@
                     "dateOfBirth": {
                       "type": "string",
                       "example": "TEST"
-                    },
-                    "relationshipToChild": {
-                      "type": "array",
-                      "items": {
-                        "properties": {
-                          "value": {
-                            "type": "object",
-                            "properties": {
-                              "personRelationshipToChild": {
-                                "type": "string",
-                                "example": "father"
-                              }
-                            }
-                          }
-                        }
-                      }
                     },
                     "firstName": {
                       "type": "string",
@@ -1094,12 +1098,18 @@
                     "courtReportType": {
                       "type": "array",
                       "items": {
-                        "value": {
-                          "type": "string",
-                          "example": {
-                            "Safeguarding letter": null,
-                            "16.4 report": null,
-                            "Child Impact report": null
+                        "properties": {
+                          "id": {
+                            "type": "string",
+                            "example": "c02f240b-fad3-4967-863b-715e3334e1a2"
+                          },
+                          "value": {
+                            "type": "string",
+                            "example": {
+                              "Safeguarding letter": null,
+                              "16.4 report": null,
+                              "Child Impact report": null
+                            }
                           }
                         }
                       }
@@ -1126,7 +1136,8 @@
                       }
                     },
                     "orderMadeDate": {
-                      "type": "date",
+                      "type": "object",
+                      "description": "date format",
                       "example": "2023-12-23T00:00:00.000Z"
                     },
                     "orderDocument": {
@@ -1330,6 +1341,195 @@
                 },
                 "documentOther": {
                   "$ref": "#/components/schemas/documentOther"
+                }
+              }
+            }
+          }
+        }
+      },
+      "childAndApplicantRelations": {
+        "type": "array",
+        "description": "This array will have All Applicants relationship to each of the child",
+        "items": {
+          "properties": {
+            "id": {
+              "type": "string",
+              "format": "uuid",
+              "example": "yf958b24-c5c2-451c-9f22-d7a6a87c6322"
+            },
+            "value": {
+              "type": "object",
+              "properties": {
+                "partyId": {
+                  "type": "string",
+                  "example": "49f18d28-782a-4bb1-b5ad-d8fd32012c7d"
+                },
+                "partyFullName": {
+                  "type": "string",
+                  "example": "James Franklyn"
+                },
+                "partyType": {
+                  "type": "string",
+                  "enum": [
+                    "APPLICANT",
+                    "RESPONDENT",
+                    "OTHERPEOPLE"
+                  ]
+                },
+                "childId": {
+                  "type": "string",
+                  "example": "49f18d28-782a-4bb1-b5ad-d8fd32012c7d"
+                },
+                "childFullName": {
+                  "type": "string",
+                  "example": "Mary Franklyn"
+                },
+                "relationType": {
+                  "type": "string",
+                  "enum": [
+                    "father",
+                    "mother",
+                    "stepFather",
+                    "stepMother",
+                    "grandParent",
+                    "guardian",
+                    "specialGuardian",
+                    "other"
+                  ]
+                },
+                "otherRelationDetails": {
+                  "type": "string",
+                  "example": "Aunt"
+                },
+                "childLivesWith": {
+                  "type": "string",
+                  "example": "Yes/No"
+                }
+              }
+            }
+          }
+        }
+      },
+      "childAndRespondentRelations": {
+        "type": "array",
+        "description": "This array will have All Respondents relationship to each of the child",
+        "items": {
+          "properties": {
+            "id": {
+              "type": "string",
+              "format": "uuid",
+              "example": "yf958b24-c5c2-451c-9f22-d7a6a87c6322"
+            },
+            "value": {
+              "type": "object",
+              "properties": {
+                "partyId": {
+                  "type": "string",
+                  "example": "49f18d28-782a-4bb1-b5ad-d8fd32012c7d"
+                },
+                "partyFullName": {
+                  "type": "string",
+                  "example": "James Franklyn"
+                },
+                "partyType": {
+                  "type": "string",
+                  "enum": [
+                    "APPLICANT",
+                    "RESPONDENT",
+                    "OTHERPEOPLE"
+                  ]
+                },
+                "childId": {
+                  "type": "string",
+                  "example": "49f18d28-782a-4bb1-b5ad-d8fd32012c7d"
+                },
+                "childFullName": {
+                  "type": "string",
+                  "example": "Mary Franklyn"
+                },
+                "relationType": {
+                  "type": "string",
+                  "enum": [
+                    "father",
+                    "mother",
+                    "stepFather",
+                    "stepMother",
+                    "grandParent",
+                    "guardian",
+                    "specialGuardian",
+                    "other"
+                  ]
+                },
+                "otherRelationDetails": {
+                  "type": "string",
+                  "example": "Aunt"
+                },
+                "childLivesWith": {
+                  "type": "string",
+                  "example": "Yes/No"
+                }
+              }
+            }
+          }
+        }
+      },
+      "childAndOtherPeopleRelations": {
+        "type": "array",
+        "description": "This array will have All Other People relationship to each of the child",
+        "items": {
+          "properties": {
+            "id": {
+              "type": "string",
+              "format": "uuid",
+              "example": "yf958b24-c5c2-451c-9f22-d7a6a87c6322"
+            },
+            "value": {
+              "type": "object",
+              "properties": {
+                "partyId": {
+                  "type": "string",
+                  "example": "49f18d28-782a-4bb1-b5ad-d8fd32012c7d"
+                },
+                "partyFullName": {
+                  "type": "string",
+                  "example": "James Franklyn"
+                },
+                "partyType": {
+                  "type": "string",
+                  "enum": [
+                    "APPLICANT",
+                    "RESPONDENT",
+                    "OTHERPEOPLE"
+                  ]
+                },
+                "childId": {
+                  "type": "string",
+                  "example": "49f18d28-782a-4bb1-b5ad-d8fd32012c7d"
+                },
+                "childFullName": {
+                  "type": "string",
+                  "example": "Mary Franklyn"
+                },
+                "relationType": {
+                  "type": "string",
+                  "enum": [
+                    "father",
+                    "mother",
+                    "stepFather",
+                    "stepMother",
+                    "grandParent",
+                    "guardian",
+                    "specialGuardian",
+                    "other"
+                  ]
+                },
+                "otherRelationDetails": {
+                  "type": "string",
+                  "example": "Aunt"
+                },
+                "childLivesWith": {
+                  "type": "string",
+                  "example": "Yes/No"
                 }
               }
             }
