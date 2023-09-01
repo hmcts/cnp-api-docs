@@ -2557,7 +2557,7 @@
                     }
                 ],
                 "responses": {
-                    "200": {
+                    "204": {
                         "description": "null"
                     }
                 }
@@ -2614,7 +2614,7 @@
               }
             ],
             "responses": {
-              "200": {
+              "204": {
                 "description": "null"
               }
             }
@@ -2981,7 +2981,7 @@
         },
         "/pih/publication": {
             "post": {
-                "tags": ["pub-hub"],
+                "tags": ["CaTH"],
                 "summary": "Publication",
                 "operationId": "update-publication",
                 "parameters": [{
@@ -3028,7 +3028,7 @@
         },
         "/pih/health": {
             "get": {
-                "tags": ["pub-hub"],
+                "tags": ["CaTH"],
                 "summary": "Publication Health",
                 "operationId": "publication-health",
                 "responses": {
@@ -3160,8 +3160,8 @@
         "name": "utils",
         "description": "Utility endpoints"
     }, {
-        "name": "pub-hub",
-        "description": "Everything about publishing hub"
+        "name": "CaTH",
+        "description": "Everything about CaTH publishing hub"
     }, {
         "name": "sitting-pattern",
         "description": "Retrieve Sitting Patterns"
