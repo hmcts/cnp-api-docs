@@ -1704,7 +1704,6 @@
                     {
                         "name": "updated_since",
                         "in": "query",
-                        "required": true,
                         "type": "string",
                         "default": "2018-04-10",
                         "enum": [
