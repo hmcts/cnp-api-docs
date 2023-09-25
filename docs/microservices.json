@@ -119,6 +119,11 @@
       "name": "AM",
       "colour": "#ffcc66",
       "info": "View our <a href=\"https://tools.hmcts.net/confluence/display/AM/Access+Management+Dashboard\">Access Management Dashboard</a> page for more details about the AM services"
+    },
+    {
+      "name": "JPS",
+      "colour": "#fa8072",
+      "info": "View our <a href=\"https://tools.hmcts.net/confluence/display/IJPS/Intermediate+Judicial+Payments+Solution+Home\">Intermediate Judicial Payments Solution Home</a> page for more details."
     }
   ],
   "apis": [
@@ -2456,6 +2461,39 @@
         },
         {
           "id": "ccd-data-store-api",
+          "hard": true,
+          "apis": []
+        }
+      ],
+      "apis": [],
+      "version": null
+    },
+    {
+      "id": "jps-judicial-payment-service",
+      "name": "JPS Judicial Payment Service",
+      "group": "JPS",
+      "type": "api",
+      "description": "Judicial Payment Service",
+      "repository": "https://github.com/hmcts/jps-judicial-payment-service",
+      "spec": "https://hmcts.github.io/cnp-api-docs/specs/jps-judicial-payment-service.json",
+      "dependencies": [
+        {
+          "id": "idam-api",
+          "hard": true,
+          "apis": []
+        },
+        {
+          "id": "rpe-service-auth-provider",
+          "hard": true,
+          "apis": []
+        },
+        {
+          "id": "rd-location-ref-api",
+          "hard": true,
+          "apis": []
+        },
+        {
+          "id": "rd-judicial-api",
           "hard": true,
           "apis": []
         }
