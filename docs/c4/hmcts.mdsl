@@ -124,6 +124,9 @@ ia = softwareSystem "IA" {
 fpla = softwareSystem "FPLA" {
    fpla_case_service = container "FPLA Case Service" "CCD callback service for FPLA cases"
 }
+jps = softwareSystem "JPS" {
+   jps_judicial_payment_service = container "JPS Judicial Payment Service" "Judicial Payment Service"
+}
 rd = softwareSystem "RD" {
    rd_professional_api = container "Professional reference data API" "Provides APIs for managing professional reference data"
    rd_user_profile_api = container "Reference data user profile API" "Provides APIs for reference data user profile"
@@ -461,6 +464,11 @@ fpla_case_service -> idam_api "Depends on"
 fpla_case_service -> rpe_service_auth_provider "Depends on"
 fpla_case_service -> dm_store "Depends on"
 fpla_case_service -> ccd_data_store_api "Depends on"
+
+jps_judicial_payment_service -> idam_api "Depends on"
+jps_judicial_payment_service -> rpe_service_auth_provider "Depends on"
+jps_judicial_payment_service -> rd_location_ref_api "Depends on"
+jps_judicial_payment_service -> rd_judicial_api "Depends on"
 
 rd_professional_api -> idam_api "Depends on"
 rd_professional_api -> rpe_service_auth_provider "Depends on"
