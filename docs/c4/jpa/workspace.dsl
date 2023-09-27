@@ -18,7 +18,7 @@ workspace {
     views {
         !include ../hmcts.vdsl
 
-        systemContext jpa "jpa-context" {
+        systemContext jps "jps-context" {
             include *
             # exclude caseworker
             # exclude citizen
@@ -29,7 +29,7 @@ workspace {
             autoLayout
         }
 
-        container jpa "jpa-overview" {
+        container jps "jps-overview" {
             include *
             # exclude caseworker
             # exclude citizen
@@ -40,7 +40,7 @@ workspace {
             autoLayout
         }
 
-        # container jpa "jpa-citizen" {
+        # container jps "jps-citizen" {
         #     include *
         #     exclude idam
         #     exclude rpe
@@ -48,7 +48,7 @@ workspace {
         #     autoLayout
         # }
 
-        # container jpa "jpa-caseworker" {
+        # container jps "jps-caseworker" {
         #     include *
         #     include caseworker
         #     include xui
