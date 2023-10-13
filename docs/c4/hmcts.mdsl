@@ -156,6 +156,10 @@ am = softwareSystem "AM" {
    am_org_role_mapping_service = container "AM Organisational Role Mapping Service" "API to provision various organisation roles for staff & judicial users based on the service specific mapping rules."
    am_role_assignment_service = container "AM Role Assignment Service" "API manages the assignment of roles with attributes to actors, to support both ccd access control and work allocation requirements."
 }
+pre = softwareSystem "PRE" {
+   pre_api = container "PRE API" "Backend for Pre-Recorded Evidence project"
+   pre_portal = container "PRE Portal" "Frontend for Pre-Recorded Evidence project"
+}
 pip_frontend -> pip_data_management "Depends on"
 pip_frontend -> pip_subscription_management "Depends on"
 pip_frontend -> pip_channel_management "Depends on"
@@ -532,3 +536,5 @@ am_org_role_mapping_service -> rd_caseworker_ref_api "Depends on"
 am_role_assignment_service -> idam_api "Depends on"
 am_role_assignment_service -> rpe_service_auth_provider "Depends on"
 am_role_assignment_service -> ccd_data_store_api "Depends on"
+
+pre_portal -> pre_api "Depends on"
