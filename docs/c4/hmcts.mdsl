@@ -161,8 +161,8 @@ pre = softwareSystem "PRE" {
    pre_portal = container "PRE Portal" "Frontend for Pre-Recorded Evidence project"
 }
 st = softwareSystem "ST" {
-   sptribs_frontend = container "Special Tribunals Frontend" ""
-   sptribs_case_api = container "Special Tribunal Case API" ""
+   sptribs_frontend = container "Special Tribunals Frontend" "Special Tribunals Frontend"
+   sptribs_case_api = container "Special Tribunal Case API" "Java service to deal with special tribunal case management system"
 }
 pip_frontend -> pip_data_management "Depends on"
 pip_frontend -> pip_subscription_management "Depends on"
