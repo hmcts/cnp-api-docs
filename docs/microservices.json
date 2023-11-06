@@ -3072,7 +3072,7 @@
       "name": "Special Tribunal Case API",
       "group": "ST",
       "type": "api",
-      "description": "Java service to deal with special tribunal case management system",
+      "description": "Business logic for management of Special Tribunals cases",
       "repository": "https://github.com/hmcts/sptribs-case-api",
       "spec": "https://hmcts.github.io/cnp-api-docs/specs/sptribs-case-api.json",
       "dependencies": [
