@@ -162,7 +162,7 @@ pre = softwareSystem "PRE" {
 }
 st = softwareSystem "ST" {
    sptribs_frontend = container "Special Tribunals Frontend" "Special Tribunals Frontend"
-   sptribs_case_api = container "Special Tribunal Case API" "Java service to deal with special tribunal case management system"
+   sptribs_case_api = container "Special Tribunal Case API" "Business logic for management of Special Tribunals cases"
 }
 pip_frontend -> pip_data_management "Depends on"
 pip_frontend -> pip_subscription_management "Depends on"
