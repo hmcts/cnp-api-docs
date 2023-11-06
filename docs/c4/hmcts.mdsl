@@ -160,6 +160,10 @@ pre = softwareSystem "PRE" {
    pre_api = container "PRE API" "Backend for Pre-Recorded Evidence project"
    pre_portal = container "PRE Portal" "Frontend for Pre-Recorded Evidence project"
 }
+st = softwareSystem "ST" {
+   sptribs_frontend = container "Special Tribunals Frontend" ""
+   sptribs_case_api = container "Special Tribunal Case API" ""
+}
 pip_frontend -> pip_data_management "Depends on"
 pip_frontend -> pip_subscription_management "Depends on"
 pip_frontend -> pip_channel_management "Depends on"
@@ -538,3 +542,13 @@ am_role_assignment_service -> rpe_service_auth_provider "Depends on"
 am_role_assignment_service -> ccd_data_store_api "Depends on"
 
 pre_portal -> pre_api "Depends on"
+
+sptribs_frontend -> sptribs_case_api "Depends on"
+sptribs_frontend -> idam_web_public "Depends on"
+sptribs_frontend -> idam_api "Depends on"
+sptribs_frontend -> rpe_service_auth_provider "Depends on"
+
+sptribs_case_api -> ccd_data_store_api "Depends on"
+sptribs_case_api -> rpe_service_auth_provider "Depends on"
+sptribs_case_api -> dm_store "Depends on"
+sptribs_case_api -> idam_api "Depends on"
