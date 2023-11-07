@@ -123,7 +123,11 @@
     {
       "name": "PRE",
       "colour": "#B48D16"
-  }
+    },
+    {
+      "name": "ST",
+      "colour": "#E751FF"
+    }
   ],
   "apis": [
     {
@@ -3029,6 +3033,72 @@
       ],
       "apis": [],
       "version": null
-  }
+  },
+    {
+      "id": "sptribs-frontend",
+      "name": "Special Tribunals Frontend",
+      "group": "ST",
+      "type": "web",
+      "description": "Special Tribunals Frontend",
+      "repository": "https://github.com/hmcts/sptribs-frontend",
+      "spec": null,
+      "dependencies": [
+        {
+          "id": "sptribs-case-api",
+          "hard": true,
+          "apis": []
+        },
+        {
+          "id": "idam-web-public",
+          "hard": true,
+          "apis": []
+        },
+        {
+          "id": "idam-api",
+          "hard": true,
+          "apis": []
+        },
+        {
+          "id": "rpe-service-auth-provider",
+          "hard": true,
+          "apis": []
+        }
+      ],
+      "apis": [],
+      "version": null
+    },
+    {
+      "id": "sptribs-case-api",
+      "name": "Special Tribunal Case API",
+      "group": "ST",
+      "type": "api",
+      "description": "Business logic for management of Special Tribunals cases",
+      "repository": "https://github.com/hmcts/sptribs-case-api",
+      "spec": "https://hmcts.github.io/cnp-api-docs/specs/sptribs-case-api.json",
+      "dependencies": [
+        {
+          "id": "ccd-data-store-api",
+          "hard": true,
+          "apis": []
+        },
+        {
+          "id": "rpe-service-auth-provider",
+          "hard": true,
+          "apis": []
+        },
+        {
+          "id": "dm-store",
+          "hard": true,
+          "apis": []
+        },
+        {
+          "id": "idam-api",
+          "hard": true,
+          "apis": []
+        }
+      ],
+      "apis": [],
+      "version": null
+    }
   ]
 }
