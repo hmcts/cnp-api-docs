@@ -335,67 +335,23 @@
                       }
                     },
                     "childLiveWith": {
-                      "type": "array",
-                      "items": {
-                        "type": "string",
-                        "example": "applicant"
-                      }
-                    },
-                    "applicantsRelationshipToChild": {
-                      "type": "string",
-                      "example": "father"
-                    },
-                    "relationshipToApplicant": {
-                      "type": "string",
-                      "example": null
-                    },
-                    "otherRespondentsRelationshipToChild": {
-                      "type": "string",
-                      "example": "other"
-                    },
-                    "personWhoLivesWithChild": {
                       "type": "object",
                       "properties": {
-                        "lastName": {
+                        "partyId": {
                           "type": "string",
                           "example": "cafcca1"
                         },
-                        "firstName": {
+                        "partyType": {
                           "type": "string",
-                          "example": "John"
+                          "example": "APPLICANT/RESPONDENT/OTHER_PEOPLE"
                         },
-                        "relationshipToChildDetails": {
+                        "partyName": {
                           "type": "string",
-                          "example": "Local Guardian"
+                          "example": "cafcca1"
                         },
-                        "isPersonIdentityConfidential": {
+                        "partyAddress": {
                           "type": "string",
-                          "example": "Yes"
-                        },
-                        "address": {
-                          "type": "object",
-                          "properties": {
-                            "AddressLine1": {
-                              "type": "string",
-                              "example": "1 Signet Square"
-                            },
-                            "Country": {
-                              "type": "string",
-                              "example": "United Kingdom"
-                            },
-                            "PostTown": {
-                              "type": "string",
-                              "example": "Coventry"
-                            },
-                            "PostCode": {
-                              "type": "string",
-                              "example": "CV2 4NZ"
-                            },
-                            "County": {
-                              "type": "string",
-                              "example": "TEST"
-                            }
-                          }
+                          "example": "cafcca1"
                         }
                       }
                     }
