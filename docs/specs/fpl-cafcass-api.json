@@ -1,0 +1,1158 @@
+{
+  "openapi": "3.0.0",
+  "servers": [
+    {
+      "description": "FPL-Cafcass APIs to retrieve FPL case data and docs",
+      "url": ""
+    }
+  ],
+  "info": {
+    "description": "This document present details for Cafcass to retrieve case data and documents for FPL cases from the CFT case management system",
+    "version": "0.0.4",
+    "title": "FPL-Cafcass APIs"
+  },
+  "paths": {
+    "/public-law-api/cases": {
+      "get": {
+        "security": [
+          {
+            "Authorization": []
+          },
+          {
+            "Ocp-Apim-Subscription-Key": []
+          }
+        ],
+        "tags": [
+          "Get case information"
+        ],
+        "summary": "Search and return cases according to the provided parameters",
+        "operationId": "get cases data",
+        "description": "This API retrieves case data\n",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "startDate",
+            "description": "start date timestamp",
+            "required": true,
+            "example": "2023-03-28T12:32:54.541",
+            "schema": {
+              "type": "string",
+              "format": "datetime",
+              "example": "2023-03-28T12:32:54.541"
+            }
+          },
+          {
+            "in": "query",
+            "name": "endDate",
+            "description": "end date timestamp",
+            "example": "2023-03-28T12:32:54.541",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "datetime",
+              "example": "2023-03-28T12:32:54.541"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "search results matching criteria",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/response"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "bad input parameter"
+          },
+          "403": {
+            "description": "Auth Error"
+          },
+          "429": {
+            "description": "rate limit error or too many requests"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "504": {
+            "description": "Gateway timeout"
+          }
+        }
+      }
+    },
+    "/public-law-api/cases/documents/{documentId}/binary": {
+      "get": {
+        "security": [
+          {
+            "Authorization": []
+          },
+          {
+            "Ocp-Apim-Subscription-Key": []
+          }
+        ],
+        "tags": [
+          "Get case information"
+        ],
+        "summary": "Streams contents of the most recent document associated with the case document. ResponseEntity<ByteArrayResource> more info can be find here>> https://github.com/hmcts/ccd-case-document-am-api/blob/master/src/main/java/uk/gov/hmcts/reform/ccd/documentam/controller/endpoints/CaseDocumentAmController.java#L167",
+        "operationId": "get case document",
+        "description": "This API retrieves case document\n",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "documentId",
+            "description": "retrieve case document by document ID",
+            "schema": {
+              "type": "string",
+              "format": "string",
+              "example": "dfe93656-a268-4fde-8f80-0152235daf95"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Case document Id is not valid"
+          },
+          "403": {
+            "description": "Auth Error"
+          },
+          "404": {
+            "description": "Case document not found"
+          },
+          "429": {
+            "description": "rate limit error or too many requests"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "504": {
+            "description": "Gateway timeout"
+          }
+        }
+      }
+    },
+    "/public-law-api/cases/{caseId}/document": {
+      "post": {
+        "description": "Uploads document for a specific case in CCD",
+        "operationId": "documentUpload",
+        "summary": "Upload document",
+        "tags": ["Update case information"],
+        "parameters": [
+          {
+            "name": "caseId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "CCD ID for which document will be uploaded"
+          },
+          {
+            "name": "file",
+            "in": "formData",
+            "required": true,
+            "type": "file",
+            "description": "Document which needs to be attached to a case"
+          },
+          {
+            "name": "typeOfDocument",
+            "in": "formData",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": ["POSITION_STATEMENT", "GUARDIAN_REPORT"]
+            },
+            "description": "Type of document which is being attached"
+          }
+        ],
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "201": {
+            "description": "Document is uploaded",
+            "examples": {
+              "application/json": {
+                "message": "Document has been uploaded successfully: xyz.pdf"
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "403": {
+            "description": "Failed authorisation"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "504": {
+            "description": "Gateway timeout"
+          }
+        }
+      }
+    },
+    "/public-law-api/cases/{caseId}/guardians": {
+      "post": {
+        "security": [
+          {
+            "Authorization": []
+          },
+          {
+            "Ocp-Apim-Subscription-Key": []
+          }
+        ],
+        "tags": [
+          "Update case information"
+        ],
+        "summary": "Uploads guardian information to the case",
+        "operationId": "post guardian information",
+        "description": "This API populates/replaces the guardian information on the case\n",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/guardian"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "in": "path",
+            "name": "caseId",
+            "description": "CCD reference number",
+            "required": true,
+            "example": "1634463896345772",
+            "schema": {
+              "type": "string",
+              "example": "1634463896345772"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "403": {
+            "description": "Auth Error"
+          },
+          "404": {
+            "description": "Case reference not found"
+          },
+          "429": {
+            "description": "Rate limit error or too many requests"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "504": {
+            "description": "Gateway timeout"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "guardian": {
+        "type": "object",
+        "properties": {
+          "guardianName": {
+            "type": "string",
+            "example": "John Smith"
+          },
+          "telephoneNumber": {
+            "type": "string",
+            "example": "01234567890"
+          },
+          "email": {
+            "type": "string",
+            "example": "john.smith@example.com"
+          },
+          "children": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "example": "Joe Bloggs"
+            }
+          }
+        }
+      },
+      "response": {
+        "type": "object",
+        "properties": {
+          "total": {
+            "type": "integer",
+            "format": "number",
+            "description": "Number of cases returned in the api response",
+            "example": 1
+          },
+          "cases": {
+            "$ref": "#/components/schemas/case"
+          }
+        }
+      },
+      "respondent": {
+        "type": "object",
+        "properties": {
+          "firstName": {
+            "type": "string",
+            "example": "John"
+          },
+          "lastName": {
+            "type": "string",
+            "example": "Smith"
+          },
+          "gender": {
+            "$ref": "#/components/schemas/gender"
+          },
+          "genderIdentification": {
+            "type": "string",
+            "description": "Free text entry if gender is chosen as 'OTHER'"
+          },
+          "addressKnown": {
+            "type": "boolean",
+            "description": "Is the current address known?"
+          },
+          "addressUnknownReason": {
+            "type": "string",
+            "enum": [
+              "No fixed abode",
+              "Person deceased"
+            ],
+            "description": "If the current address is not known, the reason why"
+          },
+          "address": {
+            "$ref": "#/components/schemas/address",
+            "description": "Address of the respondent if address is known"
+          },
+          "dateOfBirth": {
+            "type": "string",
+            "format": "date",
+            "example": "2022-05-24"
+          },
+          "telephoneNumber": {
+            "type": "string",
+            "example": "01234567890"
+          },
+          "litigationIssues": {
+            "type": "string",
+            "enum": [
+              "YES",
+              "NO",
+              "DONT_KNOW"
+            ],
+            "description": "Do you believe this person will have problems with litigation capacity?"
+          },
+          "litigationIssuesDetails": {
+            "type": "string",
+            "description": "Filled in if litigationIssues == YES (Give details, including assessment outcomes and referrals to health services)"
+          },
+          "contactDetailsHidden": {
+            "type": "boolean",
+            "description": "Do you need contact details hidden from other parties?"
+          },
+          "contactDetailsHiddenReason": {
+            "type": "string",
+            "description": "Filled in if contactDetailsHidden == true"
+          },
+          "relationshipToChild": {
+            "type": "string",
+            "example": "Father",
+            "description": "Free text field"
+          },
+          "solicitor": {
+            "$ref": "#/components/schemas/solicitor",
+            "description": "Filled in if the party is represented"
+          }
+        }
+      },
+      "solicitor": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string"
+          },
+          "firstName": {
+            "type": "string"
+          },
+          "lastName": {
+            "type": "string"
+          },
+          "organisationName": {
+            "type": "string",
+            "example": "John Smith Solicitors LLP"
+          },
+          "organisationId": {
+            "type": "string",
+            "example": "ABC281F"
+          }
+        }
+      },
+      "previousProceeding": {
+        "type": "object",
+        "properties": {
+          "proceedingStatus": {
+            "type": "string",
+            "enum": [
+              "Ongoing",
+              "Previous"
+            ]
+          },
+          "caseNumber": {
+            "type": "string",
+            "example": "LV22P70768 / 1234567898765432"
+          },
+          "started": {
+            "type": "string",
+            "example": "2022-05-24",
+            "description": "Free text"
+          },
+          "ended": {
+            "type": "string",
+            "example": "2022-05-24",
+            "description": "Free text"
+          },
+          "ordersMade": {
+            "type": "string",
+            "example": "C20, C8, etc.",
+            "description": "Free text"
+          },
+          "judge": {
+            "type": "string",
+            "example": "District Judge Martin Brown",
+            "description": "Free text"
+          },
+          "children": {
+            "type": "string",
+            "example": "Joe Bloggs, Jane Bloggs",
+            "description": "Free text"
+          },
+          "guardian": {
+            "type": "string",
+            "example": "John Smith"
+          },
+          "sameGuardianNeeded": {
+            "type": "boolean"
+          },
+          "sameGuardianDetails": {
+            "type": "string",
+            "example": "Do not need the same guardian for x and y reasons.",
+            "description": "Filled in when sameGuardianNeeded = false"
+          }
+        }
+      },
+      "risks": {
+        "type": "object",
+        "properties": {
+          "physicalHarmOccurrences": {
+            "type": "string",
+            "enum": [
+              "Future risk of harm",
+              "Past harm"
+            ]
+          },
+          "emotionalHarmOccurrences": {
+            "type": "string",
+            "enum": [
+              "Future risk of harm",
+              "Past harm"
+            ]
+          },
+          "sexualAbuseOccurrences": {
+            "type": "string",
+            "enum": [
+              "Future risk of harm",
+              "Past harm"
+            ]
+          },
+          "neglectOccurrences": {
+            "type": "string",
+            "enum": [
+              "Future risk of harm",
+              "Past harm"
+            ]
+          }
+        }
+      },
+      "internationalElement": {
+        "type": "object",
+        "properties": {
+          "possibleCarer": {
+            "type": "boolean",
+            "description": "Are there any suitable carers outside of the UK?"
+          },
+          "possibleCarerReason": {
+            "type": "string",
+            "description": "Filled in if possibleCarer = true"
+          },
+          "significantEvents": {
+            "type": "boolean",
+            "description": "Are you aware of any significant events that have happened outside the UK?"
+          },
+          "significantEventsReason": {
+            "type": "string",
+            "description": "Filled in if significantEvents = true"
+          },
+          "issues": {
+            "type": "boolean",
+            "description": "Are you aware of any issues with the jurisdiction of this case - for example under the Brussels 2 regulation?"
+          },
+          "issuesReason": {
+            "type": "string",
+            "description": "Filled in if issues = true"
+          },
+          "proceedings": {
+            "type": "boolean",
+            "description": "Are you aware of any proceedings outside the UK?"
+          },
+          "proceedingsReason": {
+            "type": "string",
+            "description": "Filled in if proceedings = true"
+          },
+          "internationalAuthorityInvolvement": {
+            "type": "boolean",
+            "description": "Has, or should, a government or central authority in another country been involved in this case?"
+          },
+          "internationalAuthorityInvolvementDetails": {
+            "type": "string",
+            "description": "Filled in if internationalAuthorityInvolvement = true"
+          }
+        }
+      },
+      "other": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Joe Bloggs",
+            "description": "Full name"
+          },
+          "dateOfBirth": {
+            "type": "string",
+            "format": "date",
+            "example": "2020-01-01"
+          },
+          "gender": {
+            "$ref": "#/components/schemas/gender"
+          },
+          "genderIdentification": {
+            "type": "string",
+            "description": "Free text entry if gender is chosen as 'OTHER'"
+          },
+          "birthPlace": {
+            "type": "string",
+            "description": "free text field"
+          },
+          "addressKnown": {
+            "type": "boolean",
+            "description": "Is the current address known?"
+          },
+          "addressUnknownReason": {
+            "type": "string",
+            "enum": [
+              "No fixed abode",
+              "Person deceased"
+            ],
+            "description": "If the current address is not known, the reason why"
+          },
+          "address": {
+            "$ref": "#/components/schemas/address",
+            "description": "Filled in if addressKnown == true"
+          },
+          "telephone": {
+            "type": "string"
+          },
+          "litigationIssues": {
+            "type": "string",
+            "enum": [
+              "YES",
+              "NO",
+              "DONT_KNOW"
+            ],
+            "description": "Do you believe this person will have problems with litigation capacity?"
+          },
+          "litigationIssuesDetails": {
+            "type": "string",
+            "description": "Filled in if litigationIssues == YES (Give details, including assessment outcomes and referrals to health services)"
+          },
+          "detailsHidden": {
+            "type": "boolean",
+            "description": "Do you need contact details hidden from other parties?"
+          },
+          "detailsHiddenReason": {
+            "type": "string",
+            "description": "Filled in if detailsHidden == true"
+          }
+        }
+      },
+      "address": {
+        "type": "object",
+        "properties": {
+          "postCode": {
+            "type": "string"
+          },
+          "county": {
+            "type": "string"
+          },
+          "country": {
+            "type": "string"
+          },
+          "postTown": {
+            "type": "string"
+          },
+          "addressLine1": {
+            "type": "string"
+          },
+          "addressLine2": {
+            "type": "string"
+          }
+        }
+      },
+      "gender": {
+        "type": "string",
+        "enum": [
+          "MALE",
+          "FEMALE",
+          "OTHER"
+        ]
+      },
+      "colleague": {
+        "type": "object",
+        "properties": {
+          "role": {
+            "type": "string",
+            "enum": [
+              "SOLICITOR",
+              "SOCIAL_WORKER",
+              "OTHER"
+            ]
+          },
+          "title": {
+            "type": "string",
+            "example": "Other role type",
+            "description": "Freetext entered when role = OTHER"
+          },
+          "email": {
+            "type": "string",
+            "example": "test@test.com"
+          },
+          "phone": {
+            "type": "string",
+            "example": "01234567890"
+          },
+          "fullName": {
+            "type": "string",
+            "example": "Joe Bloggs"
+          },
+          "mainContact": {
+            "type": "boolean"
+          },
+          "notificationRecipient": {
+            "type": "boolean"
+          }
+        }
+      },
+      "caseDocument": {
+        "type": "object",
+        "properties": {
+          "document_filename": {
+            "type": "string",
+            "example": "TestFile.pdf"
+          },
+          "removed": {
+            "type": "boolean"
+          },
+          "documentCategory": {
+            "type": "string",
+            "enum": [
+              "bundle",
+              "caseSummary",
+              "positionStatements",
+              "threshold",
+              "skeletonArguments",
+              "draftOrderForReviewPriorToHearing",    
+              "applications",
+              "originalApplications",
+              "c1AndOtherApplications",
+              "c2Applications",
+              "orders",
+              "judgementsFactsAndReasons",
+              "transcripts",
+              "draftOrders",
+              "applicantsDocuments",
+              "documentsFiledOnIssue",
+              "applicantWitnessStatements",
+              "carePlan",
+              "parentAssessments",
+              "familyAndViabilityAssessments",
+              "applicantsOtherDocuments",
+              "meetingNotes",
+              "contactNotes",
+              "parent_respondentsStatements",
+              "respondentWitnessStatements",
+              "guardiansEvidence",
+              "parent_expertReports",
+              "expertReports",
+              "drugAndAlcoholReports",
+              "lettersOfInstructionReferrals",
+              "policeDisclosure",
+              "medicalRecords",
+              "courtCorrespondence",
+              "hearingNotices",
+              "noticeOfActingNoticeOfIssue",
+              "previousProceedings",
+              "placementApplicationsAndResponses",
+              "documentsSentToParties",
+              "archivedDocuments"
+            ]
+          },
+          "documentId": {
+            "type": "string",
+            "example": "aeaa6abd-5964-4835-ab40-056267ccdda7"
+          }
+        }
+      },
+      "applicant": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "ABCDEFG",
+            "description": "Organisation id of applicant in manage org."
+          },
+          "name": {
+            "type": "string",
+            "example": "Swansea City Council",
+            "description": "Defaults to name of organisation."
+          },
+          "email": {
+            "type": "string",
+            "example": "test@swansea.gov.uk"
+          },
+          "phone": {
+            "type": "string",
+            "example": "01234567890"
+          },
+          "address": {
+            "$ref": "#/components/schemas/address"
+          },
+          "colleagues": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/colleague"
+            }
+          },
+          "designated": {
+            "type": "boolean"
+          }
+        }
+      },
+      "child": {
+        "type": "object",
+        "properties": {
+          "firstName": {
+            "type": "string",
+            "example": "Jilly"
+          },
+          "lastName": {
+            "type": "string",
+            "example": "Furrow"
+          },
+          "dateOfBirth": {
+            "type": "string",
+            "format": "date",
+            "example": "2015-06-01"
+          },
+          "gender": {
+            "$ref": "#/components/schemas/gender"
+          },
+          "genderIdentification": {
+            "type": "string",
+            "description": "Free text entry if gender is chosen as 'OTHER'"
+          },
+          "livingSituation": {
+            "type": "string",
+            "enum": [
+              "Living with respondents",
+              "Living with other family or friends",
+              "Removed by Police, powers ending soon",
+              "Voluntarily in section 20 care order",
+              "In hospital and soon to be discharged",
+              "Other"
+            ]
+          },
+          "livingSituationDetails": {
+            "type": "string",
+            "description": "Details of living situation if livingSituation equals other."
+          },
+          "address": {
+            "$ref": "#/components/schemas/address"
+          },
+          "careAndContactPlan": {
+            "type": "string"
+          },
+          "detailsHidden": {
+            "type": "boolean"
+          },
+          "socialWorkerName": {
+            "type": "string",
+            "example": "John Smith"
+          },
+          "socialWorkerTelephoneNumber": {
+            "type": "string",
+            "example": "11111222333"
+          },
+          "additionalNeeds": {
+            "type": "boolean"
+          },
+          "additionalNeedsDetails": {
+            "type": "string",
+            "description": "Details of additional needs if additionalNeeds is true"
+          },
+          "litigationIssues": {
+            "type": "string",
+            "enum": [
+              "YES",
+              "NO",
+              "DONT_KNOW"
+            ],
+            "description": "Do you believe this person will have problems with litigation capacity?"
+          },
+          "litigationIssuesDetails": {
+            "type": "string",
+            "description": "Filled in if litigationIssues == YES (Give details, including assessment outcomes and referrals to health services)"
+          },
+          "solicitor": {
+            "$ref": "#/components/schemas/solicitor",
+            "description": "Filled in if the party is represented"
+          }
+        }
+      },
+      "case": {
+        "type": "array",
+        "items": {
+          "properties": {
+            "id": {
+              "type": "string",
+              "example": 1652950891557691
+            },
+            "jurisdiction": {
+              "type": "string",
+              "example": "PUBLICLAW"
+            },
+            "state": {
+              "type": "string",
+              "example": "PREPARE_FOR_HEARING",
+              "enum": [
+                "Submitted",
+                "Gatekeeping",
+                "GATEKEEPING_LISTING",
+                "PREPARE_FOR_HEARING",
+                "FINAL_HEARING",
+                "Closed"
+              ]
+            },
+            "caseTypeId": {
+              "type": "string",
+              "example": "CARE_SUPERVISION_EPO"
+            },
+            "createdDate": {
+              "type": "string",
+              "format": "datetime",
+              "example": "2022-05-19T09:01:31.576"
+            },
+            "lastModified": {
+              "type": "string",
+              "example": "2022-05-24T14:46:15.505"
+            },
+            "lastStateModifiedDate": {
+              "type": "string",
+              "format": "datetime",
+              "example": "2022-05-24T14:46:15.505"
+            },
+            "caseData": {
+              "$ref": "#/components/schemas/caseData"
+            }
+          }
+        }
+      },
+      "hearing": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "aeaa6abd-5964-4835-ab40-056267ccdda7",
+            "description": "UUID"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "EMERGENCY_PROTECTION_ORDER",
+              "FACT_FINDING",
+              "CASE_MANAGEMENT",
+              "FURTHER_CASE_MANAGEMENT",
+              "ISSUE_RESOLUTION",
+              "FINAL",
+              "JUDGMENT_AFTER_HEARING",
+              "INTERIM_CARE_ORDER",
+              "ACCELERATED_DISCHARGE_OF_CARE",
+              "FAMILY_DRUG_ALCOHOL_COURT",
+              "PLACEMENT_HEARING",
+              "OTHER"
+            ]
+          },
+          "typeDetails": {
+            "type": "string",
+            "description": "If type == OTHER"
+          },
+          "venue": {
+            "type": "string",
+            "example": "1234",
+            "description": "Hearing venue id (not epimms)"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "ADJOURNED",
+              "ADJOURNED_AND_RE_LISTED",
+              "ADJOURNED_TO_BE_RE_LISTED",
+              "VACATED",
+              "VACATED_AND_RE_LISTED",
+              "VACATED_TO_BE_RE_LISTED"
+            ]
+          },
+          "startDate": {
+            "type": "string",
+            "format": "datetime",
+            "example": "2022-05-24T14:46:15.505"
+          },
+          "endDate": {
+            "type": "string",
+            "format": "datetime",
+            "example": "2022-05-24T14:46:15.505"
+          },
+          "attendance": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "IN_PERSON",
+                "PHONE",
+                "VIDEO"
+              ]
+            }
+          },
+          "cancellationReason": {
+            "type": "string",
+            "enum": [
+              "CAFCASS not allocated/present",
+              "No/poor CAFCASS analysis",
+              "Late expert report/assessment/ Poor expert report/assessment",
+              "New expert report/assessment required following a change in circumstances",
+              "No/poor medical records etc from other agency",
+              "Police disclosure/documents incomplete/not available",
+              "No courtroom available",
+              "No special measures",
+              "Interpreter not available",
+              "Lack of judicial continuity",
+              "Insufficient time listed or to complete hearing",
+              "Lawyers not instructed, present or ready, party or witness fail to attend",
+              "No key issue analysis",
+              "No/poor parental evidence",
+              "Official Solicitor not instructed/ready",
+              "Prior authority from LSC not available",
+              "Other legal aid",
+              "No/poor pre-proceedings preparation by LA, other than (core) social work assessment of the family",
+              "No friends/family identified before the hearing by LA",
+              "No/poor kinship assessments by LA",
+              "No expert instructed by LA",
+              "No/poor/late (core) social work assessment of the family by LA",
+              "New social work report/assessment required following a change in circumstances",
+              "No timetable for the child",
+              "New/alternative care plan",
+              "Placement order proceedings delay",
+              "No/poor placement evidence by LA",
+              "No threshold document",
+              "Case transferred",
+              "Need for an interim contested hearing",
+              "Other non compliance with directions",
+              "Consolidation with other family proceedings",
+              "Parallel proceedings",
+              "New baby/pregnancy",
+              "New Party joined",
+              "Immigration and international difficulties",
+              "Severe weather",
+              "Industrial action",
+              "Covid 19"
+            ]
+          },
+          "preAttendanceDetails": {
+            "type": "string"
+          },
+          "attendanceDetails": {
+            "type": "string"
+          }
+        }
+      },
+      "caseData": {
+        "type": "object",
+        "properties": {
+          "familyManCaseNumber": {
+            "type": "string",
+            "example": "LV22P70768"
+          },
+          "dateSubmitted": {
+            "type": "string",
+            "format": "date",
+            "example": "2022-08-13"
+          },
+          "applicationType": {
+            "type": "string",
+            "enum": ["C110A", "C1"]
+          },
+          "dateOfCourtIssue": {
+            "type": "string",
+            "example": "2022-05-24T14:46:15.505",
+            "format": "datetime",
+            "description": "Standard direction order dateOfUpload (date sealed)"
+          },
+          "citizenIsApplicant": {
+            "type": "boolean",
+            "description": "Is the application issued by a 3rd party solicitor on behalf of a former respondent/child"
+          },
+          "applicantLA": {
+            "type": "string",
+            "example": "DEV",
+            "enum": [
+              "SA", "CDF", "SCC", "PCC", "STF", "SN", "SNW", "RCC", "HN", "NLC", "NELC", "LCC", "KBC", "ERY", "RCT", "MTC", "NCC", "OCC", "FPLA", "DCC", "LEI", "LCO", "MKC", "DBC", "HCC", "SOT", "BSC", "BDB", "SOC", "CEB", "DER", "LAN", "LIC", "TAM", "MWC", "WMD", "NGC", "NHC", "DSC", "WSC", "HFC", "OLC", "STC", "DMC", "CCC", "WCC", "BCP", "MDB", "BIR", "SOL", "STO", "CER", "COR", "WOL", "SMC", "TWB", "SHR", "WAL", "BCC", "CMB", "LBM", "BOL", "HBC", "WIR", "GTE", "YCC", "BHC", "TBC", "DEV", "PEM", "BNS", "GCC", "NSC", "LBC", "NYS", "WIC", "PET", "SGL", "HAM", "VOG", "NPT", "CAR", "GSCC", "LBTH", "BRD", "SUF", "WRX", "NFK", "NWT", "SHF", "ROT", "DON", "BAR", "IOA", "KECH", "WMS", "DEN", "CWC", "BRE", "CPY", "WAR", "BGW", "NHB", "STH", "MON", "DOR", "BRO", "KKL", "LEE", "BED", "GWY", "FCC", "CON", "SBC", "HRW", "HPL", "CBF", "SWK", "HUL", "BLA", "NTY", "KEN", "MCC", "CAM", "POW", "SUN", "IOW", "BFO", "WBC", "SCF", "WIM", "WOK", "TCBC", "STY", "KGN", "RMD", "SUT", "WAD", "GRW", "TOR", "PLY", "BRA", "CAL", "RBC", "SAL", "ESX", "HAF", "REC", "NTHW", "NTHN", "LAM", "ISL", "CDN", "LEW", "BNT", "HLW", "WSX", "BAD", "ENF", "WAF", "CRY", "RED", "HAR", "EAL", "BEX", "BUR", "THK", "ESS", "HAC", "COL", "HAV", "NEW", "RTL", "WMF", "SOS"
+            ],
+            "description": "The short code for the APPLICANT Local Authority (if one is present)"
+          },
+          "respondentLA": {
+            "type": "string",
+            "example": "WCC",
+            "enum": [
+              "SA", "CDF", "SCC", "PCC", "STF", "SN", "SNW", "RCC", "HN", "NLC", "NELC", "LCC", "KBC", "ERY", "RCT", "MTC", "NCC", "OCC", "FPLA", "DCC", "LEI", "LCO", "MKC", "DBC", "HCC", "SOT", "BSC", "BDB", "SOC", "CEB", "DER", "LAN", "LIC", "TAM", "MWC", "WMD", "NGC", "NHC", "DSC", "WSC", "HFC", "OLC", "STC", "DMC", "CCC", "WCC", "BCP", "MDB", "BIR", "SOL", "STO", "CER", "COR", "WOL", "SMC", "TWB", "SHR", "WAL", "BCC", "CMB", "LBM", "BOL", "HBC", "WIR", "GTE", "YCC", "BHC", "TBC", "DEV", "PEM", "BNS", "GCC", "NSC", "LBC", "NYS", "WIC", "PET", "SGL", "HAM", "VOG", "NPT", "CAR", "GSCC", "LBTH", "BRD", "SUF", "WRX", "NFK", "NWT", "SHF", "ROT", "DON", "BAR", "IOA", "KECH", "WMS", "DEN", "CWC", "BRE", "CPY", "WAR", "BGW", "NHB", "STH", "MON", "DOR", "BRO", "KKL", "LEE", "BED", "GWY", "FCC", "CON", "SBC", "HRW", "HPL", "CBF", "SWK", "HUL", "BLA", "NTY", "KEN", "MCC", "CAM", "POW", "SUN", "IOW", "BFO", "WBC", "SCF", "WIM", "WOK", "TCBC", "STY", "KGN", "RMD", "SUT", "WAD", "GRW", "TOR", "PLY", "BRA", "CAL", "RBC", "SAL", "ESX", "HAF", "REC", "NTHW", "NTHN", "LAM", "ISL", "CDN", "LEW", "BNT", "HLW", "WSX", "BAD", "ENF", "WAF", "CRY", "RED", "HAR", "EAL", "BEX", "BUR", "THK", "ESS", "HAC", "COL", "HAV", "NEW", "RTL", "WMF", "SOS"
+            ],
+            "description": "The short code for the RESPONDENT Local Authority (if one is present)"
+          },
+          "applicants": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/applicant"
+            }
+          },
+          "children": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/child"
+            }
+          },
+          "respondents": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/respondent"
+            }
+          },
+          "others": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/other"
+            }
+          },
+          "internationalElement": {
+            "$ref": "#/components/schemas/internationalElement"
+          },
+          "previousProceedings": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/previousProceeding"
+            }
+          },
+          "hearingDetails": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/hearing"
+            }
+          },
+          "caseDocuments": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/caseDocument"
+            }
+          },
+          "risks": {
+            "$ref": "#/components/schemas/risks"
+          },
+          "factorsParenting": {
+            "type": "object",
+            "properties": {
+              "alcoholDrugAbuse": {
+                "type": "boolean"
+              },
+              "alcoholDrugAbuseReason": {
+                "type": "string"
+              },
+              "domesticViolence": {
+                "type": "boolean"
+              },
+              "domesticViolenceReason": {
+                "type": "string"
+              },
+              "anythingElse": {
+                "type": "boolean"
+              },
+              "anythingElseReason": {
+                "type": "string"
+              }
+            }
+          },
+          "caseManagementLocation": {
+            "type": "object",
+            "properties": {
+              "region": {
+                "type": "string",
+                "example": "2"
+              },
+              "baseLocation": {
+                "type": "string",
+                "example": "497679",
+                "description": "epimms id"
+              }
+            }
+          }
+        },
+        "securitySchemes": {
+          "Authorization": {
+            "type": "http",
+            "scheme": "bearer",
+            "bearerFormat": "JWT"
+          },
+          "Ocp-Apim-Subscription-Key": {
+            "type": "apiKey",
+            "in": "header",
+            "name": "X-API-KEY"
+          }
+        }
+      }
+    }
+  }
+}
