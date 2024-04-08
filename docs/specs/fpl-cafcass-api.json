@@ -8,7 +8,7 @@
   ],
   "info": {
     "description": "This document present details for Cafcass to retrieve case data and documents for FPL cases from the CFT case management system",
-    "version": "0.0.4",
+    "version": "0.0.5",
     "title": "FPL-Cafcass APIs"
   },
   "paths": {
@@ -1027,6 +1027,27 @@
           "applicationType": {
             "type": "string",
             "enum": ["C110A", "C1"]
+          },
+          "ordersSought": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "CARE_ORDER", 
+                "INTERIM_CARE_ORDER",
+                "SUPERVISION_ORDER", 
+                "INTERIM_SUPERVISION_ORDER",
+                "EDUCATION_SUPERVISION_ORDER",
+                "EMERGENCY_PROTECTION_ORDER", 
+                "OTHER",
+                "CHILD_ASSESSMENT_ORDER",
+                "SECURE_ACCOMMODATION_ORDER",
+                "REFUSE_CONTACT_WITH_CHILD",
+                "CONTACT_WITH_CHILD_IN_CARE",
+                "CHILD_RECOVERY_ORDER"
+              ],
+              "description": "List of orders sought in initial application (mapped to caseData.orders.orderType in CCD)"
+            }
           },
           "dateOfCourtIssue": {
             "type": "string",
