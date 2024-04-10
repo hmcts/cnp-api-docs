@@ -843,6 +843,15 @@
           "solicitor": {
             "$ref": "#/components/schemas/solicitor",
             "description": "Filled in if the party is represented"
+          },
+          "fathersResponsibility": {
+            "type": "string",
+            "enum": [
+              "Yes",
+              "No",
+              "Don't know"
+            ],
+            "description": "Optional field to capture if the father has parental responsibility"
           }
         }
       },
