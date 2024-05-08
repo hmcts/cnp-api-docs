@@ -289,19 +289,6 @@
       "version": null
     },
     {
-      "id": "idam-web-admin",
-      "name": "IDAM Admin UI",
-      "group": "IDAM",
-      "type": "web",
-      "description": "Administrative interface for managing services and users within IDAM",
-      "repository": "https://github.com/hmcts/idam-web-admin",
-      "spec": "https://hmcts.github.io/cnp-api-docs/specs/idam-web-admin.json",
-      "dependencies": [
-      ],
-      "apis": [],
-      "version": null
-    },
-    {
       "id": "idam-web-public",
       "name": "IDAM Web",
       "group": "IDAM",
