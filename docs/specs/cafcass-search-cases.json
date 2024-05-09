@@ -473,6 +473,188 @@
               }
             }
           },
+          "mpuChildInvolvedInMiam": {
+            "type": "string",
+            "example": "Yes/No"
+          },
+          "mpuApplicantAttendedMiam": {
+            "type": "string",
+            "example": "Yes/No"
+          },
+          "mpuClaimingExemptionMiam": {
+            "type": "string",
+            "example": "Yes/No"
+          },
+          "mpuExemptionReasons": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "example": "mpuDomesticAbuse"
+            }
+          },
+          "mpuDomesticAbuseEvidences": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "example": "miamDomesticAbuseChecklistEnum_Value_1"
+            }
+          },
+          "mpuIsDomesticAbuseEvidenceProvided": {
+            "type": "string",
+            "example": "Yes/No"
+          },
+          "mpuDomesticAbuseEvidenceDocument": {
+            "type": "array",
+            "items": {
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "format": "uuid",
+                  "example": "yf958b24-c5c2-451c-9f22-d7a6a87c6322"
+                },
+                "value": {
+                  "type": "object",
+                  "properties": {
+                    "domesticAbuseDocument": {
+                      "$ref": "#/components/schemas/domesticAbuseDocument"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "mpuUrgencyReason": {
+            "type": "string",
+            "example": "miamPolicyUpgradeUrgencyReason_Value_1"
+          },
+          "mpuPreviousMiamAttendanceReason": {
+            "type": "string",
+            "example": "miamPolicyUpgradePreviousAttendance_Value_2"
+          },
+          "mpuTypeOfPreviousMiamAttendanceEvidence": {
+            "type": "string",
+            "example": "miamCertificate"
+          },
+          "mpuCertificateByMediator": {
+            "type": "object",
+            "properties": {
+              "document_id": {
+                "type": "string",
+                "format": "uuid",
+                "example": "zzz48b24-c5c2-451c-9fd5-d7a6a87c6355"
+              },
+              "document_filename": {
+                "type": "string",
+                "example": "miamCertificate.pdf"
+              }
+            }
+          },
+          "mpuOtherExemptionReasons": {
+            "type": "string",
+            "example": "miamPolicyUpgradeOtherGrounds_Value_3"
+          },
+          "mpuApplicantUnableToAttendMiamReason1": {
+            "type": "string",
+            "example": "mpuChildProtectionConcern_value_1"
+          },
+          "mpuApplicantUnableToAttendMiamReason2": {
+            "type": "string",
+            "example": "mpuChildProtectionConcern_value_2"
+          },
+          "mpuDocFromDisputeResolutionProvider": {
+            "type": "object",
+            "properties": {
+              "document_id": {
+                "type": "string",
+                "format": "uuid",
+                "example": "zzz48b24-c5c2-451c-9fd5-d7a6a87c6355"
+              },
+              "document_filename": {
+                "type": "string",
+                "example": "disputeResolution.pdf"
+              }
+            }
+          },
+          "miamCertificationDocumentUpload": {
+            "type": "object",
+            "properties": {
+              "document_id": {
+                "type": "string",
+                "format": "uuid",
+                "example": "zzz48b24-c5c2-451c-9fd5-d7a6a87c6355"
+              },
+              "document_filename": {
+                "type": "string",
+                "example": "certificateDocument.pdf"
+              }
+            }
+          },
+          "mpuChildProtectionConcernReason": {
+            "type": "string",
+            "example": "child protection concern"
+          },
+          "mpuMediatorDetails": {
+            "type": "string",
+            "example": "mediator details"
+          },
+          "mpuNoDomesticAbuseEvidenceReason": {
+            "type": "string",
+            "example":"domestic abuse evidence reason"
+          },
+          "miamPolicyUpgradeTable": {
+            "type": "object",
+            "properties": {
+              "mpuApplicantAttendedMiam": {
+                "type": "string",
+                "example": "Yes/No"
+              },
+              "mpuClaimingExemptionMiam": {
+                "type": "string",
+                "example": "Yes/No"
+              },
+              "mpuChildInvolvedInMiam": {
+                "type": "string",
+                "example": "Yes/No"
+              }
+            }
+          },
+          "miamPolicyUpgradeExemptionsTable": {
+            "type": "object",
+            "properties": {
+              "mpuChildProtectionEvidence": {
+                "type": "string",
+                "example": "child protection evidence"
+              },
+              "mpuUrgencyEvidence": {
+                "type": "string",
+                "example": "urgency evidence"
+              },
+              "mpuDomesticAbuseEvidence": {
+                "type": "string",
+                "example": "domestic abuse evidence"
+              },
+              "mpuPreviousAttendenceEvidence": {
+                "type": "string",
+                "example": "previous attendance evidence"
+              },
+              "mpuReasonsForMiamExemption": {
+                "type": "string",
+                "example": "Domestic abuse,child protection concerns"
+              },
+              "mpuIsDomesticAbuseEvidenceProvided": {
+                "type": "string",
+                "example": "Yes/No"
+              },
+              "mpuTypeOfPreviousMiamAttendanceEvidence": {
+                "type": "string",
+                "example": "miam attendance evidence"
+              },
+              "mpuOtherGroundsEvidence": {
+                "type": "string",
+                "example": "other ground evidence"
+              }
+            }
+          },
           "summaryTabForOrderAppliedFor": {
             "type": "object",
             "properties": {
