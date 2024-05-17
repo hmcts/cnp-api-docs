@@ -13,7 +13,6 @@ cath = softwareSystem "CaTH" {
 }
 idam = softwareSystem "IDAM" {
    idam_api = container "IDAM API" "Authentication APIs"
-   idam_user_dashboard = container "IDAM User Dashboard" "User management and reporting"
    idam_web_public = container "IDAM Web" "Login and singup pages"
 }
 bar_fee__pay = softwareSystem "BAR, Fee & Pay" {
