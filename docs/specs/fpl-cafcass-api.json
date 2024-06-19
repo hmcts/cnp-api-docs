@@ -311,6 +311,7 @@
       },
       "respondent": {
         "type": "object",
+        "description": "Details may be updated after submission, new respondents can be added.",
         "properties": {
           "firstName": {
             "type": "string",
@@ -408,6 +409,7 @@
       },
       "previousProceeding": {
         "type": "object",
+        "description": "Should not change post submission, but can if case is returned and resubmitted. New proceedings can be added.",
         "properties": {
           "proceedingStatus": {
             "type": "string",
@@ -461,6 +463,7 @@
       },
       "risks": {
         "type": "object",
+        "description": "Should not change after submission, unless case returned and resubmitted",
         "properties": {
           "physicalHarmOccurrences": {
             "type": "string",
@@ -494,6 +497,7 @@
       },
       "internationalElement": {
         "type": "object",
+        "description": "Should not be updated after submission, unless case returned and resubmitted",
         "properties": {
           "possibleCarer": {
             "type": "boolean",
@@ -539,6 +543,7 @@
       },
       "other": {
         "type": "object",
+        "description": "Can change after submission, new others can be added.",
         "properties": {
           "name": {
             "type": "string",
@@ -672,6 +677,7 @@
       },
       "caseDocument": {
         "type": "object",
+        "description": "Individual documents may be removed, but filename and category should stay the same. New documents will be added to this array regularly.",
         "properties": {
           "document_filename": {
             "type": "string",
@@ -732,6 +738,7 @@
       },
       "applicant": {
         "type": "object",
+        "description": "May change if the case is transferred to another local authority.",
         "properties": {
           "id": {
             "type": "string",
@@ -767,6 +774,7 @@
       },
       "child": {
         "type": "object",
+        "description": "Technically can change, but new children shouldn't be added to the case, should be a new case created",
         "properties": {
           "firstName": {
             "type": "string",
@@ -905,6 +913,7 @@
       },
       "hearing": {
         "type": "object",
+        "description": "Individual hearings may be adjourned/vacated and relisted. Future hearings may have their details updated.",
         "properties": {
           "id": {
             "type": "string",
@@ -1026,15 +1035,18 @@
         "properties": {
           "familyManCaseNumber": {
             "type": "string",
+            "description": "Shouldn't change after it's been added, but could be null until added",
             "example": "LV22P70768"
           },
           "dateSubmitted": {
             "type": "string",
             "format": "date",
-            "example": "2022-08-13"
+            "example": "2022-08-13",
+            "description": "Should not change - unless returned and resubmitted"
           },
           "applicationType": {
             "type": "string",
+            "description": "Should not change after application submission",
             "enum": ["C110A", "C1"]
           },
           "ordersSought": {
@@ -1055,18 +1067,18 @@
                 "CONTACT_WITH_CHILD_IN_CARE",
                 "CHILD_RECOVERY_ORDER"
               ],
-              "description": "List of orders sought in initial application (mapped to caseData.orders.orderType in CCD)"
+              "description": "List of orders sought in initial application (mapped to caseData.orders.orderType in CCD). Could change if application is returned to applicant"
             }
           },
           "dateOfCourtIssue": {
             "type": "string",
             "example": "2022-05-24T14:46:15.505",
             "format": "datetime",
-            "description": "Standard direction order dateOfUpload (date sealed)"
+            "description": "Standard direction order dateOfUpload (date sealed), should not change after gatekeeping, may be null beforehand"
           },
           "citizenIsApplicant": {
             "type": "boolean",
-            "description": "Is the application issued by a 3rd party solicitor on behalf of a former respondent/child"
+            "description": "Is the application issued by a 3rd party solicitor on behalf of a former respondent/child. Will never change"
           },
           "applicantLA": {
             "type": "string",
@@ -1074,7 +1086,7 @@
             "enum": [
               "SA", "CDF", "SCC", "PCC", "STF", "SN", "SNW", "RCC", "HN", "NLC", "NELC", "LCC", "KBC", "ERY", "RCT", "MTC", "NCC", "OCC", "FPLA", "DCC", "LEI", "LCO", "MKC", "DBC", "HCC", "SOT", "BSC", "BDB", "SOC", "CEB", "DER", "LAN", "LIC", "TAM", "MWC", "WMD", "NGC", "NHC", "DSC", "WSC", "HFC", "OLC", "STC", "DMC", "CCC", "WCC", "BCP", "MDB", "BIR", "SOL", "STO", "CER", "COR", "WOL", "SMC", "TWB", "SHR", "WAL", "BCC", "CMB", "LBM", "BOL", "HBC", "WIR", "GTE", "YCC", "BHC", "TBC", "DEV", "PEM", "BNS", "GCC", "NSC", "LBC", "NYS", "WIC", "PET", "SGL", "HAM", "VOG", "NPT", "CAR", "GSCC", "LBTH", "BRD", "SUF", "WRX", "NFK", "NWT", "SHF", "ROT", "DON", "BAR", "IOA", "KECH", "WMS", "DEN", "CWC", "BRE", "CPY", "WAR", "BGW", "NHB", "STH", "MON", "DOR", "BRO", "KKL", "LEE", "BED", "GWY", "FCC", "CON", "SBC", "HRW", "HPL", "CBF", "SWK", "HUL", "BLA", "NTY", "KEN", "MCC", "CAM", "POW", "SUN", "IOW", "BFO", "WBC", "SCF", "WIM", "WOK", "TCBC", "STY", "KGN", "RMD", "SUT", "WAD", "GRW", "TOR", "PLY", "BRA", "CAL", "RBC", "SAL", "ESX", "HAF", "REC", "NTHW", "NTHN", "LAM", "ISL", "CDN", "LEW", "BNT", "HLW", "WSX", "BAD", "ENF", "WAF", "CRY", "RED", "HAR", "EAL", "BEX", "BUR", "THK", "ESS", "HAC", "COL", "HAV", "NEW", "RTL", "WMF", "SOS"
             ],
-            "description": "The short code for the APPLICANT Local Authority (if one is present)"
+            "description": "The short code for the APPLICANT Local Authority (if one is present). Could change if the case is transferred"
           },
           "respondentLA": {
             "type": "string",
@@ -1082,7 +1094,7 @@
             "enum": [
               "SA", "CDF", "SCC", "PCC", "STF", "SN", "SNW", "RCC", "HN", "NLC", "NELC", "LCC", "KBC", "ERY", "RCT", "MTC", "NCC", "OCC", "FPLA", "DCC", "LEI", "LCO", "MKC", "DBC", "HCC", "SOT", "BSC", "BDB", "SOC", "CEB", "DER", "LAN", "LIC", "TAM", "MWC", "WMD", "NGC", "NHC", "DSC", "WSC", "HFC", "OLC", "STC", "DMC", "CCC", "WCC", "BCP", "MDB", "BIR", "SOL", "STO", "CER", "COR", "WOL", "SMC", "TWB", "SHR", "WAL", "BCC", "CMB", "LBM", "BOL", "HBC", "WIR", "GTE", "YCC", "BHC", "TBC", "DEV", "PEM", "BNS", "GCC", "NSC", "LBC", "NYS", "WIC", "PET", "SGL", "HAM", "VOG", "NPT", "CAR", "GSCC", "LBTH", "BRD", "SUF", "WRX", "NFK", "NWT", "SHF", "ROT", "DON", "BAR", "IOA", "KECH", "WMS", "DEN", "CWC", "BRE", "CPY", "WAR", "BGW", "NHB", "STH", "MON", "DOR", "BRO", "KKL", "LEE", "BED", "GWY", "FCC", "CON", "SBC", "HRW", "HPL", "CBF", "SWK", "HUL", "BLA", "NTY", "KEN", "MCC", "CAM", "POW", "SUN", "IOW", "BFO", "WBC", "SCF", "WIM", "WOK", "TCBC", "STY", "KGN", "RMD", "SUT", "WAD", "GRW", "TOR", "PLY", "BRA", "CAL", "RBC", "SAL", "ESX", "HAF", "REC", "NTHW", "NTHN", "LAM", "ISL", "CDN", "LEW", "BNT", "HLW", "WSX", "BAD", "ENF", "WAF", "CRY", "RED", "HAR", "EAL", "BEX", "BUR", "THK", "ESS", "HAC", "COL", "HAV", "NEW", "RTL", "WMF", "SOS"
             ],
-            "description": "The short code for the RESPONDENT Local Authority (if one is present)"
+            "description": "The short code for the RESPONDENT Local Authority (if one is present). Should not change after application submission"
           },
           "applicants": {
             "type": "array",
@@ -1134,6 +1146,7 @@
           },
           "factorsParenting": {
             "type": "object",
+            "description": "Should not change after submission, unless case returned and resubmitted",
             "properties": {
               "alcoholDrugAbuse": {
                 "type": "boolean"
@@ -1157,6 +1170,7 @@
           },
           "caseManagementLocation": {
             "type": "object",
+            "description": "Can change after submission, if the case is transferred to another local authority or court",
             "properties": {
               "region": {
                 "type": "string",
