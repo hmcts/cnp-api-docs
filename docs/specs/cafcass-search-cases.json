@@ -341,7 +341,32 @@
                             "RESPONDENT",
                             "OTHERPEOPLE"
                           ]
-                         }
+                         },
+                         "childAddress": {
+                            "type": "object",
+                            "properties": {
+                              "AddressLine1": {
+                                "type": "string",
+                                "example": "1 Signet Square"
+                              },
+                              "Country": {
+                                "type": "string",
+                                "example": "United Kingdom"
+                              },
+                              "PostTown": {
+                                "type": "string",
+                                "example": "Coventry"
+                              },
+                              "PostCode": {
+                                "type": "string",
+                                "example": "CV2 4NZ"
+                              },
+                              "County": {
+                                "type": "string",
+                                "example": "TEST"
+                              }
+                            }
+                          }
                         }
                     },
                     "firstName": {
