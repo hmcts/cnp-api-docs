@@ -315,6 +315,31 @@
                       "format": "date",
                       "example": "2012-04-21"
                     },
+                     "address": {
+                      "type": "object",
+                      "properties": {
+                        "AddressLine1": {
+                          "type": "string",
+                          "example": "1 Signet Square"
+                        },
+                        "Country": {
+                          "type": "string",
+                          "example": "United Kingdom"
+                        },
+                        "PostTown": {
+                          "type": "string",
+                          "example": "Coventry"
+                        },
+                        "PostCode": {
+                          "type": "string",
+                          "example": "CV2 4NZ"
+                        },
+                        "County": {
+                          "type": "string",
+                          "example": "TEST"
+                        }
+                      }
+                    },
                     "otherApplicantsRelationshipToChild": {
                       "type": "string",
                       "example": "TEST"
@@ -341,8 +366,33 @@
                             "RESPONDENT",
                             "OTHERPEOPLE"
                           ]
-                         }
+                         },
+                         "address": {
+                          "type": "object",
+                          "properties": {
+                            "AddressLine1": {
+                              "type": "string",
+                              "example": "1 Signet Square"
+                            },
+                            "Country": {
+                              "type": "string",
+                              "example": "United Kingdom"
+                            },
+                            "PostTown": {
+                              "type": "string",
+                              "example": "Coventry"
+                            },
+                            "PostCode": {
+                              "type": "string",
+                              "example": "CV2 4NZ"
+                            },
+                            "County": {
+                              "type": "string",
+                              "example": "TEST"
+                            }
+                          }
                         }
+                      }
                     },
                     "firstName": {
                       "type": "string",
