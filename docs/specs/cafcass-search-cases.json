@@ -323,6 +323,27 @@
                       "type": "string",
                       "example": "other"
                     },
+                    "whoDoesTheChildLiveWith": {
+                      "type": "object",
+                      "properties": {
+                        "partyId": {
+                          "type": "string",
+                           "example": "49f18d28-782a-4bb1-b5ad-d8fd32012c7d"
+                         },
+                         "partyFullName": {
+                          "type": "string",
+                          "example": "James Franklyn"
+                         },
+                        "partyType": {
+                          "type": "string",
+                          "enum": [
+                            "APPLICANT",
+                            "RESPONDENT",
+                            "OTHERPEOPLE"
+                          ]
+                         }
+                        }
+                    },
                     "firstName": {
                       "type": "string",
                       "example": "ca"
@@ -435,12 +456,111 @@
             "type": "string",
             "example": "Smith James"
           },
+          "miamChildProtectionConcernReason": {
+            "type": "string",
+            "example": "child protection concern"
+          },
+          "mpuMediatorDetails": {
+            "type": "string",
+            "example": "mediator details"
+          },
+          "mpuNoDomesticAbuseEvidenceReason": {
+            "type": "string",
+            "example":"domestic abuse evidence reason"
+          },
           "miamTable": {
             "type": "object",
             "properties": {
               "claimingExemptionMiam": {
                 "type": "string",
                 "example": "Yes"
+              }
+            }
+          },
+          "mpuChildInvolvedInMiam": {
+            "type": "string",
+            "example": "Yes/No"
+          },
+          "miamDomesticAbuseEvidences": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "example": "Evidence of relevant criminal proceedings for a domestic abuse offence which have not concluded"
+            }
+          },
+          "mpuIsDomesticAbuseEvidenceProvided": {
+            "type": "string",
+            "example": "Yes/No"
+          },
+          "mpuDomesticAbuseEvidenceDocument": {
+            "type": "array",
+            "items": {
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "format": "uuid",
+                  "example": "yf958b24-c5c2-451c-9f22-d7a6a87c6322"
+                },
+                "value": {
+                  "type": "object",
+                  "properties": {
+                    "domesticAbuseDocument": {
+                      "$ref": "#/components/schemas/domesticAbuseDocument"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "miamUrgencyReason": {
+            "type": "string",
+            "example": "There is risk to the life, liberty or physical safety of the prospective applicant or his or her family or his or her home"
+          },
+          "miamPreviousAttendanceReason": {
+            "type": "string",
+            "example": "Miam previous attended reason details"
+          },
+          "miamTypeOfPreviousAttendanceEvidence": {
+            "type": "string",
+            "example": "MIAM attendance details"
+          },
+          "mpuCertificateByMediator": {
+            "type": "object",
+            "properties": {
+              "document_id": {
+                "type": "string",
+                "format": "uuid",
+                "example": "zzz48b24-c5c2-451c-9fd5-d7a6a87c6355"
+              },
+              "document_filename": {
+                "type": "string",
+                "example": "miamCertificate.pdf"
+              }
+            }
+          },
+          "miamOtherExemptionReasons": {
+            "type": "string",
+            "example": "A child is one of the prospective parties"
+          },
+          "mpuApplicantUnableToAttendMiamReason1": {
+            "type": "string",
+            "example": "Reasons applicant unable to attend MIAM"
+          },
+          "mpuApplicantUnableToAttendMiamReason2": {
+            "type": "string",
+            "example": "Reasons applicant unable to attend MIAM"
+          },
+          "mpuDocFromDisputeResolutionProvider": {
+            "type": "object",
+            "properties": {
+              "document_id": {
+                "type": "string",
+                "format": "uuid",
+                "example": "zzz48b24-c5c2-451c-9fd5-d7a6a87c6355"
+              },
+              "document_filename": {
+                "type": "string",
+                "example": "disputeResolution.pdf"
               }
             }
           },
