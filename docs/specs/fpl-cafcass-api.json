@@ -2,8 +2,8 @@
   "openapi": "3.0.0",
   "servers": [
     {
-      "description": "FPL-Cafcass APIs to retrieve FPL case data and docs",
-      "url": ""
+      "description": "Generated server url",
+      "url": "http://localhost"
     }
   ],
   "info": {
@@ -12,16 +12,8 @@
     "title": "FPL-Cafcass APIs"
   },
   "paths": {
-    "/public-law-api/cases": {
+    "/cases": {
       "get": {
-        "security": [
-          {
-            "Authorization": []
-          },
-          {
-            "Ocp-Apim-Subscription-Key": []
-          }
-        ],
         "tags": [
           "Get case information"
         ],
@@ -86,16 +78,8 @@
         }
       }
     },
-    "/public-law-api/cases/documents/{documentId}/binary": {
+    "/cases/documents/{documentId}/binary": {
       "get": {
-        "security": [
-          {
-            "Authorization": []
-          },
-          {
-            "Ocp-Apim-Subscription-Key": []
-          }
-        ],
         "tags": [
           "Get case information"
         ],
@@ -140,52 +124,55 @@
         }
       }
     },
-    "/public-law-api/cases/{caseId}/document": {
+    "/cases/{caseId}/document": {
       "post": {
         "description": "Uploads document for a specific case in CCD",
         "operationId": "documentUpload",
         "summary": "Upload document",
-        "tags": ["Update case information"],
+        "tags": [
+          "Update case information"
+        ],
         "parameters": [
           {
             "name": "caseId",
             "in": "path",
             "required": true,
-            "type": "string",
-            "description": "CCD ID for which document will be uploaded"
-          },
-          {
-            "name": "file",
-            "in": "formData",
-            "required": true,
-            "type": "file",
-            "description": "Document which needs to be attached to a case"
-          },
-          {
-            "name": "typeOfDocument",
-            "in": "formData",
-            "required": true,
             "schema": {
               "type": "string",
-              "enum": ["POSITION_STATEMENT", "GUARDIAN_REPORT"]
+              "format": "datetime",
+              "example": "2023-03-28T12:32:54.541Z"
             },
-            "description": "Type of document which is being attached"
+            "description": "CCD ID for which document will be uploaded"
           }
         ],
-        "consumes": [
-          "multipart/form-data"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "responses": {
-          "201": {
-            "description": "Document is uploaded",
-            "examples": {
-              "application/json": {
-                "message": "Document has been uploaded successfully: xyz.pdf"
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "file": {
+                    "type": "string",
+                    "format": "binary"
+                  },
+                  "typeOfDocument": {
+                    "type": "string",
+                    "enum": [
+                      "POSITION_STATEMENT",
+                      "GUARDIAN_REPORT"
+                    ]
+                  }
+                }
               }
             }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Document is uploaded"
+          },
+          "201": {
+            "description": "Document is uploaded"
           },
           "400": {
             "description": "Bad request"
@@ -205,16 +192,8 @@
         }
       }
     },
-    "/public-law-api/cases/{caseId}/guardians": {
+    "/cases/{caseId}/guardians": {
       "post": {
-        "security": [
-          {
-            "Authorization": []
-          },
-          {
-            "Ocp-Apim-Subscription-Key": []
-          }
-        ],
         "tags": [
           "Update case information"
         ],
@@ -688,7 +667,7 @@
               "positionStatements",
               "threshold",
               "skeletonArguments",
-              "draftOrderForReviewPriorToHearing",    
+              "draftOrderForReviewPriorToHearing",
               "applications",
               "originalApplications",
               "c1AndOtherApplications",
@@ -1035,19 +1014,22 @@
           },
           "applicationType": {
             "type": "string",
-            "enum": ["C110A", "C1"]
+            "enum": [
+              "C110A",
+              "C1"
+            ]
           },
           "ordersSought": {
             "type": "array",
             "items": {
               "type": "string",
               "enum": [
-                "CARE_ORDER", 
+                "CARE_ORDER",
                 "INTERIM_CARE_ORDER",
-                "SUPERVISION_ORDER", 
+                "SUPERVISION_ORDER",
                 "INTERIM_SUPERVISION_ORDER",
                 "EDUCATION_SUPERVISION_ORDER",
-                "EMERGENCY_PROTECTION_ORDER", 
+                "EMERGENCY_PROTECTION_ORDER",
                 "OTHER",
                 "CHILD_ASSESSMENT_ORDER",
                 "SECURE_ACCOMMODATION_ORDER",
@@ -1072,7 +1054,181 @@
             "type": "string",
             "example": "DEV",
             "enum": [
-              "SA", "CDF", "SCC", "PCC", "STF", "SN", "SNW", "RCC", "HN", "NLC", "NELC", "LCC", "KBC", "ERY", "RCT", "MTC", "NCC", "OCC", "FPLA", "DCC", "LEI", "LCO", "MKC", "DBC", "HCC", "SOT", "BSC", "BDB", "SOC", "CEB", "DER", "LAN", "LIC", "TAM", "MWC", "WMD", "NGC", "NHC", "DSC", "WSC", "HFC", "OLC", "STC", "DMC", "CCC", "WCC", "BCP", "MDB", "BIR", "SOL", "STO", "CER", "COR", "WOL", "SMC", "TWB", "SHR", "WAL", "BCC", "CMB", "LBM", "BOL", "HBC", "WIR", "GTE", "YCC", "BHC", "TBC", "DEV", "PEM", "BNS", "GCC", "NSC", "LBC", "NYS", "WIC", "PET", "SGL", "HAM", "VOG", "NPT", "CAR", "GSCC", "LBTH", "BRD", "SUF", "WRX", "NFK", "NWT", "SHF", "ROT", "DON", "BAR", "IOA", "KECH", "WMS", "DEN", "CWC", "BRE", "CPY", "WAR", "BGW", "NHB", "STH", "MON", "DOR", "BRO", "KKL", "LEE", "BED", "GWY", "FCC", "CON", "SBC", "HRW", "HPL", "CBF", "SWK", "HUL", "BLA", "NTY", "KEN", "MCC", "CAM", "POW", "SUN", "IOW", "BFO", "WBC", "SCF", "WIM", "WOK", "TCBC", "STY", "KGN", "RMD", "SUT", "WAD", "GRW", "TOR", "PLY", "BRA", "CAL", "RBC", "SAL", "ESX", "HAF", "REC", "NTHW", "NTHN", "LAM", "ISL", "CDN", "LEW", "BNT", "HLW", "WSX", "BAD", "ENF", "WAF", "CRY", "RED", "HAR", "EAL", "BEX", "BUR", "THK", "ESS", "HAC", "COL", "HAV", "NEW", "RTL", "WMF", "SOS"
+              "SA",
+              "CDF",
+              "SCC",
+              "PCC",
+              "STF",
+              "SN",
+              "SNW",
+              "RCC",
+              "HN",
+              "NLC",
+              "NELC",
+              "LCC",
+              "KBC",
+              "ERY",
+              "RCT",
+              "MTC",
+              "NCC",
+              "OCC",
+              "FPLA",
+              "DCC",
+              "LEI",
+              "LCO",
+              "MKC",
+              "DBC",
+              "HCC",
+              "SOT",
+              "BSC",
+              "BDB",
+              "SOC",
+              "CEB",
+              "DER",
+              "LAN",
+              "LIC",
+              "TAM",
+              "MWC",
+              "WMD",
+              "NGC",
+              "NHC",
+              "DSC",
+              "WSC",
+              "HFC",
+              "OLC",
+              "STC",
+              "DMC",
+              "CCC",
+              "WCC",
+              "BCP",
+              "MDB",
+              "BIR",
+              "SOL",
+              "STO",
+              "CER",
+              "COR",
+              "WOL",
+              "SMC",
+              "TWB",
+              "SHR",
+              "WAL",
+              "BCC",
+              "CMB",
+              "LBM",
+              "BOL",
+              "HBC",
+              "WIR",
+              "GTE",
+              "YCC",
+              "BHC",
+              "TBC",
+              "DEV",
+              "PEM",
+              "BNS",
+              "GCC",
+              "NSC",
+              "LBC",
+              "NYS",
+              "WIC",
+              "PET",
+              "SGL",
+              "HAM",
+              "VOG",
+              "NPT",
+              "CAR",
+              "GSCC",
+              "LBTH",
+              "BRD",
+              "SUF",
+              "WRX",
+              "NFK",
+              "NWT",
+              "SHF",
+              "ROT",
+              "DON",
+              "BAR",
+              "IOA",
+              "KECH",
+              "WMS",
+              "DEN",
+              "CWC",
+              "BRE",
+              "CPY",
+              "WAR",
+              "BGW",
+              "NHB",
+              "STH",
+              "MON",
+              "DOR",
+              "BRO",
+              "KKL",
+              "LEE",
+              "BED",
+              "GWY",
+              "FCC",
+              "CON",
+              "SBC",
+              "HRW",
+              "HPL",
+              "CBF",
+              "SWK",
+              "HUL",
+              "BLA",
+              "NTY",
+              "KEN",
+              "MCC",
+              "CAM",
+              "POW",
+              "SUN",
+              "IOW",
+              "BFO",
+              "WBC",
+              "SCF",
+              "WIM",
+              "WOK",
+              "TCBC",
+              "STY",
+              "KGN",
+              "RMD",
+              "SUT",
+              "WAD",
+              "GRW",
+              "TOR",
+              "PLY",
+              "BRA",
+              "CAL",
+              "RBC",
+              "SAL",
+              "ESX",
+              "HAF",
+              "REC",
+              "NTHW",
+              "NTHN",
+              "LAM",
+              "ISL",
+              "CDN",
+              "LEW",
+              "BNT",
+              "HLW",
+              "WSX",
+              "BAD",
+              "ENF",
+              "WAF",
+              "CRY",
+              "RED",
+              "HAR",
+              "EAL",
+              "BEX",
+              "BUR",
+              "THK",
+              "ESS",
+              "HAC",
+              "COL",
+              "HAV",
+              "NEW",
+              "RTL",
+              "WMF",
+              "SOS"
             ],
             "description": "The short code for the APPLICANT Local Authority (if one is present)"
           },
@@ -1080,7 +1236,181 @@
             "type": "string",
             "example": "WCC",
             "enum": [
-              "SA", "CDF", "SCC", "PCC", "STF", "SN", "SNW", "RCC", "HN", "NLC", "NELC", "LCC", "KBC", "ERY", "RCT", "MTC", "NCC", "OCC", "FPLA", "DCC", "LEI", "LCO", "MKC", "DBC", "HCC", "SOT", "BSC", "BDB", "SOC", "CEB", "DER", "LAN", "LIC", "TAM", "MWC", "WMD", "NGC", "NHC", "DSC", "WSC", "HFC", "OLC", "STC", "DMC", "CCC", "WCC", "BCP", "MDB", "BIR", "SOL", "STO", "CER", "COR", "WOL", "SMC", "TWB", "SHR", "WAL", "BCC", "CMB", "LBM", "BOL", "HBC", "WIR", "GTE", "YCC", "BHC", "TBC", "DEV", "PEM", "BNS", "GCC", "NSC", "LBC", "NYS", "WIC", "PET", "SGL", "HAM", "VOG", "NPT", "CAR", "GSCC", "LBTH", "BRD", "SUF", "WRX", "NFK", "NWT", "SHF", "ROT", "DON", "BAR", "IOA", "KECH", "WMS", "DEN", "CWC", "BRE", "CPY", "WAR", "BGW", "NHB", "STH", "MON", "DOR", "BRO", "KKL", "LEE", "BED", "GWY", "FCC", "CON", "SBC", "HRW", "HPL", "CBF", "SWK", "HUL", "BLA", "NTY", "KEN", "MCC", "CAM", "POW", "SUN", "IOW", "BFO", "WBC", "SCF", "WIM", "WOK", "TCBC", "STY", "KGN", "RMD", "SUT", "WAD", "GRW", "TOR", "PLY", "BRA", "CAL", "RBC", "SAL", "ESX", "HAF", "REC", "NTHW", "NTHN", "LAM", "ISL", "CDN", "LEW", "BNT", "HLW", "WSX", "BAD", "ENF", "WAF", "CRY", "RED", "HAR", "EAL", "BEX", "BUR", "THK", "ESS", "HAC", "COL", "HAV", "NEW", "RTL", "WMF", "SOS"
+              "SA",
+              "CDF",
+              "SCC",
+              "PCC",
+              "STF",
+              "SN",
+              "SNW",
+              "RCC",
+              "HN",
+              "NLC",
+              "NELC",
+              "LCC",
+              "KBC",
+              "ERY",
+              "RCT",
+              "MTC",
+              "NCC",
+              "OCC",
+              "FPLA",
+              "DCC",
+              "LEI",
+              "LCO",
+              "MKC",
+              "DBC",
+              "HCC",
+              "SOT",
+              "BSC",
+              "BDB",
+              "SOC",
+              "CEB",
+              "DER",
+              "LAN",
+              "LIC",
+              "TAM",
+              "MWC",
+              "WMD",
+              "NGC",
+              "NHC",
+              "DSC",
+              "WSC",
+              "HFC",
+              "OLC",
+              "STC",
+              "DMC",
+              "CCC",
+              "WCC",
+              "BCP",
+              "MDB",
+              "BIR",
+              "SOL",
+              "STO",
+              "CER",
+              "COR",
+              "WOL",
+              "SMC",
+              "TWB",
+              "SHR",
+              "WAL",
+              "BCC",
+              "CMB",
+              "LBM",
+              "BOL",
+              "HBC",
+              "WIR",
+              "GTE",
+              "YCC",
+              "BHC",
+              "TBC",
+              "DEV",
+              "PEM",
+              "BNS",
+              "GCC",
+              "NSC",
+              "LBC",
+              "NYS",
+              "WIC",
+              "PET",
+              "SGL",
+              "HAM",
+              "VOG",
+              "NPT",
+              "CAR",
+              "GSCC",
+              "LBTH",
+              "BRD",
+              "SUF",
+              "WRX",
+              "NFK",
+              "NWT",
+              "SHF",
+              "ROT",
+              "DON",
+              "BAR",
+              "IOA",
+              "KECH",
+              "WMS",
+              "DEN",
+              "CWC",
+              "BRE",
+              "CPY",
+              "WAR",
+              "BGW",
+              "NHB",
+              "STH",
+              "MON",
+              "DOR",
+              "BRO",
+              "KKL",
+              "LEE",
+              "BED",
+              "GWY",
+              "FCC",
+              "CON",
+              "SBC",
+              "HRW",
+              "HPL",
+              "CBF",
+              "SWK",
+              "HUL",
+              "BLA",
+              "NTY",
+              "KEN",
+              "MCC",
+              "CAM",
+              "POW",
+              "SUN",
+              "IOW",
+              "BFO",
+              "WBC",
+              "SCF",
+              "WIM",
+              "WOK",
+              "TCBC",
+              "STY",
+              "KGN",
+              "RMD",
+              "SUT",
+              "WAD",
+              "GRW",
+              "TOR",
+              "PLY",
+              "BRA",
+              "CAL",
+              "RBC",
+              "SAL",
+              "ESX",
+              "HAF",
+              "REC",
+              "NTHW",
+              "NTHN",
+              "LAM",
+              "ISL",
+              "CDN",
+              "LEW",
+              "BNT",
+              "HLW",
+              "WSX",
+              "BAD",
+              "ENF",
+              "WAF",
+              "CRY",
+              "RED",
+              "HAR",
+              "EAL",
+              "BEX",
+              "BUR",
+              "THK",
+              "ESS",
+              "HAC",
+              "COL",
+              "HAV",
+              "NEW",
+              "RTL",
+              "WMF",
+              "SOS"
             ],
             "description": "The short code for the RESPONDENT Local Authority (if one is present)"
           },
@@ -1168,18 +1498,6 @@
                 "description": "epimms id"
               }
             }
-          }
-        },
-        "securitySchemes": {
-          "Authorization": {
-            "type": "http",
-            "scheme": "bearer",
-            "bearerFormat": "JWT"
-          },
-          "Ocp-Apim-Subscription-Key": {
-            "type": "apiKey",
-            "in": "header",
-            "name": "X-API-KEY"
           }
         }
       }
