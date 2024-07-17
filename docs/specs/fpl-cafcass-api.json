@@ -442,32 +442,44 @@
         "type": "object",
         "properties": {
           "physicalHarmOccurrences": {
-            "type": "string",
-            "enum": [
-              "Future risk of harm",
-              "Past harm"
-            ]
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "Future risk of harm",
+                "Past harm"
+              ]
+            }
           },
           "emotionalHarmOccurrences": {
-            "type": "string",
-            "enum": [
-              "Future risk of harm",
-              "Past harm"
-            ]
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "Future risk of harm",
+                "Past harm"
+              ]
+            }
           },
           "sexualAbuseOccurrences": {
-            "type": "string",
-            "enum": [
-              "Future risk of harm",
-              "Past harm"
-            ]
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "Future risk of harm",
+                "Past harm"
+              ]
+            }
           },
           "neglectOccurrences": {
-            "type": "string",
-            "enum": [
-              "Future risk of harm",
-              "Past harm"
-            ]
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "Future risk of harm",
+                "Past harm"
+              ]
+            }
           }
         }
       },
