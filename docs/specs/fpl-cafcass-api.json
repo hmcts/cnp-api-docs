@@ -718,6 +718,11 @@
           "documentId": {
             "type": "string",
             "example": "aeaa6abd-5964-4835-ab40-056267ccdda7"
+          },
+          "upload_timestamp": {
+            "type": "string",
+            "format": "datetime",
+            "example": "2022-05-19T09:01:31.576"
           }
         }
       },
