@@ -1255,6 +1255,24 @@
       "version": null
     },
     {
+      "id": "bsp-reform-scan-notification-service",
+      "name": "Reform Scan Notification Service",
+      "group": "BSP",
+      "type": "api",
+      "description": "",
+      "repository": "https://github.com/hmcts/reform-scan-notification-service",
+      "spec": "https://hmcts.github.io/cnp-api-docs/specs/reform-scan-notification-service.json",
+      "dependencies": [
+        {
+          "id": "rpe-service-auth-provider",
+          "hard": true,
+          "apis": []
+        }
+      ],
+      "apis": [],
+      "version": null
+    },
+    {
       "id": "bsp-send-letter-service",
       "name": "Bulk Printing (Send Letter)",
       "group": "BSP",
