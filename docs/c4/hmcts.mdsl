@@ -70,6 +70,7 @@ bsp = softwareSystem "BSP" {
    bsp_bulk_scan_processor = container "Bulk scan processor" ""
    bsp_bulk_scan_orchestrator = container "Bulk scan orchestrator" ""
    bsp_bulk_scan_payment_processor = container "Bulk scan payment processor" ""
+   bsp_reform_scan_notification_service = container "Reform Scan Notification Service" ""
    bsp_send_letter_service = container "Bulk Printing (Send Letter)" ""
 }
 xui = softwareSystem "XUI" {
@@ -293,6 +294,8 @@ bsp_bulk_scan_payment_processor -> rpe_service_auth_provider "Depends on"
 bsp_bulk_scan_payment_processor -> idam_api "Depends on"
 bsp_bulk_scan_payment_processor -> ccd_data_store_api "Depends on"
 bsp_bulk_scan_payment_processor -> payment_api "Depends on"
+
+bsp_reform_scan_notification_service -> rpe_service_auth_provider "Depends on"
 
 bsp_send_letter_service -> rpe_service_auth_provider "Depends on"
 
