@@ -382,10 +382,6 @@
           "organisationId": {
             "type": "string",
             "example": "ABC281F"
-          },
-          "address": {
-            "$ref": "#/components/schemas/address",
-            "description": "Filled in if address exist"
           }
         }
       },
