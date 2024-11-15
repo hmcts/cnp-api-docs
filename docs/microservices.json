@@ -136,7 +136,7 @@
       "group": "HMI Gateway",
       "type": "api",
       "description": "Future Hearings Gateway",
-      "repository": "https://github.com/hmcts/hmi-api-gateway-fh",
+      "repository": "https://github.com/hmcts/hmi-apim-infrastructures",
       "spec": "https://hmcts.github.io/cnp-api-docs/specs/future-hearings-hmi-api.json",
       "dependencies": [],
       "apis": [],
