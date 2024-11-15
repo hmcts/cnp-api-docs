@@ -1765,7 +1765,7 @@
                     {
                         "name": "Content-Type",
                         "in": "header",
-                        "required": false,
+                        "required": true,
                         "schema": {
                           "type": "string",
                           "default": "application/json"
