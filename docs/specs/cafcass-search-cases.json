@@ -698,31 +698,6 @@
                       "type": "string",
                       "example": "cafcca@gmail.com"
                     },
-                    "solicitorAddress": {
-                      "type": "object",
-                      "properties": {
-                        "AddressLine1": {
-                          "type": "string",
-                          "example": "1 Signet Square"
-                        },
-                        "Country": {
-                          "type": "string",
-                          "example": "United Kingdom"
-                        },
-                        "PostTown": {
-                          "type": "string",
-                          "example": "Coventry"
-                        },
-                        "PostCode": {
-                          "type": "string",
-                          "example": "CV2 4NZ"
-                        },
-                        "County": {
-                          "type": "string",
-                          "example": "TEST"
-                        }
-                      }
-                    },
                     "dxNumber": {
                       "type": "string",
                       "example": "DX1222"
@@ -867,31 +842,6 @@
                     "solicitorReference": {
                       "type": "string",
                       "example": "cafcca@gmail.com"
-                    },
-                    "solicitorAddress": {
-                      "type": "object",
-                      "properties": {
-                        "AddressLine1": {
-                          "type": "string",
-                          "example": "1 Signet Square"
-                        },
-                        "Country": {
-                          "type": "string",
-                          "example": "United Kingdom"
-                        },
-                        "PostTown": {
-                          "type": "string",
-                          "example": "Coventry"
-                        },
-                        "PostCode": {
-                          "type": "string",
-                          "example": "CV2 4NZ"
-                        },
-                        "County": {
-                          "type": "string",
-                          "example": "TEST"
-                        }
-                      }
                     },
                     "email": {
                       "type": "string",
