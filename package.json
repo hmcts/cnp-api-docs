@@ -25,11 +25,14 @@
     "djv": "^2.1.4",
     "jasmine": "^4.3.0",
     "moment": "~2.29.4",
-    "swagger-ui-dist": "^4.13.0",
+    "swagger-ui-dist": "^5.18.2",
     "vis": "^4.21.0"
   },
   "devDependencies": {
     "http-server": "^14.1.1"
+  },
+  "scarfSettings": {
+    "enabled": false
   },
   "spec_dir": "test",
   "spec_files": [
