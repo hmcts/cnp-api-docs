@@ -737,6 +737,14 @@
                           "type": "string",
                           "example": "1 Signet Square"
                         },
+                        "AddressLine2": {
+                          "type": "string",
+                          "example": "Test address line 2"
+                        },
+                        "AddressLine3": {
+                          "type": "string",
+                          "example": "Test address line 3"
+                        },
                         "Country": {
                           "type": "string",
                           "example": "United Kingdom"
@@ -870,6 +878,14 @@
                           "type": "string",
                           "example": "1 Signet Square"
                         },
+                        "AddressLine2": {
+                          "type": "string",
+                          "example": "Test address line 2"
+                        },
+                        "AddressLine3": {
+                          "type": "string",
+                          "example": "Test address line 3"
+                        },
                         "Country": {
                           "type": "string",
                           "example": "United Kingdom"
@@ -951,6 +967,14 @@
                           "type": "string",
                           "example": "1 Signet Square"
                         },
+                        "AddressLine2": {
+                          "type": "string",
+                          "example": "Test address line 2"
+                        },
+                        "AddressLine3": {
+                          "type": "string",
+                          "example": "Test address line 3"
+                        },
                         "Country": {
                           "type": "string",
                           "example": "United Kingdom"
@@ -1023,6 +1047,14 @@
                         "AddressLine1": {
                           "type": "string",
                           "example": "1 Signet Square"
+                        },
+                        "AddressLine2": {
+                          "type": "string",
+                          "example": "Test address line 2"
+                        },
+                        "AddressLine3": {
+                          "type": "string",
+                          "example": "Test address line 3"
                         },
                         "Country": {
                           "type": "string",
