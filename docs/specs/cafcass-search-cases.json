@@ -936,6 +936,10 @@
                       "type": "string",
                       "example": "no"
                     },
+                    "addressLivedLessThan5YearsDetails": {
+                      "type": "string",
+                      "example": "102, Mountbatten road, London"
+                    },
                     "doTheyHaveLegalRepresentation": {
                       "type": "string",
                       "example": "no"
