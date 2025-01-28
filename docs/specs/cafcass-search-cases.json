@@ -1245,6 +1245,10 @@
                         }
                       }
                     },
+                    "originalFilingDate": {
+                        "type": "string",
+                        "example": "2023-06-09"
+                      },
                     "otherDetails": {
                       "type": "object",
                       "properties": {
