@@ -79,7 +79,7 @@
             "content": {
               "*/*": {
                 "schema": {
-                  "$ref": "#/components/schemas/CaseData"
+                  "$ref": "#/components/schemas/CaseDetails"
                 }
               }
             }          },
@@ -215,10 +215,7 @@
             "format": "int32"
           },
           "case_data": {
-            "type": "object",
-            "additionalProperties": {
-              "type": "object"
-            }
+            "$ref": "#/components/schemas/CaseData"
           },
           "security_classification": {
             "type": "string",
