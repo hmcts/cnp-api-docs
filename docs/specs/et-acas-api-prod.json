@@ -1,9 +1,9 @@
 {
   "openapi": "3.0.1",
   "info": {
-    "version": "1.3",
+    "version": "1.2",
     "title": "ET ACAS API",
-    "description": "<h3>ET ACAS API Documentation </h3> <br><b>Published Date:</b> 5 September 2022<br><b>Last Updated:</b> 5 February 2025 <br><b>Author: </b> Harpreet Jhita<br> <b> Requirement:</b> API for ACAS  <br><b>Version History:</b> <li>v1: ET ACAS API is added</li><li>v1.1: Documents API added</li><li>v1.2: Schemas updated</li><li>v1.3: Schemas updated with case creation endpoints</li>"
+    "description": "<h3>ET ACAS API Documentation </h3> <br><b>Published Date:</b> 5 September 2022<br><b>Last Updated:</b> 5 February 2025 <br><b>Author: </b> Harpreet Jhita<br> <b> Requirement:</b> API for ACAS  <br><b>Version History:</b> <li>V1: ET ACAS API is added</li><li>V1.1: Documents API added</li><li>V1.2: Schemas updated</li>"
   },
   "host": "cft-api-mgmt-demo.azure-api.net",
   "basePath": "/et-sya-api",
@@ -43,16 +43,16 @@
             "description": "Successful Operation",
             "examples": {
               "application/json" :
-                [
-                  1663235002066080,
-                  1663164805587979,
-                  1663851490895911,
-                  1664202328205544,
-                  1663744788990892,
-                  1664439480848824,
-                  1663711417034160,
-                  1663711826854976
-                ]
+              [
+                1663235002066080,
+                1663164805587979,
+                1663851490895911,
+                1664202328205544,
+                1663744788990892,
+                1664439480848824,
+                1663711417034160,
+                1663711826854976
+              ]
             }
           },
           "400": {
@@ -170,338 +170,6 @@
           },
           "500": {
             "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-    "/cases/initiate-case": {
-      "post": {
-        "tags": [
-          "manage-case-controller"
-        ],
-        "summary": "Create a draft case for the user",
-        "operationId": "createDraftCase",
-        "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "case_type_id": {
-                    "type": "string",
-                    "example": "ET_EnglandWales"
-                  }
-                }
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/CaseDetails"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/cases/update-case": {
-      "put": {
-        "tags": [
-          "manage-case-controller"
-        ],
-        "summary": "Update draft case API method",
-        "operationId": "updateDraftCase",
-        "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CaseRequest"
-              },
-              "example": {
-                "case_id": "1739920264601001",
-                "case_type_id": "ET_EnglandWales",
-                "case_data": {
-                  "jurCodesCollection": [
-                    {
-                      "id": "f7f10b22-88c0-43b9-a917-f7fff81e006y",
-                      "value": {
-                        "juridictionCodesList": "DAG"
-                      }
-                    }
-                  ],
-                  "typesOfClaim": [
-                    "discrimination"
-                  ],
-                  "positionType": "ET1 Online submission",
-                  "conciliationTrack": "Open Track",
-                  "managingOffice": "Leeds",
-                  "caseType": "Single",
-                  "claimant_TypeOfClaimant": "Individual",
-                  "claimantIndType": {
-                    "claimant_title1": "Dr",
-                    "claimant_first_names": "Grayson",
-                    "claimant_last_name": "Becker",
-                    "claimant_date_of_birth": "1998-12-15",
-                    "claimant_gender": "Male"
-                  },
-                  "claimantType": {
-                    "claimant_addressUK": {
-                      "AddressLine1": "4 Little Meadows",
-                      "PostTown": "Bradley",
-                      "Country": "United Kingdom",
-                      "PostCode": "LL11 4AR"
-                    }
-                  },
-                  "et1OnlineSubmission": "Yes",
-                  "respondentCollection": [
-                    {
-                      "value": {
-                        "respondent_name": "Mrs Test Auto",
-                        "respondent_ACAS_question": "Yes",
-                        "respondent_ACAS": "R807115/23/89",
-                        "responseReceived": "No",
-                        "respondent_address": {
-                          "AddressLine1": "78 East Wonford Hill",
-                          "PostTown": "Exeter",
-                          "Country": "United Kingdom",
-                          "PostCode": "EX1 3DD"
-                        }
-                      },
-                      "id": "e764f874-e937-4642-ac67-4af2e2fd05f6"
-                    }
-                  ],
-                  "claimantWorkAddressQuestion": "No",
-                  "claimantWorkAddress": {
-                    "claimant_work_address": {
-                      "Country": "United Kingdom",
-                      "PostCode": "MK5 7HH",
-                      "PostTown": "Milton Keynes",
-                      "AddressLine1": "The Burnt Oak",
-                      "AddressLine2": "Egerton Gate",
-                      "AddressLine3": "Shenley Brook End"
-                    }
-                  },
-                  "claimantWorkAddressQRespondent": {
-                    "value": {
-                      "code": "Mrs Test Auto",
-                      "label": "Mrs Test Auto - 78 East Wonford Hill, Exeter, EX1 3DD, United Kingdom"
-                    },
-                    "list_items": [
-                      {
-                        "code": "Mrs Test Auto",
-                        "label": "Mrs Test Auto - 78 East Wonford Hill, Exeter, EX1 3DD, United Kingdom"
-                      }
-                    ]
-                  },
-                  "claimantRequests": {
-                    "claimant_compensation": "Yes",
-                    "claimant_tribunal": "Yes",
-                    "claimant_old_job": "No",
-                    "claimant_another_job": "No",
-                    "claimant_compensation_amount": "75000"
-                  },
-                  "claimantOtherType": {
-                    "claimant_occupation": "Builder",
-                    "claimant_employed_from": "2009-05-14",
-                    "claimant_employed_currently": "No",
-                    "claimant_employed_to": "2021-04-20",
-                    "claimant_disabled": "No",
-                    "claimant_notice_period": "No",
-                    "claimant_notice_period_unit": "Months",
-                    "claimant_notice_period_duration": "1",
-                    "claimant_average_weekly_hours": "37",
-                    "claimant_pay_before_tax": "62000",
-                    "claimant_pay_after_tax": "34000",
-                    "claimant_pay_cycle": "Annual",
-                    "claimant_pension_contribution": "Yes",
-                    "claimant_benefits": "No"
-                  },
-                  "claimantRepresentedQuestion": "No"
-                }
-              }
-            }          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/CaseDetails"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/cases/submit-case": {
-      "put": {
-        "tags": [
-          "manage-case-controller"
-        ],
-        "summary": "Submit a draft case API method",
-        "operationId": "submitCase",
-        "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CaseRequest"
-              },
-              "example": {
-                "case_id": "1739920264601001",
-                "case_type_id": "ET_EnglandWales",
-                "case_data": {
-                  "jurCodesCollection": [
-                    {
-                      "id": "f7f10b22-88c0-43b9-a917-f7fff81e006y",
-                      "value": {
-                        "juridictionCodesList": "DAG"
-                      }
-                    }
-                  ],
-                  "typesOfClaim": [
-                    "discrimination"
-                  ],
-                  "positionType": "ET1 Online submission",
-                  "conciliationTrack": "Open Track",
-                  "managingOffice": "Leeds",
-                  "caseType": "Single",
-                  "claimant_TypeOfClaimant": "Individual",
-                  "claimantIndType": {
-                    "claimant_title1": "Dr",
-                    "claimant_first_names": "Grayson",
-                    "claimant_last_name": "Becker",
-                    "claimant_date_of_birth": "1998-12-15",
-                    "claimant_gender": "Male"
-                  },
-                  "claimantType": {
-                    "claimant_addressUK": {
-                      "AddressLine1": "4 Little Meadows",
-                      "PostTown": "Bradley",
-                      "Country": "United Kingdom",
-                      "PostCode": "LL11 4AR"
-                    }
-                  },
-                  "et1OnlineSubmission": "Yes",
-                  "respondentCollection": [
-                    {
-                      "value": {
-                        "respondent_name": "Mrs Test Auto",
-                        "respondent_ACAS_question": "Yes",
-                        "respondent_ACAS": "R807115/23/89",
-                        "responseReceived": "No",
-                        "respondent_address": {
-                          "AddressLine1": "78 East Wonford Hill",
-                          "PostTown": "Exeter",
-                          "Country": "United Kingdom",
-                          "PostCode": "EX1 3DD"
-                        }
-                      },
-                      "id": "e764f874-e937-4642-ac67-4af2e2fd05f6"
-                    }
-                  ],
-                  "claimantWorkAddressQuestion": "No",
-                  "claimantWorkAddress": {
-                    "claimant_work_address": {
-                      "Country": "United Kingdom",
-                      "PostCode": "MK5 7HH",
-                      "PostTown": "Milton Keynes",
-                      "AddressLine1": "The Burnt Oak",
-                      "AddressLine2": "Egerton Gate",
-                      "AddressLine3": "Shenley Brook End"
-                    }
-                  },
-                  "claimantWorkAddressQRespondent": {
-                    "value": {
-                      "code": "Mrs Test Auto",
-                      "label": "Mrs Test Auto - 78 East Wonford Hill, Exeter, EX1 3DD, United Kingdom"
-                    },
-                    "list_items": [
-                      {
-                        "code": "Mrs Test Auto",
-                        "label": "Mrs Test Auto - 78 East Wonford Hill, Exeter, EX1 3DD, United Kingdom"
-                      }
-                    ]
-                  },
-                  "claimantRequests": {
-                    "claimant_compensation": "Yes",
-                    "claimant_tribunal": "Yes",
-                    "claimant_old_job": "No",
-                    "claimant_another_job": "No",
-                    "claimant_compensation_amount": "75000"
-                  },
-                  "claimantOtherType": {
-                    "claimant_occupation": "Builder",
-                    "claimant_employed_from": "2009-05-14",
-                    "claimant_employed_currently": "No",
-                    "claimant_employed_to": "2021-04-20",
-                    "claimant_disabled": "No",
-                    "claimant_notice_period": "No",
-                    "claimant_notice_period_unit": "Months",
-                    "claimant_notice_period_duration": "1",
-                    "claimant_average_weekly_hours": "37",
-                    "claimant_pay_before_tax": "62000",
-                    "claimant_pay_after_tax": "34000",
-                    "claimant_pay_cycle": "Annual",
-                    "claimant_pension_contribution": "Yes",
-                    "claimant_benefits": "No"
-                  },
-                  "claimantRepresentedQuestion": "No"
-                }
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/CaseDetails"
-                }
-              }
-            }
           }
         }
       }
@@ -975,15 +643,19 @@
         "type": "object",
         "properties": {
           "case_id": {
-            "type": "string",
-            "example": "1234567890123456"
+            "type": "string"
           },
           "case_type_id": {
-            "type": "string",
-            "example": "ET_EnglandWales"
+            "type": "string"
+          },
+          "post_code": {
+            "type": "string"
           },
           "case_data": {
-            "$ref": "#/components/schemas/CaseData"
+            "type": "object",
+            "additionalProperties": {
+              "type": "object"
+            }
           }
         }
       },
