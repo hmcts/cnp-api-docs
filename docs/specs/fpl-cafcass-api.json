@@ -805,14 +805,13 @@
             "type": "object",
             "properties": {
               "firstName": {
-                "type": "string",
-                "description": "First name of the person that this applicant is representing"
+                "type": "string"
               },
               "lastName": {
-                "type": "string",
-                "description": "Last name of the person that this applicant is representing"
+                "type": "string"
               }
-            }
+            },
+            "description": "Details of the person representing when citizenIsApplicant is true"
           }
         }
       },
