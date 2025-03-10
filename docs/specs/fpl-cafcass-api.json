@@ -843,6 +843,7 @@
             "enum": [
               "Living with respondents",
               "Living with other family or friends",
+              "Living in a refuge",
               "Removed by Police, powers ending soon",
               "Voluntarily in section 20 care order",
               "In hospital and soon to be discharged",
@@ -852,6 +853,10 @@
           "livingSituationDetails": {
             "type": "string",
             "description": "Details of living situation if livingSituation equals other."
+          },
+          "livingWithDetails": {
+            "type": "string",
+            "description": "Who are they living with?"
           },
           "address": {
             "$ref": "#/components/schemas/address"
@@ -869,6 +874,10 @@
           "socialWorkerTelephoneNumber": {
             "type": "string",
             "example": "11111222333"
+          },
+          "socialWorkerEmail": {
+            "type": "string",
+            "example": "social.worker@example.com"
           },
           "additionalNeeds": {
             "type": "boolean"
