@@ -480,6 +480,33 @@
                 "Past harm"
               ]
             }
+          },
+          "whatKindOfRiskAndHarmToChildren": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "PHYSICAL_HARM",
+                "EMOTIONAL_HARM",
+                "SEXUAL_ABUSE",
+                "NEGLECT"
+              ]
+            }
+          },
+          "factorsAffectingParenting": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "ALCOHOL_DRUG_ABUSE",
+                "DOMESTIC_ABUSE",
+                "ANYTHING_ELSE"
+              ]
+            }
+          },
+          "anythingElseAffectingParenting": {
+            "type": "string",
+            "description": "Fill in when factorsAffectingParenting is ANYTHING_ELSE"
           }
         }
       },
@@ -525,6 +552,18 @@
           "internationalAuthorityInvolvementDetails": {
             "type": "string",
             "description": "Filled in if internationalAuthorityInvolvement = true"
+          },
+          "whichCountriesInvolved": {
+            "type": "string",
+            "description": "Which other countries are involved?"
+          },
+          "outsideHagueConvention": {
+            "type": "boolean",
+            "description": "(For new cases) Are any of these countries outside of the Hague Convention?"
+          },
+          "importantDetails": {
+            "type": "string",
+            "description": "Provide all important details (Including any carers, events, proceedings or authorities outside the UK, or issues with jurisdiction.)"
           }
         }
       },
@@ -761,6 +800,19 @@
           },
           "designated": {
             "type": "boolean"
+          },
+          "representingDetails": {
+            "type": "object",
+            "properties": {
+              "firstName": {
+                "type": "string",
+                "description": "First name of the person that this applicant is representing"
+              },
+              "lastName": {
+                "type": "string",
+                "description": "Last name of the person that this applicant is representing"
+              }
+            }
           }
         }
       },
