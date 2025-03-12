@@ -313,10 +313,15 @@
           "addressUnknownReason": {
             "type": "string",
             "enum": [
+              "Whereabouts unknown",
               "No fixed abode",
               "Person deceased"
             ],
             "description": "If the current address is not known, the reason why"
+          },
+          "addressUnknownDetails": {
+            "type": "string",
+            "description": "Details when Whereabouts unknown is selected"
           },
           "address": {
             "$ref": "#/components/schemas/address",
@@ -449,7 +454,8 @@
                 "Future risk of harm",
                 "Past harm"
               ]
-            }
+            },
+            "description": "(Deprecated)"
           },
           "emotionalHarmOccurrences": {
             "type": "array",
@@ -459,7 +465,8 @@
                 "Future risk of harm",
                 "Past harm"
               ]
-            }
+            },
+            "description": "(Deprecated)"
           },
           "sexualAbuseOccurrences": {
             "type": "array",
@@ -469,7 +476,8 @@
                 "Future risk of harm",
                 "Past harm"
               ]
-            }
+            },
+            "description": "(Deprecated)"
           },
           "neglectOccurrences": {
             "type": "array",
@@ -479,7 +487,8 @@
                 "Future risk of harm",
                 "Past harm"
               ]
-            }
+            },
+            "description": "(Deprecated)"
           },
           "whatKindOfRiskAndHarmToChildren": {
             "type": "array",
@@ -515,43 +524,43 @@
         "properties": {
           "possibleCarer": {
             "type": "boolean",
-            "description": "Are there any suitable carers outside of the UK?"
+            "description": "(Deprecated) Are there any suitable carers outside of the UK?"
           },
           "possibleCarerReason": {
             "type": "string",
-            "description": "Filled in if possibleCarer = true"
+            "description": "(Deprecated) Filled in if possibleCarer = true"
           },
           "significantEvents": {
             "type": "boolean",
-            "description": "Are you aware of any significant events that have happened outside the UK?"
+            "description": "(Deprecated) Are you aware of any significant events that have happened outside the UK?"
           },
           "significantEventsReason": {
             "type": "string",
-            "description": "Filled in if significantEvents = true"
+            "description": "(Deprecated) Filled in if significantEvents = true"
           },
           "issues": {
             "type": "boolean",
-            "description": "Are you aware of any issues with the jurisdiction of this case - for example under the Brussels 2 regulation?"
+            "description": "(Deprecated) Are you aware of any issues with the jurisdiction of this case - for example under the Brussels 2 regulation?"
           },
           "issuesReason": {
             "type": "string",
-            "description": "Filled in if issues = true"
+            "description": "(Deprecated) Filled in if issues = true"
           },
           "proceedings": {
             "type": "boolean",
-            "description": "Are you aware of any proceedings outside the UK?"
+            "description": "(Deprecated) Are you aware of any proceedings outside the UK?"
           },
           "proceedingsReason": {
             "type": "string",
-            "description": "Filled in if proceedings = true"
+            "description": "(Deprecated) Filled in if proceedings = true"
           },
           "internationalAuthorityInvolvement": {
             "type": "boolean",
-            "description": "Has, or should, a government or central authority in another country been involved in this case?"
+            "description": "(Deprecated) Has, or should, a government or central authority in another country been involved in this case?"
           },
           "internationalAuthorityInvolvementDetails": {
             "type": "string",
-            "description": "Filled in if internationalAuthorityInvolvement = true"
+            "description": "(Deprecated) Filled in if internationalAuthorityInvolvement = true"
           },
           "whichCountriesInvolved": {
             "type": "string",
@@ -559,7 +568,7 @@
           },
           "outsideHagueConvention": {
             "type": "boolean",
-            "description": "(For new cases) Are any of these countries outside of the Hague Convention?"
+            "description": "Are any of these countries outside of the Hague Convention?"
           },
           "importantDetails": {
             "type": "string",
@@ -581,15 +590,16 @@
             "example": "2020-01-01"
           },
           "gender": {
-            "$ref": "#/components/schemas/gender"
+            "$ref": "#/components/schemas/gender",
+            "description": "(Deprecated)"
           },
           "genderIdentification": {
             "type": "string",
-            "description": "Free text entry if gender is chosen as 'OTHER'"
+            "description": "(Deprecated) Free text entry if gender is chosen as 'OTHER'"
           },
           "birthPlace": {
             "type": "string",
-            "description": "free text field"
+            "description": "(Deprecated) free text field"
           },
           "addressKnown": {
             "type": "boolean",
@@ -852,11 +862,7 @@
           },
           "livingSituationDetails": {
             "type": "string",
-            "description": "Details of living situation if livingSituation equals other."
-          },
-          "livingWithDetails": {
-            "type": "string",
-            "description": "Who are they living with?"
+            "description": "Details of living situation"
           },
           "address": {
             "$ref": "#/components/schemas/address"
