@@ -581,10 +581,15 @@
           "addressUnknownReason": {
             "type": "string",
             "enum": [
+              "Whereabouts unknown",
               "No fixed abode",
               "Person deceased"
             ],
             "description": "If the current address is not known, the reason why"
+          },
+          "addressUnknownDetails": {
+            "type": "string",
+            "description": "Details when Whereabouts unknown is selected"
           },
           "address": {
             "$ref": "#/components/schemas/address",
