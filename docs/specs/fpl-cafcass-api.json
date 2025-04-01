@@ -529,15 +529,11 @@
           },
           "internationalAuthorityInvolvement": {
             "type": "boolean",
-            "description": "(Deprecated) Has, or should, a government or central authority in another country been involved in this case?"
+            "description": "Has, or should, a government or central authority in another country been involved in this case?"
           },
           "internationalAuthorityInvolvementDetails": {
             "type": "string",
-            "description": "(Deprecated) Filled in if internationalAuthorityInvolvement = true"
-          },
-          "whichCountriesInvolved": {
-            "type": "string",
-            "description": "Which other countries are involved?"
+            "description": "Filled in if internationalAuthorityInvolvement = true"
           },
           "outsideHagueConvention": {
             "type": "boolean",
