@@ -351,7 +351,7 @@
           },
           "contactDetailsHidden": {
             "type": "boolean",
-            "description": "Do you need contact details hidden from other parties?"
+            "description": "Do you need contact details hidden from other parties? If true, the address or any contact details are confidential."
           },
           "contactDetailsHiddenReason": {
             "type": "string",
@@ -455,7 +455,7 @@
                 "Past harm"
               ]
             },
-            "description": "(Deprecated)"
+            "description": "For new cases created after Feb 26, instead of marking \"future\" or \"past\" to each of the risk, our portal will only mark if there's any risk of physical harm, emotional harm, sexual harm or neglect. However, to minimise impact to the API, If physical harm is marked in the new cases, the API will mark both \"Future\" and \"Past\" to this field."
           },
           "emotionalHarmOccurrences": {
             "type": "array",
@@ -466,7 +466,7 @@
                 "Past harm"
               ]
             },
-            "description": "(Deprecated)"
+            "description": "For new cases created after Feb 26, instead of marking \"future\" or \"past\" to each of the risk, our portal will only mark if there's any risk of physical harm, emotional harm, sexual harm or neglect. However, to minimise impact to the API, If emotional harem is marked in the new cases, the API will mark both \"Future\" and \"Past\" to this field."
           },
           "sexualAbuseOccurrences": {
             "type": "array",
@@ -477,7 +477,7 @@
                 "Past harm"
               ]
             },
-            "description": "(Deprecated)"
+            "description": "For new cases created after Feb 26, instead of marking \"future\" or \"past\" to each of the risk, our portal will only mark if there's any risk of physical harm, emotional harm, sexual harm or neglect. However, to minimise impact to the API, If sexual harm is marked in the new cases, the API will mark both \"Future\" and \"Past\" to this field."
           },
           "neglectOccurrences": {
             "type": "array",
@@ -488,34 +488,7 @@
                 "Past harm"
               ]
             },
-            "description": "(Deprecated)"
-          },
-          "whatKindOfRiskAndHarmToChildren": {
-            "type": "array",
-            "items": {
-              "type": "string",
-              "enum": [
-                "PHYSICAL_HARM",
-                "EMOTIONAL_HARM",
-                "SEXUAL_ABUSE",
-                "NEGLECT"
-              ]
-            }
-          },
-          "factorsAffectingParenting": {
-            "type": "array",
-            "items": {
-              "type": "string",
-              "enum": [
-                "ALCOHOL_DRUG_ABUSE",
-                "DOMESTIC_ABUSE",
-                "ANYTHING_ELSE"
-              ]
-            }
-          },
-          "anythingElseAffectingParenting": {
-            "type": "string",
-            "description": "Fill in when factorsAffectingParenting is ANYTHING_ELSE"
+            "description": "For new cases created after Feb 26, instead of marking \"future\" or \"past\" to each of the risk, our portal will only mark if there's any risk of physical harm, emotional harm, sexual harm or neglect. However, to minimise impact to the API, If neglect is marked in the new cases, the API will mark both \"Future\" and \"Past\" to this field."
           }
         }
       },
@@ -635,7 +608,7 @@
           },
           "detailsHidden": {
             "type": "boolean",
-            "description": "Do you need contact details hidden from other parties?"
+            "description": "Do you need contact details hidden from other parties? If true, the address or any contact details are confidential"
           },
           "detailsHiddenReason": {
             "type": "string",
@@ -703,7 +676,8 @@
           },
           "fullName": {
             "type": "string",
-            "example": "Joe Bloggs"
+            "example": "Joe Bloggs",
+            "description": "For new cases created after 13 Mar, name is shown as two separated field on the portal, firstName and lastName"
           },
           "mainContact": {
             "type": "boolean"
@@ -862,7 +836,7 @@
           },
           "livingSituationDetails": {
             "type": "string",
-            "description": "Details of living situation"
+            "description": "(Optional) Details of living situation. e.g. who they are living with or any other details if provided"
           },
           "address": {
             "$ref": "#/components/schemas/address"
@@ -871,7 +845,8 @@
             "type": "string"
           },
           "detailsHidden": {
-            "type": "boolean"
+            "type": "boolean",
+            "description": "If true, the address or social worker details of this child are confidential."
           },
           "socialWorkerName": {
             "type": "string",
@@ -1555,13 +1530,15 @@
                 "type": "boolean"
               },
               "alcoholDrugAbuseReason": {
-                "type": "string"
+                "type": "string",
+                "description": "(Deprecated)"
               },
               "domesticViolence": {
                 "type": "boolean"
               },
               "domesticViolenceReason": {
-                "type": "string"
+                "type": "string",
+                "description": "(Deprecated)"
               },
               "anythingElse": {
                 "type": "boolean"
