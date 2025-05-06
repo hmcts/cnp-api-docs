@@ -286,6 +286,22 @@
                     }
                   }
                 }
+              },
+              "401": {
+                "description": "",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "type": "object",
+                      "properties": {
+                        "status": {
+                          "type": "string",
+                          "example": "Access denied due to invalid OAuth information"
+                        }
+                      }
+                    }
+                  }
+                }
               }
             }
           }
