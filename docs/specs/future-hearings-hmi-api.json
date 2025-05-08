@@ -199,7 +199,7 @@
         "/": {
             "get": {
                 "description": "Health check for HMI",
-                "operationId": "hmi-health-checkk",
+                "operationId": "hmi-health-check",
                 "summary": "HMI Health Check",
                 "tags": [
                     "health-check"
@@ -223,6 +223,88 @@
                     }
                 }
             }
+        },
+        "/health": {
+          "get": {
+            "description": "Private health check for HMI",
+            "operationId": "hmi-auth-health-check",
+            "summary": "HMI Private Health Check",
+            "tags": [
+              "health-check"
+            ],
+            "parameters": [
+              {
+                "name": "Source-System",
+                "in": "header",
+                "required": true,
+                "schema": {
+                  "type": "string",
+                  "default": "CFT"
+                }
+              },
+              {
+                "name": "Destination-System",
+                "in": "header",
+                "required": true,
+                "schema": {
+                  "type": "string",
+                  "default": "HMI"
+                }
+              },
+              {
+                "name": "Request-Created-At",
+                "in": "header",
+                "required": true,
+                "schema": {
+                  "type": "string",
+                  "default": "2019-10-12T07:20:00Z"
+                }
+              },
+              {
+                "name": "Accept",
+                "in": "header",
+                "required": true,
+                "schema": {
+                  "type": "string",
+                  "default": "application/json"
+                }
+              }
+            ],
+            "responses": {
+              "200": {
+                "description": "",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "type": "object",
+                      "properties": {
+                        "status": {
+                          "type": "string",
+                          "example": "Up"
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "401": {
+                "description": "Access denied due to invalid OAuth information",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "type": "object",
+                      "properties": {
+                        "status": {
+                          "type": "string",
+                          "example": ""
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
         },
         "/schedules": {
             "post": {
