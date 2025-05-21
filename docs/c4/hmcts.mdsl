@@ -5,8 +5,6 @@ hmi_gateway = softwareSystem "HMI Gateway" {
 }
 cath = softwareSystem "CaTH" {
    pip_data_management = container "CaTH Data Management API" "Handles postgres and Azure Blob Storage traffic for CaTH"
-   pip_subscription_management = container "CaTH Subscription Management API" "Handles subscriptions and triggers for CaTH"
-   pip_channel_management = container "CaTH Channel Management API" "Handles third-party services and file generation for CaTH"
    pip_account_management = container "CaTH Account Management API" "Handles authentication and authorisation for CaTH"
    pip_publication_services = container "CaTH Publication Services API" "Handles email correspondence sent from CaTH"
    pip_frontend = container "CaTH Frontend Service" "Handles user and admin interactions with the service"
@@ -166,8 +164,6 @@ st = softwareSystem "ST" {
    sptribs_case_api = container "Special Tribunal Case API" "Business logic for management of Special Tribunals cases"
 }
 pip_frontend -> pip_data_management "Depends on"
-pip_frontend -> pip_subscription_management "Depends on"
-pip_frontend -> pip_channel_management "Depends on"
 pip_frontend -> pip_publication_services "Depends on"
 pip_frontend -> pip_account_management "Depends on"
 
