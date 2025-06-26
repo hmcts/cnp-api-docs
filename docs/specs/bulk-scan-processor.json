@@ -1,1 +1,1 @@
-{"openapi":"3.0.1","info":{"title":"Bulk Scan Processor","description":"Bulk Scan Processor handlers","version":"v0.0.1"},"servers":[{"url":"http://localhost","description":"Generated server url"}],"paths":{},"components":{}}
+{"openapi":"3.1.0","info":{"title":"Bulk Scan Processor","description":"Bulk Scan Processor handlers","version":"v0.0.1"},"servers":[{"url":"http://localhost","description":"Generated server url"}],"paths":{},"components":{}}
