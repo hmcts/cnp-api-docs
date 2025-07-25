@@ -160,40 +160,6 @@
       "version": null
     },
     {
-      "id": "pip-subscription-management",
-      "name": "CaTH Subscription Management API",
-      "group": "CaTH",
-      "type": "api",
-      "description": "Handles subscriptions and triggers for CaTH",
-      "repository": "https://github.com/hmcts/pip-subscription-management",
-      "dependencies": [],
-      "apis": [],
-      "urls": [
-        {
-          "url": "https://github.com/hmcts/pip-subscription-management",
-          "name": "CaTH Subscription Management API"
-        }
-      ],
-      "version": null
-    },
-    {
-      "id": "pip-channel-management",
-      "name": "CaTH Channel Management API",
-      "group": "CaTH",
-      "type": "api",
-      "description": "Handles third-party services and file generation for CaTH",
-      "repository": "https://github.com/hmcts/pip-channel-management",
-      "dependencies": [],
-      "apis": [],
-      "urls": [
-        {
-          "url": "https://github.com/hmcts/pip-channel-management",
-          "name": "CaTH Channel Management API"
-        }
-      ],
-      "version": null
-    },
-    {
       "id": "pip-account-management",
       "name": "CaTH Account Management API",
       "group": "CaTH",
@@ -237,16 +203,6 @@
       "dependencies": [
         {
           "id": "pip-data-management",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "pip-subscription-management",
-          "hard": true,
-          "apis": []
-        },
-        {
-          "id": "pip-channel-management",
           "hard": true,
           "apis": []
         },
