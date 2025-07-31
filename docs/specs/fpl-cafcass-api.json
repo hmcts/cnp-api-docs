@@ -982,9 +982,12 @@
               "Interpreter not available",
               "Lack of judicial continuity",
               "Insufficient time listed or to complete hearing",
+              "No Judge available",
               "Lawyers not instructed, present or ready, party or witness fail to attend",
               "No key issue analysis",
               "No/poor parental evidence",
+              "Party unavailable",
+              "Intermediary unavailable",
               "Official Solicitor not instructed/ready",
               "Prior authority from LSC not available",
               "Other legal aid",
@@ -1009,7 +1012,11 @@
               "Immigration and international difficulties",
               "Severe weather",
               "Industrial action",
-              "Covid 19"
+              "Covid 19",
+              "Party has complied with the directions",
+              "Case settled at an earlier hearing",
+              "Consent Order Filed",
+              "Case concluded"
             ]
           },
           "preAttendanceDetails": {
