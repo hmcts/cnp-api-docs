@@ -1,5 +1,5 @@
 {
-    "openapi": "3.0.1",
+    "openapi": "3.1.0",
     "info": {
         "title": "PCQ Back-End APIs",
         "description": "This is the Protected Characteristics Back-End API that will:\n\n- Save user's answers to the database.\n- Serve the consolidation service to fetch PCQ Ids that don't have an associated case record and add case information to a PCQ record in the database.\n- Serve authentication tasks for other services and components to generate a Service SAS token for the PCQ Storage Account container 'pcq' - this will provide Write, List and Create access.\n\n Reform Common Components.",
