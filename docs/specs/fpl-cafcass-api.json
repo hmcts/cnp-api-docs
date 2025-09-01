@@ -700,10 +700,9 @@
               "applicantsOtherDocuments",
               "meetingNotes",
               "contactNotes",
-              "parent_respondentsStatements",
+              "respondentOwnStatements",
               "respondentWitnessStatements",
               "guardiansEvidence",
-              "parent_expertReports",
               "expertReports",
               "drugAndAlcoholReports",
               "lettersOfInstructionReferrals",
@@ -715,6 +714,8 @@
               "previousProceedings",
               "placementApplicationsAndResponses",
               "documentsSentToParties",
+              "advocateMeetingMinutes",
+              "witnessTemplates",
               "archivedDocuments"
             ]
           },
