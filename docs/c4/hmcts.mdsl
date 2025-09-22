@@ -163,6 +163,9 @@ st = softwareSystem "ST" {
    sptribs_frontend = container "Special Tribunals Frontend" "Special Tribunals Frontend"
    sptribs_case_api = container "Special Tribunal Case API" "Business logic for management of Special Tribunals cases"
 }
+pcs = softwareSystem "PCS" {
+   pcs_api = container "Possession Claims service API" "Backend Application of Possession Claims Service"
+}
 pip_frontend -> pip_data_management "Depends on"
 pip_frontend -> pip_publication_services "Depends on"
 pip_frontend -> pip_account_management "Depends on"
@@ -551,3 +554,8 @@ sptribs_case_api -> ccd_data_store_api "Depends on"
 sptribs_case_api -> rpe_service_auth_provider "Depends on"
 sptribs_case_api -> dm_store "Depends on"
 sptribs_case_api -> idam_api "Depends on"
+
+pcs_api -> rpe_service_auth_provider "Depends on"
+pcs_api -> rd_location_ref_api "Depends on"
+pcs_api -> rpa_dg_docassembly_api "Depends on"
+pcs_api -> idam_api "Depends on"
