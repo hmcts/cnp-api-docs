@@ -3073,6 +3073,38 @@
       ],
       "apis": [],
       "version": null
+    },
+    {
+      "id": "pcs-api",
+      "name": "Possession Claims service API",
+      "group": "PCS",
+      "type": "api",
+      "description": "Backend Application of Possession Claims Service",
+      "repository": "https://github.com/hmcts/pcs-api",
+      "spec": "https://hmcts.github.io/cnp-api-docs/specs/pcs-api.json",
+      "dependencies": [
+        {
+          "id": "rpe-service-auth-provider",
+          "hard": true,
+          "apis": []
+        },
+        {
+          "id": "rd-location-ref-api",
+          "hard": false,
+          "apis": []
+        },
+        {
+          "id": "rpa-dg-docassembly-api",
+          "hard": false,
+          "apis": []
+        },{
+          "id": "idam-api",
+          "hard": true,
+          "apis": []
+        }
+      ],
+      "apis": [],
+      "version": null
     }
   ]
 }
