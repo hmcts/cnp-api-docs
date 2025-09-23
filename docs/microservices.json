@@ -127,6 +127,10 @@
     {
       "name": "ST",
       "colour": "#E751FF"
+    },
+    {
+      "name": "PCS",
+      "colour": "#20B2AA"
     }
   ],
   "apis": [
