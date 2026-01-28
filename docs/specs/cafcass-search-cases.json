@@ -1224,7 +1224,16 @@
                     },
                     "hearingId": {
                       "type": "string",
+                      "description": "A comma separated string of hearing IDs",
                       "example": "2000005039"
+                    },
+                    "hearingIds": {
+                      "type": "array",
+                      "items": {
+                        "type": "number",
+                        "format": "int64",
+                        "example": 2000005039
+                      }
                     },
                     "courtReportType": {
                       "type": "array",
