@@ -530,7 +530,18 @@
                   "type": "object",
                   "properties": {
                     "domesticAbuseDocument": {
-                      "$ref": "#/components/schemas/domesticAbuseDocument"
+                      "type": "object",
+                      "properties": {
+                        "document_id": {
+                          "type": "string",
+                          "format": "uuid",
+                          "example": "zzz48b24-c5c2-451c-9fd5-d7a6a87c6355"
+                        },
+                        "document_filename": {
+                          "type": "string",
+                          "example": "domesticAbuseEvidenceDocument.pdf"
+                        }
+                      }
                     }
                   }
                 }
