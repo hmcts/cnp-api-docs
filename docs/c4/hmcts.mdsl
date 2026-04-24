@@ -24,6 +24,7 @@ bar_fee__pay = softwareSystem "BAR, Fee & Pay" {
 lau = softwareSystem "LAU" {
    lau_case_backend = container "LAU Case Backend" "LAU Case Search and Actions Backend"
    lau_idam_backend = container "LAU IdAM Backend" "LAU IdAM Logons Backend"
+   lau_eud_backend = container "LAU EUD Backend" "LAU Enhanced User Data Backend"
    lau_frontend = container "LAU Frontend" "LAU Frontend Web application"
 }
 ccd = softwareSystem "CCD" {
@@ -191,8 +192,13 @@ lau_case_backend -> rpe_service_auth_provider "Depends on"
 lau_idam_backend -> idam_api "Depends on"
 lau_idam_backend -> rpe_service_auth_provider "Depends on"
 
+lau_eud_backend -> idam_api "Uses API"
+lau_eud_backend -> rd_professional_api "Uses API"
+lau_eud_backend -> rpe_service_auth_provider "Depends on"
+
 lau_frontend -> lau_case_backend "Depends on"
 lau_frontend -> lau_idam_backend "Depends on"
+lau_frontend -> lau_eud_backend "Depends on"
 lau_frontend -> idam_web_public "Depends on"
 lau_frontend -> idam_api "Depends on"
 lau_frontend -> rpe_service_auth_provider "Depends on"
