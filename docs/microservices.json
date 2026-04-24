@@ -426,6 +426,35 @@
       "version": null
     },
     {
+      "id": "lau-eud-backend",
+      "name": "LAU EUD Backend",
+      "group": "LAU",
+      "type": "api",
+      "description": "LAU Enhanced User Data Backend",
+      "repository": "https://github.com/hmcts/lau-eud-backend",
+      "spec": "https://hmcts.github.io/cnp-api-docs/specs/lau-eud-backend.json",
+      "dependencies": [
+        {
+          "id": "idam-api",
+          "hard": true,
+          "apis": []
+        },
+        {
+          "id": "rpe-service-auth-provider",
+          "hard": true,
+          "apis": []
+        },
+        {
+          "id": "rd-professional-api",
+          "hard": true,
+          "apis": []
+        }
+
+      ],
+      "apis": [],
+      "version": null
+    },
+    {
       "id": "lau-frontend",
       "name": "LAU Frontend",
       "group": "LAU",
@@ -441,6 +470,11 @@
         },
         {
           "id": "lau-idam-backend",
+          "hard": true,
+          "apis": []
+        },
+        {
+          "id": "lau-eud-backend",
           "hard": true,
           "apis": []
         },
