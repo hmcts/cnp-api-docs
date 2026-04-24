@@ -192,9 +192,9 @@ lau_case_backend -> rpe_service_auth_provider "Depends on"
 lau_idam_backend -> idam_api "Depends on"
 lau_idam_backend -> rpe_service_auth_provider "Depends on"
 
-lau_eud_backend -> idam_api "Uses API"
-lau_eud_backend -> rd_professional_api "Uses API"
+lau_eud_backend -> idam_api "Depends on"
 lau_eud_backend -> rpe_service_auth_provider "Depends on"
+lau_eud_backend -> rd_professional_api "Depends on"
 
 lau_frontend -> lau_case_backend "Depends on"
 lau_frontend -> lau_idam_backend "Depends on"
