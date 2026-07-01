@@ -131,6 +131,10 @@
     {
       "name": "PCS",
       "colour": "#20B2AA"
+    },
+    {
+      "name": "ET",
+      "colour": "#EC0A0A"
     }
   ],
   "apis": [
@@ -3106,6 +3110,140 @@
         {
           "id": "idam-api",
           "hard": true,
+          "apis": []
+        }
+      ],
+      "apis": [],
+      "version": null
+    },
+    {
+      "id": "et-ccd-callbacks",
+      "name": "ET CCD Callbacks",
+      "group": "ET",
+      "type": "api",
+      "description": "CCD callback service for Employment Tribunals, handling business logic for both England/Wales and Scotland jurisdictions",
+      "repository": "https://github.com/hmcts/et-ccd-callbacks",
+      "spec": null,
+      "dependencies": [
+        {
+          "id": "ccd-data-store-api",
+          "hard": true,
+          "apis": []
+        },
+        {
+          "id": "idam-api",
+          "hard": true,
+          "apis": []
+        },
+        {
+          "id": "rpe-service-auth-provider",
+          "hard": true,
+          "apis": []
+        },
+        {
+          "id": "dm-store",
+          "hard": true,
+          "apis": []
+        },
+        {
+          "id": "ccd-case-document-am-api",
+          "hard": true,
+          "apis": []
+        },
+        {
+          "id": "aac-manage-case-assignment",
+          "hard": true,
+          "apis": []
+        },
+        {
+          "id": "rpa-em-ccd-orchestrator",
+          "hard": true,
+          "apis": []
+        },
+        {
+          "id": "docmosis-tornado-api",
+          "hard": true,
+          "apis": []
+        },
+        {
+          "id": "rd-professional-api",
+          "hard": false,
+          "apis": []
+        }
+      ],
+      "apis": [],
+      "version": null
+    },
+    {
+      "id": "et-sya-frontend",
+      "name": "ET1 Claimant Frontend",
+      "group": "ET",
+      "type": "web",
+      "description": "Citizen-facing frontend for Employment Tribunal claimants to submit and manage their claims",
+      "repository": "https://github.com/hmcts/et-sya-frontend",
+      "spec": null,
+      "dependencies": [
+        {
+          "id": "et-ccd-callbacks",
+          "hard": true,
+          "apis": []
+        },
+        {
+          "id": "idam-web-public",
+          "hard": true,
+          "apis": []
+        },
+        {
+          "id": "idam-api",
+          "hard": true,
+          "apis": []
+        },
+        {
+          "id": "rpe-service-auth-provider",
+          "hard": true,
+          "apis": []
+        },
+        {
+          "id": "pcq-backend",
+          "hard": false,
+          "apis": []
+        }
+      ],
+      "apis": [],
+      "version": null
+    },
+    {
+      "id": "et-syr-frontend",
+      "name": "ET3 Respondent Frontend",
+      "group": "ET",
+      "type": "web",
+      "description": "Citizen-facing frontend for Employment Tribunal respondents to submit ET3 responses and manage their cases",
+      "repository": "https://github.com/hmcts/et-syr-frontend",
+      "spec": null,
+      "dependencies": [
+        {
+          "id": "et-ccd-callbacks",
+          "hard": true,
+          "apis": []
+        },
+        {
+          "id": "idam-web-public",
+          "hard": true,
+          "apis": []
+        },
+        {
+          "id": "idam-api",
+          "hard": true,
+          "apis": []
+        },
+        {
+          "id": "rpe-service-auth-provider",
+          "hard": true,
+          "apis": []
+        },
+        {
+          "id": "pcq-backend",
+          "hard": false,
           "apis": []
         }
       ],

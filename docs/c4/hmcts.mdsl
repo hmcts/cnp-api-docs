@@ -164,6 +164,11 @@ st = softwareSystem "ST" {
    sptribs_frontend = container "Special Tribunals Frontend" "Special Tribunals Frontend"
    sptribs_case_api = container "Special Tribunal Case API" "Business logic for management of Special Tribunals cases"
 }
+et = softwareSystem "ET" {
+   et_ccd_callbacks = container "ET CCD Callbacks" "CCD callback service for Employment Tribunals, handling business logic for both England/Wales and Scotland jurisdictions"
+   et_sya_frontend = container "ET1 Claimant Frontend" "Citizen-facing frontend for Employment Tribunal claimants to submit and manage their claims"
+   et_syr_frontend = container "ET3 Respondent Frontend" "Citizen-facing frontend for Employment Tribunal respondents to submit ET3 responses and manage their cases"
+}
 pcs = softwareSystem "PCS" {
    pcs_api = container "Possession Claims service API" "Backend Application of Possession Claims Service"
 }
@@ -560,6 +565,28 @@ sptribs_case_api -> ccd_data_store_api "Depends on"
 sptribs_case_api -> rpe_service_auth_provider "Depends on"
 sptribs_case_api -> dm_store "Depends on"
 sptribs_case_api -> idam_api "Depends on"
+
+et_ccd_callbacks -> ccd_data_store_api "Depends on"
+et_ccd_callbacks -> idam_api "Depends on"
+et_ccd_callbacks -> rpe_service_auth_provider "Depends on"
+et_ccd_callbacks -> dm_store "Depends on"
+et_ccd_callbacks -> ccd_case_document_am_api "Depends on"
+et_ccd_callbacks -> aac_manage_case_assignment "Depends on"
+et_ccd_callbacks -> rpa_em_ccd_orchestrator "Depends on"
+et_ccd_callbacks -> docmosis_tornado_api "Depends on"
+et_ccd_callbacks -> rd_professional_api "Depends on"
+
+et_sya_frontend -> et_ccd_callbacks "Depends on"
+et_sya_frontend -> idam_web_public "Depends on"
+et_sya_frontend -> idam_api "Depends on"
+et_sya_frontend -> rpe_service_auth_provider "Depends on"
+et_sya_frontend -> pcq_backend "Depends on"
+
+et_syr_frontend -> et_ccd_callbacks "Depends on"
+et_syr_frontend -> idam_web_public "Depends on"
+et_syr_frontend -> idam_api "Depends on"
+et_syr_frontend -> rpe_service_auth_provider "Depends on"
+et_syr_frontend -> pcq_backend "Depends on"
 
 pcs_api -> rpe_service_auth_provider "Depends on"
 pcs_api -> rd_location_ref_api "Depends on"
