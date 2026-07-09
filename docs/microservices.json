@@ -3122,7 +3122,22 @@
       "spec": "https://hmcts.github.io/cnp-api-docs/specs/pcs-api.json",
       "dependencies": [
         {
+          "id": "idam-api",
+          "hard": true,
+          "apis": []
+        },
+        {
           "id": "rpe-service-auth-provider",
+          "hard": true,
+          "apis": []
+        },
+        {
+          "id": "ccd-data-store-api",
+          "hard": true,
+          "apis": []
+        },
+        {
+          "id": "payment-api",
           "hard": true,
           "apis": []
         },
@@ -3135,8 +3150,32 @@
           "id": "rpa-dg-docassembly-api",
           "hard": false,
           "apis": []
-        },{
+        }
+      ],
+      "apis": [],
+      "version": null
+    },
+    {
+      "id": "pcs-frontend",
+      "name": "Possession Claims service Frontend",
+      "group": "PCS",
+      "type": "web",
+      "description": "Citizen-facing web app for the Possession Claims Service",
+      "repository": "https://github.com/hmcts/pcs-frontend",
+      "spec": null,
+      "dependencies": [
+        {
+          "id": "pcs-api",
+          "hard": true,
+          "apis": []
+        },
+        {
           "id": "idam-api",
+          "hard": true,
+          "apis": []
+        },
+        {
+          "id": "rpe-service-auth-provider",
           "hard": true,
           "apis": []
         }
