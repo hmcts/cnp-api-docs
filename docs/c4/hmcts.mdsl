@@ -171,6 +171,7 @@ et = softwareSystem "ET" {
 }
 pcs = softwareSystem "PCS" {
    pcs_api = container "Possession Claims service API" "Backend Application of Possession Claims Service"
+   pcs_frontend = container "Possession Claims service Frontend" "Citizen-facing web app for the Possession Claims Service"
 }
 pip_frontend -> pip_data_management "Depends on"
 pip_frontend -> pip_publication_services "Depends on"
@@ -588,7 +589,17 @@ et_syr_frontend -> idam_api "Depends on"
 et_syr_frontend -> rpe_service_auth_provider "Depends on"
 et_syr_frontend -> pcq_backend "Depends on"
 
+pcs_api -> idam_api "Depends on"
 pcs_api -> rpe_service_auth_provider "Depends on"
+pcs_api -> ccd_data_store_api "Depends on"
+pcs_api -> ccd_definition_store_api "Depends on"
+pcs_api -> ccd_case_document_am_api "Depends on"
+pcs_api -> payment_api "Depends on"
+pcs_api -> fees_register_api "Depends on"
+pcs_api -> rd_professional_api "Depends on"
 pcs_api -> rd_location_ref_api "Depends on"
 pcs_api -> rpa_dg_docassembly_api "Depends on"
-pcs_api -> idam_api "Depends on"
+
+pcs_frontend -> pcs_api "Depends on"
+pcs_frontend -> idam_api "Depends on"
+pcs_frontend -> rpe_service_auth_provider "Depends on"
