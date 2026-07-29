@@ -235,6 +235,35 @@
       "version": null
     },
     {
+      "id": "cath-api",
+      "name": "CaTH API",
+      "group": "CaTH",
+      "type": "api",
+      "description": "Publishes hearing lists into CaTH and serves court reference data and published artefacts",
+      "repository": "https://github.com/hmcts/cath-service",
+      "spec": "https://hmcts.github.io/cnp-api-docs/specs/cath-service.json",
+      "dependencies": [],
+      "apis": [],
+      "version": null
+    },
+    {
+      "id": "cath-web",
+      "name": "CaTH Web",
+      "group": "CaTH",
+      "type": "web",
+      "description": "Public and admin web frontend for Court and Tribunal Hearings",
+      "repository": "https://github.com/hmcts/cath-service",
+      "dependencies": [
+        {
+          "id": "cath-api",
+          "hard": true,
+          "apis": []
+        }
+      ],
+      "apis": [],
+      "version": null
+    },
+    {
       "id": "idam-api",
       "name": "IDAM API",
       "group": "IDAM",
