@@ -8,10 +8,18 @@
 // model/build.mjs, so a spec can never again be published and stay invisible
 // because nobody hand-edited a registry entry.
 //
-// Run once; registry.yaml is hand-maintained from then on.
+// Run once; registry.yaml is hand-maintained from then on. Re-running would drop
+// the hand-written `actors` and `callbacks` sections, so it refuses to overwrite
+// an existing file.
 
-import { readFileSync, writeFileSync } from 'node:fs';
+import { readFileSync, writeFileSync, existsSync } from 'node:fs';
 import { stringify } from 'yaml';
+
+if (existsSync('registry.yaml') && !process.argv.includes('--force')) {
+  console.error('registry.yaml already exists and is hand-maintained; refusing to overwrite.');
+  console.error('Pass --force only if you intend to discard the actors and callbacks sections.');
+  process.exit(1);
+}
 
 // Ambient means "authenticating or identifying, so everything talks to it and
 // saying so carries no information" — not merely "popular". A fan-in threshold

@@ -179,6 +179,35 @@ test('federation is inert until a team declares edges', () => {
 // checkout — reading the file passed locally and failed in CI.
 test('the model has the expected top-level shape', () => {
   assert.ok(model.generated);
-  assert.deepEqual(Object.keys(model).sort(), ['counts', 'generated', 'groups', 'services', 'warnings']);
+  assert.deepEqual(Object.keys(model).sort(), [
+    'actors',
+    'callbacks',
+    'counts',
+    'generated',
+    'groups',
+    'services',
+    'warnings',
+  ]);
   assert.ok(JSON.parse(JSON.stringify(model)), 'model must be JSON-serialisable');
+});
+
+// Actors and CCD callbacks were the only content in the Structurizr files that
+// could not be derived from the registry, so they were ported into registry.yaml.
+// Losing them would silently empty the citizen and caseworker journey diagrams.
+test('actors and callbacks survived the port from Structurizr', () => {
+  assert.deepEqual(Object.keys(model.actors).sort(), ['caseworker', 'citizen']);
+  assert.ok(model.actors.citizen.uses.includes('pcs-frontend'));
+  assert.ok(model.actors.caseworker.uses.includes('xui-webapp'));
+
+  // CCD calls back into a service team's API during an event — the opposite
+  // direction to the dependency edge, so it cannot be inferred.
+  const targets = model.callbacks.filter((c) => c.from === 'ccd-data-store-api').map((c) => c.to);
+  assert.deepEqual(targets.sort(), ['nfdiv-case-api', 'pcs-api', 'probate-back-office']);
+});
+
+test('every actor and callback resolves to a real service', () => {
+  const unresolved = model.warnings.filter(
+    (w) => w.kind === 'actor-uses-unknown-service' || w.kind === 'callback-unknown-service',
+  );
+  assert.deepEqual(unresolved, [], 'these would be dangling references in the diagrams');
 });

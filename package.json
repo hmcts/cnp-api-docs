@@ -24,7 +24,10 @@
     "assemble": "node bin/assemble-site.mjs",
     "serve-site": "node bin/serve-site.mjs",
     "update-swagger": "cp node_modules/swagger-ui-dist/swagger-ui* docs/",
-    "update-vis": "cp node_modules/vis/dist/vis-network* docs/ && cp -r node_modules/vis/dist/img docs/"
+    "update-vis": "cp node_modules/vis/dist/vis-network* docs/ && cp -r node_modules/vis/dist/img docs/",
+    "generate-c4": "node bin/generate-c4.mjs && node bin/generate-c4-views.mjs",
+    "validate-c4": "likec4 validate c4",
+    "build-c4": "yarn generate-c4 && likec4 build --no-use-dot -o build/c4 --base /cnp-api-docs/architecture/ --title \"CNP API catalogue\" c4"
   },
   "author": "",
   "license": "MIT",
@@ -42,7 +45,8 @@
     "yaml": "^2.9.0"
   },
   "devDependencies": {
-    "http-server": "^14.1.1"
+    "http-server": "^14.1.1",
+    "likec4": "^1.59.2"
   },
   "scarfSettings": {
     "enabled": false

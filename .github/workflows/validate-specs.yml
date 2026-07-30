@@ -19,6 +19,7 @@ on:
       - 'model/**'
       - 'test/**'
       - 'registry.yaml'
+      - 'c4/**'
       - 'package.json'
       - '.github/workflows/validate-specs.yml'
   workflow_dispatch:

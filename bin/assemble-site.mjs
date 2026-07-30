@@ -16,6 +16,7 @@ import { join } from 'node:path';
 const SPEC_DIR = 'docs/specs';
 const NORMALISED_DIR = 'build/specs';
 const SITE_DIR = 'build/site';
+const C4_DIR = 'build/c4';
 
 function sha256(path) {
   return createHash('sha256').update(readFileSync(path)).digest('hex');
@@ -64,6 +65,10 @@ function main(argv) {
 
   // Normalised copies for the renderer only. Never referenced by consumers.
   copyTree(NORMALISED_DIR, join(specTarget, '_normalised'));
+
+  // The LikeC4 diagram app, if it has been built. Optional so the site still
+  // assembles without it.
+  if (existsSync(C4_DIR)) copyTree(C4_DIR, join(out, 'architecture'));
 
   if (mismatches.length > 0) {
     console.error('SPEC BYTES CHANGED DURING COPY — refusing to deploy:');

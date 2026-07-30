@@ -33,12 +33,25 @@ for (const m of members) {
 }
 
 const sortDesc = (map) => [...map.entries()].sort((a, b) => b[1] - a[1]);
+
+// The LikeC4 app names views <group>_overview, plus citizen/caseworker variants
+// for the four groups that have hand-written actor detail.
+const viewId = `${slugFor(name).replace(/-/g, '_')}_overview`;
+const ACTOR_VIEWS = { probate: ['citizen', 'caseworker'], pcs: ['citizen', 'caseworker'], nfdiv: ['citizen', 'caseworker'], darts: ['citizen'] };
+const actorViews = ACTOR_VIEWS[slugFor(name)] ?? [];
 ---
 
 <Base title={name} description={`Services in the ${name} group.`}>
   <p class="crumb"><a href={`${base}/`}>Catalogue</a> › <a href={`${base}/groups/`}>Groups</a></p>
   <h1>{name}</h1>
   {group.info && <p class="lede" set:html={group.info} />}
+
+  <p class="views">
+    <a href={`${base}/architecture/view/${viewId}/`}>Architecture diagram</a>
+    {actorViews.map((v) => (
+      <> · <a href={`${base}/architecture/view/${slugFor(name).replace(/-/g, '_')}_${v}/`}>{v} journey</a></>
+    ))}
+  </p>
 
   <h2>Services <span class="muted">({members.length})</span></h2>
   <table>
@@ -107,6 +120,7 @@ const sortDesc = (map) => [...map.entries()].sort((a, b) => b[1] - a[1]);
 
   <style>
     .crumb { color: var(--muted); font-size: 0.9rem; margin-bottom: 8px; }
+    .views { margin: 0 0 8px; }
     .hops { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
     .plain { list-style: none; padding: 0; margin: 0; }
     .plain li { padding: 4px 0; border-bottom: 1px solid var(--line); }

@@ -56,7 +56,16 @@ createServer(async (req, res) => {
     return;
   }
 
-  const file = await resolve(decodeURIComponent(pathname.slice(BASE.length)));
+  const rel = decodeURIComponent(pathname.slice(BASE.length));
+  let file = await resolve(rel);
+
+  // The architecture app is a single-page app: its view URLs exist only in the
+  // client router. GitHub Pages serves 404.html for them, which boots the app and
+  // lets it route, so do the same here or deep links appear broken locally.
+  if (!file && rel.startsWith('/architecture/')) {
+    file = await resolve('/architecture/404.html');
+  }
+
   if (!file) {
     res.writeHead(404, { 'content-type': 'text/plain' });
     res.end('Not found\n');

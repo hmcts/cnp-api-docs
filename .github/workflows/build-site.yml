@@ -12,6 +12,7 @@ on:
       - 'model/**'
       - 'bin/**'
       - 'registry.yaml'
+      - 'c4/**'
       - 'docs/specs/**'
       - '.github/workflows/build-site.yml'
   workflow_dispatch:
@@ -45,6 +46,11 @@ jobs:
 
       - name: Build the site
         run: yarn build-site
+
+      - name: Validate and build the architecture diagrams
+        run: |
+          yarn validate-c4
+          yarn build-c4
 
       - name: Assemble, verifying spec bytes are unchanged
         run: node bin/assemble-site.mjs --out build/dist

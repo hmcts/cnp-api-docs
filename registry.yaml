@@ -86,6 +86,36 @@ groups:
     colour: "#20B2AA"
   ET:
     colour: "#EC0A0A"
+
+# Ported from the hand-written docs/c4/*/workspace.dsl files, which are the only
+# record of who uses these services and of CCD's callbacks into them. Neither is
+# derivable from an OpenAPI spec.
+actors:
+  citizen:
+    name: Citizen
+    description: A member of the public using a service directly
+    uses:
+      - darts-portal
+      - nfdiv-frontend
+      - pcs-frontend
+      - probate-frontend
+      - probate-caveats-frontend
+      - idam-web-public
+  caseworker:
+    name: Caseworker
+    description: An HMCTS case worker
+    uses:
+      - xui-webapp
+      - idam-web-public
+
+# CCD calls back into a service team's own API during an event. The direction is
+# the opposite of the dependency edge, so it cannot be inferred from dependsOn.
+callbacks:
+  ccd-data-store-api:
+    - nfdiv-case-api
+    - pcs-api
+    - probate-back-office
+
 services:
   hmi-gateway-api:
     group: HMI Gateway

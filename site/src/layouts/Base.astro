@@ -4,6 +4,7 @@ const base = import.meta.env.BASE_URL;
 const nav = [
   { href: `${base}/`, label: 'Catalogue' },
   { href: `${base}/groups/`, label: 'Groups' },
+  { href: `${base}/architecture/`, label: 'Architecture' },
   { href: `${base}/health/`, label: 'Registry health' },
 ];
 const here = Astro.url.pathname;
@@ -14,7 +15,7 @@ const here = Astro.url.pathname;
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>{title ? `${title} — CFT API catalogue` : 'CFT API catalogue'}</title>
+    <title>{title ? `${title} — CNP API catalogue` : 'CNP API catalogue'}</title>
     {description && <meta name="description" content={description} />}
     <link rel="icon" type="image/png" sizes="32x32" href={`${base}/favicon-32x32.png`} />
   </head>
@@ -22,7 +23,7 @@ const here = Astro.url.pathname;
     <a class="skip" href="#main">Skip to main content</a>
     <header>
       <div class="wrap head">
-        <a class="brand" href={`${base}/`}>CFT API catalogue</a>
+        <a class="brand" href={`${base}/`}>CNP API catalogue</a>
         <nav aria-label="Primary">
           {nav.map((n) => (
             <a href={n.href} aria-current={here === n.href ? 'page' : undefined}>{n.label}</a>

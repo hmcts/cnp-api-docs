@@ -249,6 +249,29 @@ function build({ now = Date.now() } = {}) {
     s.consumedBy = consumers[id] ?? [];
   }
 
+  // Actors and callbacks come only from registry.yaml. Warn on unresolved targets
+  // rather than emitting a dangling reference into the diagram model.
+  const actors = {};
+  for (const [id, a] of Object.entries(registry.actors ?? {})) {
+    const uses = (a.uses ?? []).filter((target) => {
+      if (services[target]) return true;
+      warnings.push({ kind: 'actor-uses-unknown-service', id, target });
+      return false;
+    });
+    actors[id] = { id, name: a.name ?? id, description: a.description ?? null, uses };
+  }
+
+  const callbacks = [];
+  for (const [from, targets] of Object.entries(registry.callbacks ?? {})) {
+    for (const to of targets) {
+      if (!services[from] || !services[to]) {
+        warnings.push({ kind: 'callback-unknown-service', from, to });
+        continue;
+      }
+      callbacks.push({ from, to });
+    }
+  }
+
   const groups = {};
   for (const [name, g] of Object.entries(registry.groups ?? {})) {
     const members = Object.values(services).filter((s) => s.group === name);
@@ -274,6 +297,8 @@ function build({ now = Date.now() } = {}) {
     },
     groups,
     services,
+    actors,
+    callbacks,
     warnings,
   };
 }
