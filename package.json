@@ -2,7 +2,6 @@
   "name": "cnp-api-docs",
   "version": "2.0.0",
   "description": "Swagger docs for all CNP APIs",
-  "packageManager": "yarn@4.10.3",
   "private": true,
   "workspaces": [
     "site"

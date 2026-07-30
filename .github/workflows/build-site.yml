@@ -45,8 +45,9 @@ jobs:
           node-version: 22
           cache: yarn
 
+      # corepack enable makes the `yarn` shim available; it then resolves via
+      # yarnPath to the committed release rather than downloading one.
       # --immutable fails if yarn.lock would change, which is what we want in CI.
-      # Yarn itself comes from the committed .yarn/releases binary.
       - run: corepack enable
       - run: yarn install --immutable
 
