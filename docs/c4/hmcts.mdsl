@@ -8,6 +8,8 @@ cath = softwareSystem "CaTH" {
    pip_account_management = container "CaTH Account Management API" "Handles authentication and authorisation for CaTH"
    pip_publication_services = container "CaTH Publication Services API" "Handles email correspondence sent from CaTH"
    pip_frontend = container "CaTH Frontend Service" "Handles user and admin interactions with the service"
+   cath_api = container "CaTH API" "Publishes hearing lists into CaTH and serves court reference data and published artefacts"
+   cath_web = container "CaTH Web" "Public and admin web frontend for Court and Tribunal Hearings"
 }
 idam = softwareSystem "IDAM" {
    idam_api = container "IDAM API" "Authentication APIs"
@@ -176,6 +178,8 @@ pcs = softwareSystem "PCS" {
 pip_frontend -> pip_data_management "Depends on"
 pip_frontend -> pip_publication_services "Depends on"
 pip_frontend -> pip_account_management "Depends on"
+
+cath_web -> cath_api "Depends on"
 
 idam_api -> lau_idam_backend "Depends on"
 
