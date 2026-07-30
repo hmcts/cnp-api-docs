@@ -10,7 +10,13 @@ on:
     branches: [master]
     paths: ['docs/specs/**']
   pull_request:
-    paths: ['docs/specs/**', 'bin/validate-specs.mjs', 'bin/revert-broken-specs.mjs']
+    # Includes this file: without it, a change to the workflow gets no checks at
+    # all, which is how this PR initially reported nothing to review.
+    paths:
+      - 'docs/specs/**'
+      - 'bin/validate-specs.mjs'
+      - 'bin/revert-broken-specs.mjs'
+      - '.github/workflows/validate-specs.yml'
   workflow_dispatch:
 
 permissions:
