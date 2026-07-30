@@ -10,7 +10,17 @@ on:
     branches: [master]
     paths: ['docs/specs/**']
   pull_request:
-    paths: ['docs/specs/**', 'bin/validate-specs.mjs', 'bin/revert-broken-specs.mjs']
+    # Deliberately broad: a narrow filter silently skipped the whole suite on a PR
+    # that rewrote the model layer. Anything that can change the registry, the
+    # model or the test suite must run it.
+    paths:
+      - 'docs/specs/**'
+      - 'bin/**'
+      - 'model/**'
+      - 'test/**'
+      - 'registry.yaml'
+      - 'package.json'
+      - '.github/workflows/validate-specs.yml'
   workflow_dispatch:
 
 permissions:
@@ -34,13 +44,22 @@ jobs:
         with:
           node-version: 22
 
-      - name: Unit-test the validator
-        run: node --test test/validate-specs.test.mjs
+      - name: Install dependencies
+        run: npm ci
 
-      # Guards the spec filenames that XUI fetches at runtime, that the CCD/HMC
-      # F-125 tests assert on, and that terraform reads at apply time.
-      - name: Check externally-consumed specs are intact
-        run: node --test test/consumer-contract.test.mjs
+      - name: Run the test suite
+        run: npm test
+
+      # Proves every published spec is representable, all 54 Swagger 2.0 specs
+      # still convert, and docs/specs/ is not written to by the build.
+      - name: Build the model
+        run: |
+          npm run build-model
+          if [ -n "$(git status --porcelain docs/specs)" ]; then
+            echo "::error::the build modified docs/specs — publishers' bytes must never change" >&2
+            git status --porcelain docs/specs >&2
+            exit 1
+          fi
 
       - name: Report registry health
         run: node bin/validate-specs.mjs || true
