@@ -3,5 +3,10 @@ node_modules
 .gradle/
 *.iml
 
+# Derived at build time from docs/specs/ + registry.yaml
+build/
+model/model.json
+model/normalisation-report.json
+
 docs/c4/**/workspace.json
 **/.structurizr

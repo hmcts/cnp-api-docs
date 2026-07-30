@@ -1,0 +1,1357 @@
+# Facts about CFT services that cannot be derived from their OpenAPI specs:
+# group membership, dependency edges, and prose descriptions.
+#
+# Everything else (title, version, path count, freshness, ownership) is
+# derived by model/build.mjs. Adding a service here is NOT required for its
+# spec to appear in the portal — every file in docs/specs/ is published.
+#
+# 'ambient: true' marks ubiquitous infrastructure (auth, S2S). Its inbound
+# edges are drawn as chips on each consumer instead of as lines into a hub,
+# which is what made the old network graph unreadable.
+
+appTypes:
+  - type: ""
+    shape: diamond
+  - type: -api
+    shape: dot
+  - type: -web
+    shape: triangle
+groups:
+  HMI Gateway:
+    colour: "#cc3300"
+  CaTH:
+    colour: "#cc3300"
+  IDAM:
+    colour: "#000000"
+  RPE:
+    colour: "#999999"
+  BSP:
+    colour: "#FFDFD3"
+  CCD:
+    colour: "#AF9F2E"
+  Evidence:
+    colour: "#532F0C"
+  BAR, Fee & Pay:
+    colour: "#3B7FC0"
+  RPA:
+    colour: "#28C5C7"
+  XUI:
+    colour: "#28C5C7"
+  SNL:
+    colour: "#97370E"
+  SSCS:
+    colour: "#C728C5"
+  Probate:
+    colour: "#DD7F00"
+    info: Overview of the Probate components and how they interact with other CFT components. View our
+      <a
+      href="https://tools.hmcts.net/confluence/display/DATS/DTS+-+Probate+Service?src=contextnavpagetreemode">confluence</a>
+      page for fore details about the Probate services and the <a
+      href="https://tools.hmcts.net/confluence/display/DATS/How-to+technical">how-to page</a> for
+      guides to common tasks and setup.
+  CMC:
+    colour: "#DD0000"
+  DIV:
+    colour: "#119F5A"
+  NFDIV:
+    colour: "#FF9F5A"
+  FINREM:
+    colour: "#A4DD00"
+  IA:
+    colour: "#FF5733"
+  Video Hearing:
+    colour: "#222222"
+  FPLA:
+    colour: "#64fc30"
+  RD:
+    colour: "#800020"
+  WA:
+    colour: "#8e44ad"
+  LAU:
+    colour: "#f0f709"
+  PCQ:
+    colour: "#B87333"
+  DARTS:
+    colour: "#3498DB"
+  AM:
+    colour: "#ffcc66"
+    info: View our <a
+      href="https://tools.hmcts.net/confluence/display/AM/Access+Management+Dashboard">Access
+      Management Dashboard</a> page for more details about the AM services
+  PRE:
+    colour: "#B48D16"
+  ST:
+    colour: "#E751FF"
+  PCS:
+    colour: "#20B2AA"
+  ET:
+    colour: "#EC0A0A"
+services:
+  hmi-gateway-api:
+    group: HMI Gateway
+    type: api
+    description: Future Hearings Gateway
+    repository: https://github.com/hmcts/hmi-apim-infrastructures
+    expectsSpec: true
+    claimedSpecFiles:
+      - future-hearings-hmi-api.json
+  pip-data-management:
+    group: CaTH
+    type: api
+    description: Handles postgres and Azure Blob Storage traffic for CaTH
+    repository: https://github.com/hmcts/pip-data-management
+    expectsSpec: true
+    claimedSpecFiles:
+      - pip-data-management
+  pip-account-management:
+    group: CaTH
+    type: api
+    description: Handles authentication and authorisation for CaTH
+    repository: https://github.com/hmcts/pip-account-management
+    expectsSpec: true
+    claimedSpecFiles:
+      - pip-account-management
+  pip-publication-services:
+    group: CaTH
+    type: api
+    description: Handles email correspondence sent from CaTH
+    repository: https://github.com/hmcts/pip-publication-services
+    expectsSpec: true
+    claimedSpecFiles:
+      - pip-publication-services
+  pip-frontend:
+    group: CaTH
+    type: web
+    description: Handles user and admin interactions with the service
+    repository: https://github.com/hmcts/pip-frontend
+    expectsSpec: true
+    claimedSpecFiles:
+      - pip-frontend
+    dependsOn:
+      - pip-data-management
+      - pip-publication-services
+      - pip-account-management
+  cath-api:
+    group: CaTH
+    type: api
+    description: Publishes hearing lists into CaTH and serves court reference data and published artefacts
+    repository: https://github.com/hmcts/cath-service
+    expectsSpec: true
+    claimedSpecFiles:
+      - cath-service.json
+  cath-web:
+    group: CaTH
+    type: web
+    description: Public and admin web frontend for Court and Tribunal Hearings
+    repository: https://github.com/hmcts/cath-service
+    dependsOn:
+      - cath-api
+  idam-api:
+    group: IDAM
+    type: api
+    description: Authentication APIs
+    repository: https://github.com/hmcts/idam-api
+    expectsSpec: true
+    claimedSpecFiles:
+      - idam-api.json
+    ambient: true
+    ambientFanIn: 42
+    dependsOn:
+      - lau-idam-backend
+  idam-web-admin:
+    group: IDAM
+    type: web
+    description: Administrative interface for managing services and users within IDAM
+    repository: https://github.com/hmcts/idam-web-admin
+    expectsSpec: true
+    claimedSpecFiles:
+      - idam-web-admin.json
+    ambient: true
+    ambientFanIn: 0
+  idam-web-public:
+    group: IDAM
+    type: web
+    description: Login and singup pages
+    repository: https://github.com/hmcts/idam-web-public
+    expectsSpec: true
+    claimedSpecFiles:
+      - idam-web-public.json
+    ambient: true
+    ambientFanIn: 28
+  bar-web:
+    group: BAR, Fee & Pay
+    type: web
+    repository: https://github.com/hmcts/bar-web
+    expectsSpec: true
+    claimedSpecFiles:
+      - bar-web.json
+    dependsOn:
+      - bar-api
+      - fees-register-api
+  bar-api:
+    group: BAR, Fee & Pay
+    type: api
+    repository: https://github.com/hmcts/bar-apps
+    expectsSpec: true
+    claimedSpecFiles:
+      - bar-apps.json
+    dependsOn:
+      - idam-web-public
+  fees-register-frontend:
+    group: BAR, Fee & Pay
+    type: web
+    repository: https://github.com/hmcts/ccfr-fees-register-admin-web
+    expectsSpec: true
+    claimedSpecFiles:
+      - ccfr-fees-register-admin-web.json
+    dependsOn:
+      - idam-web-public
+      - fees-register-api
+  fees-register-api:
+    group: BAR, Fee & Pay
+    type: api
+    repository: https://github.com/hmcts/ccfr-fees-register-app
+    expectsSpec: true
+    claimedSpecFiles:
+      - ccfr-fees-register-app.json
+    dependsOn:
+      - idam-web-public
+  payment-api:
+    group: BAR, Fee & Pay
+    type: api
+    repository: https://github.com/hmcts/ccpay-payment-app
+    expectsSpec: true
+    claimedSpecFiles:
+      - ccpay-payment-app.payment2.json
+    dependsOn:
+      - rpe-service-auth-provider
+      - fees-register-api
+  lau-case-backend:
+    group: LAU
+    type: api
+    description: LAU Case Search and Actions Backend
+    repository: https://github.com/hmcts/lau-case-backend
+    expectsSpec: true
+    claimedSpecFiles:
+      - lau-case-backend.json
+    dependsOn:
+      - idam-api
+      - rpe-service-auth-provider
+  lau-idam-backend:
+    group: LAU
+    type: api
+    description: LAU IdAM Logons Backend
+    repository: https://github.com/hmcts/lau-idam-backend
+    expectsSpec: true
+    claimedSpecFiles:
+      - lau-idam-backend.json
+    dependsOn:
+      - idam-api
+      - rpe-service-auth-provider
+  lau-eud-backend:
+    group: LAU
+    type: api
+    description: LAU Enhanced User Data Backend
+    repository: https://github.com/hmcts/lau-eud-backend
+    expectsSpec: true
+    claimedSpecFiles:
+      - lau-eud-backend.json
+    dependsOn:
+      - idam-api
+      - rpe-service-auth-provider
+      - rd-professional-api
+  lau-frontend:
+    group: LAU
+    type: web
+    description: LAU Frontend Web application
+    repository: https://github.com/hmcts/lau-frontend
+    dependsOn:
+      - lau-case-backend
+      - lau-idam-backend
+      - lau-eud-backend
+      - idam-web-public
+      - idam-api
+      - rpe-service-auth-provider
+  ccd-case-activity-api:
+    group: CCD
+    type: api
+    repository: https://github.com/hmcts/ccd-case-activity-api
+    expectsSpec: true
+    claimedSpecFiles:
+      - ccd-case-activity-api.json
+    dependsOn:
+      - idam-web-public
+  ccd-case-print-service:
+    group: CCD
+    type: api
+    repository: https://github.com/hmcts/ccd-case-print-service
+    expectsSpec: true
+    claimedSpecFiles:
+      - ccd-case-print-service.json
+    dependsOn:
+      - rpe-service-auth-provider
+      - ccd-data-store-api
+      - idam-web-public
+  ccd-api-gateway-web:
+    group: CCD
+    type: api-gw
+    repository: https://github.com/hmcts/ccd-api-gateway
+    expectsSpec: true
+    claimedSpecFiles:
+      - ccd-api-gateway.json
+    dependsOn:
+      - ccd-data-store-api
+      - ccd-definition-store-api
+      - ccd-case-activity-api
+      - ccd-user-profile-api
+      - ccd-case-print-service
+      - idam-web-public
+      - rpe-service-auth-provider
+      - dm-store
+  ccd-admin-web:
+    group: CCD
+    type: web
+    repository: https://github.com/hmcts/ccd-admin-web
+    expectsSpec: true
+    claimedSpecFiles:
+      - ccd-admin-web.json
+    dependsOn:
+      - idam-web-public
+      - ccd-definition-store-api
+      - rpe-service-auth-provider
+      - ts-translation-service
+  ccd-case-management-web:
+    group: CCD
+    type: web
+    repository: https://github.com/hmcts/ccd-case-management-web
+    expectsSpec: true
+    claimedSpecFiles:
+      - ccd-case-management-web.json
+    dependsOn:
+      - ccd-api-gateway-web
+      - ccd-case-activity-api
+      - idam-web-public
+      - dm-store
+      - ccd-case-print-service
+  ccd-data-store-api:
+    group: CCD
+    type: api
+    repository: https://github.com/hmcts/ccd-data-store-api
+    expectsSpec: true
+    claimedSpecFiles:
+      - ccd-data-store-api.v1_internal.json
+      - ccd-data-store-api.v1_external.json
+      - ccd-data-store-api.v2_internal.json
+      - ccd-data-store-api.v2_external.json
+    dependsOn:
+      - ccd-definition-store-api
+      - ccd-user-profile-api
+      - ccd-case-print-service
+      - idam-web-public
+      - rpe-service-auth-provider
+      - dm-store
+      - ccd-case-document-am-api
+      - lau-case-backend
+  ccd-definition-store-api:
+    group: CCD
+    type: api
+    repository: https://github.com/hmcts/ccd-definition-store-api
+    expectsSpec: true
+    claimedSpecFiles:
+      - ccd-definition-store-api.json
+    dependsOn:
+      - ccd-user-profile-api
+      - idam-web-public
+      - rpe-service-auth-provider
+      - ts-translation-service
+  ccd-user-profile-api:
+    group: CCD
+    type: api
+    repository: https://github.com/hmcts/ccd-user-profile-api
+    expectsSpec: true
+    claimedSpecFiles:
+      - ccd-user-profile-api.json
+    dependsOn:
+      - rpe-service-auth-provider
+  ccd-case-document-am-api:
+    group: CCD
+    type: api
+    repository: https://github.com/hmcts/ccd-case-document-am-api
+    expectsSpec: true
+    claimedSpecFiles:
+      - ccd-case-document-am-api.json
+    dependsOn:
+      - rpe-service-auth-provider
+      - idam-api
+      - ccd-data-store-api
+      - ccd-definition-store-api
+      - dm-store
+  dm-show:
+    group: Evidence
+    type: web
+    repository: https://github.com/hmcts/document-management-node-demo
+    expectsSpec: true
+    claimedSpecFiles:
+      - document-management-node-demo.json
+    dependsOn:
+      - idam-web-public
+      - rpe-service-auth-provider
+      - dm-store
+  aac-manage-case-assignment:
+    group: CCD
+    type: api
+    repository: https://github.com/hmcts/aac-manage-case-assignment
+    expectsSpec: true
+    claimedSpecFiles:
+      - aac-manage-case-assignment.json
+    dependsOn:
+      - ccd-data-store-api
+      - rd-professional-api
+      - idam-api
+      - rpe-service-auth-provider
+  cpo-case-payment-orders-api:
+    group: CCD
+    type: api
+    repository: https://github.com/hmcts/cpo-case-payment-orders-api
+    expectsSpec: true
+    claimedSpecFiles:
+      - cpo-case-payment-orders-api.json
+    dependsOn:
+      - idam-api
+      - rpe-service-auth-provider
+  dm-store:
+    group: Evidence
+    type: api
+    repository: https://github.com/hmcts/document-management-store-app
+    expectsSpec: true
+    claimedSpecFiles:
+      - document-management-store-app.json
+    dependsOn:
+      - rpe-service-auth-provider
+  em-anno:
+    group: Evidence
+    type: api
+    repository: https://github.com/hmcts/rpa-em-annotation-api
+    expectsSpec: true
+    claimedSpecFiles:
+      - em-annotation-api.json
+    dependsOn:
+      - idam-api
+      - rpe-service-auth-provider
+      - dm-store
+  snl-notes:
+    group: SNL
+    type: api
+    repository: https://github.com/hmcts/snl-notes
+    expectsSpec: true
+    claimedSpecFiles:
+      - snl-notes.json
+  snl-api:
+    group: SNL
+    type: api
+    repository: https://github.com/hmcts/snl-api
+    expectsSpec: true
+    claimedSpecFiles:
+      - snl-api.json
+    dependsOn:
+      - snl-events
+  snl-frontend:
+    group: SNL
+    type: web
+    repository: https://github.com/hmcts/snl-frontend
+    expectsSpec: true
+    claimedSpecFiles:
+      - snl-frontend.json
+    dependsOn:
+      - snl-api
+      - snl-notes
+  snl-events:
+    group: SNL
+    type: api
+    repository: https://github.com/hmcts/snl-events
+    expectsSpec: true
+    claimedSpecFiles:
+      - snl-events.json
+    dependsOn:
+      - snl-rules
+  snl-rules:
+    group: SNL
+    type: api
+    repository: https://github.com/hmcts/snl-rules
+    expectsSpec: true
+    claimedSpecFiles:
+      - snl-rules.json
+  pbi-service:
+    group: RPE
+    type: api
+    repository: https://github.com/hmcts/private-beta-invitation-service
+    expectsSpec: true
+    claimedSpecFiles:
+      - private-beta-invitation-service.json
+  rpe-service-auth-provider:
+    group: RPE
+    type: api
+    repository: https://github.com/hmcts/service-auth-provider-app
+    expectsSpec: true
+    claimedSpecFiles:
+      - service-auth-provider-app.json
+    ambient: true
+    ambientFanIn: 76
+  rpe-feature-toggle-api:
+    group: RPE
+    type: api
+    repository: https://github.com/hmcts/feature-toggle-api
+    expectsSpec: true
+    claimedSpecFiles:
+      - feature-toggle-api.json
+    dependsOn:
+      - rpe-service-auth-provider
+  cmc-pdf-service:
+    group: RPE
+    type: api
+    repository: https://github.com/hmcts/cmc-pdf-service
+    expectsSpec: true
+    claimedSpecFiles:
+      - cmc-pdf-service.json
+    dependsOn:
+      - rpe-service-auth-provider
+  draft-store-service:
+    group: RPE
+    type: api
+    repository: https://github.com/hmcts/draft-store
+    expectsSpec: true
+    claimedSpecFiles:
+      - draft-store.json
+    dependsOn:
+      - idam-web-public
+      - rpe-service-auth-provider
+  bsp-blob-router:
+    group: BSP
+    type: api
+    repository: https://github.com/hmcts/blob-router-service
+    expectsSpec: true
+    claimedSpecFiles:
+      - blob-router-service.json
+  bsp-bulk-scan-processor:
+    group: BSP
+    type: api
+    repository: https://github.com/hmcts/bulk-scan-processor
+    expectsSpec: true
+    claimedSpecFiles:
+      - bulk-scan-processor.json
+    dependsOn:
+      - id: bsp-blob-router
+        hard: false
+      - rpe-service-auth-provider
+      - dm-store
+      - id: probate-back-office
+        hard: false
+  bsp-bulk-scan-orchestrator:
+    group: BSP
+    type: api
+    repository: https://github.com/hmcts/bulk-scan-orchestrator
+    expectsSpec: true
+    claimedSpecFiles:
+      - bulk-scan-orchestrator.json
+    dependsOn:
+      - id: bsp-bulk-scan-processor
+        hard: false
+      - rpe-service-auth-provider
+      - idam-api
+      - ccd-data-store-api
+      - id: probate-back-office
+        hard: false
+  bsp-bulk-scan-payment-processor:
+    group: BSP
+    type: api
+    repository: https://github.com/hmcts/bulk-scan-payment-processor
+    expectsSpec: true
+    claimedSpecFiles:
+      - bulk-scan-payment-processor.json
+    dependsOn:
+      - id: bsp-bulk-scan-orchestrator
+        hard: false
+      - rpe-service-auth-provider
+      - idam-api
+      - ccd-data-store-api
+      - payment-api
+  bsp-reform-scan-notification-service:
+    group: BSP
+    type: api
+    repository: https://github.com/hmcts/reform-scan-notification-service
+    expectsSpec: true
+    claimedSpecFiles:
+      - reform-scan-notification-service.json
+    dependsOn:
+      - rpe-service-auth-provider
+  bsp-send-letter-service:
+    group: BSP
+    type: api
+    repository: https://github.com/hmcts/send-letter-service
+    expectsSpec: true
+    claimedSpecFiles:
+      - send-letter-service.json
+    dependsOn:
+      - rpe-service-auth-provider
+  xui-webapp:
+    group: XUI
+    type: web
+    repository: https://github.com/hmcts/rpx-xui-webapp
+    expectsSpec: true
+    claimedSpecFiles:
+      - xui-webapp.json
+    dependsOn:
+      - idam-web-public
+      - rpe-service-auth-provider
+      - dm-store
+      - ccd-data-store-api
+      - ccd-definition-store-api
+  rpa-icp:
+    group: RPA
+    type: api
+    repository: https://github.com/hmcts/rpa-in-court-presentation-api
+    expectsSpec: true
+    claimedSpecFiles:
+      - rpa-in-court-presentation-api.json
+  rpa-icp-w:
+    group: RPA
+    type: web
+    repository: https://github.com/hmcts/rpa-in-court-presentation-web
+    expectsSpec: true
+    claimedSpecFiles:
+      - rpa-in-court-presentation-web.json
+    dependsOn:
+      - rpa-icp
+      - dm-store
+  ref-pup:
+    group: RPA
+    type: api
+    repository: https://github.com/hmcts/ref-professional-user-profile
+    expectsSpec: true
+    claimedSpecFiles:
+      - ref-professional-user-profile.json
+    dependsOn:
+      - rpe-service-auth-provider
+      - idam-web-public
+  cmc-citizen-frontend:
+    group: CMC
+    type: web
+    repository: https://github.com/hmcts/cmc-citizen-frontend
+    expectsSpec: true
+    claimedSpecFiles:
+      - cmc-citizen-frontend.json
+    dependsOn:
+      - cmc-claim-store
+      - draft-store-service
+      - idam-web-public
+      - rpe-service-auth-provider
+      - payment-api
+      - fees-register-api
+  cmc-legal-frontend:
+    group: CMC
+    type: web
+    repository: https://github.com/hmcts/cmc-legal-rep-frontend
+    expectsSpec: true
+    claimedSpecFiles:
+      - cmc-legal-rep-frontend.json
+    dependsOn:
+      - cmc-claim-store
+      - draft-store-service
+      - idam-web-public
+      - payment-api
+      - fees-register-api
+      - rpe-service-auth-provider
+  cmc-claim-store:
+    group: CMC
+    type: api
+    repository: https://github.com/hmcts/cmc-claim-store
+    expectsSpec: true
+    claimedSpecFiles:
+      - cmc-claim-store.json
+    dependsOn:
+      - ccd-data-store-api
+      - rpe-service-auth-provider
+      - idam-web-public
+      - dm-store
+      - bsp-send-letter-service
+      - cmc-pdf-service
+  div-emca:
+    group: DIV
+    type: api
+    repository: https://github.com/hmcts/div-evidence-management-client-api
+    expectsSpec: true
+    claimedSpecFiles:
+      - div-evidence-management-client-api.json
+    dependsOn:
+      - rpe-service-auth-provider
+      - dm-store
+  div-bfe:
+    group: DIV
+    type: web
+    repository: https://github.com/hmcts/div-respondent-frontend
+    expectsSpec: true
+    claimedSpecFiles:
+      - div-respondent-frontend.json
+    dependsOn:
+      - rpe-service-auth-provider
+      - idam-web-public
+      - div-cps
+      - div-emca
+  div-pfe:
+    group: DIV
+    type: web
+    repository: https://github.com/hmcts/div-petitioner-frontend
+    expectsSpec: true
+    claimedSpecFiles:
+      - div-petitioner-frontend.json
+    dependsOn:
+      - rpe-service-auth-provider
+      - idam-web-public
+      - div-cps
+      - div-emca
+      - div-fps
+      - fees-register-api
+      - payment-api
+  div-cms:
+    group: DIV
+    type: api
+    repository: https://github.com/hmcts/div-case-maintenance-service
+    expectsSpec: true
+    claimedSpecFiles:
+      - div-case-maintenance-service.json
+    dependsOn:
+      - ccd-data-store-api
+      - rpe-service-auth-provider
+  div-cps:
+    group: DIV
+    type: api
+    repository: https://github.com/hmcts/div-case-progression-service
+    expectsSpec: true
+    claimedSpecFiles:
+      - div-case-progression-service.json
+    dependsOn:
+      - ccd-data-store-api
+      - rpe-service-auth-provider
+      - div-dgs
+      - draft-store-service
+      - dm-store
+  div-dgs:
+    group: DIV
+    type: api
+    repository: https://github.com/hmcts/div-document-generator-client
+    expectsSpec: true
+    claimedSpecFiles:
+      - div-document-generator-client.json
+    dependsOn:
+      - cmc-pdf-service
+      - rpe-service-auth-provider
+      - div-emca
+  div-fps:
+    group: DIV
+    type: api
+    repository: https://github.com/hmcts/div-fees-and-payments-service
+    expectsSpec: true
+    claimedSpecFiles:
+      - div-fees-and-payments-service.json
+    dependsOn:
+      - fees-register-api
+  div-vs:
+    group: DIV
+    type: api
+    repository: https://github.com/hmcts/div-validation-service
+    expectsSpec: true
+    claimedSpecFiles:
+      - div-validation-service.json
+    dependsOn:
+      - rpe-service-auth-provider
+      - ccd-data-store-api
+      - bsp-send-letter-service
+      - idam-web-public
+  finrem-cos:
+    group: FINREM
+    type: api
+    repository: https://github.com/hmcts/finrem-case-orchestration-service
+    expectsSpec: true
+    claimedSpecFiles:
+      - finrem-case-orchestration.json
+    dependsOn:
+      - idam-web-public
+      - rpe-service-auth-provider
+      - fees-register-api
+      - payment-api
+      - ccd-data-store-api
+      - aac-manage-case-assignment
+      - bsp-send-letter-service
+      - cmc-pdf-service
+      - dm-store
+      - rd-professional-api
+  probate-persistence-service:
+    group: Probate
+    type: api
+    repository: https://github.com/hmcts/probate-persistence-service
+    expectsSpec: true
+    claimedSpecFiles:
+      - probate-persistence-service.json
+  probate-submit-service:
+    group: Probate
+    type: api
+    repository: https://github.com/hmcts/probate-submit-service
+    expectsSpec: true
+    claimedSpecFiles:
+      - probate-submit-service.json
+    dependsOn:
+      - rpe-service-auth-provider
+      - ccd-data-store-api
+      - probate-persistence-service
+  probate-frontend:
+    group: Probate
+    type: web
+    repository: https://github.com/hmcts/probate-frontend
+    expectsSpec: true
+    claimedSpecFiles:
+      - probate-frontend.json
+    dependsOn:
+      - idam-web-public
+      - rpe-service-auth-provider
+      - fees-register-api
+      - payment-api
+      - probate-business-service
+      - probate-persistence-service
+      - probate-submit-service
+  probate-caveats-frontend:
+    group: Probate
+    type: web
+    repository: https://github.com/hmcts/probate-caveats-frontend
+    expectsSpec: true
+    claimedSpecFiles:
+      - probate-caveats-frontend.json
+    dependsOn:
+      - idam-web-public
+      - rpe-service-auth-provider
+      - payment-api
+      - probate-orchestrator-service
+  probate-orchestrator-service:
+    group: Probate
+    type: api
+    repository: https://github.com/hmcts/probate-orchestrator-service
+    expectsSpec: true
+    claimedSpecFiles:
+      - probate-orchestrator-service.json
+    dependsOn:
+      - idam-web-public
+      - rpe-service-auth-provider
+      - probate-submit-service
+      - probate-business-service
+      - probate-back-office
+      - fees-register-api
+      - ccd-data-store-api
+  probate-back-office:
+    group: Probate
+    type: api
+    repository: https://github.com/hmcts/probate-sol-ccd-services
+    expectsSpec: true
+    claimedSpecFiles:
+      - probate-sol-ccd-services.json
+    dependsOn:
+      - rpe-service-auth-provider
+      - cmc-pdf-service
+      - ccd-case-print-service
+      - fees-register-api
+      - dm-store
+      - ccd-api-gateway-web
+      - bsp-send-letter-service
+      - docmosis-tornado-api
+  probate-business-service:
+    group: Probate
+    type: api
+    repository: https://github.com/hmcts/probate-business-service
+    expectsSpec: true
+    claimedSpecFiles:
+      - probate-business-service.json
+    dependsOn:
+      - probate-persistence-service
+  sscs-tya-frontend:
+    group: SSCS
+    type: web
+    repository: https://github.com/hmcts/sscs-track-your-appeal-frontend
+    expectsSpec: true
+    claimedSpecFiles:
+      - track-your-appeal-frontend.json
+    dependsOn:
+      - sscs-tribunals-api
+  sscs-tribunals-api:
+    group: SSCS
+    type: api
+    repository: https://github.com/hmcts/sscs-tribunals-case-api
+    expectsSpec: true
+    claimedSpecFiles:
+      - tribunals-case-api.json
+    dependsOn:
+      - ccd-data-store-api
+      - rpe-service-auth-provider
+      - cmc-pdf-service
+      - dm-store
+      - idam-api
+  sscs-case-loader:
+    group: SSCS
+    type: api
+    repository: https://github.com/hmcts/sscs-case-loader
+    expectsSpec: true
+    claimedSpecFiles:
+      - sscs-case-loader.json
+    dependsOn:
+      - ccd-data-store-api
+      - rpe-service-auth-provider
+      - idam-api
+  sscs-tya-notif:
+    group: SSCS
+    type: api
+    repository: https://github.com/hmcts/sscs-track-your-appeal-notifications
+    expectsSpec: true
+    claimedSpecFiles:
+      - track-your-appeal-notifications.json
+    dependsOn:
+      - ccd-data-store-api
+      - dm-store
+      - rpe-service-auth-provider
+      - cmc-pdf-service
+      - idam-api
+  sscs-submit-your-appeal:
+    group: SSCS
+    type: web
+    repository: https://github.com/hmcts/sscs-submit-your-appeal
+    dependsOn:
+      - sscs-tribunals-api
+  sscs-evidence-share:
+    group: SSCS
+    type: api
+    repository: https://github.com/hmcts/sscs-evidence-share
+    dependsOn:
+      - ccd-data-store-api
+      - dm-store
+      - idam-api
+      - bsp-send-letter-service
+      - docmosis-tornado-api
+  sscs-cor-frontend:
+    group: SSCS
+    type: web
+    repository: https://github.com/hmcts/sscs-cor-frontend
+    unresolvedDependencies:
+      - sscs-cor-backend
+  ia-case-api:
+    group: IA
+    type: api
+    repository: https://github.com/hmcts/ia-case-api
+    expectsSpec: true
+    claimedSpecFiles:
+      - ia-case-api.json
+    dependsOn:
+      - ccd-data-store-api
+      - rpe-service-auth-provider
+      - cmc-pdf-service
+      - idam-api
+  ia-case-documents-api:
+    group: IA
+    type: api
+    repository: https://github.com/hmcts/ia-case-documents-api
+    expectsSpec: true
+    claimedSpecFiles:
+      - ia-case-documents-api.json
+    dependsOn:
+      - ccd-data-store-api
+      - rpe-service-auth-provider
+      - cmc-pdf-service
+      - idam-api
+  ia-case-notifications-api:
+    group: IA
+    type: api
+    repository: https://github.com/hmcts/ia-case-notifications-api
+    expectsSpec: true
+    claimedSpecFiles:
+      - ia-case-notifications-api.json
+    dependsOn:
+      - ccd-data-store-api
+      - rpe-service-auth-provider
+      - cmc-pdf-service
+      - idam-api
+  rpa-em-stitching-api:
+    group: Evidence
+    type: api
+    repository: https://github.com/hmcts/rpa-em-stitching-api
+    expectsSpec: true
+    claimedSpecFiles:
+      - rpa-em-stitching-api.json
+    dependsOn:
+      - idam-api
+      - rpe-service-auth-provider
+      - dm-store
+  rpa-em-ccd-orchestrator:
+    group: Evidence
+    type: api
+    repository: https://github.com/hmcts/rpa-em-ccd-orchestrator
+    expectsSpec: true
+    claimedSpecFiles:
+      - rpa-em-ccd-orchestrator.json
+    dependsOn:
+      - rpa-em-stitching-api
+      - idam-api
+      - rpe-service-auth-provider
+  rpa-dg-docassembly-api:
+    group: Evidence
+    type: api
+    repository: https://github.com/hmcts/rpa-dg-docassembly-api
+    expectsSpec: true
+    claimedSpecFiles:
+      - rpa-dg-docassembly-api.json
+    dependsOn:
+      - docmosis-tornado-api
+      - idam-api
+      - rpe-service-auth-provider
+  docmosis-tornado-api:
+    group: Evidence
+    type: api
+    description: Documentation can be found here
+      https://www.docmosis.com/download/tornado2.7/Tornado-Web-Services-Guide2.7.pdf
+  fpla-case-service:
+    group: FPLA
+    type: api
+    description: CCD callback service for FPLA cases
+    repository: https://github.com/hmcts/fpl-ccd-configuration
+    expectsSpec: true
+    claimedSpecFiles:
+      - fpla-case-service.json
+    dependsOn:
+      - idam-api
+      - rpe-service-auth-provider
+      - dm-store
+      - ccd-data-store-api
+  rd-professional-api:
+    group: RD
+    type: api
+    description: Provides APIs for managing professional reference data
+    repository: https://github.com/hmcts/rd-professional-api
+    expectsSpec: true
+    claimedSpecFiles:
+      - rd-professional-api.json
+    dependsOn:
+      - idam-api
+      - rpe-service-auth-provider
+      - rd-user-profile-api
+  rd-user-profile-api:
+    group: RD
+    type: api
+    description: Provides APIs for reference data user profile
+    repository: https://github.com/hmcts/rd-user-profile-api
+    expectsSpec: true
+    claimedSpecFiles:
+      - rd-user-profile-api.json
+    dependsOn:
+      - idam-api
+      - rpe-service-auth-provider
+  rd-profile-sync:
+    group: RD
+    type: scheduler
+    description: Scheduler for updating user profile info in ref data user profile api
+    repository: https://github.com/hmcts/rd-profile-sync
+    dependsOn:
+      - idam-api
+      - rpe-service-auth-provider
+      - rd-user-profile-api
+  rd-caseworker-ref-api:
+    group: RD
+    type: api
+    description: Provides APIs for managing Staff reference data
+    repository: https://github.com/hmcts/rd-caseworker-ref-api
+    expectsSpec: true
+    claimedSpecFiles:
+      - rd-caseworker-ref-api.json
+    dependsOn:
+      - idam-api
+      - rpe-service-auth-provider
+      - rd-user-profile-api
+  rd-location-ref-api:
+    group: RD
+    type: api
+    description: Provides Fetch APIs for Location reference data
+    repository: https://github.com/hmcts/rd-location-ref-api
+    expectsSpec: true
+    claimedSpecFiles:
+      - rd-location-ref-api.json
+    dependsOn:
+      - idam-api
+      - rpe-service-auth-provider
+  rd-judicial-api:
+    group: RD
+    type: api
+    description: Provides Fetch APIs for Judicial reference data
+    repository: https://github.com/hmcts/rd-judicial-api
+    expectsSpec: true
+    claimedSpecFiles:
+      - rd-judicial-api.json
+    dependsOn:
+      - idam-api
+      - rpe-service-auth-provider
+      - rd-location-ref-api
+  rd-commondata-api:
+    group: RD
+    type: api
+    description: Provides Fetch APIs for Reference Common static data i.e. case flag and List of values
+    repository: https://github.com/hmcts/rd-commondata-api
+    expectsSpec: true
+    claimedSpecFiles:
+      - rd-commondata-api.json
+    dependsOn:
+      - idam-api
+      - rpe-service-auth-provider
+  wa-workflow-api:
+    group: WA
+    description: API to kick off work allocation work flow
+    repository: https://github.com/hmcts/wa-workflow-api
+    expectsSpec: true
+    claimedSpecFiles:
+      - wa-workflow-api.json
+  wa-task-management-api:
+    group: WA
+    description: API that helps you manage and perform operations on tasks
+    repository: https://github.com/hmcts/wa-task-management-api
+    expectsSpec: true
+    claimedSpecFiles:
+      - wa-task-management-api.json
+  ts-translation-service:
+    group: CCD
+    type: api
+    description: Provides a capability for service users to maintain Welsh translations.
+    repository: https://github.com/hmcts/ts-translation-service
+    expectsSpec: true
+    claimedSpecFiles:
+      - ts-translation-service.json
+    dependsOn:
+      - idam-api
+      - rpe-service-auth-provider
+  nfdiv-frontend:
+    group: NFDIV
+    type: web
+    description: Citizen frontend for the No Fault Divorce system
+    repository: https://github.com/hmcts/nfdiv-frontend
+    expectsSpec: true
+    claimedSpecFiles:
+      - nfdiv-frontend.json
+    dependsOn:
+      - idam-api
+      - rpe-service-auth-provider
+      - ccd-data-store-api
+      - fees-register-api
+      - payment-api
+      - dm-store
+  nfdiv-case-api:
+    group: NFDIV
+    type: api
+    description: Business logic for the No Fault Divorce system
+    repository: https://github.com/hmcts/nfdiv-case-api
+    expectsSpec: true
+    claimedSpecFiles:
+      - nfdiv-case-api.json
+    dependsOn:
+      - idam-api
+      - rpe-service-auth-provider
+      - ccd-data-store-api
+      - fees-register-api
+      - payment-api
+      - rpa-dg-docassembly-api
+      - bsp-send-letter-service
+  darts-api:
+    group: DARTS
+    type: api
+    description: Backend for DARTS modernisation project
+    repository: https://github.com/hmcts/darts-api
+  darts-portal:
+    group: DARTS
+    type: web
+    description: Frontend for DARTS modernisation project
+    repository: https://github.com/hmcts/darts-portal
+    dependsOn:
+      - darts-api
+  pcq-backend:
+    group: PCQ
+    type: api
+    description: PCQ Backend
+    repository: https://github.com/hmcts/pcq-backend
+    expectsSpec: true
+    claimedSpecFiles:
+      - pcq-backend.json
+    dependsOn:
+      - rpe-service-auth-provider
+  pcq-loader:
+    group: PCQ
+    type: api
+    description: PCQ Loader
+    repository: https://github.com/hmcts/pcq-loader
+    dependsOn:
+      - pcq-backend
+      - rpe-service-auth-provider
+  pcq-consolidation-service:
+    group: PCQ
+    type: api
+    description: PCQ Consolidation Service
+    repository: https://github.com/hmcts/pcq-consolidation-service
+    dependsOn:
+      - pcq-backend
+      - rpe-service-auth-provider
+      - idam-api
+      - ccd-data-store-api
+  pcq-frontend:
+    group: PCQ
+    type: web
+    description: PCQ Frontend Web application
+    repository: https://github.com/hmcts/pcq-frontend
+    dependsOn:
+      - pcq-backend
+  am-judicial-booking-service:
+    group: AM
+    type: api
+    description: API will help to create bookings for fee paid judges and would provided APIs to Fetch
+      and create booking.
+    repository: https://github.com/hmcts/am-judicial-booking-service
+    expectsSpec: true
+    claimedSpecFiles:
+      - am-judicial-booking-service.json
+    dependsOn:
+      - idam-api
+      - rpe-service-auth-provider
+  am-org-role-mapping-service:
+    group: AM
+    type: api
+    description: API to provision various organisation roles for staff & judicial users based on the
+      service specific mapping rules.
+    repository: https://github.com/hmcts/am-org-role-mapping-service
+    expectsSpec: true
+    claimedSpecFiles:
+      - am-org-role-mapping-service.json
+    dependsOn:
+      - idam-api
+      - rpe-service-auth-provider
+      - am-judicial-booking-service
+      - am-role-assignment-service
+      - rd-judicial-api
+      - rd-caseworker-ref-api
+  am-role-assignment-service:
+    group: AM
+    type: api
+    description: API manages the assignment of roles with attributes to actors, to support both ccd
+      access control and work allocation requirements.
+    repository: https://github.com/hmcts/am-role-assignment-service
+    expectsSpec: true
+    claimedSpecFiles:
+      - am-role-assignment-service.json
+    dependsOn:
+      - idam-api
+      - rpe-service-auth-provider
+      - ccd-data-store-api
+  pre-api:
+    group: PRE
+    type: api
+    description: Backend for Pre-Recorded Evidence project
+    repository: https://github.com/hmcts/pre-api
+  pre-portal:
+    group: PRE
+    type: web
+    description: Frontend for Pre-Recorded Evidence project
+    repository: https://github.com/hmcts/pre-portal
+    dependsOn:
+      - pre-api
+  sptribs-frontend:
+    group: ST
+    type: web
+    description: Special Tribunals Frontend
+    repository: https://github.com/hmcts/sptribs-frontend
+    dependsOn:
+      - sptribs-case-api
+      - idam-web-public
+      - idam-api
+      - rpe-service-auth-provider
+  sptribs-case-api:
+    group: ST
+    type: api
+    description: Business logic for management of Special Tribunals cases
+    repository: https://github.com/hmcts/sptribs-case-api
+    expectsSpec: true
+    claimedSpecFiles:
+      - sptribs-case-api.json
+    dependsOn:
+      - ccd-data-store-api
+      - rpe-service-auth-provider
+      - dm-store
+      - idam-api
+  et-ccd-callbacks:
+    group: ET
+    type: api
+    description: CCD callback service for Employment Tribunals, handling business logic for both
+      England/Wales and Scotland jurisdictions
+    repository: https://github.com/hmcts/et-ccd-callbacks
+    dependsOn:
+      - ccd-data-store-api
+      - idam-api
+      - rpe-service-auth-provider
+      - dm-store
+      - ccd-case-document-am-api
+      - aac-manage-case-assignment
+      - rpa-em-ccd-orchestrator
+      - docmosis-tornado-api
+      - id: rd-professional-api
+        hard: false
+  et-sya-frontend:
+    group: ET
+    type: web
+    description: Citizen-facing frontend for Employment Tribunal claimants to submit and manage their claims
+    repository: https://github.com/hmcts/et-sya-frontend
+    dependsOn:
+      - et-ccd-callbacks
+      - idam-web-public
+      - idam-api
+      - rpe-service-auth-provider
+      - id: pcq-backend
+        hard: false
+  et-syr-frontend:
+    group: ET
+    type: web
+    description: Citizen-facing frontend for Employment Tribunal respondents to submit ET3 responses and
+      manage their cases
+    repository: https://github.com/hmcts/et-syr-frontend
+    dependsOn:
+      - et-ccd-callbacks
+      - idam-web-public
+      - idam-api
+      - rpe-service-auth-provider
+      - id: pcq-backend
+        hard: false
+  pcs-api:
+    group: PCS
+    type: api
+    description: Backend Application of Possession Claims Service
+    repository: https://github.com/hmcts/pcs-api
+    expectsSpec: true
+    claimedSpecFiles:
+      - pcs-api.json
+    dependsOn:
+      - idam-api
+      - rpe-service-auth-provider
+      - ccd-data-store-api
+      - ccd-definition-store-api
+      - ccd-case-document-am-api
+      - payment-api
+      - fees-register-api
+      - id: rd-professional-api
+        hard: false
+      - id: rd-location-ref-api
+        hard: false
+      - id: rpa-dg-docassembly-api
+        hard: false
+  pcs-frontend:
+    group: PCS
+    type: web
+    description: Citizen-facing web app for the Possession Claims Service
+    repository: https://github.com/hmcts/pcs-frontend
+    dependsOn:
+      - pcs-api
+      - idam-api
+      - rpe-service-auth-provider

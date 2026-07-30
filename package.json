@@ -13,6 +13,9 @@
     "start": "http-server -p 8080 docs/",
     "test": "jasmine JASMINE_CONFIG_PATH=package.json && node --test test/*.test.mjs",
     "validate-specs": "node bin/validate-specs.mjs",
+    "normalise-specs": "node bin/normalise-specs.mjs",
+    "build-model": "node bin/normalise-specs.mjs && node model/build.mjs",
+    "refresh-catalog-cache": "node bin/refresh-catalog-cache.mjs",
     "update-swagger": "cp node_modules/swagger-ui-dist/swagger-ui* docs/",
     "update-vis": "cp node_modules/vis/dist/vis-network* docs/ && cp -r node_modules/vis/dist/img docs/"
   },
@@ -27,7 +30,9 @@
     "jasmine": "^4.3.0",
     "moment": "~2.29.4",
     "swagger-ui-dist": "^5.18.2",
-    "vis": "^4.21.0"
+    "swagger2openapi": "^7.0.8",
+    "vis": "^4.21.0",
+    "yaml": "^2.9.0"
   },
   "devDependencies": {
     "http-server": "^14.1.1"
