@@ -2,6 +2,11 @@
   "name": "cnp-api-docs",
   "version": "2.0.0",
   "description": "Swagger docs for all CNP APIs",
+  "packageManager": "yarn@4.10.3",
+  "private": true,
+  "workspaces": [
+    "site"
+  ],
   "directories": {
     "doc": "docs"
   },
@@ -16,11 +21,11 @@
     "normalise-specs": "node bin/normalise-specs.mjs",
     "build-model": "node bin/normalise-specs.mjs && node model/build.mjs",
     "refresh-catalog-cache": "node bin/refresh-catalog-cache.mjs",
-    "update-swagger": "cp node_modules/swagger-ui-dist/swagger-ui* docs/",
-    "update-vis": "cp node_modules/vis/dist/vis-network* docs/ && cp -r node_modules/vis/dist/img docs/",
-    "build-site": "npm --prefix site run build",
+    "build-site": "yarn workspace cnp-api-docs-site build",
     "assemble": "node bin/assemble-site.mjs",
-    "serve-site": "http-server build/dist -p 8080"
+    "serve-site": "http-server build/dist -p 8080",
+    "update-swagger": "cp node_modules/swagger-ui-dist/swagger-ui* docs/",
+    "update-vis": "cp node_modules/vis/dist/vis-network* docs/ && cp -r node_modules/vis/dist/img docs/"
   },
   "author": "",
   "license": "MIT",

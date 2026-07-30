@@ -6,9 +6,9 @@
   "description": "Static developer portal for the CFT API catalogue",
   "license": "MIT",
   "scripts": {
-    "model": "npm --prefix .. run build-model",
-    "dev": "npm run model && astro dev",
-    "build": "npm run model && astro build",
+    "model": "yarn workspace cnp-api-docs build-model",
+    "dev": "yarn model && astro dev",
+    "build": "yarn model && astro build",
     "preview": "astro preview"
   },
   "dependencies": {
@@ -17,5 +17,9 @@
     "astro": "^7.1.6",
     "react": "^19.2.8",
     "react-dom": "^19.2.8"
+  },
+  "devDependencies": {
+    "@types/react": "^19.2.17",
+    "@types/react-dom": "^19.2.3"
   }
 }

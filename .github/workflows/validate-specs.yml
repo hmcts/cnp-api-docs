@@ -43,18 +43,21 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
+          cache: yarn
+
+      - run: corepack enable
 
       - name: Install dependencies
-        run: npm ci
+        run: yarn install --immutable
 
       - name: Run the test suite
-        run: npm test
+        run: yarn test
 
       # Proves every published spec is representable, all 54 Swagger 2.0 specs
       # still convert, and docs/specs/ is not written to by the build.
       - name: Build the model
         run: |
-          npm run build-model
+          yarn build-model
           if [ -n "$(git status --porcelain docs/specs)" ]; then
             echo "::error::the build modified docs/specs — publishers' bytes must never change" >&2
             git status --porcelain docs/specs >&2

@@ -22,8 +22,10 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
+          cache: yarn
 
-      - run: npm ci
+      - run: corepack enable
+      - run: yarn install --immutable
 
       - name: Clone every repo's catalog-info.yaml
         env:

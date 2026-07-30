@@ -12,3 +12,12 @@ docs/c4/**/workspace.json
 **/.structurizr
 site/node_modules
 site/.astro
+
+# Yarn Berry: the release binary is committed so installs are hermetic and do not
+# depend on a Corepack download. Everything else is generated.
+.yarn/*
+!.yarn/releases
+!.yarn/patches
+!.yarn/plugins
+.pnp.*
+.yarn/install-state.gz

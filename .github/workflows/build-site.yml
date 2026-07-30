@@ -43,12 +43,15 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
+          cache: yarn
 
-      - run: npm ci
-      - run: npm ci --prefix site
+      # --immutable fails if yarn.lock would change, which is what we want in CI.
+      # Yarn itself comes from the committed .yarn/releases binary.
+      - run: corepack enable
+      - run: yarn install --immutable
 
       - name: Build the site
-        run: npm run build --prefix site
+        run: yarn build-site
 
       - name: Assemble, verifying spec bytes are unchanged
         run: node bin/assemble-site.mjs --out build/dist

@@ -37,7 +37,7 @@ function main(argv) {
 
   for (const dir of [SITE_DIR, NORMALISED_DIR]) {
     if (!existsSync(dir)) {
-      console.error(`missing ${dir} — run \`npm run build-site\` first`);
+      console.error(`missing ${dir} — run \`yarn build-site\` first`);
       return 2;
     }
   }

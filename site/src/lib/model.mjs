@@ -1,7 +1,7 @@
 // Loads model/model.json, the single input to this site.
 //
-// The model is derived and gitignored, so it must be built first — `npm run dev`
-// and `npm run build` both do that. A dynamic import of the builder would be
+// The model is derived and gitignored, so it must be built first — `yarn dev`
+// and `yarn build` both do that. A dynamic import of the builder would be
 // rewritten by the bundler, so fail with a clear instruction instead.
 
 import { existsSync, readFileSync } from 'node:fs';
@@ -15,8 +15,8 @@ const modelPath = join(repoRoot, 'model', 'model.json');
 
 if (!existsSync(modelPath)) {
   throw new Error(
-    `model/model.json not found. Run \`npm run build-model\` in the repo root first ` +
-      `(\`npm run dev\` and \`npm run build\` in site/ do this for you).`,
+    `model/model.json not found. Run \`yarn build-model\` in the repo root first ` +
+      `(\`yarn dev\` and \`yarn build\` in site/ do this for you).`,
   );
 }
 

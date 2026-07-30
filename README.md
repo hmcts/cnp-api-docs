@@ -47,38 +47,45 @@ In case the `spec` field is present, API bubble represented in the graph will al
 
 [How to publish swagger docs](#publish-swagger-docs) for your spring boot template application
 
-## Tools
+## Getting started
 
-There are very simple npm scripts to update the `swagger-ui` and `vis.js` currently used to show docs
+This repo uses Yarn 4 (Berry) with `node-modules` as the linker, and is a single
+Yarn workspace with the site in `site/`. The Yarn binary is committed to
+`.yarn/releases/`, so installs do not depend on a Corepack download.
 
 ```bash
-npm run update-swagger
-npm run update-vis
+corepack enable   # once per machine
+yarn install
 ```
 
-Repository is using swagger bundle so instead of downloading individual `swagger-ui` packages it gets the `swagger-ui-dist` for the whole thing and then just graps everything from `dist` upon npm script execution.
+## The portal
+
+```bash
+yarn build-site   # builds the model, then the Astro site
+yarn assemble     # adds docs/specs verbatim, verifying every byte
+yarn serve-site   # http://localhost:8080
+```
+
+`yarn assemble` refuses to produce a deployable tree if any spec's bytes change
+during the copy. Those URLs are fetched at runtime by other services, so they must
+be identical.
+
+To work on the site with live reload:
+
+```bash
+cd site && yarn dev
+```
 
 ## Testing
 
 ```bash
-npm test
-```
-
-## Localhost viewing
-
-```bash
-npm install
-npm start
+yarn test              # unit tests plus the consumer contract
+yarn validate-specs    # classify every spec in docs/specs/
 ```
 
 ## Registry health
 
 Every spec in `docs/specs/` is validated on each push to master.
-
-```bash
-npm run validate-specs     # classify every spec
-npm test                   # unit tests, plus the consumer contract
-```
 
 Publishers push straight to master and the publishing bot bypasses branch
 protection, so validation cannot block a bad spec landing. Instead, if a spec
