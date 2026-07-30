@@ -1,0 +1,102 @@
+name: Validate API specs
+
+# Publishers push straight to master and the publishing bot bypasses branch
+# protection, so a required status check cannot gate ingest. This runs after the
+# push and repairs the one unambiguous failure mode: a spec that used to parse
+# and no longer does.
+
+on:
+  push:
+    branches: [master]
+    paths: ['docs/specs/**']
+  pull_request:
+    paths: ['docs/specs/**', 'bin/validate-specs.mjs', 'bin/revert-broken-specs.mjs']
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  issues: write
+
+concurrency:
+  # Never let two revert jobs race each other onto master.
+  group: validate-specs-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Unit-test the validator
+        run: node --test test/validate-specs.test.mjs
+
+      # Guards the spec filenames that XUI fetches at runtime, that the CCD/HMC
+      # F-125 tests assert on, and that terraform reads at apply time.
+      - name: Check externally-consumed specs are intact
+        run: node --test test/consumer-contract.test.mjs
+
+      - name: Report registry health
+        run: node bin/validate-specs.mjs || true
+
+      # On a pull request, just tell us what would happen.
+      - name: Detect newly-broken specs (report only)
+        if: github.event_name == 'pull_request'
+        run: node bin/revert-broken-specs.mjs --base "${{ github.event.pull_request.base.sha }}"
+
+      - name: Revert newly-broken specs
+        if: github.event_name == 'push'
+        id: revert
+        run: |
+          node bin/revert-broken-specs.mjs --base "${{ github.event.before }}" --apply | tee /tmp/revert.json
+
+      - name: Push the revert
+        if: github.event_name == 'push' && steps.revert.outputs.reverted_count != '0'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/specs
+          git commit -m "Restore spec(s) broken by ${GITHUB_SHA:0:7}
+
+          The pushed spec did not parse and the previous version did, so it has
+          been restored automatically. See the linked issue for the cause."
+          # Publishers push constantly; rebase onto whatever landed meanwhile.
+          for attempt in 1 2 3 4 5; do
+            if git push origin HEAD:master; then exit 0; fi
+            echo "push rejected, rebasing (attempt $attempt)"
+            git pull --rebase origin master || exit 1
+          done
+          echo "could not push revert after 5 attempts" >&2
+          exit 1
+
+      - name: Open or update the tracking issue
+        if: github.event_name == 'push' && steps.revert.outputs.reverted_count != '0'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          title="Broken API specs are being published"
+          body=$(node -e '
+            const s = require("/tmp/revert.json");
+            const lines = s.reverted.map(r => `- \`${r.path}\` — was ${r.reason}, restored ${r.restoredBytes} bytes`);
+            console.log([
+              `Specs were published in a state that does not parse, and have been restored automatically.`,
+              ``,
+              `Broken by ${process.env.GITHUB_SHA}:`,
+              ...lines,
+              ``,
+              `The usual cause is the publishing pipeline writing an empty file when it cannot fetch the spec from the running application, so the failure is silent. Fix the publishing job in the owning repo rather than re-pushing by hand.`,
+            ].join("\n"));
+          ')
+          existing=$(gh issue list --state open --search "$title in:title" --json number --jq '.[0].number')
+          if [ -n "$existing" ]; then
+            gh issue comment "$existing" --body "$body"
+          else
+            gh issue create --title "$title" --body "$body" --label "spec-health" || \
+              gh issue create --title "$title" --body "$body"
+          fi
