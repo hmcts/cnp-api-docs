@@ -1,0 +1,160 @@
+---
+import Base from '../layouts/Base.astro';
+import { model, services, slugFor, counts, warnings } from '../lib/model.mjs';
+
+const base = import.meta.env.BASE_URL;
+
+const allSpecs = services.flatMap((s) => s.specs.map((spec) => ({ ...spec, serviceId: s.id })));
+
+const buckets = ['fresh', 'ageing', 'stale', 'abandoned', 'unpublished'].map((k) => ({
+  key: k,
+  count: allSpecs.filter((s) => s.freshness === k).length,
+}));
+
+const broken = allSpecs.filter((s) => !s.valid);
+const missing = warnings.filter((w) => w.kind === 'claimed-spec-missing');
+const unregistered = warnings.filter((w) => w.kind === 'spec-not-in-registry');
+const abandoned = allSpecs
+  .filter((s) => s.freshness === 'abandoned' || s.freshness === 'unpublished')
+  .sort((a, b) => (a.lastPublished ?? '0').localeCompare(b.lastPublished ?? '0'));
+
+const withOwner = services.filter((s) => s.owner).length;
+const specBacked = services.filter((s) => s.specs.length > 0);
+const ownedSpecBacked = specBacked.filter((s) => s.owner).length;
+const pct = (n, d) => (d === 0 ? 0 : Math.round((100 * n) / d));
+---
+
+<Base title="Registry health" description="Freshness, breakage and ownership across every published spec.">
+  <h1>Registry health</h1>
+  <p class="lede">
+    Nothing validated specs on ingest until recently, so the registry accumulated
+    breakage silently. These are the numbers as they actually are.
+  </p>
+
+  <h2>Are the specs valid?</h2>
+  <ul class="stats">
+    <li><span class="n">{counts.specFiles}</span><span class="k">published specs</span></li>
+    <li><span class="n">{broken.length}</span><span class="k">that cannot be parsed</span></li>
+  </ul>
+  {broken.length === 0 ? (
+    <div class="panel">
+      <p>
+        Every published spec parses and declares an OpenAPI or Swagger version. A push
+        that breaks one is now reverted automatically and raises an issue against the
+        owning team.
+      </p>
+    </div>
+  ) : (
+    <table>
+      <thead><tr><th scope="col">Spec</th><th scope="col">Service</th><th scope="col">Problem</th></tr></thead>
+      <tbody>
+        {broken.map((s) => (
+          <tr>
+            <td><code>{s.file}</code></td>
+            <td><a href={`${base}/service/${slugFor(s.serviceId)}/`}>{s.serviceId}</a></td>
+            <td>{s.problem}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  )}
+
+  <h2>Is anyone still publishing them?</h2>
+  <p>
+    Freshness counts only commits made by a publishing pipeline. Maintenance edits by
+    the platform team do not make a spec look fresher than it is.
+  </p>
+  <table>
+    <thead>
+      <tr><th scope="col">Last published</th><th scope="col" class="num">Specs</th><th scope="col" class="num">Share</th></tr>
+    </thead>
+    <tbody>
+      {buckets.map((b) => (
+        <tr>
+          <td>
+            <span class={`tag ${b.key}`}>{b.key}</span>
+            <span class="muted">
+              {b.key === 'fresh' && ' within 90 days'}
+              {b.key === 'ageing' && ' 90 days to a year'}
+              {b.key === 'stale' && ' one to two years'}
+              {b.key === 'abandoned' && ' over two years'}
+              {b.key === 'unpublished' && ' never published by a pipeline'}
+            </span>
+          </td>
+          <td class="num">{b.count}</td>
+          <td class="num">{pct(b.count, allSpecs.length)}%</td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+
+  <div class="panel warn">
+    <p>
+      <strong>
+        {`${buckets.find((b) => b.key === 'abandoned').count + buckets.find((b) => b.key === 'unpublished').count} of ${allSpecs.length} specs have not been published by a pipeline in over two years.`}
+      </strong>
+      {' '}Some describe services that no longer exist. Treat an abandoned spec as a claim
+      about the past, not a contract.
+    </p>
+  </div>
+
+  <h2>Do the registry and the specs agree?</h2>
+  <ul class="stats">
+    <li><span class="n">{unregistered.length}</span><span class="k">specs with no registry entry</span></li>
+    <li><span class="n">{missing.length}</span><span class="k">registry entries with no spec</span></li>
+  </ul>
+  <p>
+    Specs with no registry entry still appear in the catalogue — publishing is enough to be
+    listed. They simply have no group or curated description yet.
+  </p>
+
+  <h3>Registry entries pointing at a spec that does not exist</h3>
+  <p class="muted">These were broken links in the old portal. Either the spec was never published, or it was published under a different name.</p>
+  <table>
+    <thead><tr><th scope="col">Registry id</th><th scope="col">Group</th><th scope="col">Expected file</th></tr></thead>
+    <tbody>
+      {missing.map((w) => (
+        <tr>
+          <td>{w.id}</td>
+          <td>{w.group ?? <span class="muted">—</span>}</td>
+          <td><code>{w.expected.join(', ')}</code></td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+
+  <h2>Who owns them?</h2>
+  <ul class="stats">
+    <li><span class="n">{ownedSpecBacked}/{specBacked.length}</span><span class="k">spec-backed services with an owner</span></li>
+    <li><span class="n">{pct(ownedSpecBacked, specBacked.length)}%</span><span class="k">ownership coverage</span></li>
+    <li><span class="n">{counts.federatedEdges}</span><span class="k">declaring their own dependencies</span></li>
+  </ul>
+  <p>
+    Ownership comes from each repo's <code>catalog-info.yaml</code>. A service without one
+    shows no owner here — adding the file to the repo is all that is needed.
+  </p>
+  <p>
+    Dependency edges still come from the central registry. When a team declares
+    <code>dependsOn</code> or <code>consumesApis</code> in its own
+    <code>catalog-info.yaml</code>, that takes precedence automatically. The counter above
+    tracks adoption.
+  </p>
+
+  <h2>Longest without a publish</h2>
+  <table>
+    <thead>
+      <tr><th scope="col">Spec</th><th scope="col">Service</th><th scope="col">Last published</th><th scope="col">Last touched</th></tr>
+    </thead>
+    <tbody>
+      {abandoned.slice(0, 25).map((s) => (
+        <tr>
+          <td><code>{s.file}</code></td>
+          <td><a href={`${base}/service/${slugFor(s.serviceId)}/`}>{s.serviceId}</a></td>
+          <td>{s.lastPublished ?? <span class="muted">never</span>}</td>
+          <td class="muted">{s.lastTouched ?? '—'}</td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+  {abandoned.length > 25 && <p class="muted">Showing 25 of {abandoned.length}.</p>}
+</Base>

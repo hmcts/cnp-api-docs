@@ -30,7 +30,37 @@ test('buckets freshness by age', () => {
   assert.equal(ageBucket(90), 'ageing');
   assert.equal(ageBucket(400), 'stale');
   assert.equal(ageBucket(1000), 'abandoned');
-  assert.equal(ageBucket(null), 'unknown');
+  // Never published by a pipeline — committed by hand. Distinct from "old".
+  assert.equal(ageBucket(null), 'unpublished');
+});
+
+// Freshness must reflect the last time a *publisher* wrote the spec. Counting any
+// commit means our own maintenance resets the clock: the Phase 0 commit that
+// repaired 10 broken specs made wa-task-management-api — last published by its
+// pipeline in June 2023 — look freshly published.
+test('freshness ignores maintenance commits', () => {
+  const wa = model.services['wa-task-management-api'];
+  const spec = wa.specs.find((s) => s.file === 'wa-task-management-api.json');
+  assert.ok(spec, 'expected wa-task-management-api.json in the model');
+  assert.equal(spec.lastPublished, '2023-06-16', 'should be the pipeline date, not the repair date');
+  assert.equal(spec.freshness, 'abandoned');
+  // The repair is still visible, just not as freshness.
+  assert.ok(spec.lastTouched > spec.lastPublished, 'lastTouched should record the repair');
+});
+
+test('specs never written by a pipeline are marked unpublished', () => {
+  const unpublished = [];
+  for (const s of Object.values(model.services)) {
+    for (const spec of s.specs) {
+      if (spec.freshness === 'unpublished') unpublished.push(spec);
+    }
+  }
+  assert.ok(unpublished.length > 0, 'expected some hand-committed specs');
+  for (const spec of unpublished) {
+    assert.equal(spec.lastPublished, null);
+    // They exist in git, so something touched them.
+    assert.ok(spec.lastTouched, `${spec.file} should still have a touched date`);
+  }
 });
 
 // The regression this model exists to prevent: under microservices.json a spec

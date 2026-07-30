@@ -10,3 +10,5 @@ model/normalisation-report.json
 
 docs/c4/**/workspace.json
 **/.structurizr
+site/node_modules
+site/.astro

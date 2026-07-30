@@ -1,0 +1,120 @@
+name: Build site
+
+# Builds the portal and, on master, uploads it as a Pages artifact.
+#
+# NOTE: this does not deploy yet. The Pages source is still the legacy
+# `master:/docs` branch setting, so the live site is unaffected. Flipping Pages to
+# "GitHub Actions" is a deliberate, separate step once the artifact has been
+# inspected — that switch is the only irreversible part of the cutover, and
+# reverting it means setting the source back to master:/docs.
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    paths:
+      - 'site/**'
+      - 'model/**'
+      - 'bin/**'
+      - 'registry.yaml'
+      - 'docs/specs/**'
+      - '.github/workflows/build-site.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: build-site-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          # Freshness comes from commit history, so a shallow clone would report
+          # every spec as never published.
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - run: npm ci
+      - run: npm ci --prefix site
+
+      - name: Build the site
+        run: npm run build --prefix site
+
+      - name: Assemble, verifying spec bytes are unchanged
+        run: node bin/assemble-site.mjs --out build/dist
+
+      # Belt and braces: assemble-site.mjs already compares sha256 before and
+      # after each copy, but these URLs are load-bearing enough to check twice
+      # against the working tree.
+      - name: Re-verify every spec against the source tree
+        run: |
+          fail=0
+          for f in docs/specs/*.json; do
+            name=$(basename "$f")
+            [ "$name" = ".json" ] && continue
+            if ! cmp -s "$f" "build/dist/specs/$name"; then
+              echo "::error::$name differs between docs/specs and the built site"
+              fail=1
+            fi
+          done
+          count=$(find build/dist/specs -maxdepth 1 -name '*.json' | wc -l)
+          expected=$(find docs/specs -maxdepth 1 -name '*.json' ! -name '.json' | wc -l)
+          if [ "$count" != "$expected" ]; then
+            echo "::error::built site has $count specs, source tree has $expected"
+            fail=1
+          fi
+          echo "verified $count specs byte-identical"
+          exit $fail
+
+      - name: Check the externally-consumed URLs exist in the artifact
+        run: |
+          fail=0
+          # rpx-xui-webapp fetches these at runtime; CCD/HMC assert on them;
+          # terraform reads them at apply time.
+          for name in \
+            am-role-assignment-service am-judicial-booking-service future-hearings-hmi-api \
+            rd-location-ref-api rd-judicial-api rd-caseworker-ref-api \
+            ccd-data-store-api.v1_internal ccd-data-store-api.v1_external \
+            ccd-data-store-api.v2_internal ccd-data-store-api.v2_external \
+            ccd-user-profile-api hmc-hmi-inbound-adapter \
+            ccpay-payment-app.recon-payments-v0.3 ccpay-payment-app.refunds-status-v1 \
+            et-acas-api et-acas-api-nonprod
+          do
+            path="build/dist/specs/$name.json"
+            if [ ! -s "$path" ]; then
+              echo "::error::missing or empty: specs/$name.json"
+              fail=1
+            elif ! node -e "JSON.parse(require('fs').readFileSync('$path','utf8'))"; then
+              echo "::error::not parseable: specs/$name.json"
+              fail=1
+            fi
+          done
+          # And the legacy entry point everything links to.
+          [ -s build/dist/swagger.html ] || { echo "::error::swagger.html shim missing"; fail=1; }
+          exit $fail
+
+      - name: Summarise
+        run: |
+          {
+            echo "### Site artifact"
+            echo
+            echo "- pages: $(find build/dist -name '*.html' | wc -l)"
+            echo "- specs served verbatim: $(find build/dist/specs -maxdepth 1 -name '*.json' | wc -l)"
+            echo "- normalised for rendering: $(find build/dist/specs/_normalised -name '*.json' | wc -l)"
+            echo
+            echo "Not deployed: the Pages source is still \`master:/docs\`."
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: build/dist

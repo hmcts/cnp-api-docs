@@ -1,0 +1,14 @@
+---
+import Base from '../layouts/Base.astro';
+import ReferenceLoader from '../components/ReferenceLoader.jsx';
+---
+
+<Base title="API reference" description="Render any OpenAPI specification by URL.">
+  <h1>API reference</h1>
+  <p class="lede">
+    Renders a specification from a URL. Specs published here have their own page in the
+    <a href={import.meta.env.BASE_URL + '/'}>catalogue</a>; this exists so that older
+    <code>swagger.html?url=…</code> links to specs hosted elsewhere keep working.
+  </p>
+  <ReferenceLoader client:only="react" />
+</Base>

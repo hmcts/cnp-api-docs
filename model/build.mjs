@@ -34,29 +34,47 @@ function specIdentity(file) {
   return { service: stem, variant: null };
 }
 
-// One git pass for every file's last-modified date. Per-file `git log` over a
+// A publisher's commit, as opposed to maintenance by a human. Publishing
+// pipelines write "Update spec for <repo>#<sha>" or "Update spec from <slug>",
+// which covers 11,786 of ~11,900 commits touching docs/specs.
+const PUBLISH_SUBJECT = /^Updat(e|ing) spec (for|from) /;
+
+// One git pass for every file's last-published date. Per-file `git log` over a
 // repo with thousands of "Update spec" commits takes minutes; this takes ~0.3s.
+//
+// Only publisher commits count. Otherwise our own maintenance — the Phase 0
+// commit that repaired 10 broken specs, say — resets the clock and reports a
+// spec no team has touched since 2021 as freshly published.
 function lastModified() {
-  const out = execFileSync('git', ['log', '--format=C%ct', '--name-only', '--', SPEC_DIR], {
-    encoding: 'utf8',
-    maxBuffer: 64 * 1024 * 1024,
-  });
-  const seen = {};
+  const out = execFileSync(
+    'git',
+    ['log', '--format=C%ct%x00%s', '--name-only', '--', SPEC_DIR],
+    { encoding: 'utf8', maxBuffer: 64 * 1024 * 1024 },
+  );
+
+  const published = {};
+  const touched = {};
   let ts = null;
+  let isPublish = false;
+
   for (const line of out.split('\n')) {
-    if (line.startsWith('C')) {
-      ts = Number(line.slice(1));
+    if (line.startsWith('C') && line.includes('\0')) {
+      const [stamp, subject] = line.slice(1).split('\0');
+      ts = Number(stamp);
+      isPublish = PUBLISH_SUBJECT.test(subject);
       continue;
     }
     const path = line.trim();
     if (!path) continue;
-    if (!(path in seen)) seen[path] = ts;
+    if (!(path in touched)) touched[path] = ts;
+    if (isPublish && !(path in published)) published[path] = ts;
   }
-  return seen;
+
+  return { published, touched };
 }
 
 function ageBucket(days) {
-  if (days == null) return 'unknown';
+  if (days == null) return 'unpublished';
   if (days < 90) return 'fresh';
   if (days < 365) return 'ageing';
   if (days < 730) return 'stale';
@@ -104,7 +122,10 @@ function build({ now = Date.now() } = {}) {
       }
     }
 
-    const ts = modified[path];
+    // Freshness tracks the last real publish; lastTouched is shown separately so
+    // a maintenance edit is visible without inflating apparent health.
+    const ts = modified.published[path];
+    const touchedTs = modified.touched[path];
     const ageDays = ts ? Math.floor((now - ts * 1000) / 86_400_000) : null;
 
     const entry = {
@@ -118,7 +139,8 @@ function build({ now = Date.now() } = {}) {
       title: doc?.info?.title ?? null,
       apiVersion: doc?.info?.version ?? null,
       description: doc?.info?.description ?? null,
-      lastModified: ts ? new Date(ts * 1000).toISOString().slice(0, 10) : null,
+      lastPublished: ts ? new Date(ts * 1000).toISOString().slice(0, 10) : null,
+      lastTouched: touchedTs ? new Date(touchedTs * 1000).toISOString().slice(0, 10) : null,
       ageDays,
       freshness: ageBucket(ageDays),
       url: `https://hmcts.github.io/cnp-api-docs/specs/${file}`,

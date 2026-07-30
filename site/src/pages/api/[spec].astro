@@ -1,0 +1,84 @@
+---
+import Base from '../../layouts/Base.astro';
+import SpecViewer from '../../components/SpecViewer.jsx';
+import { model, services, slugFor } from '../../lib/model.mjs';
+
+export function getStaticPaths() {
+  const paths = [];
+  for (const s of services) {
+    for (const spec of s.specs) {
+      paths.push({
+        params: { spec: spec.file.replace(/\.json$/, '') },
+        props: { serviceId: s.id, file: spec.file },
+      });
+    }
+  }
+  return paths;
+}
+
+const { serviceId, file } = Astro.props;
+const base = import.meta.env.BASE_URL;
+const service = model.services[serviceId];
+const spec = service.specs.find((s) => s.file === file);
+
+// Rendered from the normalised copy so the viewer only ever sees OpenAPI 3.x.
+const normalisedUrl = `${base}/specs/_normalised/${file}`;
+const title = spec.title ?? serviceId;
+---
+
+<Base title={title} description={spec.description ?? `OpenAPI specification for ${serviceId}`}>
+  <p class="crumb">
+    <a href={`${base}/`}>Catalogue</a> ›
+    <a href={`${base}/service/${slugFor(serviceId)}/`}>{serviceId}</a>
+    {spec.variant && <> › {spec.variant}</>}
+  </p>
+
+  <h1>{title}</h1>
+  <p class="lede">
+    {spec.pathCount} path{spec.pathCount === 1 ? '' : 's'} ·
+    OpenAPI {spec.specVersion} ·
+    published {spec.lastPublished ?? 'unknown'}
+    <span class={`tag ${spec.freshness}`}>{spec.freshness}</span>
+  </p>
+
+  {spec.freshness === 'abandoned' && (
+    <div class="panel warn">
+      <p>
+        <strong>This spec has not been republished in over two years.</strong>
+        It may not reflect the service as deployed. Check with
+        {service.owner ? ` ${service.owner}` : ' the owning team'} before relying on it.
+      </p>
+    </div>
+  )}
+
+  {!spec.valid ? (
+    <div class="panel warn">
+      <p>
+        <strong>This spec cannot be displayed.</strong> The published file is
+        {spec.problem === 'empty' ? ' empty' : ` not valid JSON (${spec.problem})`}.
+      </p>
+      <p>
+        The publishing pipeline in the owning repo is writing a broken file, usually
+        because it could not reach the running application. Raw file:
+        <a href={spec.url}>{spec.file}</a>.
+      </p>
+    </div>
+  ) : (
+    <>
+      <p class="raw">
+        Raw specification: <a href={spec.url}>{spec.file}</a>
+        <span class="muted"> — this is the URL to use in code; it serves the publisher's original bytes.</span>
+      </p>
+      <div class="viewer">
+        <SpecViewer url={normalisedUrl} client:only="react" />
+      </div>
+    </>
+  )}
+
+  <style>
+    .crumb { color: var(--muted); font-size: 0.9rem; margin-bottom: 8px; }
+    .raw { font-size: 0.9rem; }
+    /* Scalar ships its own layout; give it the full width of the page. */
+    .viewer { margin: 24px -20px 0; }
+  </style>
+</Base>

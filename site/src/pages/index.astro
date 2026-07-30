@@ -1,0 +1,115 @@
+---
+import Base from '../layouts/Base.astro';
+import { rankedServices, freshnessOf, pathCountOf, slugFor, counts, services } from '../lib/model.mjs';
+
+const base = import.meta.env.BASE_URL;
+const listed = rankedServices().filter((s) => s.specs.length > 0);
+
+const withOwner = services.filter((s) => s.owner).length;
+const freshCount = services.filter((s) => freshnessOf(s) === 'fresh').length;
+---
+
+<Base
+  title="Catalogue"
+  description="Every OpenAPI spec published by an HMCTS CFT service."
+>
+  <h1>CFT API catalogue</h1>
+  <p class="lede">
+    Every OpenAPI spec published into <code>docs/specs/</code> appears here — no registry
+    entry required. {listed.length} services, {counts.specFiles} specs.
+  </p>
+
+  <ul class="stats">
+    <li><span class="n">{counts.specFiles}</span><span class="k">published specs</span></li>
+    <li><span class="n">{freshCount}</span><span class="k">updated in 90 days</span></li>
+    <li><span class="n">{counts.groups}</span><span class="k">groups</span></li>
+    <li><span class="n">{withOwner}</span><span class="k">with a known owner</span></li>
+  </ul>
+
+  <label class="search">
+    <span>Search by name, group, owner or path</span>
+    <input
+      type="search"
+      id="q"
+      placeholder="e.g. ccd, payments, dcd_em"
+      autocomplete="off"
+      spellcheck="false"
+    />
+  </label>
+  <p class="muted" id="count" aria-live="polite">{listed.length} services</p>
+
+  <table id="tbl">
+    <thead>
+      <tr>
+        <th scope="col">Service</th>
+        <th scope="col">Group</th>
+        <th scope="col">Owner</th>
+        <th scope="col" class="num">Paths</th>
+        <th scope="col">Last published</th>
+      </tr>
+    </thead>
+    <tbody>
+      {listed.map((s) => {
+        const fresh = freshnessOf(s);
+        const newest = s.specs
+          .filter((x) => x.lastPublished)
+          .sort((a, b) => b.lastPublished.localeCompare(a.lastPublished))[0];
+        const broken = s.brokenSpecs > 0;
+        return (
+          <tr data-hay={`${s.id} ${s.group ?? ''} ${s.owner ?? ''} ${s.specs.map((x) => x.title ?? '').join(' ')}`.toLowerCase()}>
+            <td>
+              <a href={`${base}/service/${slugFor(s.id)}/`}>{s.id}</a>
+              {s.specs.length > 1 && <span class="muted"> ({s.specs.length} specs)</span>}
+              {broken && <> <span class="tag broken">broken</span></>}
+            </td>
+            <td>{s.group ? <a href={`${base}/groups/${slugFor(s.group)}/`}>{s.group}</a> : <span class="muted">unassigned</span>}</td>
+            <td>{s.owner ?? <span class="muted">unknown</span>}</td>
+            <td class="num">{pathCountOf(s) || ''}</td>
+            <td>
+              {newest?.lastPublished ?? <span class="muted">unknown</span>}
+              {' '}<span class={`tag ${fresh}`}>{fresh}</span>
+            </td>
+          </tr>
+        );
+      })}
+    </tbody>
+  </table>
+
+  <style>
+    .search { display: block; margin: 24px 0 4px; }
+    .search span { display: block; font-weight: 700; margin-bottom: 6px; }
+    .search input {
+      font: inherit;
+      padding: 8px 10px;
+      border: 2px solid var(--text);
+      width: 100%;
+      max-width: 30em;
+    }
+    .search input:focus { outline: 3px solid var(--focus); outline-offset: 0; }
+    tr[hidden] { display: none; }
+  </style>
+
+  <script>
+    // Plain DOM filtering: the table is already in the HTML, so search costs no
+    // extra payload and works on the first paint.
+    const q = document.getElementById('q');
+    const rows = Array.from(document.querySelectorAll('#tbl tbody tr'));
+    const count = document.getElementById('count');
+
+    function apply() {
+      const needle = q.value.trim().toLowerCase();
+      let shown = 0;
+      for (const row of rows) {
+        const match = !needle || row.dataset.hay.includes(needle);
+        row.hidden = !match;
+        if (match) shown++;
+      }
+      count.textContent = `${shown} service${shown === 1 ? '' : 's'}`;
+    }
+
+    q.addEventListener('input', apply);
+    // Support deep links like ?q=ccd from other pages.
+    const initial = new URLSearchParams(location.search).get('q');
+    if (initial) { q.value = initial; apply(); }
+  </script>
+</Base>

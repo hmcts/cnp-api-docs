@@ -1,0 +1,117 @@
+---
+import Base from '../../layouts/Base.astro';
+import { groups, model, slugFor, freshnessOf, rankedServices } from '../../lib/model.mjs';
+
+export function getStaticPaths() {
+  return groups.map((g) => ({ params: { slug: slugFor(g.name) }, props: { name: g.name } }));
+}
+
+const { name } = Astro.props;
+const base = import.meta.env.BASE_URL;
+const group = model.groups[name];
+
+const members = rankedServices(group.services.map((id) => model.services[id]).filter(Boolean));
+
+// Cross-group traffic, which is what a group-level view is actually for.
+const outbound = new Map();
+const inbound = new Map();
+const memberIds = new Set(members.map((m) => m.id));
+
+for (const m of members) {
+  for (const dep of m.dependsOn) {
+    const target = model.services[dep.id];
+    if (!target || target.ambient || memberIds.has(dep.id)) continue;
+    const g = target.group ?? 'unassigned';
+    if (g !== name) outbound.set(g, (outbound.get(g) ?? 0) + 1);
+  }
+  for (const cid of m.consumedBy ?? []) {
+    const source = model.services[cid];
+    if (!source || memberIds.has(cid)) continue;
+    const g = source.group ?? 'unassigned';
+    if (g !== name) inbound.set(g, (inbound.get(g) ?? 0) + 1);
+  }
+}
+
+const sortDesc = (map) => [...map.entries()].sort((a, b) => b[1] - a[1]);
+---
+
+<Base title={name} description={`Services in the ${name} group.`}>
+  <p class="crumb"><a href={`${base}/`}>Catalogue</a> › <a href={`${base}/groups/`}>Groups</a></p>
+  <h1>{name}</h1>
+  {group.info && <p class="lede" set:html={group.info} />}
+
+  <h2>Services <span class="muted">({members.length})</span></h2>
+  <table>
+    <thead>
+      <tr>
+        <th scope="col">Service</th>
+        <th scope="col">Owner</th>
+        <th scope="col" class="num">Paths</th>
+        <th scope="col">Last published</th>
+      </tr>
+    </thead>
+    <tbody>
+      {members.map((s) => {
+        const newest = s.specs
+          .filter((x) => x.lastPublished)
+          .sort((a, b) => b.lastPublished.localeCompare(a.lastPublished))[0];
+        return (
+          <tr>
+            <td>
+              <a href={`${base}/service/${slugFor(s.id)}/`}>{s.id}</a>
+              {s.specless && <span class="muted"> (no spec)</span>}
+            </td>
+            <td>{s.owner ?? <span class="muted">unknown</span>}</td>
+            <td class="num">{s.specs.reduce((n, x) => n + x.pathCount, 0) || ''}</td>
+            <td>
+              {newest?.lastPublished ?? <span class="muted">—</span>}
+              {' '}<span class={`tag ${freshnessOf(s)}`}>{freshnessOf(s)}</span>
+            </td>
+          </tr>
+        );
+      })}
+    </tbody>
+  </table>
+
+  <h2>Traffic across group boundaries</h2>
+  <p class="muted">
+    Dependencies between this group and others, excluding authentication and identity.
+    Counted per service-to-service edge.
+  </p>
+  <div class="hops">
+    <section>
+      <h3>Groups that call {name}</h3>
+      {inbound.size === 0 ? <p class="muted">None recorded.</p> : (
+        <ul class="plain">
+          {sortDesc(inbound).map(([g, n]) => (
+            <li>
+              {model.groups[g] ? <a href={`${base}/groups/${slugFor(g)}/`}>{g}</a> : g}
+              <span class="muted"> — {n} edge{n === 1 ? '' : 's'}</span>
+            </li>
+          ))}
+        </ul>
+      )}
+    </section>
+    <section>
+      <h3>Groups {name} calls</h3>
+      {outbound.size === 0 ? <p class="muted">None recorded.</p> : (
+        <ul class="plain">
+          {sortDesc(outbound).map(([g, n]) => (
+            <li>
+              {model.groups[g] ? <a href={`${base}/groups/${slugFor(g)}/`}>{g}</a> : g}
+              <span class="muted"> — {n} edge{n === 1 ? '' : 's'}</span>
+            </li>
+          ))}
+        </ul>
+      )}
+    </section>
+  </div>
+
+  <style>
+    .crumb { color: var(--muted); font-size: 0.9rem; margin-bottom: 8px; }
+    .hops { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+    .plain { list-style: none; padding: 0; margin: 0; }
+    .plain li { padding: 4px 0; border-bottom: 1px solid var(--line); }
+    @media (max-width: 640px) { .hops { grid-template-columns: 1fr; gap: 16px; } }
+  </style>
+</Base>

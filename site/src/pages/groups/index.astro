@@ -1,0 +1,66 @@
+---
+import Base from '../../layouts/Base.astro';
+import { groups, model, slugFor, freshnessOf } from '../../lib/model.mjs';
+
+const base = import.meta.env.BASE_URL;
+
+const rows = groups
+  .map((g) => {
+    const members = g.services.map((id) => model.services[id]).filter(Boolean);
+    const specs = members.flatMap((m) => m.specs);
+    return {
+      ...g,
+      members,
+      specCount: specs.length,
+      fresh: members.filter((m) => freshnessOf(m) === 'fresh').length,
+    };
+  })
+  .sort((a, b) => b.specCount - a.specCount || a.name.localeCompare(b.name));
+
+const ungrouped = Object.values(model.services).filter((s) => !s.group && s.specs.length > 0);
+---
+
+<Base title="Groups" description="CFT services grouped by product area.">
+  <h1>Groups</h1>
+  <p class="lede">
+    Product areas as recorded in the registry. Each group has a hand-written architecture
+    view; the diagrams are being rebuilt and will appear here.
+  </p>
+
+  <table>
+    <thead>
+      <tr>
+        <th scope="col">Group</th>
+        <th scope="col" class="num">Services</th>
+        <th scope="col" class="num">Specs</th>
+        <th scope="col" class="num">Fresh</th>
+      </tr>
+    </thead>
+    <tbody>
+      {rows.map((g) => (
+        <tr>
+          <td><a href={`${base}/groups/${slugFor(g.name)}/`}>{g.name}</a></td>
+          <td class="num">{g.members.length}</td>
+          <td class="num">{g.specCount || ''}</td>
+          <td class="num">{g.fresh || ''}</td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+
+  {ungrouped.length > 0 && (
+    <>
+      <h2>Not yet assigned to a group</h2>
+      <p>
+        {ungrouped.length} services publish a spec but have no registry entry, so they have
+        no group. They are listed in the catalogue and can be grouped by adding them to
+        <code>registry.yaml</code>.
+      </p>
+      <div class="chips">
+        {ungrouped.map((s) => (
+          <a class="chip" href={`${base}/service/${slugFor(s.id)}/`}>{s.id}</a>
+        ))}
+      </div>
+    </>
+  )}
+</Base>

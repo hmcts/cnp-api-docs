@@ -17,7 +17,10 @@
     "build-model": "node bin/normalise-specs.mjs && node model/build.mjs",
     "refresh-catalog-cache": "node bin/refresh-catalog-cache.mjs",
     "update-swagger": "cp node_modules/swagger-ui-dist/swagger-ui* docs/",
-    "update-vis": "cp node_modules/vis/dist/vis-network* docs/ && cp -r node_modules/vis/dist/img docs/"
+    "update-vis": "cp node_modules/vis/dist/vis-network* docs/ && cp -r node_modules/vis/dist/img docs/",
+    "build-site": "npm --prefix site run build",
+    "assemble": "node bin/assemble-site.mjs",
+    "serve-site": "http-server build/dist -p 8080"
   },
   "author": "",
   "license": "MIT",
