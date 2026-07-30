@@ -55,6 +55,11 @@ jobs:
       - name: Assemble, verifying spec bytes are unchanged
         run: node bin/assemble-site.mjs --out build/dist
 
+      # Run here rather than only in validate-specs: the legacy LLD redirect
+      # assertions need the assembled output, and skip themselves without it.
+      - name: Run the test suite against the assembled site
+        run: yarn test
+
       - name: Re-verify every spec against the source tree
         run: |
           fail=0

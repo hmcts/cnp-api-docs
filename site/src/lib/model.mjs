@@ -73,3 +73,16 @@ export function specsOf(service) {
 
 export const counts = model.counts;
 export const warnings = model.warnings;
+
+// Prefer the curated name from registry.yaml, falling back to the id. The old LLD
+// pages showed these, and 75 of 117 differ from the id ("Fees App", "IDAM Web").
+export function displayName(service) {
+  return service.name ?? service.id;
+}
+
+// The spec a group listing should link to: the richest valid one.
+export function primarySpec(service) {
+  return [...service.specs]
+    .filter((s) => s.valid)
+    .sort((a, b) => (b.pathCount ?? 0) - (a.pathCount ?? 0))[0] ?? null;
+}

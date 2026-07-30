@@ -1,6 +1,6 @@
 ---
 import Base from '../../layouts/Base.astro';
-import { groups, model, slugFor, freshnessOf, rankedServices } from '../../lib/model.mjs';
+import { groups, model, slugFor, freshnessOf, rankedServices, displayName, primarySpec } from '../../lib/model.mjs';
 
 export function getStaticPaths() {
   return groups.map((g) => ({ params: { slug: slugFor(g.name) }, props: { name: g.name } }));
@@ -46,18 +46,28 @@ const actorViews = ACTOR_VIEWS[slugFor(name)] ?? [];
   <h1>{name}</h1>
   {group.info && <p class="lede" set:html={group.info} />}
 
-  <p class="views">
-    <a href={`${base}/architecture/view/${viewId}/`}>Architecture diagram</a>
-    {actorViews.map((v) => (
-      <> · <a href={`${base}/architecture/view/${slugFor(name).replace(/-/g, '_')}_${v}/`}>{v} journey</a></>
-    ))}
-  </p>
+  <figure class="diagram">
+    {/* LikeC4 ships a web component alongside the standalone app, so the diagram
+        embeds without the app's own toolbar and search. */}
+    <script is:inline src={`${base}/architecture/likec4-views.js`}></script>
+    <likec4-view view-id={viewId} browser="false"></likec4-view>
+    <figcaption>
+      <a href={`${base}/architecture/view/${viewId}/`}>Open the diagram full screen</a>
+      {actorViews.map((v) => (
+        <>
+          {' · '}
+          <a href={`${base}/architecture/view/${slugFor(name).replace(/-/g, '_')}_${v}/`}>{v} journey</a>
+        </>
+      ))}
+    </figcaption>
+  </figure>
 
   <h2>Services <span class="muted">({members.length})</span></h2>
   <table>
     <thead>
       <tr>
         <th scope="col">Service</th>
+        <th scope="col">API</th>
         <th scope="col" class="num">Paths</th>
         <th scope="col">Last published</th>
       </tr>
@@ -67,11 +77,21 @@ const actorViews = ACTOR_VIEWS[slugFor(name)] ?? [];
         const newest = s.specs
           .filter((x) => x.lastPublished)
           .sort((a, b) => b.lastPublished.localeCompare(a.lastPublished))[0];
+        const spec = primarySpec(s);
         return (
           <tr>
             <td>
-              <a href={`${base}/service/${slugFor(s.id)}/`}>{s.id}</a>
-              {s.specless && <span class="muted"> (no spec)</span>}
+              <a href={`${base}/service/${slugFor(s.id)}/`}>{displayName(s)}</a>
+              {displayName(s) !== s.id && <><br /><code class="muted">{s.id}</code></>}
+            </td>
+            <td>
+              {spec ? (
+                <a href={`${base}/api/${spec.file.replace(/\.json$/, '')}/`}>
+                  {s.specs.length > 1 ? `${s.specs.length} specs` : 'Reference'}
+                </a>
+              ) : (
+                <span class="muted">none</span>
+              )}
             </td>
             <td class="num">{s.specs.reduce((n, x) => n + x.pathCount, 0) || ''}</td>
             <td>
@@ -120,7 +140,14 @@ const actorViews = ACTOR_VIEWS[slugFor(name)] ?? [];
 
   <style>
     .crumb { color: var(--muted); font-size: 0.9rem; margin-bottom: 8px; }
-    .views { margin: 0 0 8px; }
+    .diagram { margin: 24px 0 8px; }
+    .diagram likec4-view {
+      display: block;
+      height: 460px;
+      border: 1px solid var(--line);
+    }
+    .diagram figcaption { font-size: 0.9rem; margin-top: 8px; }
+    td code { font-size: 0.8rem; }
     .hops { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
     .plain { list-style: none; padding: 0; margin: 0; }
     .plain li { padding: 4px 0; border-bottom: 1px solid var(--line); }

@@ -32,6 +32,47 @@ function copyTree(from, to) {
   }
 }
 
+// The old site served one page per group at lld/<group>.html, linked from the
+// vis.js graph legend. Those are real URLs that may be bookmarked or linked from
+// Confluence, and the group pages now carry the same content, so redirect rather
+// than 404. Written here rather than as an Astro route because Astro emits
+// `lld/ccd.html/index.html` for a page named `ccd.html`.
+//
+// The old slug came from `formatName`, which differs from the site's slug for
+// "HMI Gateway", "BAR, Fee & Pay" and "Video Hearing", so derive both.
+function writeLldRedirects(out) {
+  const model = JSON.parse(readFileSync('model/model.json', 'utf8'));
+  const formatName = (s) =>
+    s.toLowerCase().replaceAll(' ', '_').replaceAll('-', '_').replaceAll('&', '').replaceAll(',', '');
+  const slugOf = (s) => s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+
+  const dir = join(out, 'lld');
+  mkdirSync(dir, { recursive: true });
+
+  let written = 0;
+  for (const name of Object.keys(model.groups)) {
+    const target = `/cnp-api-docs/groups/${slugOf(name)}/`;
+    const html = `<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="refresh" content="0; url=${target}">
+<link rel="canonical" href="${target}">
+<meta name="robots" content="noindex">
+<title>${name} — moved</title>
+</head>
+<body>
+<p>The ${name} low level design has moved to <a href="${target}">${target}</a>.</p>
+<script>window.location.replace(${JSON.stringify(target)});</script>
+</body>
+</html>
+`;
+    writeFileSync(join(dir, `${formatName(name)}.html`), html);
+    written++;
+  }
+  return written;
+}
+
 function main(argv) {
   const outIdx = argv.indexOf('--out');
   const out = outIdx !== -1 && argv[outIdx + 1] ? argv[outIdx + 1] : 'build/dist';
@@ -69,6 +110,8 @@ function main(argv) {
   // The LikeC4 diagram app, if it has been built. Optional so the site still
   // assembles without it.
   if (existsSync(C4_DIR)) copyTree(C4_DIR, join(out, 'architecture'));
+
+  writeLldRedirects(out);
 
   if (mismatches.length > 0) {
     console.error('SPEC BYTES CHANGED DURING COPY — refusing to deploy:');

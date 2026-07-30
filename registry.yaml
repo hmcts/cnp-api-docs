@@ -86,10 +86,8 @@ groups:
     colour: "#20B2AA"
   ET:
     colour: "#EC0A0A"
-
-# Ported from the hand-written docs/c4/*/workspace.dsl files, which are the only
-# record of who uses these services and of CCD's callbacks into them. Neither is
-# derivable from an OpenAPI spec.
+# Ported from the hand-written docs/c4/*/workspace.dsl files, which were the only
+# record of who uses these services and of CCD's callbacks into them.
 actors:
   citizen:
     name: Citizen
@@ -107,7 +105,6 @@ actors:
     uses:
       - xui-webapp
       - idam-web-public
-
 # CCD calls back into a service team's own API during an event. The direction is
 # the opposite of the dependency edge, so it cannot be inferred from dependsOn.
 callbacks:
@@ -118,6 +115,7 @@ callbacks:
 
 services:
   hmi-gateway-api:
+    name: HMI API
     group: HMI Gateway
     type: api
     description: Future Hearings Gateway
@@ -126,6 +124,7 @@ services:
     claimedSpecFiles:
       - future-hearings-hmi-api.json
   pip-data-management:
+    name: CaTH Data Management API
     group: CaTH
     type: api
     description: Handles postgres and Azure Blob Storage traffic for CaTH
@@ -134,6 +133,7 @@ services:
     claimedSpecFiles:
       - pip-data-management
   pip-account-management:
+    name: CaTH Account Management API
     group: CaTH
     type: api
     description: Handles authentication and authorisation for CaTH
@@ -142,6 +142,7 @@ services:
     claimedSpecFiles:
       - pip-account-management
   pip-publication-services:
+    name: CaTH Publication Services API
     group: CaTH
     type: api
     description: Handles email correspondence sent from CaTH
@@ -150,6 +151,7 @@ services:
     claimedSpecFiles:
       - pip-publication-services
   pip-frontend:
+    name: CaTH Frontend Service
     group: CaTH
     type: web
     description: Handles user and admin interactions with the service
@@ -162,6 +164,7 @@ services:
       - pip-publication-services
       - pip-account-management
   cath-api:
+    name: CaTH API
     group: CaTH
     type: api
     description: Publishes hearing lists into CaTH and serves court reference data and published artefacts
@@ -170,6 +173,7 @@ services:
     claimedSpecFiles:
       - cath-service.json
   cath-web:
+    name: CaTH Web
     group: CaTH
     type: web
     description: Public and admin web frontend for Court and Tribunal Hearings
@@ -177,6 +181,7 @@ services:
     dependsOn:
       - cath-api
   idam-api:
+    name: IDAM API
     group: IDAM
     type: api
     description: Authentication APIs
@@ -189,6 +194,7 @@ services:
     dependsOn:
       - lau-idam-backend
   idam-web-admin:
+    name: IDAM Admin UI
     group: IDAM
     type: web
     description: Administrative interface for managing services and users within IDAM
@@ -199,6 +205,7 @@ services:
     ambient: true
     ambientFanIn: 0
   idam-web-public:
+    name: IDAM Web
     group: IDAM
     type: web
     description: Login and singup pages
@@ -209,6 +216,7 @@ services:
     ambient: true
     ambientFanIn: 28
   bar-web:
+    name: Bar Web
     group: BAR, Fee & Pay
     type: web
     repository: https://github.com/hmcts/bar-web
@@ -219,6 +227,7 @@ services:
       - bar-api
       - fees-register-api
   bar-api:
+    name: Bar App
     group: BAR, Fee & Pay
     type: api
     repository: https://github.com/hmcts/bar-apps
@@ -228,6 +237,7 @@ services:
     dependsOn:
       - idam-web-public
   fees-register-frontend:
+    name: Fees Admin Frontend
     group: BAR, Fee & Pay
     type: web
     repository: https://github.com/hmcts/ccfr-fees-register-admin-web
@@ -238,6 +248,7 @@ services:
       - idam-web-public
       - fees-register-api
   fees-register-api:
+    name: Fees App
     group: BAR, Fee & Pay
     type: api
     repository: https://github.com/hmcts/ccfr-fees-register-app
@@ -247,6 +258,7 @@ services:
     dependsOn:
       - idam-web-public
   payment-api:
+    name: Payments API
     group: BAR, Fee & Pay
     type: api
     repository: https://github.com/hmcts/ccpay-payment-app
@@ -257,6 +269,7 @@ services:
       - rpe-service-auth-provider
       - fees-register-api
   lau-case-backend:
+    name: LAU Case Backend
     group: LAU
     type: api
     description: LAU Case Search and Actions Backend
@@ -268,6 +281,7 @@ services:
       - idam-api
       - rpe-service-auth-provider
   lau-idam-backend:
+    name: LAU IdAM Backend
     group: LAU
     type: api
     description: LAU IdAM Logons Backend
@@ -279,6 +293,7 @@ services:
       - idam-api
       - rpe-service-auth-provider
   lau-eud-backend:
+    name: LAU EUD Backend
     group: LAU
     type: api
     description: LAU Enhanced User Data Backend
@@ -291,6 +306,7 @@ services:
       - rpe-service-auth-provider
       - rd-professional-api
   lau-frontend:
+    name: LAU Frontend
     group: LAU
     type: web
     description: LAU Frontend Web application
@@ -303,6 +319,7 @@ services:
       - idam-api
       - rpe-service-auth-provider
   ccd-case-activity-api:
+    name: CCD Case Activities Api
     group: CCD
     type: api
     repository: https://github.com/hmcts/ccd-case-activity-api
@@ -312,6 +329,7 @@ services:
     dependsOn:
       - idam-web-public
   ccd-case-print-service:
+    name: CCD Case Print Service
     group: CCD
     type: api
     repository: https://github.com/hmcts/ccd-case-print-service
@@ -323,6 +341,7 @@ services:
       - ccd-data-store-api
       - idam-web-public
   ccd-api-gateway-web:
+    name: CCD API GW
     group: CCD
     type: api-gw
     repository: https://github.com/hmcts/ccd-api-gateway
@@ -339,6 +358,7 @@ services:
       - rpe-service-auth-provider
       - dm-store
   ccd-admin-web:
+    name: CCD Admin Web
     group: CCD
     type: web
     repository: https://github.com/hmcts/ccd-admin-web
@@ -351,6 +371,7 @@ services:
       - rpe-service-auth-provider
       - ts-translation-service
   ccd-case-management-web:
+    name: CCD Case Managment Web
     group: CCD
     type: web
     repository: https://github.com/hmcts/ccd-case-management-web
@@ -364,6 +385,7 @@ services:
       - dm-store
       - ccd-case-print-service
   ccd-data-store-api:
+    name: CCD Data Store
     group: CCD
     type: api
     repository: https://github.com/hmcts/ccd-data-store-api
@@ -383,6 +405,7 @@ services:
       - ccd-case-document-am-api
       - lau-case-backend
   ccd-definition-store-api:
+    name: CCD Definition Store
     group: CCD
     type: api
     repository: https://github.com/hmcts/ccd-definition-store-api
@@ -395,6 +418,7 @@ services:
       - rpe-service-auth-provider
       - ts-translation-service
   ccd-user-profile-api:
+    name: CCD User Profile
     group: CCD
     type: api
     repository: https://github.com/hmcts/ccd-user-profile-api
@@ -404,6 +428,7 @@ services:
     dependsOn:
       - rpe-service-auth-provider
   ccd-case-document-am-api:
+    name: CCD Case Doc Store
     group: CCD
     type: api
     repository: https://github.com/hmcts/ccd-case-document-am-api
@@ -417,6 +442,7 @@ services:
       - ccd-definition-store-api
       - dm-store
   dm-show:
+    name: DM Show
     group: Evidence
     type: web
     repository: https://github.com/hmcts/document-management-node-demo
@@ -428,6 +454,7 @@ services:
       - rpe-service-auth-provider
       - dm-store
   aac-manage-case-assignment:
+    name: Manage Case Assignment
     group: CCD
     type: api
     repository: https://github.com/hmcts/aac-manage-case-assignment
@@ -440,6 +467,7 @@ services:
       - idam-api
       - rpe-service-auth-provider
   cpo-case-payment-orders-api:
+    name: Case Payment Orders API
     group: CCD
     type: api
     repository: https://github.com/hmcts/cpo-case-payment-orders-api
@@ -450,6 +478,7 @@ services:
       - idam-api
       - rpe-service-auth-provider
   dm-store:
+    name: DM Store
     group: Evidence
     type: api
     repository: https://github.com/hmcts/document-management-store-app
@@ -459,6 +488,7 @@ services:
     dependsOn:
       - rpe-service-auth-provider
   em-anno:
+    name: EM Annotation API
     group: Evidence
     type: api
     repository: https://github.com/hmcts/rpa-em-annotation-api
@@ -470,6 +500,7 @@ services:
       - rpe-service-auth-provider
       - dm-store
   snl-notes:
+    name: SNL Notes
     group: SNL
     type: api
     repository: https://github.com/hmcts/snl-notes
@@ -477,6 +508,7 @@ services:
     claimedSpecFiles:
       - snl-notes.json
   snl-api:
+    name: SNL API
     group: SNL
     type: api
     repository: https://github.com/hmcts/snl-api
@@ -486,6 +518,7 @@ services:
     dependsOn:
       - snl-events
   snl-frontend:
+    name: SNL Frontend
     group: SNL
     type: web
     repository: https://github.com/hmcts/snl-frontend
@@ -496,6 +529,7 @@ services:
       - snl-api
       - snl-notes
   snl-events:
+    name: SNL Event
     group: SNL
     type: api
     repository: https://github.com/hmcts/snl-events
@@ -505,6 +539,7 @@ services:
     dependsOn:
       - snl-rules
   snl-rules:
+    name: SNL Rules
     group: SNL
     type: api
     repository: https://github.com/hmcts/snl-rules
@@ -512,6 +547,7 @@ services:
     claimedSpecFiles:
       - snl-rules.json
   pbi-service:
+    name: RPE Private Beta Inivation
     group: RPE
     type: api
     repository: https://github.com/hmcts/private-beta-invitation-service
@@ -519,6 +555,7 @@ services:
     claimedSpecFiles:
       - private-beta-invitation-service.json
   rpe-service-auth-provider:
+    name: RPE Serivce Auth Provider (S2S)
     group: RPE
     type: api
     repository: https://github.com/hmcts/service-auth-provider-app
@@ -528,6 +565,7 @@ services:
     ambient: true
     ambientFanIn: 76
   rpe-feature-toggle-api:
+    name: RPE Feature Toggle
     group: RPE
     type: api
     repository: https://github.com/hmcts/feature-toggle-api
@@ -537,6 +575,7 @@ services:
     dependsOn:
       - rpe-service-auth-provider
   cmc-pdf-service:
+    name: CMC PDF Service
     group: RPE
     type: api
     repository: https://github.com/hmcts/cmc-pdf-service
@@ -546,6 +585,7 @@ services:
     dependsOn:
       - rpe-service-auth-provider
   draft-store-service:
+    name: RPE Draft Store
     group: RPE
     type: api
     repository: https://github.com/hmcts/draft-store
@@ -556,6 +596,7 @@ services:
       - idam-web-public
       - rpe-service-auth-provider
   bsp-blob-router:
+    name: Bulk scan router
     group: BSP
     type: api
     repository: https://github.com/hmcts/blob-router-service
@@ -563,6 +604,7 @@ services:
     claimedSpecFiles:
       - blob-router-service.json
   bsp-bulk-scan-processor:
+    name: Bulk scan processor
     group: BSP
     type: api
     repository: https://github.com/hmcts/bulk-scan-processor
@@ -577,6 +619,7 @@ services:
       - id: probate-back-office
         hard: false
   bsp-bulk-scan-orchestrator:
+    name: Bulk scan orchestrator
     group: BSP
     type: api
     repository: https://github.com/hmcts/bulk-scan-orchestrator
@@ -592,6 +635,7 @@ services:
       - id: probate-back-office
         hard: false
   bsp-bulk-scan-payment-processor:
+    name: Bulk scan payment processor
     group: BSP
     type: api
     repository: https://github.com/hmcts/bulk-scan-payment-processor
@@ -606,6 +650,7 @@ services:
       - ccd-data-store-api
       - payment-api
   bsp-reform-scan-notification-service:
+    name: Reform Scan Notification Service
     group: BSP
     type: api
     repository: https://github.com/hmcts/reform-scan-notification-service
@@ -615,6 +660,7 @@ services:
     dependsOn:
       - rpe-service-auth-provider
   bsp-send-letter-service:
+    name: Bulk Printing (Send Letter)
     group: BSP
     type: api
     repository: https://github.com/hmcts/send-letter-service
@@ -624,6 +670,7 @@ services:
     dependsOn:
       - rpe-service-auth-provider
   xui-webapp:
+    name: XUI Webapp
     group: XUI
     type: web
     repository: https://github.com/hmcts/rpx-xui-webapp
@@ -637,6 +684,7 @@ services:
       - ccd-data-store-api
       - ccd-definition-store-api
   rpa-icp:
+    name: RPA In Court Presentation API
     group: RPA
     type: api
     repository: https://github.com/hmcts/rpa-in-court-presentation-api
@@ -644,6 +692,7 @@ services:
     claimedSpecFiles:
       - rpa-in-court-presentation-api.json
   rpa-icp-w:
+    name: RPA In Court Presentation Web
     group: RPA
     type: web
     repository: https://github.com/hmcts/rpa-in-court-presentation-web
@@ -654,6 +703,7 @@ services:
       - rpa-icp
       - dm-store
   ref-pup:
+    name: PUP Reference Data
     group: RPA
     type: api
     repository: https://github.com/hmcts/ref-professional-user-profile
@@ -664,6 +714,7 @@ services:
       - rpe-service-auth-provider
       - idam-web-public
   cmc-citizen-frontend:
+    name: CMC Citzen Frontend
     group: CMC
     type: web
     repository: https://github.com/hmcts/cmc-citizen-frontend
@@ -678,6 +729,7 @@ services:
       - payment-api
       - fees-register-api
   cmc-legal-frontend:
+    name: CMC Leagal Rep Frontend
     group: CMC
     type: web
     repository: https://github.com/hmcts/cmc-legal-rep-frontend
@@ -692,6 +744,7 @@ services:
       - fees-register-api
       - rpe-service-auth-provider
   cmc-claim-store:
+    name: CMC Claim Store
     group: CMC
     type: api
     repository: https://github.com/hmcts/cmc-claim-store
@@ -706,6 +759,7 @@ services:
       - bsp-send-letter-service
       - cmc-pdf-service
   div-emca:
+    name: Divorce Evidence Managment Client
     group: DIV
     type: api
     repository: https://github.com/hmcts/div-evidence-management-client-api
@@ -716,6 +770,7 @@ services:
       - rpe-service-auth-provider
       - dm-store
   div-bfe:
+    name: Divorce Respondent Frontend
     group: DIV
     type: web
     repository: https://github.com/hmcts/div-respondent-frontend
@@ -728,6 +783,7 @@ services:
       - div-cps
       - div-emca
   div-pfe:
+    name: Divorce Petitioner Frontend
     group: DIV
     type: web
     repository: https://github.com/hmcts/div-petitioner-frontend
@@ -743,6 +799,7 @@ services:
       - fees-register-api
       - payment-api
   div-cms:
+    name: Divorce Case Maintance Service
     group: DIV
     type: api
     repository: https://github.com/hmcts/div-case-maintenance-service
@@ -753,6 +810,7 @@ services:
       - ccd-data-store-api
       - rpe-service-auth-provider
   div-cps:
+    name: Divorce (Transform) Case Progression Service
     group: DIV
     type: api
     repository: https://github.com/hmcts/div-case-progression-service
@@ -766,6 +824,7 @@ services:
       - draft-store-service
       - dm-store
   div-dgs:
+    name: Divorce Document Generator Client
     group: DIV
     type: api
     repository: https://github.com/hmcts/div-document-generator-client
@@ -777,6 +836,7 @@ services:
       - rpe-service-auth-provider
       - div-emca
   div-fps:
+    name: Divorce Fees and payments Service
     group: DIV
     type: api
     repository: https://github.com/hmcts/div-fees-and-payments-service
@@ -786,6 +846,7 @@ services:
     dependsOn:
       - fees-register-api
   div-vs:
+    name: Divorce Validation
     group: DIV
     type: api
     repository: https://github.com/hmcts/div-validation-service
@@ -798,6 +859,7 @@ services:
       - bsp-send-letter-service
       - idam-web-public
   finrem-cos:
+    name: Finrem Case Orchestration Service
     group: FINREM
     type: api
     repository: https://github.com/hmcts/finrem-case-orchestration-service
@@ -816,6 +878,7 @@ services:
       - dm-store
       - rd-professional-api
   probate-persistence-service:
+    name: Probate Persitance Service
     group: Probate
     type: api
     repository: https://github.com/hmcts/probate-persistence-service
@@ -823,6 +886,7 @@ services:
     claimedSpecFiles:
       - probate-persistence-service.json
   probate-submit-service:
+    name: Probate Submission Service
     group: Probate
     type: api
     repository: https://github.com/hmcts/probate-submit-service
@@ -834,6 +898,7 @@ services:
       - ccd-data-store-api
       - probate-persistence-service
   probate-frontend:
+    name: Probate Frontend
     group: Probate
     type: web
     repository: https://github.com/hmcts/probate-frontend
@@ -849,6 +914,7 @@ services:
       - probate-persistence-service
       - probate-submit-service
   probate-caveats-frontend:
+    name: Probate Caveats Frontend
     group: Probate
     type: web
     repository: https://github.com/hmcts/probate-caveats-frontend
@@ -861,6 +927,7 @@ services:
       - payment-api
       - probate-orchestrator-service
   probate-orchestrator-service:
+    name: Probate Orchestrator
     group: Probate
     type: api
     repository: https://github.com/hmcts/probate-orchestrator-service
@@ -876,6 +943,7 @@ services:
       - fees-register-api
       - ccd-data-store-api
   probate-back-office:
+    name: Probate Back Office
     group: Probate
     type: api
     repository: https://github.com/hmcts/probate-sol-ccd-services
@@ -892,6 +960,7 @@ services:
       - bsp-send-letter-service
       - docmosis-tornado-api
   probate-business-service:
+    name: Probate Validation (Business) Service
     group: Probate
     type: api
     repository: https://github.com/hmcts/probate-business-service
@@ -901,6 +970,7 @@ services:
     dependsOn:
       - probate-persistence-service
   sscs-tya-frontend:
+    name: SSCS Track Your Appeal Frontend
     group: SSCS
     type: web
     repository: https://github.com/hmcts/sscs-track-your-appeal-frontend
@@ -910,6 +980,7 @@ services:
     dependsOn:
       - sscs-tribunals-api
   sscs-tribunals-api:
+    name: SSCS Tribunal Case API
     group: SSCS
     type: api
     repository: https://github.com/hmcts/sscs-tribunals-case-api
@@ -923,6 +994,7 @@ services:
       - dm-store
       - idam-api
   sscs-case-loader:
+    name: SSCS Case Loader
     group: SSCS
     type: api
     repository: https://github.com/hmcts/sscs-case-loader
@@ -934,6 +1006,7 @@ services:
       - rpe-service-auth-provider
       - idam-api
   sscs-tya-notif:
+    name: SSCS Track Your Appeal Notification
     group: SSCS
     type: api
     repository: https://github.com/hmcts/sscs-track-your-appeal-notifications
@@ -947,12 +1020,14 @@ services:
       - cmc-pdf-service
       - idam-api
   sscs-submit-your-appeal:
+    name: SSCS Submit Your Appeal Frontend
     group: SSCS
     type: web
     repository: https://github.com/hmcts/sscs-submit-your-appeal
     dependsOn:
       - sscs-tribunals-api
   sscs-evidence-share:
+    name: SSCS Evidence Share Service
     group: SSCS
     type: api
     repository: https://github.com/hmcts/sscs-evidence-share
@@ -963,12 +1038,14 @@ services:
       - bsp-send-letter-service
       - docmosis-tornado-api
   sscs-cor-frontend:
+    name: SSCS COR Frontend
     group: SSCS
     type: web
     repository: https://github.com/hmcts/sscs-cor-frontend
     unresolvedDependencies:
       - sscs-cor-backend
   ia-case-api:
+    name: Immigration & Asylum case API
     group: IA
     type: api
     repository: https://github.com/hmcts/ia-case-api
@@ -981,6 +1058,7 @@ services:
       - cmc-pdf-service
       - idam-api
   ia-case-documents-api:
+    name: IA case documents API
     group: IA
     type: api
     repository: https://github.com/hmcts/ia-case-documents-api
@@ -993,6 +1071,7 @@ services:
       - cmc-pdf-service
       - idam-api
   ia-case-notifications-api:
+    name: IA case notifications API
     group: IA
     type: api
     repository: https://github.com/hmcts/ia-case-notifications-api
@@ -1005,6 +1084,7 @@ services:
       - cmc-pdf-service
       - idam-api
   rpa-em-stitching-api:
+    name: Stitching API
     group: Evidence
     type: api
     repository: https://github.com/hmcts/rpa-em-stitching-api
@@ -1016,6 +1096,7 @@ services:
       - rpe-service-auth-provider
       - dm-store
   rpa-em-ccd-orchestrator:
+    name: CCD Bundle Orchestrator
     group: Evidence
     type: api
     repository: https://github.com/hmcts/rpa-em-ccd-orchestrator
@@ -1027,6 +1108,7 @@ services:
       - idam-api
       - rpe-service-auth-provider
   rpa-dg-docassembly-api:
+    name: DG Document Assembly API
     group: Evidence
     type: api
     repository: https://github.com/hmcts/rpa-dg-docassembly-api
@@ -1038,11 +1120,13 @@ services:
       - idam-api
       - rpe-service-auth-provider
   docmosis-tornado-api:
+    name: Docmosis Tornado API
     group: Evidence
     type: api
     description: Documentation can be found here
       https://www.docmosis.com/download/tornado2.7/Tornado-Web-Services-Guide2.7.pdf
   fpla-case-service:
+    name: FPLA Case Service
     group: FPLA
     type: api
     description: CCD callback service for FPLA cases
@@ -1056,6 +1140,7 @@ services:
       - dm-store
       - ccd-data-store-api
   rd-professional-api:
+    name: Professional reference data API
     group: RD
     type: api
     description: Provides APIs for managing professional reference data
@@ -1068,6 +1153,7 @@ services:
       - rpe-service-auth-provider
       - rd-user-profile-api
   rd-user-profile-api:
+    name: Reference data user profile API
     group: RD
     type: api
     description: Provides APIs for reference data user profile
@@ -1079,6 +1165,7 @@ services:
       - idam-api
       - rpe-service-auth-provider
   rd-profile-sync:
+    name: Professional user profile scheduler
     group: RD
     type: scheduler
     description: Scheduler for updating user profile info in ref data user profile api
@@ -1088,6 +1175,7 @@ services:
       - rpe-service-auth-provider
       - rd-user-profile-api
   rd-caseworker-ref-api:
+    name: Staff reference data API
     group: RD
     type: api
     description: Provides APIs for managing Staff reference data
@@ -1100,6 +1188,7 @@ services:
       - rpe-service-auth-provider
       - rd-user-profile-api
   rd-location-ref-api:
+    name: Location reference data API
     group: RD
     type: api
     description: Provides Fetch APIs for Location reference data
@@ -1111,6 +1200,7 @@ services:
       - idam-api
       - rpe-service-auth-provider
   rd-judicial-api:
+    name: Judicial reference data API
     group: RD
     type: api
     description: Provides Fetch APIs for Judicial reference data
@@ -1123,6 +1213,7 @@ services:
       - rpe-service-auth-provider
       - rd-location-ref-api
   rd-commondata-api:
+    name: Common reference data API
     group: RD
     type: api
     description: Provides Fetch APIs for Reference Common static data i.e. case flag and List of values
@@ -1134,6 +1225,7 @@ services:
       - idam-api
       - rpe-service-auth-provider
   wa-workflow-api:
+    name: Workflow API
     group: WA
     description: API to kick off work allocation work flow
     repository: https://github.com/hmcts/wa-workflow-api
@@ -1141,6 +1233,7 @@ services:
     claimedSpecFiles:
       - wa-workflow-api.json
   wa-task-management-api:
+    name: WA Task Management API
     group: WA
     description: API that helps you manage and perform operations on tasks
     repository: https://github.com/hmcts/wa-task-management-api
@@ -1148,6 +1241,7 @@ services:
     claimedSpecFiles:
       - wa-task-management-api.json
   ts-translation-service:
+    name: Translation Service
     group: CCD
     type: api
     description: Provides a capability for service users to maintain Welsh translations.
@@ -1159,6 +1253,7 @@ services:
       - idam-api
       - rpe-service-auth-provider
   nfdiv-frontend:
+    name: NFDIV Frontend
     group: NFDIV
     type: web
     description: Citizen frontend for the No Fault Divorce system
@@ -1174,6 +1269,7 @@ services:
       - payment-api
       - dm-store
   nfdiv-case-api:
+    name: NFDIV Case API
     group: NFDIV
     type: api
     description: Business logic for the No Fault Divorce system
@@ -1190,11 +1286,13 @@ services:
       - rpa-dg-docassembly-api
       - bsp-send-letter-service
   darts-api:
+    name: DARTS API
     group: DARTS
     type: api
     description: Backend for DARTS modernisation project
     repository: https://github.com/hmcts/darts-api
   darts-portal:
+    name: DARTS Portal
     group: DARTS
     type: web
     description: Frontend for DARTS modernisation project
@@ -1202,6 +1300,7 @@ services:
     dependsOn:
       - darts-api
   pcq-backend:
+    name: PCQ Backend
     group: PCQ
     type: api
     description: PCQ Backend
@@ -1212,6 +1311,7 @@ services:
     dependsOn:
       - rpe-service-auth-provider
   pcq-loader:
+    name: PCQ Loader
     group: PCQ
     type: api
     description: PCQ Loader
@@ -1220,6 +1320,7 @@ services:
       - pcq-backend
       - rpe-service-auth-provider
   pcq-consolidation-service:
+    name: PCQ Consolidation Service
     group: PCQ
     type: api
     description: PCQ Consolidation Service
@@ -1230,6 +1331,7 @@ services:
       - idam-api
       - ccd-data-store-api
   pcq-frontend:
+    name: PCQ Frontend
     group: PCQ
     type: web
     description: PCQ Frontend Web application
@@ -1237,6 +1339,7 @@ services:
     dependsOn:
       - pcq-backend
   am-judicial-booking-service:
+    name: AM Judicial Booking Service
     group: AM
     type: api
     description: API will help to create bookings for fee paid judges and would provided APIs to Fetch
@@ -1249,6 +1352,7 @@ services:
       - idam-api
       - rpe-service-auth-provider
   am-org-role-mapping-service:
+    name: AM Organisational Role Mapping Service
     group: AM
     type: api
     description: API to provision various organisation roles for staff & judicial users based on the
@@ -1265,6 +1369,7 @@ services:
       - rd-judicial-api
       - rd-caseworker-ref-api
   am-role-assignment-service:
+    name: AM Role Assignment Service
     group: AM
     type: api
     description: API manages the assignment of roles with attributes to actors, to support both ccd
@@ -1278,11 +1383,13 @@ services:
       - rpe-service-auth-provider
       - ccd-data-store-api
   pre-api:
+    name: PRE API
     group: PRE
     type: api
     description: Backend for Pre-Recorded Evidence project
     repository: https://github.com/hmcts/pre-api
   pre-portal:
+    name: PRE Portal
     group: PRE
     type: web
     description: Frontend for Pre-Recorded Evidence project
@@ -1290,6 +1397,7 @@ services:
     dependsOn:
       - pre-api
   sptribs-frontend:
+    name: Special Tribunals Frontend
     group: ST
     type: web
     description: Special Tribunals Frontend
@@ -1300,6 +1408,7 @@ services:
       - idam-api
       - rpe-service-auth-provider
   sptribs-case-api:
+    name: Special Tribunal Case API
     group: ST
     type: api
     description: Business logic for management of Special Tribunals cases
@@ -1313,6 +1422,7 @@ services:
       - dm-store
       - idam-api
   et-ccd-callbacks:
+    name: ET CCD Callbacks
     group: ET
     type: api
     description: CCD callback service for Employment Tribunals, handling business logic for both
@@ -1330,6 +1440,7 @@ services:
       - id: rd-professional-api
         hard: false
   et-sya-frontend:
+    name: ET1 Claimant Frontend
     group: ET
     type: web
     description: Citizen-facing frontend for Employment Tribunal claimants to submit and manage their claims
@@ -1342,6 +1453,7 @@ services:
       - id: pcq-backend
         hard: false
   et-syr-frontend:
+    name: ET3 Respondent Frontend
     group: ET
     type: web
     description: Citizen-facing frontend for Employment Tribunal respondents to submit ET3 responses and
@@ -1355,6 +1467,7 @@ services:
       - id: pcq-backend
         hard: false
   pcs-api:
+    name: Possession Claims service API
     group: PCS
     type: api
     description: Backend Application of Possession Claims Service
@@ -1377,6 +1490,7 @@ services:
       - id: rpa-dg-docassembly-api
         hard: false
   pcs-frontend:
+    name: Possession Claims service Frontend
     group: PCS
     type: web
     description: Citizen-facing web app for the Possession Claims Service

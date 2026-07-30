@@ -162,6 +162,7 @@ function build({ now = Date.now() } = {}) {
       (repoName ? catalog[repoName] : undefined) ??
       (specStem ? catalog[specStem.split('.')[0]] : undefined);
 
+    service.name = reg?.name ?? null;
     service.group = reg?.group ?? null;
     service.type = reg?.type ?? cat?.type ?? null;
     service.description = reg?.description ?? null;
@@ -212,6 +213,7 @@ function build({ now = Date.now() } = {}) {
       services[id] = {
         id,
         specs: [],
+        name: reg.name ?? null,
         group: reg.group ?? null,
         type: reg.type ?? null,
         description: reg.description ?? null,

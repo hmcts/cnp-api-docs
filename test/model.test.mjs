@@ -211,3 +211,20 @@ test('every actor and callback resolves to a real service', () => {
   );
   assert.deepEqual(unresolved, [], 'these would be dangling references in the diagrams');
 });
+
+// The old LLD pages listed services by a curated name ("CCD Data Store", "Fees
+// App"), not by repo id. That field was dropped in the first pass at
+// registry.yaml and had to be restored; 75 of 117 differ from the id.
+test('curated service names survive into the model', () => {
+  const named = Object.values(model.services).filter((s) => s.name);
+  assert.ok(named.length >= 117, `expected at least 117 named services, got ${named.length}`);
+
+  assert.equal(model.services['ccd-data-store-api'].name, 'CCD Data Store');
+  assert.equal(model.services['idam-web-admin'].name, 'IDAM Admin UI');
+  assert.equal(model.services['fees-register-api'].name, 'Fees App');
+
+  const differ = named.filter(
+    (s) => s.name.toLowerCase().replace(/[^a-z0-9]/g, '') !== s.id.toLowerCase().replace(/[^a-z0-9]/g, ''),
+  );
+  assert.ok(differ.length > 50, 'names should carry information the id does not');
+});
