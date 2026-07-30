@@ -58,29 +58,45 @@ corepack enable   # once per machine
 yarn install
 ```
 
-## The portal
+## Running the portal locally
 
-```bash
-yarn build-site   # builds the model, then the Astro site
-yarn assemble     # adds docs/specs verbatim, verifying every byte
-yarn serve-site   # http://localhost:8080
-```
+Two ways, depending on what you are doing.
 
-`yarn assemble` refuses to produce a deployable tree if any spec's bytes change
-during the copy. Those URLs are fetched at runtime by other services, so they must
-be identical.
-
-To work on the site with live reload:
+**Live reload, for working on the site:**
 
 ```bash
 cd site && yarn dev
 ```
+
+Astro prints a URL; the pages are served under `/cnp-api-docs/`. Specs are not
+copied in this mode, so the API reference pages will not render — use the
+production build for those.
+
+**Production build, exactly what gets deployed:**
+
+```bash
+yarn build-site    # model, then the Astro site
+yarn assemble      # copies docs/specs verbatim, verifying every byte
+yarn serve-site    # http://localhost:8080/cnp-api-docs/
+```
+
+`yarn assemble` refuses to produce a deployable tree if any spec's bytes change
+during the copy — those URLs are fetched at runtime by other services.
+`yarn serve-site` serves under `/cnp-api-docs/` to match GitHub Pages; visiting
+`/` redirects there. Set `PORT` to use a different port.
 
 ## Testing
 
 ```bash
 yarn test              # unit tests plus the consumer contract
 yarn validate-specs    # classify every spec in docs/specs/
+```
+
+The hosted checks in the consumer contract are skipped by default. To verify the
+live URLs that other services depend on:
+
+```bash
+CHECK_HOSTED=1 node --test test/consumer-contract.test.mjs
 ```
 
 ## Registry health

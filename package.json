@@ -22,7 +22,7 @@
     "refresh-catalog-cache": "node bin/refresh-catalog-cache.mjs",
     "build-site": "yarn workspace cnp-api-docs-site build",
     "assemble": "node bin/assemble-site.mjs",
-    "serve-site": "http-server build/dist -p 8080",
+    "serve-site": "node bin/serve-site.mjs",
     "update-swagger": "cp node_modules/swagger-ui-dist/swagger-ui* docs/",
     "update-vis": "cp node_modules/vis/dist/vis-network* docs/ && cp -r node_modules/vis/dist/img docs/"
   },
