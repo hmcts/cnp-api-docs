@@ -37,6 +37,11 @@ jobs:
       - name: Unit-test the validator
         run: node --test test/validate-specs.test.mjs
 
+      # Guards the spec filenames that XUI fetches at runtime, that the CCD/HMC
+      # F-125 tests assert on, and that terraform reads at apply time.
+      - name: Check externally-consumed specs are intact
+        run: node --test test/consumer-contract.test.mjs
+
       - name: Report registry health
         run: node bin/validate-specs.mjs || true
 
