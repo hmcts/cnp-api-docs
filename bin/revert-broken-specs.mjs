@@ -72,10 +72,7 @@ function main(argv) {
   const stillBroken = [];
   const removed = [];
 
-  // A bare "docs/specs/.json" is never a real spec: it is what the legacy Jenkins
-  // publishers write when they cannot resolve a repo slug and the target path
-  // collapses. It has been deleted and recreated repeatedly since 2025, so remove
-  // it on sight rather than waiting for someone to notice.
+  // Never a real spec: written by publishers that cannot resolve a repo slug.
   const stray = `${SPEC_DIR}/.json`;
   if (existsSync(stray)) {
     if (apply) rmSync(stray);

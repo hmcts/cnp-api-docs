@@ -1,12 +1,7 @@
 name: Build site
 
-# Builds the portal and, on master, uploads it as a Pages artifact.
-#
-# NOTE: this does not deploy yet. The Pages source is still the legacy
-# `master:/docs` branch setting, so the live site is unaffected. Flipping Pages to
-# "GitHub Actions" is a deliberate, separate step once the artifact has been
-# inspected — that switch is the only irreversible part of the cutover, and
-# reverting it means setting the source back to master:/docs.
+# Does not deploy: the Pages source is still master:/docs. Switching Pages to
+# "GitHub Actions" is a separate, manual step.
 
 on:
   push:
@@ -45,9 +40,6 @@ jobs:
           node-version: 22
           cache: yarn
 
-      # corepack enable makes the `yarn` shim available; it then resolves via
-      # yarnPath to the committed release rather than downloading one.
-      # --immutable fails if yarn.lock would change, which is what we want in CI.
       - run: corepack enable
       - run: yarn install --immutable
 
@@ -57,9 +49,6 @@ jobs:
       - name: Assemble, verifying spec bytes are unchanged
         run: node bin/assemble-site.mjs --out build/dist
 
-      # Belt and braces: assemble-site.mjs already compares sha256 before and
-      # after each copy, but these URLs are load-bearing enough to check twice
-      # against the working tree.
       - name: Re-verify every spec against the source tree
         run: |
           fail=0
@@ -105,7 +94,6 @@ jobs:
               fail=1
             fi
           done
-          # And the legacy entry point everything links to.
           [ -s build/dist/swagger.html ] || { echo "::error::swagger.html shim missing"; fail=1; }
           exit $fail
 
