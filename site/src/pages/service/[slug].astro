@@ -30,8 +30,7 @@ const consumers = (service.consumedBy ?? []).map((cid) => model.services[cid]).f
 
   <dl class="meta">
     {service.group && <><dt>Group</dt><dd><a href={`${base}/groups/${slugFor(service.group)}/`}>{service.group}</a></dd></>}
-    <dt>Owner</dt>
-    <dd>{service.owner ?? <span class="muted">not in the Backstage catalogue</span>}</dd>
+    {service.owner && <><dt>Owner</dt><dd>{service.owner}</dd></>}
     {service.lifecycle && <><dt>Lifecycle</dt><dd>{service.lifecycle}</dd></>}
     {service.repository && <><dt>Repository</dt><dd><a href={service.repository}>{service.repository.replace('https://github.com/', '')}</a></dd></>}
     <dt>Freshness</dt>

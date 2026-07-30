@@ -123,20 +123,22 @@ const pct = (n, d) => (d === 0 ? 0 : Math.round((100 * n) / d));
     </tbody>
   </table>
 
-  <h2>Who owns them?</h2>
+  <h2>Is ownership known?</h2>
   <ul class="stats">
-    <li><span class="n">{ownedSpecBacked}/{specBacked.length}</span><span class="k">spec-backed services with an owner</span></li>
-    <li><span class="n">{pct(ownedSpecBacked, specBacked.length)}%</span><span class="k">ownership coverage</span></li>
+    <li><span class="n">{pct(ownedSpecBacked, specBacked.length)}%</span><span class="k">of spec-backed services have an owner</span></li>
+    <li><span class="n">{specBacked.length - ownedSpecBacked}</span><span class="k">with no owner recorded</span></li>
     <li><span class="n">{counts.federatedEdges}</span><span class="k">declaring their own dependencies</span></li>
   </ul>
   <p>
-    Ownership comes from each repo's <code>catalog-info.yaml</code>. A service without one
-    shows no owner here — adding the file to the repo is all that is needed.
+    Ownership is read from each repo's <code>catalog-info.yaml</code>. Coverage is low
+    enough that it is not shown elsewhere in the portal — it would imply a service is
+    unowned when the file is simply missing. Adding <code>catalog-info.yaml</code> to a
+    repo is all that is needed to fix it.
   </p>
   <p>
-    Dependency edges still come from the central registry. When a team declares
+    Dependency edges come from the central registry. When a team declares
     <code>dependsOn</code> or <code>consumesApis</code> in its own
-    <code>catalog-info.yaml</code>, that takes precedence automatically. The counter above
+    <code>catalog-info.yaml</code>, that takes precedence automatically; the counter above
     tracks adoption.
   </p>
 

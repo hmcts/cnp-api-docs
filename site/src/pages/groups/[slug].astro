@@ -45,7 +45,6 @@ const sortDesc = (map) => [...map.entries()].sort((a, b) => b[1] - a[1]);
     <thead>
       <tr>
         <th scope="col">Service</th>
-        <th scope="col">Owner</th>
         <th scope="col" class="num">Paths</th>
         <th scope="col">Last published</th>
       </tr>
@@ -61,7 +60,6 @@ const sortDesc = (map) => [...map.entries()].sort((a, b) => b[1] - a[1]);
               <a href={`${base}/service/${slugFor(s.id)}/`}>{s.id}</a>
               {s.specless && <span class="muted"> (no spec)</span>}
             </td>
-            <td>{s.owner ?? <span class="muted">unknown</span>}</td>
             <td class="num">{s.specs.reduce((n, x) => n + x.pathCount, 0) || ''}</td>
             <td>
               {newest?.lastPublished ?? <span class="muted">—</span>}
