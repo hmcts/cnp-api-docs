@@ -48,7 +48,10 @@ function main(argv) {
   const specTarget = join(out, 'specs');
   mkdirSync(specTarget, { recursive: true });
 
-  const files = readdirSync(SPEC_DIR).filter((f) => f.endsWith('.json'));
+  // Exclude the bare ".json" that Jenkins publishers create when they cannot
+  // resolve a repo slug. `find -name '*.json'` matches it, so leaving it in makes
+  // the artifact's spec count disagree with the source tree.
+  const files = readdirSync(SPEC_DIR).filter((f) => f.endsWith('.json') && f !== '.json');
   const mismatches = [];
 
   for (const file of files) {

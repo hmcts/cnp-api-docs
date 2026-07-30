@@ -19,7 +19,7 @@
 // Writes a JSON summary to stdout for the workflow to consume.
 
 import { execFileSync } from 'node:child_process';
-import { writeFileSync } from 'node:fs';
+import { writeFileSync, existsSync, rmSync } from 'node:fs';
 import { basename } from 'node:path';
 
 import { validateSpec } from './validate-specs.mjs';
@@ -70,6 +70,17 @@ function main(argv) {
 
   const reverted = [];
   const stillBroken = [];
+  const removed = [];
+
+  // A bare "docs/specs/.json" is never a real spec: it is what the legacy Jenkins
+  // publishers write when they cannot resolve a repo slug and the target path
+  // collapses. It has been deleted and recreated repeatedly since 2025, so remove
+  // it on sight rather than waiting for someone to notice.
+  const stray = `${SPEC_DIR}/.json`;
+  if (existsSync(stray)) {
+    if (apply) rmSync(stray);
+    removed.push(stray);
+  }
 
   for (const path of changedSpecs(base, head)) {
     const current = validateSpec(path);
@@ -88,11 +99,11 @@ function main(argv) {
     reverted.push({ path, reason: current.reason, restoredBytes: Buffer.byteLength(previous) });
   }
 
-  const summary = { base, applied: apply, reverted, stillBroken };
+  const summary = { base, applied: apply, reverted, stillBroken, removed };
   if (process.env.GITHUB_OUTPUT) {
     writeFileSync(
       process.env.GITHUB_OUTPUT,
-      `reverted_count=${reverted.length}\nbroken_count=${stillBroken.length}\n`,
+      `reverted_count=${reverted.length}\nbroken_count=${stillBroken.length}\nremoved_count=${removed.length}\n`,
       { flag: 'a' },
     );
   }

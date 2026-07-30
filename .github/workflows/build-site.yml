@@ -67,7 +67,9 @@ jobs:
               fail=1
             fi
           done
-          count=$(find build/dist/specs -maxdepth 1 -name '*.json' | wc -l)
+          # ! -name '.json' on both sides: publishers recreate a bare ".json" when
+          # they cannot resolve a repo slug, and it is never a real spec.
+          count=$(find build/dist/specs -maxdepth 1 -name '*.json' ! -name '.json' | wc -l)
           expected=$(find docs/specs -maxdepth 1 -name '*.json' ! -name '.json' | wc -l)
           if [ "$count" != "$expected" ]; then
             echo "::error::built site has $count specs, source tree has $expected"
@@ -109,7 +111,7 @@ jobs:
             echo "### Site artifact"
             echo
             echo "- pages: $(find build/dist -name '*.html' | wc -l)"
-            echo "- specs served verbatim: $(find build/dist/specs -maxdepth 1 -name '*.json' | wc -l)"
+            echo "- specs served verbatim: $(find build/dist/specs -maxdepth 1 -name '*.json' ! -name '.json' | wc -l)"
             echo "- normalised for rendering: $(find build/dist/specs/_normalised -name '*.json' | wc -l)"
             echo
             echo "Not deployed: the Pages source is still \`master:/docs\`."

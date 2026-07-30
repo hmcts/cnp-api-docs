@@ -76,15 +76,17 @@ jobs:
           node bin/revert-broken-specs.mjs --base "${{ github.event.before }}" --apply | tee /tmp/revert.json
 
       - name: Push the revert
-        if: github.event_name == 'push' && steps.revert.outputs.reverted_count != '0'
+        if: github.event_name == 'push' && (steps.revert.outputs.reverted_count != '0' || steps.revert.outputs.removed_count != '0')
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add docs/specs
-          git commit -m "Restore spec(s) broken by ${GITHUB_SHA:0:7}
+          # Stages deletions as well as restorations.
+          git add --all docs/specs
+          git commit -m "Repair specs affected by ${GITHUB_SHA:0:7}
 
-          The pushed spec did not parse and the previous version did, so it has
-          been restored automatically. See the linked issue for the cause."
+          A spec that previously parsed was replaced by one that does not, or a
+          bare docs/specs/.json was created by a publisher that could not resolve
+          its repo slug. Both are undone automatically; see the linked issue."
           # Publishers push constantly; rebase onto whatever landed meanwhile.
           for attempt in 1 2 3 4 5; do
             if git push origin HEAD:master; then exit 0; fi
