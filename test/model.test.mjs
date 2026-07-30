@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { readdirSync, readFileSync, existsSync } from 'node:fs';
+import { readdirSync, existsSync } from 'node:fs';
 
 import { build, specIdentity, ageBucket } from '../model/build.mjs';
 
@@ -144,8 +144,11 @@ test('federation is inert until a team declares edges', () => {
   assert.equal(fromCatalog.length, model.counts.federatedEdges);
 });
 
-test('the model has no unresolved schema surprises', () => {
-  const raw = JSON.parse(readFileSync('model/model.json', 'utf8'));
-  assert.ok(raw.generated);
-  assert.deepEqual(Object.keys(raw).sort(), ['counts', 'generated', 'groups', 'services', 'warnings']);
+// Asserts the shape of the build output. Deliberately checks the in-memory model
+// rather than model/model.json, which is gitignored and so absent on a fresh
+// checkout — reading the file passed locally and failed in CI.
+test('the model has the expected top-level shape', () => {
+  assert.ok(model.generated);
+  assert.deepEqual(Object.keys(model).sort(), ['counts', 'generated', 'groups', 'services', 'warnings']);
+  assert.ok(JSON.parse(JSON.stringify(model)), 'model must be JSON-serialisable');
 });
