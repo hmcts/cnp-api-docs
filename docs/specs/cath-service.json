@@ -1,0 +1,978 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "CaTH API",
+    "version": "1.0.1",
+    "description": "Court and Tribunal Hearings (CaTH) JSON API.\n\nThe primary consumer-facing operation is `POST /v1/publication`, used by upstream\nsource systems (SNL, Common Platform, CP_CATH, PDDA) to publish hearing lists into\nCaTH. All other operations are read-only.\n\nThis document is maintained by hand. It is not generated from the router, so if you\nchange a route or a request/response shape in `apps/api` or `libs/public-pages`,\nupdate this file in the same change.\n\nNot documented here, deliberately:\n  - `/users` and `/users/{id}` — placeholder routes returning example data.\n  - `/test-support/**` — test-only routes, enabled by `ENABLE_TEST_SUPPORT`.\n",
+    "license": {
+      "name": "MIT"
+    }
+  },
+  "servers": [
+    {
+      "url": "https://cath-{release}-api.staging.platform.hmcts.net",
+      "description": "Staging. One deployment per release; `release` is the Helm release name.",
+      "variables": {
+        "release": {
+          "default": "cath-service",
+          "description": "Helm release name, e.g. `cath-service` or `pr-1234`."
+        }
+      }
+    },
+    {
+      "url": "http://localhost:3001",
+      "description": "Local development (`yarn dev`)."
+    }
+  ],
+  "tags": [
+    {
+      "name": "Publication",
+      "description": "Hearing list ingestion."
+    },
+    {
+      "name": "Locations",
+      "description": "Court and tribunal reference data."
+    },
+    {
+      "name": "Downloads",
+      "description": "Retrieval of published artefacts."
+    },
+    {
+      "name": "Service",
+      "description": "Service metadata and health."
+    }
+  ],
+  "paths": {
+    "/": {
+      "get": {
+        "tags": [
+          "Service"
+        ],
+        "summary": "Service information",
+        "description": "Static metadata describing the service and its health endpoints.",
+        "operationId": "getServiceInfo",
+        "security": [],
+        "responses": {
+          "200": {
+            "description": "Service information.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Welcome to HMCTS API"
+                    },
+                    "version": {
+                      "type": "string",
+                      "example": "1.0.0"
+                    },
+                    "endpoints": {
+                      "type": "object",
+                      "properties": {
+                        "health": {
+                          "type": "string",
+                          "example": "/health"
+                        },
+                        "liveness": {
+                          "type": "string",
+                          "example": "/health/liveness"
+                        },
+                        "readiness": {
+                          "type": "string",
+                          "example": "/health/readiness"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/locations": {
+      "get": {
+        "tags": [
+          "Locations"
+        ],
+        "summary": "List or search court locations",
+        "description": "Returns all non-deleted court locations, sorted by name in the requested language.\n\nWhen `q` is supplied the result is filtered by name instead, with locations whose\nname starts with the search term ordered ahead of locations that merely contain it.\nA blank or whitespace-only `q` returns an empty array.\n",
+        "operationId": "getLocations",
+        "security": [],
+        "parameters": [
+          {
+            "name": "language",
+            "in": "query",
+            "required": false,
+            "description": "Language used for both sorting and name matching.",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "en",
+                "cy"
+              ],
+              "default": "en"
+            }
+          },
+          {
+            "name": "q",
+            "in": "query",
+            "required": false,
+            "description": "Case-insensitive name search term.",
+            "schema": {
+              "type": "string"
+            },
+            "example": "Birmingham"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Matching locations.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Location"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Failed to fetch locations.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "error": "Failed to fetch locations"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/publication": {
+      "post": {
+        "tags": [
+          "Publication"
+        ],
+        "summary": "Publish a hearing list",
+        "description": "Ingests a hearing list into CaTH. A single path serves three distinct request\nshapes, selected at runtime:\n\n1. **JSON list** — `Content-Type: application/json`. The `hearing_list` property\n   carries the list payload, validated against the JSON Schema registered for the\n   given `list_type`.\n2. **Flat file** — `Content-Type: multipart/form-data` with a `file` part and the\n   metadata fields as form fields. Used when the list is supplied as a document\n   rather than structured JSON.\n3. **PDDA HTML** — also `multipart/form-data`, distinguished *only* by the presence\n   of a `type` field. If `type` is present the request is treated as a PDDA HTML\n   upload; `type` must be `LCSU`, the file must be `.htm` or `.html` and non-empty,\n   and the response is a `PddaHtmlUploadResponse` rather than the usual\n   `BlobIngestionResponse`.\n\nNote that shape 3 is selected by field *presence*, not by value, so sending a\n`type` field on a flat-file upload will route it down the PDDA path.\n\nMaximum payload is 100 MB for JSON and flat-file requests. PDDA HTML uploads are\ncapped separately by `PDDA_HTML_MAX_FILE_SIZE` (default 10 MB).\n",
+        "operationId": "createPublication",
+        "security": [
+          {
+            "azureAd": []
+          }
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/CorrelationId"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BlobIngestionRequest"
+              }
+            },
+            "multipart/form-data": {
+              "schema": {
+                "oneOf": [
+                  {
+                    "$ref": "#/components/schemas/FlatFileUpload"
+                  },
+                  {
+                    "$ref": "#/components/schemas/PddaHtmlUpload"
+                  }
+                ]
+              },
+              "encoding": {
+                "file": {
+                  "contentType": "application/octet-stream"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Ingested. Also returned when `no_match` is `true` — see the `no_match` property.\n",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/BlobIngestionResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/PddaHtmlUploadResponse"
+                    }
+                  ]
+                },
+                "examples": {
+                  "published": {
+                    "summary": "Ingested and published",
+                    "value": {
+                      "success": true,
+                      "artefact_id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+                      "no_match": false,
+                      "message": "Blob ingested and published successfully"
+                    }
+                  },
+                  "noMatch": {
+                    "summary": "Ingested, but the court could not be resolved",
+                    "description": "The artefact is stored but PDF generation and subscriber notifications\nare skipped. This is a 201, not an error.\n",
+                    "value": {
+                      "success": true,
+                      "artefact_id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+                      "no_match": true,
+                      "message": "Blob ingested but location not found in reference data"
+                    }
+                  },
+                  "pddaHtml": {
+                    "summary": "PDDA HTML upload accepted",
+                    "value": {
+                      "success": true,
+                      "message": "Upload accepted and stored",
+                      "s3_key": "lcsu/2026-07-29/list.html",
+                      "correlation_id": "8f14e45f-ceea-467a-9f39-1a9cd1b0c2a4"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation failure. Either the body is structurally invalid (missing or\nwrongly-typed required fields), or field-level validation failed, in which case\n`errors` lists each offending field.\n",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/BlobIngestionResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/PddaHtmlUploadResponse"
+                    }
+                  ]
+                },
+                "examples": {
+                  "malformed": {
+                    "summary": "Structurally invalid body",
+                    "value": {
+                      "success": false,
+                      "message": "Invalid request body structure. Missing or invalid required fields."
+                    }
+                  },
+                  "fieldErrors": {
+                    "summary": "Field-level validation failure",
+                    "value": {
+                      "success": false,
+                      "message": "Validation failed",
+                      "errors": [
+                        {
+                          "field": "provenance",
+                          "message": "Invalid provenance. Allowed values: MANUAL_UPLOAD, SNL, COMMON_PLATFORM, CP_CATH, PDDA"
+                        },
+                        {
+                          "field": "display_to",
+                          "message": "display_to must be after display_from"
+                        }
+                      ]
+                    }
+                  },
+                  "noFile": {
+                    "summary": "Multipart request with no file part",
+                    "value": {
+                      "success": false,
+                      "message": "No file provided. Include a file in the 'file' field of the multipart form."
+                    }
+                  },
+                  "pddaInvalid": {
+                    "summary": "PDDA HTML upload rejected",
+                    "value": {
+                      "success": false,
+                      "message": "The uploaded file must be an HTM or HTML file",
+                      "correlation_id": "8f14e45f-ceea-467a-9f39-1a9cd1b0c2a4"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing, malformed, or expired bearer token.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BlobIngestionResponse"
+                },
+                "examples": {
+                  "missingHeader": {
+                    "value": {
+                      "success": false,
+                      "message": "Missing or invalid Authorization header"
+                    }
+                  },
+                  "invalidToken": {
+                    "value": {
+                      "success": false,
+                      "message": "Invalid or expired token"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Token is valid but lacks the `api.publisher.user` app role.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BlobIngestionResponse"
+                },
+                "example": {
+                  "success": false,
+                  "message": "Insufficient permissions. Required role: api.publisher.user"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Ingestion failed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/BlobIngestionResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/PddaHtmlUploadResponse"
+                    }
+                  ]
+                },
+                "example": {
+                  "success": false,
+                  "message": "Internal server error during ingestion"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/flat-file/{artefactId}/download": {
+      "get": {
+        "tags": [
+          "Downloads"
+        ],
+        "summary": "Download a flat-file artefact",
+        "description": "Streams the stored flat file for an artefact. Authorisation is evaluated against\nthe caller's session user and the artefact's sensitivity and list type, so the\nsame artefact may be downloadable by one user and forbidden to another.\n\nResponses are always `Cache-Control: private, max-age=0, no-cache, no-store,\nmust-revalidate`. The filename is returned in `Content-Disposition`, and the media\ntype reflects the stored file, so it varies per artefact.\n",
+        "operationId": "downloadFlatFile",
+        "security": [
+          {
+            "session": []
+          }
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/ArtefactId"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The file.",
+            "headers": {
+              "Content-Disposition": {
+                "description": "Inline disposition carrying the original filename.",
+                "schema": {
+                  "type": "string",
+                  "example": "inline; filename=\"daily-cause-list.pdf\""
+                }
+              },
+              "Cache-Control": {
+                "$ref": "#/components/headers/NoStore"
+              }
+            },
+            "content": {
+              "application/octet-stream": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "`artefactId` is not a valid UUID, or the artefact is not a flat file.\n",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "examples": {
+                  "invalidId": {
+                    "value": {
+                      "error": "Invalid request"
+                    }
+                  },
+                  "notFlatFile": {
+                    "value": {
+                      "error": "Not a flat file"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "The caller may not access this artefact.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "error": "Access denied"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No such artefact, or the artefact exists but its file is missing from storage.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "examples": {
+                  "artefactMissing": {
+                    "value": {
+                      "error": "Artefact not found"
+                    }
+                  },
+                  "fileMissing": {
+                    "value": {
+                      "error": "File not found in storage"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "410": {
+            "description": "Outside the artefact's `display_from`–`display_to` window.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "error": "File has expired"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/pdf/{artefactId}/download": {
+      "get": {
+        "tags": [
+          "Downloads"
+        ],
+        "summary": "Download the generated PDF for an artefact",
+        "description": "Streams the PDF rendered for a published artefact. Unlike the flat-file route this\nchecks only the artefact's display window, not per-user access.\n",
+        "operationId": "downloadPdf",
+        "security": [
+          {
+            "session": []
+          }
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/ArtefactId"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The PDF.",
+            "headers": {
+              "Content-Disposition": {
+                "schema": {
+                  "type": "string",
+                  "example": "inline; filename=\"3fa85f64-5717-4562-b3fc-2c963f66afa6.pdf\""
+                }
+              },
+              "Cache-Control": {
+                "$ref": "#/components/headers/NoStore"
+              }
+            },
+            "content": {
+              "application/pdf": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "`artefactId` is not a valid UUID.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "error": "Invalid request"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No such artefact, or no PDF has been generated for it.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "examples": {
+                  "artefactMissing": {
+                    "value": {
+                      "error": "Artefact not found"
+                    }
+                  },
+                  "pdfMissing": {
+                    "value": {
+                      "error": "PDF not found"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "410": {
+            "description": "Outside the artefact's display window.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "error": "File has expired"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/health": {
+      "get": {
+        "tags": [
+          "Service"
+        ],
+        "summary": "Health check",
+        "description": "Provided by `@hmcts-cft/cloud-native-platform`. Used by Kubernetes and the smoke-test job.",
+        "operationId": "getHealth",
+        "security": [],
+        "responses": {
+          "200": {
+            "description": "Service is healthy.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HealthResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/health/liveness": {
+      "get": {
+        "tags": [
+          "Service"
+        ],
+        "summary": "Liveness probe",
+        "operationId": "getLiveness",
+        "security": [],
+        "responses": {
+          "200": {
+            "description": "Service is live.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HealthResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/health/readiness": {
+      "get": {
+        "tags": [
+          "Service"
+        ],
+        "summary": "Readiness probe",
+        "operationId": "getReadiness",
+        "security": [],
+        "responses": {
+          "200": {
+            "description": "Service is ready to accept traffic.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HealthResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "azureAd": {
+        "type": "oauth2",
+        "description": "Microsoft Entra ID (Azure AD) client-credentials flow. Send the access token as\n`Authorization: Bearer <token>`.\n\nTokens are verified as RS256 against the tenant JWKS, with the audience set to the\nAPI's application (client) ID. Authorisation is then decided by the `roles` claim,\nwhich must contain `api.publisher.user`. That is an Entra ID **app role**, not an\nOAuth scope, so it is granted through app-role assignment rather than requested at\ntoken time.\n",
+        "flows": {
+          "clientCredentials": {
+            "tokenUrl": "https://login.microsoftonline.com/{tenantId}/oauth2/v2.0/token",
+            "scopes": {}
+          }
+        }
+      },
+      "session": {
+        "type": "apiKey",
+        "in": "cookie",
+        "name": "connect.sid",
+        "description": "Express session cookie established by the CaTH web sign-in flow (CFT IdAM, Crime\nIdAM, or B2C depending on user type). The download routes authorise against the\nsession user rather than a bearer token.\n"
+      }
+    },
+    "parameters": {
+      "ArtefactId": {
+        "name": "artefactId",
+        "in": "path",
+        "required": true,
+        "description": "Artefact identifier. Must be a UUID; anything else is rejected with 400.",
+        "schema": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "example": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
+      },
+      "CorrelationId": {
+        "name": "x-correlation-id",
+        "in": "header",
+        "required": false,
+        "description": "Caller-supplied correlation identifier. Echoed back as `correlation_id` on PDDA\nHTML upload responses and on unexpected errors, and included in server logs.\n",
+        "schema": {
+          "type": "string"
+        },
+        "example": "8f14e45f-ceea-467a-9f39-1a9cd1b0c2a4"
+      }
+    },
+    "headers": {
+      "NoStore": {
+        "description": "Always set on download responses.",
+        "schema": {
+          "type": "string",
+          "example": "private, max-age=0, no-cache, no-store, must-revalidate"
+        }
+      }
+    },
+    "schemas": {
+      "PublicationMetadata": {
+        "type": "object",
+        "description": "Metadata common to every publication request shape.",
+        "required": [
+          "court_id",
+          "provenance",
+          "content_date",
+          "list_type",
+          "sensitivity",
+          "language",
+          "display_from",
+          "display_to"
+        ],
+        "properties": {
+          "court_id": {
+            "type": "string",
+            "description": "Court identifier. For the external provenances (`SNL`, `COMMON_PLATFORM`,\n`CP_CATH`, `PDDA`) this is the provenance's own location ID and is resolved\nagainst CaTH reference data. For `MANUAL_UPLOAD` it must be a numeric CaTH\nlocation ID.\n\nIf the court cannot be resolved the request still succeeds, with `no_match`\nset to `true` on the response.\n",
+            "example": "123"
+          },
+          "provenance": {
+            "type": "string",
+            "description": "Source system publishing the list.",
+            "enum": [
+              "MANUAL_UPLOAD",
+              "SNL",
+              "COMMON_PLATFORM",
+              "CP_CATH",
+              "PDDA"
+            ],
+            "example": "SNL"
+          },
+          "content_date": {
+            "type": "string",
+            "format": "date",
+            "description": "Date the list content relates to, as an ISO 8601 date.",
+            "example": "2026-07-29"
+          },
+          "list_type": {
+            "type": "string",
+            "description": "List type name. Valid values are held in reference data rather than fixed in\ncode, and the JSON Schema used to validate `hearing_list` is selected from it.\nAn unrecognised value returns 400 with the permitted values in the message.\n",
+            "example": "CIVIL_AND_FAMILY_DAILY_CAUSE_LIST"
+          },
+          "sensitivity": {
+            "type": "string",
+            "enum": [
+              "PUBLIC",
+              "PRIVATE",
+              "CLASSIFIED"
+            ],
+            "example": "PUBLIC"
+          },
+          "language": {
+            "type": "string",
+            "enum": [
+              "ENGLISH",
+              "WELSH",
+              "BILINGUAL"
+            ],
+            "example": "ENGLISH"
+          },
+          "display_from": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Start of the window during which the artefact is publicly visible.",
+            "example": "2026-07-29T00:00:00Z"
+          },
+          "display_to": {
+            "type": "string",
+            "format": "date-time",
+            "description": "End of the visibility window. Must not be earlier than `display_from`.",
+            "example": "2026-07-30T00:00:00Z"
+          },
+          "source_artefact_id": {
+            "type": "string",
+            "description": "Optional identifier from the source system, retained for traceability.",
+            "example": "SNL-2026-07-29-001"
+          }
+        }
+      },
+      "BlobIngestionRequest": {
+        "description": "JSON hearing list. Total request size must not exceed 100 MB.",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/PublicationMetadata"
+          },
+          {
+            "type": "object",
+            "required": [
+              "hearing_list"
+            ],
+            "properties": {
+              "hearing_list": {
+                "type": "object",
+                "description": "The hearing list payload. Its structure depends entirely on `list_type` and\nis validated against that list type's JSON Schema — see\n`libs/list-types/*/src/schemas/*.json` for the authoritative definitions.\n",
+                "additionalProperties": true
+              }
+            }
+          }
+        ]
+      },
+      "FlatFileUpload": {
+        "description": "Flat-file publication. Metadata fields are sent as form fields alongside the file.\nDo not send a `type` field: its presence routes the request to the PDDA HTML path.\n",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/PublicationMetadata"
+          },
+          {
+            "type": "object",
+            "required": [
+              "file"
+            ],
+            "properties": {
+              "file": {
+                "type": "string",
+                "format": "binary",
+                "description": "The list document."
+              }
+            }
+          }
+        ]
+      },
+      "PddaHtmlUpload": {
+        "type": "object",
+        "description": "PDDA HTML publication, identified by the presence of `type`.",
+        "required": [
+          "type",
+          "file"
+        ],
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "Artefact type. Must be `LCSU`; any other value is rejected with 400.",
+            "enum": [
+              "LCSU"
+            ]
+          },
+          "file": {
+            "type": "string",
+            "format": "binary",
+            "description": "An `.htm` or `.html` file, non-empty, no larger than\n`PDDA_HTML_MAX_FILE_SIZE` (default 10 MB).\n"
+          }
+        }
+      },
+      "BlobIngestionResponse": {
+        "type": "object",
+        "required": [
+          "success",
+          "message"
+        ],
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "artefact_id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Identifier assigned to the stored artefact. Present on success."
+          },
+          "no_match": {
+            "type": "boolean",
+            "description": "`true` when the artefact was stored but `court_id` could not be resolved\nagainst reference data. The artefact is retained; PDF generation and\nsubscriber notifications are skipped. This is reported on a successful (201)\nresponse, not an error.\n"
+          },
+          "message": {
+            "type": "string"
+          },
+          "errors": {
+            "type": "array",
+            "description": "Field-level validation failures. Present when `message` is `Validation failed`.",
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            }
+          }
+        }
+      },
+      "ValidationError": {
+        "type": "object",
+        "required": [
+          "field",
+          "message"
+        ],
+        "properties": {
+          "field": {
+            "type": "string",
+            "description": "Offending field name, or `body` for whole-payload problems such as size.",
+            "example": "provenance"
+          },
+          "message": {
+            "type": "string",
+            "example": "Invalid provenance. Allowed values: MANUAL_UPLOAD, SNL, COMMON_PLATFORM, CP_CATH, PDDA"
+          }
+        }
+      },
+      "PddaHtmlUploadResponse": {
+        "type": "object",
+        "required": [
+          "success",
+          "message"
+        ],
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "message": {
+            "type": "string"
+          },
+          "s3_key": {
+            "type": "string",
+            "description": "Key the HTML file was stored under. Present on success."
+          },
+          "correlation_id": {
+            "type": "string",
+            "description": "Echo of the request's `x-correlation-id`, when one was supplied."
+          }
+        }
+      },
+      "Location": {
+        "type": "object",
+        "required": [
+          "locationId",
+          "name",
+          "welshName",
+          "regions",
+          "subJurisdictions"
+        ],
+        "properties": {
+          "locationId": {
+            "type": "integer",
+            "example": 123
+          },
+          "name": {
+            "type": "string",
+            "example": "Birmingham Civil and Family Justice Centre"
+          },
+          "welshName": {
+            "type": "string"
+          },
+          "regions": {
+            "type": "array",
+            "items": {
+              "type": "integer"
+            }
+          },
+          "subJurisdictions": {
+            "type": "array",
+            "items": {
+              "type": "integer"
+            }
+          },
+          "provenanceLocationType": {
+            "type": "string"
+          }
+        }
+      },
+      "HealthResponse": {
+        "type": "object",
+        "description": "Shape is defined by `@hmcts-cft/cloud-native-platform`.",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "UP"
+          }
+        },
+        "additionalProperties": true
+      },
+      "ErrorResponse": {
+        "type": "object",
+        "required": [
+          "error"
+        ],
+        "properties": {
+          "error": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}
