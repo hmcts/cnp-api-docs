@@ -16,7 +16,7 @@
   "scripts": {
     "dev": "yarn build && yarn serve-site",
     "build": "yarn build-site && yarn build-c4 && yarn assemble",
-    "test": "jasmine JASMINE_CONFIG_PATH=package.json && node --test test/*.test.mjs",
+    "test": "node --test test/*.test.mjs",
     "build-site": "yarn build-model && yarn workspace cnp-api-docs-site build",
     "build-c4": "yarn generate-c4 && likec4 build --no-use-dot -o build/c4 --base /cnp-api-docs/architecture/explore/ --title \"CNP API Docs\" c4",
     "generate-c4": "node bin/generate-c4.mjs && node bin/generate-c4-views.mjs",
@@ -28,10 +28,7 @@
     "serve-site": "node bin/serve-site.mjs",
     "dev-site": "yarn build-model && yarn workspace cnp-api-docs-site dev-server",
     "export-readme-pngs": "node bin/export-readme-pngs.mjs",
-    "refresh-catalog-cache": "node bin/refresh-catalog-cache.mjs",
-    "legacy:serve": "http-server -p 8080 docs/",
-    "legacy:update-swagger": "cp node_modules/swagger-ui-dist/swagger-ui* docs/",
-    "legacy:update-vis": "cp node_modules/vis/dist/vis-network* docs/ && cp -r node_modules/vis/dist/img docs/"
+    "refresh-catalog-cache": "node bin/refresh-catalog-cache.mjs"
   },
   "author": "",
   "license": "MIT",
@@ -40,12 +37,7 @@
   },
   "homepage": "https://github.com/hmcts/cnp-api-docs#readme",
   "dependencies": {
-    "djv": "^2.1.4",
-    "jasmine": "^4.3.0",
-    "moment": "~2.29.4",
-    "swagger-ui-dist": "^5.18.2",
     "swagger2openapi": "^7.0.8",
-    "vis": "^4.21.0",
     "yaml": "^2.9.0"
   },
   "devDependencies": {
@@ -54,9 +46,5 @@
   },
   "scarfSettings": {
     "enabled": false
-  },
-  "spec_dir": "test",
-  "spec_files": [
-    "**/*.js"
-  ]
+  }
 }
