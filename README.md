@@ -80,12 +80,15 @@ npm run validate-specs     # classify every spec
 npm test                   # unit tests, plus the consumer contract
 ```
 
-Publishers push straight to master and the publishing bot bypasses branch
-protection, so validation cannot block a bad spec landing. Instead, if a spec
-that previously parsed is replaced by one that does not,
-`.github/workflows/validate-specs.yml` restores the previous version and files an
-issue. A spec that was already broken, or that arrives broken on its first
-publish, is reported but never rewritten.
+Publishers push straight to master, so validation cannot block a bad spec
+landing. If a spec that previously parsed is replaced by one that does not,
+`.github/workflows/validate-specs.yml` files an issue naming it.
+
+**Broken specs are not repaired here.** The fix is for the owning team to fix its
+publishing job and republish. Restoring the previous file centrally puts a spec
+back that describes an older version of the API, leaves the pipeline still
+broken, and means nobody has to notice — so a spec that a team has broken stays
+broken and visible on the registry health page.
 
 `test/consumer-contract.test.mjs` pins the spec filenames that are fetched from
 outside this repo — by XUI at runtime, by the CCD and HMC F-125 acceptance tests,

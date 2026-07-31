@@ -1,9 +1,9 @@
 name: Validate API specs
 
-# Publishers push straight to master and the publishing bot bypasses branch
-# protection, so a required status check cannot gate ingest. This runs after the
-# push and repairs the one unambiguous failure mode: a spec that used to parse
-# and no longer does.
+# Publishers push straight to master, so a required status check cannot gate
+# ingest. This runs after the push and reports a spec that used to parse and no
+# longer does. It does not repair it: the owning team's pipeline is what is
+# broken, and restoring the old file here only hides that.
 
 on:
   push:
@@ -15,19 +15,17 @@ on:
     paths:
       - 'docs/specs/**'
       - 'bin/validate-specs.mjs'
-      - 'bin/revert-broken-specs.mjs'
+      - 'bin/detect-broken-specs.mjs'
       - '.github/workflows/validate-specs.yml'
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
   issues: write
-  pull-requests: write
 
 concurrency:
-  # Never let two revert jobs race each other onto master.
   group: validate-specs-${{ github.ref }}
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 jobs:
   validate:
@@ -52,88 +50,32 @@ jobs:
       - name: Report registry health
         run: node bin/validate-specs.mjs || true
 
-      # On a pull request, just tell us what would happen.
-      - name: Detect newly-broken specs (report only)
-        if: github.event_name == 'pull_request'
-        run: node bin/revert-broken-specs.mjs --base "${{ github.event.pull_request.base.sha }}"
-
-      - name: Revert newly-broken specs
-        if: github.event_name == 'push'
-        id: revert
+      - name: Detect newly-broken specs
+        id: detect
         run: |
-          node bin/revert-broken-specs.mjs --base "${{ github.event.before }}" --apply | tee /tmp/revert.json
-
-      # master requires a pull request and GITHUB_TOKEN cannot bypass that;
-      # SWAGGER_PUBLISHER_API_TOKEN is the identity the publishers push with, so it
-      # can. Falls back to opening a PR so a computed repair is never discarded.
-      - name: Push the revert
-        if: github.event_name == 'push' && steps.revert.outputs.reverted_count != '0'
-        id: push
-        env:
-          PUBLISHER_TOKEN: ${{ secrets.SWAGGER_PUBLISHER_API_TOKEN }}
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add docs/specs
-          git commit -m "Restore spec(s) broken by ${GITHUB_SHA:0:7}
-
-          The pushed spec did not parse and the previous version did, so it has
-          been restored automatically. See the linked issue for the cause."
-
-          if [ -n "$PUBLISHER_TOKEN" ]; then
-            git remote set-url origin \
-              "https://jenkins-reform-hmcts:${PUBLISHER_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
-          else
-            echo "SWAGGER_PUBLISHER_API_TOKEN is not available; will open a PR instead" >&2
-          fi
-
-          # Publishers push constantly; rebase onto whatever landed meanwhile.
-          for attempt in 1 2 3; do
-            if git push origin HEAD:master; then
-              echo "pushed=true" >> "$GITHUB_OUTPUT"
-              exit 0
-            fi
-            echo "push rejected, rebasing (attempt $attempt)"
-            git pull --rebase origin master || break
-          done
-
-          echo "could not push directly; opening a pull request instead" >&2
-          echo "pushed=false" >> "$GITHUB_OUTPUT"
-
-      - name: Open a PR if the direct push was rejected
-        if: github.event_name == 'push' && steps.push.outputs.pushed == 'false'
-        uses: peter-evans/create-pull-request@v7
-        with:
-          commit-message: Restore broken API specs
-          title: Restore API specs broken by a publisher
-          body: |
-            A spec that previously parsed was published in a state that does not
-            parse, and has been restored automatically. The direct push to `master`
-            was rejected by branch protection, so this is a pull request instead.
-
-            Fix the publishing job in the owning repo rather than re-pushing by hand:
-            the usual cause is the pipeline writing an empty file when it cannot
-            fetch the spec from the running application, which fails silently.
-          branch: fix/restore-broken-specs
-          delete-branch: true
-          add-paths: docs/specs
+          base='${{ github.event_name == 'pull_request' && github.event.pull_request.base.sha || github.event.before }}'
+          node bin/detect-broken-specs.mjs --base "$base" | tee /tmp/broken.json
 
       - name: Open or update the tracking issue
-        if: github.event_name == 'push' && steps.revert.outputs.reverted_count != '0'
+        if: github.event_name == 'push' && steps.detect.outputs.broken_count != '0'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           title="Broken API specs are being published"
           body=$(node -e '
-            const s = require("/tmp/revert.json");
-            const lines = s.reverted.map(r => `- \`${r.path}\` — was ${r.reason}, restored ${r.restoredBytes} bytes`);
+            const s = require("/tmp/broken.json");
+            const lines = s.brokenInThisPush.map(
+              (r) => `- \`${r.path}\` — ${r.reason}` + (r.previousBytes ? ` (was ${r.previousBytes} bytes)` : ""),
+            );
             console.log([
-              `Specs were published in a state that does not parse, and have been restored automatically.`,
+              `A spec that previously parsed has been published in a state that does not parse.`,
               ``,
               `Broken by ${process.env.GITHUB_SHA}:`,
               ...lines,
               ``,
-              `The usual cause is the publishing pipeline writing an empty file when it cannot fetch the spec from the running application, so the failure is silent. Fix the publishing job in the owning repo rather than re-pushing by hand.`,
+              `**This is not repaired automatically.** The owning team needs to fix its publishing job and republish.`,
+              ``,
+              `The usual cause is the pipeline writing an empty file when it cannot fetch the spec from the running application, which fails silently. Republishing a working spec is the fix; restoring the old file here only hides it.`,
             ].join("\n"));
           ')
           existing=$(gh issue list --state open --search "$title in:title" --json number --jq '.[0].number')
