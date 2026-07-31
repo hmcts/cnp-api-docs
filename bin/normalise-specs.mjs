@@ -87,7 +87,10 @@ async function main(argv) {
   console.log(`  failed:          ${failed.length}`);
   for (const f of failed) console.log(`    ${f.name} (${f.stage}): ${f.error}`);
 
-  return failed.length === 0 ? 0 : 1;
+  // A spec that cannot be converted is not a build failure. It belongs to the
+  // team that published it, and the portal's job is to surface that on the health
+  // page — not to refuse to build the other 178.
+  return 0;
 }
 
 process.exit(await main(process.argv.slice(2)));

@@ -163,8 +163,22 @@ test('counts match the underlying data', () => {
   const onDisk = readdirSync('docs/specs').filter((f) => f.endsWith('.json') && f !== '.json').length;
   assert.equal(model.counts.specFiles, onDisk);
   assert.equal(model.counts.services, Object.keys(model.services).length);
-  // Phase 0 repaired every spec; regressions must fail this.
-  assert.equal(model.counts.brokenSpecs, 0);
+});
+
+// Deliberately not asserting brokenSpecs is 0. A spec belongs to the team that
+// publishes it, and this repo no longer repairs one — see the registry health
+// section of the README. What must hold is that a broken spec is surfaced rather
+// than silently dropped, and that it cannot break the build.
+test('broken specs are represented, not dropped', () => {
+  const broken = Object.values(model.services).flatMap((s) => s.specs.filter((x) => !x.valid));
+  assert.equal(model.counts.brokenSpecs, broken.length);
+
+  for (const spec of broken) {
+    assert.ok(spec.problem, `${spec.file} should record why it is invalid`);
+    assert.equal(spec.pathCount, 0);
+    // Still reachable, so the health page can name it and link to the raw file.
+    assert.ok(spec.url.endsWith(spec.file));
+  }
 });
 
 test('federation is inert until a team declares edges', () => {
