@@ -1,0 +1,97 @@
+---
+import Base from '../layouts/Base.astro';
+import { groups, model, slugFor } from '../lib/model.mjs';
+
+const base = import.meta.env.BASE_URL;
+
+// The four groups whose Structurizr files carried live actor-specific views.
+const ACTOR_VIEWS = {
+  probate: ['citizen', 'caseworker'],
+  pcs: ['citizen', 'caseworker'],
+  nfdiv: ['citizen', 'caseworker'],
+  darts: ['citizen'],
+};
+
+const withServices = groups
+  .filter((g) => g.serviceCount > 0)
+  .map((g) => ({
+    ...g,
+    slug: slugFor(g.name),
+    viewId: `${slugFor(g.name).replace(/-/g, '_')}_overview`,
+    actors: ACTOR_VIEWS[slugFor(g.name)] ?? [],
+  }))
+  .sort((a, b) => b.serviceCount - a.serviceCount || a.name.localeCompare(b.name));
+
+const ambient = Object.values(model.services).filter((s) => s.ambient);
+---
+
+<Base
+  title="Architecture"
+  description="C4 views of the CFT estate: the landscape, and one view per product group."
+>
+  <h1>Architecture</h1>
+  <p class="lede">
+    C4 views generated from the registry. Every group has an overview; four also have
+    citizen and caseworker journeys.
+  </p>
+
+  <figure class="diagram">
+    <script is:inline src={`${base}/architecture/explore/likec4-views.js`}></script>
+    <likec4-view view-id="landscape" browser="false"></likec4-view>
+    <figcaption>
+      <a href={`${base}/architecture/explore/view/landscape/`}>Open full screen</a>
+      — or browse every view in the <a href={`${base}/architecture/explore/`}>diagram explorer</a>.
+    </figcaption>
+  </figure>
+
+  <div class="panel">
+    <p>
+      Authentication and identity are left out of every view. Almost everything depends on
+      {ambient.map((s, i) => (
+        <>
+          {i > 0 ? ', ' : ' '}
+          <a href={`${base}/service/${slugFor(s.id)}/`}>{s.id}</a>
+        </>
+      ))}, so drawing those edges hides the structure — they account for 43% of all
+      dependencies in the estate. Each service page lists its own platform dependencies.
+    </p>
+  </div>
+
+  <h2>Views by group</h2>
+  <table>
+    <thead>
+      <tr>
+        <th scope="col">Group</th>
+        <th scope="col" class="num">Services</th>
+        <th scope="col">Views</th>
+      </tr>
+    </thead>
+    <tbody>
+      {withServices.map((g) => (
+        <tr>
+          <td><a href={`${base}/groups/${g.slug}/`}>{g.name}</a></td>
+          <td class="num">{g.serviceCount}</td>
+          <td>
+            <a href={`${base}/architecture/explore/view/${g.viewId}/`}>overview</a>
+            {g.actors.map((v) => (
+              <>
+                {' · '}
+                <a href={`${base}/architecture/explore/view/${g.slug.replace(/-/g, '_')}_${v}/`}>{v}</a>
+              </>
+            ))}
+          </td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+
+  <style>
+    .diagram { margin: 24px 0 32px; }
+    .diagram likec4-view {
+      display: block;
+      height: 520px;
+      border: 1px solid var(--line);
+    }
+    .diagram figcaption { font-size: 0.9rem; margin-top: 8px; }
+  </style>
+</Base>

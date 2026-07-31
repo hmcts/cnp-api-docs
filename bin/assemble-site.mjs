@@ -109,7 +109,7 @@ function main(argv) {
 
   // The LikeC4 diagram app, if it has been built. Optional so the site still
   // assembles without it.
-  if (existsSync(C4_DIR)) copyTree(C4_DIR, join(out, 'architecture'));
+  if (existsSync(C4_DIR)) copyTree(C4_DIR, join(out, 'architecture', 'explore'));
 
   writeLldRedirects(out);
 

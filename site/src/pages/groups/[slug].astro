@@ -49,14 +49,14 @@ const actorViews = ACTOR_VIEWS[slugFor(name)] ?? [];
   <figure class="diagram">
     {/* LikeC4 ships a web component alongside the standalone app, so the diagram
         embeds without the app's own toolbar and search. */}
-    <script is:inline src={`${base}/architecture/likec4-views.js`}></script>
+    <script is:inline src={`${base}/architecture/explore/likec4-views.js`}></script>
     <likec4-view view-id={viewId} browser="false"></likec4-view>
     <figcaption>
-      <a href={`${base}/architecture/view/${viewId}/`}>Open the diagram full screen</a>
+      <a href={`${base}/architecture/explore/view/${viewId}/`}>Open the diagram full screen</a>
       {actorViews.map((v) => (
         <>
           {' · '}
-          <a href={`${base}/architecture/view/${slugFor(name).replace(/-/g, '_')}_${v}/`}>{v} journey</a>
+          <a href={`${base}/architecture/explore/view/${slugFor(name).replace(/-/g, '_')}_${v}/`}>{v} journey</a>
         </>
       ))}
     </figcaption>
