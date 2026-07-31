@@ -12,7 +12,6 @@ const product = model.products[name];
 
 const members = rankedServices(product.services.map((id) => model.services[id]).filter(Boolean));
 
-// Cross-product traffic, which is what a product-level view is actually for.
 const outbound = new Map();
 const inbound = new Map();
 const memberIds = new Set(members.map((m) => m.id));
@@ -47,8 +46,6 @@ const actorViews = ACTOR_VIEWS[slugFor(name)] ?? [];
   {product.info && <p class="lede" set:html={product.info} />}
 
   <figure class="diagram">
-    {/* LikeC4 ships a web component alongside the standalone app, so the diagram
-        embeds without the app's own toolbar and search. */}
     <script is:inline src={`${base}/architecture/explore/likec4-views.js`}></script>
     <likec4-view view-id={viewId} browser="false"></likec4-view>
     <figcaption>
@@ -113,10 +110,6 @@ const actorViews = ACTOR_VIEWS[slugFor(name)] ?? [];
   </table>
 
   <h2>Traffic across product boundaries</h2>
-  <p class="muted">
-    Dependencies between this product and others, excluding authentication and identity.
-    Counted per service-to-service edge.
-  </p>
   <div class="hops">
     <section>
       <h3>Products that call {name}</h3>

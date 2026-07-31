@@ -26,10 +26,6 @@ const pct = (n, d) => (d === 0 ? 0 : Math.round((100 * n) / d));
 
 <Base title="Registry health" description="Freshness, breakage and ownership across every published spec.">
   <h1>Registry health</h1>
-  <p class="lede">
-    Nothing validated specs on ingest until recently, so the registry accumulated
-    breakage silently. These are the numbers as they actually are.
-  </p>
 
   <h2>Are the specs valid?</h2>
   <ul class="stats">
@@ -38,11 +34,7 @@ const pct = (n, d) => (d === 0 ? 0 : Math.round((100 * n) / d));
   </ul>
   {broken.length === 0 ? (
     <div class="panel">
-      <p>
-        Every published spec parses and declares an OpenAPI or Swagger version. A push
-        that breaks one is now reverted automatically and raises an issue against the
-        owning team.
-      </p>
+      <p>Every published spec parses and declares an OpenAPI or Swagger version.</p>
     </div>
   ) : (
     <table>
@@ -60,10 +52,7 @@ const pct = (n, d) => (d === 0 ? 0 : Math.round((100 * n) / d));
   )}
 
   <h2>Is anyone still publishing them?</h2>
-  <p>
-    Freshness counts only commits made by a publishing pipeline. Maintenance edits by
-    the platform team do not make a spec look fresher than it is.
-  </p>
+  <p class="muted">Counted from publisher commits only.</p>
   <table>
     <thead>
       <tr><th scope="col">Last published</th><th scope="col" class="num">Specs</th><th scope="col" class="num">Share</th></tr>
@@ -93,8 +82,6 @@ const pct = (n, d) => (d === 0 ? 0 : Math.round((100 * n) / d));
       <strong>
         {`${buckets.find((b) => b.key === 'abandoned').count + buckets.find((b) => b.key === 'unpublished').count} of ${allSpecs.length} specs have not been published by a pipeline in over two years.`}
       </strong>
-      {' '}Some describe services that no longer exist. Treat an abandoned spec as a claim
-      about the past, not a contract.
     </p>
   </div>
 
@@ -103,13 +90,9 @@ const pct = (n, d) => (d === 0 ? 0 : Math.round((100 * n) / d));
     <li><span class="n">{unregistered.length}</span><span class="k">specs with no registry entry</span></li>
     <li><span class="n">{missing.length}</span><span class="k">registry entries with no spec</span></li>
   </ul>
-  <p>
-    Specs with no registry entry still appear in the catalogue — publishing is enough to be
-    listed. They simply have no product or curated description yet.
-  </p>
+  <p class="muted">Specs with no registry entry still appear in the catalogue, without a product.</p>
 
   <h3>Registry entries pointing at a spec that does not exist</h3>
-  <p class="muted">These were broken links in the old portal. Either the spec was never published, or it was published under a different name.</p>
   <table>
     <thead><tr><th scope="col">Registry id</th><th scope="col">Product</th><th scope="col">Expected file</th></tr></thead>
     <tbody>
@@ -129,18 +112,7 @@ const pct = (n, d) => (d === 0 ? 0 : Math.round((100 * n) / d));
     <li><span class="n">{specBacked.length - ownedSpecBacked}</span><span class="k">with no owner recorded</span></li>
     <li><span class="n">{counts.federatedEdges}</span><span class="k">declaring their own dependencies</span></li>
   </ul>
-  <p>
-    Ownership is read from each repo's <code>catalog-info.yaml</code>. Coverage is low
-    enough that it is not shown elsewhere in the portal — it would imply a service is
-    unowned when the file is simply missing. Adding <code>catalog-info.yaml</code> to a
-    repo is all that is needed to fix it.
-  </p>
-  <p>
-    Dependency edges come from the central registry. When a team declares
-    <code>dependsOn</code> or <code>consumesApis</code> in its own
-    <code>catalog-info.yaml</code>, that takes precedence automatically; the counter above
-    tracks adoption.
-  </p>
+  <p class="muted">Read from each repo's <code>catalog-info.yaml</code>.</p>
 
   <h2>Longest without a publish</h2>
   <table>

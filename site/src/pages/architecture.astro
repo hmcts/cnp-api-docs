@@ -30,11 +30,6 @@ const ambient = Object.values(model.services).filter((s) => s.ambient);
   description="C4 views of the CFT estate: the landscape, and one view per product."
 >
   <h1>Architecture</h1>
-  <p class="lede">
-    C4 views generated from the registry. Every product has an overview; four also have
-    citizen and caseworker journeys.
-  </p>
-
   <figure class="diagram">
     <script is:inline src={`${base}/architecture/explore/likec4-views.js`}></script>
     <likec4-view view-id="landscape" browser="false"></likec4-view>
@@ -46,14 +41,13 @@ const ambient = Object.values(model.services).filter((s) => s.ambient);
 
   <div class="panel">
     <p>
-      Authentication and identity are left out of every view. Almost everything depends on
+      Views exclude
       {ambient.map((s, i) => (
         <>
           {i > 0 ? ', ' : ' '}
           <a href={`${base}/service/${slugFor(s.id)}/`}>{s.id}</a>
         </>
-      ))}, so drawing those edges hides the structure — they account for 43% of all
-      dependencies in the estate. Each service page lists its own platform dependencies.
+      ))}. Each service page lists its own platform dependencies.
     </p>
   </div>
 

@@ -43,11 +43,7 @@ const title = spec.title ?? serviceId;
 
   {spec.freshness === 'abandoned' && (
     <div class="panel warn">
-      <p>
-        <strong>This spec has not been republished in over two years.</strong>
-        It may not reflect the service as deployed. Check with
-        {service.owner ? ` ${service.owner}` : ' the owning team'} before relying on it.
-      </p>
+      <p><strong>Not republished in over two years.</strong> It may not match the deployed service.</p>
     </div>
   )}
 
@@ -57,17 +53,13 @@ const title = spec.title ?? serviceId;
         <strong>This spec cannot be displayed.</strong> The published file is
         {spec.problem === 'empty' ? ' empty' : ` not valid JSON (${spec.problem})`}.
       </p>
-      <p>
-        The publishing pipeline in the owning repo is writing a broken file, usually
-        because it could not reach the running application. Raw file:
-        <a href={spec.url}>{spec.file}</a>.
-      </p>
+      <p>Raw file: <a href={spec.url}>{spec.file}</a>.</p>
     </div>
   ) : (
     <>
       <p class="raw">
         Raw specification: <a href={spec.url}>{spec.file}</a>
-        <span class="muted"> — this is the URL to use in code; it serves the publisher's original bytes.</span>
+        <span class="muted"> — use this URL in code.</span>
       </p>
       <div class="viewer">
         <SpecViewer url={normalisedUrl} client:only="react" />

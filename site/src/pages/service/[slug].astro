@@ -13,9 +13,7 @@ const service = model.services[id];
 const fresh = freshnessOf(service);
 const specs = specsOf(service);
 
-// The 1-hop neighbourhood. Ambient dependencies (auth, S2S) are pulled out and
-// shown as chips: 43% of all edges in the estate point at them, and drawing
-// those lines is what made the old network graph unreadable.
+// Ambient dependencies are shown as chips rather than edges.
 const deps = service.dependsOn.map((d) => ({ ...d, service: model.services[d.id] }));
 const ambientDeps = deps.filter((d) => d.service?.ambient);
 const realDeps = deps.filter((d) => !d.service?.ambient);
@@ -40,8 +38,7 @@ const consumers = (service.consumedBy ?? []).map((cid) => model.services[cid]).f
   {service.specless && (
     <div class="panel">
       <p>
-        No OpenAPI spec is published for this service.
-        {service.type === 'web' ? ' It is a frontend, so this is expected.' : ''}
+        No OpenAPI spec published.
       </p>
     </div>
   )}
@@ -82,7 +79,7 @@ const consumers = (service.consumedBy ?? []).map((cid) => model.services[cid]).f
 
   <h2>Dependencies</h2>
   {realDeps.length === 0 && ambientDeps.length === 0 && (
-    <p class="muted">No dependencies recorded. Declare them in this repo's <code>catalog-info.yaml</code> and they will appear here.</p>
+    <p class="muted">None recorded.</p>
   )}
 
   <div class="hops">
@@ -123,10 +120,6 @@ const consumers = (service.consumedBy ?? []).map((cid) => model.services[cid]).f
   {ambientDeps.length > 0 && (
     <div class="panel">
       <h3 style="margin-top:0">Platform dependencies</h3>
-      <p class="muted" style="margin-bottom:8px">
-        Authentication and identity, used by almost every service. Shown here rather than
-        as graph edges — they account for 43% of all dependencies in the estate.
-      </p>
       <div class="chips">
         {ambientDeps.map((d) => (
           <a class="chip" href={`${base}/service/${slugFor(d.id)}/`}>{d.id}</a>
