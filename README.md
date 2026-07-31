@@ -60,30 +60,36 @@ yarn install
 
 ## Running the portal locally
 
-Two ways, depending on what you are doing.
-
-**Live reload, for working on the site:**
-
 ```bash
-cd site && yarn dev
+yarn dev
 ```
 
-Astro prints a URL; the pages are served under `/cnp-api-docs/`. Specs are not
-copied in this mode, so the API reference pages will not render — use the
-production build for those.
+Builds the model, the site and the architecture diagrams, assembles the artifact
+and serves it at <http://localhost:8080/cnp-api-docs/>. This is byte-for-byte what
+gets deployed. Set `PORT` to use a different port.
 
-**Production build, exactly what gets deployed:**
+The individual steps, if you need one on its own:
 
 ```bash
-yarn build-site    # model, then the Astro site
+yarn build         # everything, without serving
+yarn build-site    # model, then the Astro pages
+yarn build-c4      # architecture diagrams
 yarn assemble      # copies docs/specs verbatim, verifying every byte
-yarn serve-site    # http://localhost:8080/cnp-api-docs/
+yarn serve-site    # serve build/dist
 ```
 
 `yarn assemble` refuses to produce a deployable tree if any spec's bytes change
-during the copy — those URLs are fetched at runtime by other services.
-`yarn serve-site` serves under `/cnp-api-docs/` to match GitHub Pages; visiting
-`/` redirects there. Set `PORT` to use a different port.
+during the copy — those URLs are fetched at runtime by other services. The site is
+served under `/cnp-api-docs/` to match GitHub Pages; visiting `/` redirects there.
+
+For live reload while working on the pages:
+
+```bash
+yarn dev-site
+```
+
+That runs Astro's dev server, which does not copy `docs/specs`, so the API
+reference pages will not render — use `yarn dev` for those.
 
 ## Testing
 
