@@ -7,14 +7,6 @@ on:
   push:
     branches: [master]
   pull_request:
-    paths:
-      - 'site/**'
-      - 'model/**'
-      - 'bin/**'
-      - 'registry.yaml'
-      - 'c4/**'
-      - 'docs/specs/**'
-      - '.github/workflows/build-site.yml'
   workflow_dispatch:
 
 permissions:
@@ -53,11 +45,11 @@ jobs:
           yarn build-c4
 
       - name: Assemble, verifying spec bytes are unchanged
-        run: node bin/assemble-site.mjs --out build/dist
+        run: yarn assemble
 
-      # Run here rather than only in validate-specs: the legacy LLD redirect
-      # assertions need the assembled output, and skip themselves without it.
-      - name: Run the test suite against the assembled site
+      # After assembling: the consumer contract and legacy redirect assertions
+      # check the built output, and skip themselves without it.
+      - name: Test
         run: yarn test
 
       - name: Re-verify every spec against the source tree
@@ -82,31 +74,8 @@ jobs:
           echo "verified $count specs byte-identical"
           exit $fail
 
-      - name: Check the externally-consumed URLs exist in the artifact
-        run: |
-          fail=0
-          # rpx-xui-webapp fetches these at runtime; CCD/HMC assert on them;
-          # terraform reads them at apply time.
-          for name in \
-            am-role-assignment-service am-judicial-booking-service future-hearings-hmi-api \
-            rd-location-ref-api rd-judicial-api rd-caseworker-ref-api \
-            ccd-data-store-api.v1_internal ccd-data-store-api.v1_external \
-            ccd-data-store-api.v2_internal ccd-data-store-api.v2_external \
-            ccd-user-profile-api hmc-hmi-inbound-adapter \
-            ccpay-payment-app.recon-payments-v0.3 ccpay-payment-app.refunds-status-v1 \
-            et-acas-api et-acas-api-nonprod
-          do
-            path="build/dist/specs/$name.json"
-            if [ ! -s "$path" ]; then
-              echo "::error::missing or empty: specs/$name.json"
-              fail=1
-            elif ! node -e "JSON.parse(require('fs').readFileSync('$path','utf8'))"; then
-              echo "::error::not parseable: specs/$name.json"
-              fail=1
-            fi
-          done
-          [ -s build/dist/swagger.html ] || { echo "::error::swagger.html shim missing"; fail=1; }
-          exit $fail
+      - name: Report registry health
+        run: yarn validate-specs || true
 
       - name: Summarise
         run: |

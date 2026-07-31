@@ -1,51 +1,27 @@
-# Cloud Native Platform API Documentation
+# CNP API Docs
 
-## Intro
+The central OpenAPI registry for CFT. Every service publishes its spec here from
+its own pipeline, and the site renders them at
+<https://hmcts.github.io/cnp-api-docs/>: a searchable list of specs, a low level
+design page per product, C4 architecture views, and a registry health report.
 
-Documentation is presented in two ways:
+Publishing a spec is all that is needed to appear — see
+[Publish Swagger docs](#publish-swagger-docs).
 
-- [Network graph](#network)
-- [Swagger UI](#swagger-ui)
+## How it fits together
 
-### Network
+| Path | What it is |
+|---|---|
+| `docs/specs/*.json` | Published specs. Written by other repos' pipelines; the only thing in this repo other teams write to. |
+| `registry.yaml` | The facts that cannot be derived from a spec: product membership, dependency edges, curated names, prose. Hand-maintained. |
+| `model/build.mjs` | Joins the two, plus Backstage ownership, into `model/model.json`. |
+| `c4/` | LikeC4 sources. `generated.c4` is derived from the model; `views.c4` is hand-written. |
+| `site/` | Astro site, built from `model.json`. |
+| `bin/` | Build and validation scripts, plus the legacy publish scripts. |
 
-In order to populate one of the API in the network graph we need to enter the following snippet inside the [microservices.json](docs/microservices.json):
-
-```json
-{
-    "id": "ccd-user-profile",
-    "name": "User Profile",
-    "group": "CCD",
-    "description": null,
-    "repository": null,
-    "spec": null,
-    "urls": [],
-    "dependencies": [
-        {
-            "id": "idam",
-            "hard": true,
-            "apis": []
-        },
-        {
-            "id": "idam-s2s",
-            "hard": true,
-            "apis": []
-        }
-    ],
-    "apis": [],
-    "version": null
-}
-```
-
-In case you are introducing a new network group, please provide relevant information about it in the `groups` field (follow specification linked below and implementation linked above).
-
-Full specification can be viewed in [json schema](microservices-schema.json).
-
-### Swagger UI
-
-In case the `spec` field is present, API bubble represented in the graph will allow to click through to the API documentation. If `urls` array is present spec will not be used, but urls defined with `name` and `url` will be used instead.
-
-[How to publish swagger docs](#publish-swagger-docs) for your spring boot template application
+`docs/` also still holds the previous site — `index.html`, `network.js`,
+`microservices.json` and `lld/*.html`. GitHub Pages serves that today; it is
+replaced when the Pages source moves to GitHub Actions, and removed after.
 
 ## Getting started
 

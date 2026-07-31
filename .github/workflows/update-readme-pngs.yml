@@ -52,7 +52,7 @@ jobs:
         run: |
           yarn build-model
           yarn generate-c4
-          node bin/export-readme-pngs.mjs
+          yarn export-readme-pngs
 
       - uses: peter-evans/create-pull-request@v7
         with:

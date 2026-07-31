@@ -26,12 +26,12 @@
     "validate-specs": "node bin/validate-specs.mjs",
     "assemble": "node bin/assemble-site.mjs",
     "serve-site": "node bin/serve-site.mjs",
-    "refresh-catalog-cache": "node bin/refresh-catalog-cache.mjs",
-    "start": "http-server -p 8080 docs/",
-    "update-swagger": "cp node_modules/swagger-ui-dist/swagger-ui* docs/",
-    "update-vis": "cp node_modules/vis/dist/vis-network* docs/ && cp -r node_modules/vis/dist/img docs/",
     "dev-site": "yarn build-model && yarn workspace cnp-api-docs-site dev-server",
-    "export-readme-pngs": "node bin/export-readme-pngs.mjs"
+    "export-readme-pngs": "node bin/export-readme-pngs.mjs",
+    "refresh-catalog-cache": "node bin/refresh-catalog-cache.mjs",
+    "legacy:serve": "http-server -p 8080 docs/",
+    "legacy:update-swagger": "cp node_modules/swagger-ui-dist/swagger-ui* docs/",
+    "legacy:update-vis": "cp node_modules/vis/dist/vis-network* docs/ && cp -r node_modules/vis/dist/img docs/"
   },
   "author": "",
   "license": "MIT",

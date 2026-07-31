@@ -27,25 +27,42 @@ jobs:
       - run: corepack enable
       - run: yarn install --immutable
 
-      - name: Clone every repo's catalog-info.yaml
+      # Code search needs a token that can read across the org. GITHUB_TOKEN is
+      # scoped to this repo and returns nothing, which would silently empty the
+      # cache, so the job fails loudly instead of committing a regression.
+      - name: Collect every repo's catalog-info.yaml
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.ORG_READ_TOKEN || secrets.SWAGGER_PUBLISHER_API_TOKEN }}
         run: |
+          set -euo pipefail
+          if [ -z "${GH_TOKEN:-}" ]; then
+            echo "::error::no org-wide read token available; cannot search for catalog-info.yaml"
+            exit 1
+          fi
+
           mkdir -p /tmp/catalog
-          # One search request per page rather than cloning ~130 repos.
           gh api --paginate -X GET search/code \
             -f q='filename:catalog-info.yaml org:hmcts' \
-            --jq '.items[] | "\(.repository.name)\t\(.path)"' > /tmp/hits.tsv || true
+            --jq '.items[] | "\(.repository.name)\t\(.path)"' > /tmp/hits.tsv
+
           while IFS=$'\t' read -r repo path; do
             [ -z "$repo" ] && continue
             mkdir -p "/tmp/catalog/$repo"
-            gh api "repos/hmcts/$repo/contents/$path" --jq '.content' 2>/dev/null \
+            gh api "repos/hmcts/$repo/contents/$path" --jq '.content' \
               | base64 -d > "/tmp/catalog/$repo/catalog-info.yaml" || true
           done < /tmp/hits.tsv
-          echo "collected $(find /tmp/catalog -name catalog-info.yaml | wc -l) catalog files"
+
+          found=$(find /tmp/catalog -name catalog-info.yaml | wc -l)
+          echo "collected $found catalog files"
+          # The committed cache holds 126. A large drop means the search failed
+          # rather than that the org shrank.
+          if [ "$found" -lt 100 ]; then
+            echo "::error::only $found catalog files found; refusing to overwrite the cache"
+            exit 1
+          fi
 
       - name: Rebuild the cache
-        run: node bin/refresh-catalog-cache.mjs --from-dir /tmp/catalog
+        run: yarn refresh-catalog-cache --from-dir /tmp/catalog
 
       - name: Open a PR if the cache changed
         uses: peter-evans/create-pull-request@v7
