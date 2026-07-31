@@ -40,9 +40,9 @@ const ACTOR_VIEWS = { probate: ['citizen', 'caseworker'], pcs: ['citizen', 'case
 const actorViews = ACTOR_VIEWS[slugFor(name)] ?? [];
 ---
 
-<Base title={name} description={`Services in the ${name} product.`}>
+<Base title={`${name} LLD`} description={`Low level design for the ${name} product.`}>
   <p class="crumb"><a href={`${base}/`}>Specs</a> › <a href={`${base}/products/`}>Products</a></p>
-  <h1>{name}</h1>
+  <h1>{name} LLD</h1>
   {product.info && <p class="lede" set:html={product.info} />}
 
   <figure class="diagram">
