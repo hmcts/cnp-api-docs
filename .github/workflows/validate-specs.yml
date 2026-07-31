@@ -1,27 +1,27 @@
 name: Validate API specs
 
-# Publishers push straight to master, so a required status check cannot gate
-# ingest. This runs after the push and reports a spec that used to parse and no
-# longer does. It does not repair it: the owning team's pipeline is what is
-# broken, and restoring the old file here only hides that.
+# Publishers push straight to master, so this cannot gate ingest. It guards the
+# spec filenames that other services depend on, and reports registry health.
+#
+# It deliberately does not track or report individual broken specs. Detecting
+# them changed nothing: the owning team's publishing job is what breaks, and this
+# repo cannot fix or usefully nag about it. A broken spec shows up in the registry
+# health report like any other.
 
 on:
   push:
     branches: [master]
     paths: ['docs/specs/**']
   pull_request:
-    # Includes this file: without it, a change to the workflow gets no checks at
-    # all, which is how this PR initially reported nothing to review.
+    # Includes this file: without it, a change to the workflow gets no checks.
     paths:
       - 'docs/specs/**'
       - 'bin/validate-specs.mjs'
-      - 'bin/detect-broken-specs.mjs'
       - '.github/workflows/validate-specs.yml'
   workflow_dispatch:
 
 permissions:
   contents: read
-  issues: write
 
 concurrency:
   group: validate-specs-${{ github.ref }}
@@ -32,8 +32,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
-        with:
-          fetch-depth: 0
 
       - uses: actions/setup-node@v4
         with:
@@ -49,39 +47,3 @@ jobs:
 
       - name: Report registry health
         run: node bin/validate-specs.mjs || true
-
-      - name: Detect newly-broken specs
-        id: detect
-        run: |
-          base='${{ github.event_name == 'pull_request' && github.event.pull_request.base.sha || github.event.before }}'
-          node bin/detect-broken-specs.mjs --base "$base" | tee /tmp/broken.json
-
-      - name: Open or update the tracking issue
-        if: github.event_name == 'push' && steps.detect.outputs.broken_count != '0'
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          title="Broken API specs are being published"
-          body=$(node -e '
-            const s = require("/tmp/broken.json");
-            const lines = s.brokenInThisPush.map(
-              (r) => `- \`${r.path}\` — ${r.reason}` + (r.previousBytes ? ` (was ${r.previousBytes} bytes)` : ""),
-            );
-            console.log([
-              `A spec that previously parsed has been published in a state that does not parse.`,
-              ``,
-              `Broken by ${process.env.GITHUB_SHA}:`,
-              ...lines,
-              ``,
-              `**This is not repaired automatically.** The owning team needs to fix its publishing job and republish.`,
-              ``,
-              `The usual cause is the pipeline writing an empty file when it cannot fetch the spec from the running application, which fails silently. Republishing a working spec is the fix; restoring the old file here only hides it.`,
-            ].join("\n"));
-          ')
-          existing=$(gh issue list --state open --search "$title in:title" --json number --jq '.[0].number')
-          if [ -n "$existing" ]; then
-            gh issue comment "$existing" --body "$body"
-          else
-            gh issue create --title "$title" --body "$body" --label "spec-health" || \
-              gh issue create --title "$title" --body "$body"
-          fi

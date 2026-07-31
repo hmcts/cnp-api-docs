@@ -76,24 +76,24 @@ npm start
 Every spec in `docs/specs/` is validated on each push to master.
 
 ```bash
-npm run validate-specs     # classify every spec
-npm test                   # unit tests, plus the consumer contract
+yarn validate-specs    # classify every spec
+yarn test              # unit tests, plus the consumer contract
 ```
 
 Publishers push straight to master, so validation cannot block a bad spec
-landing. If a spec that previously parsed is replaced by one that does not,
-`.github/workflows/validate-specs.yml` files an issue naming it.
+landing. `yarn validate-specs` classifies every spec and is reported on each push.
 
-**Broken specs are not repaired here.** The fix is for the owning team to fix its
-publishing job and republish. Restoring the previous file centrally puts a spec
-back that describes an older version of the API, leaves the pipeline still
-broken, and means nobody has to notice — so a spec that a team has broken stays
-broken and visible on the registry health page.
+**A broken spec is not repaired or chased here.** It belongs to the team that
+published it, and only they can fix it: the usual cause is their pipeline writing
+an empty file when it cannot reach the running application. Restoring the previous
+file centrally would put back a spec describing an older version of the API and
+leave that pipeline just as broken. Broken specs simply show up in the health
+report until their owner republishes.
 
-`test/consumer-contract.test.mjs` pins the spec filenames that are fetched from
-outside this repo — by XUI at runtime, by the CCD and HMC F-125 acceptance tests,
-and by terraform when registering APIs into Azure API Management. Do not rename
-or delete those files.
+`test/consumer-contract.test.mjs` is the exception, and the one thing enforced:
+it pins the spec filenames fetched from outside this repo — by XUI at runtime, by
+the CCD and HMC F-125 acceptance tests, and by terraform when registering APIs
+into Azure API Management. Do not rename or delete those files.
 
 ## Publish Swagger docs
 
