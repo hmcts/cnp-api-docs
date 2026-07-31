@@ -12,6 +12,8 @@ specification {
   }
   tag ambient
   tag broken
+  tag platform
+  tag service-team
 }
 
 model {
@@ -23,6 +25,7 @@ model {
   }
 
   AM = product 'AM' {
+    #service-team
     description 'View our Access Management Dashboard page for more details about the AM services'
     am_judicial_booking_service = service 'am-judicial-booking-service' {
       description 'API will help to create bookings for fee paid judges and would provided APIs to Fetch and create booking.'
@@ -38,6 +41,7 @@ model {
     }
   }
   BAR__Fee___Pay = product 'BAR, Fee & Pay' {
+    #platform
     bar_api = service 'bar-api' {
       link https://github.com/hmcts/bar-apps
     }
@@ -75,6 +79,7 @@ model {
     }
   }
   CCD = product 'CCD' {
+    #platform
     aac_manage_case_assignment = service 'aac-manage-case-assignment' {
       link https://github.com/hmcts/aac-manage-case-assignment
     }
@@ -114,6 +119,7 @@ model {
     }
   }
   CMC = product 'CMC' {
+    #service-team
     cmc_citizen_frontend = frontend 'cmc-citizen-frontend' {
       link https://github.com/hmcts/cmc-citizen-frontend
     }
@@ -161,6 +167,7 @@ model {
     }
   }
   DIV = product 'DIV' {
+    #service-team
     div_bfe = frontend 'div-bfe' {
       link https://github.com/hmcts/div-respondent-frontend
     }
@@ -187,6 +194,7 @@ model {
     }
   }
   ET = product 'ET' {
+    #service-team
     et_ccd_callbacks = service 'et-ccd-callbacks' {
       description 'CCD callback service for Employment Tribunals, handling business logic for both England/Wales and Scotland jurisdictions'
       link https://github.com/hmcts/et-ccd-callbacks
@@ -201,6 +209,7 @@ model {
     }
   }
   Evidence = product 'Evidence' {
+    #platform
     dm_show = frontend 'dm-show' {
       link https://github.com/hmcts/document-management-node-demo
     }
@@ -224,11 +233,13 @@ model {
     }
   }
   FINREM = product 'FINREM' {
+    #service-team
     finrem_cos = service 'finrem-cos' {
       link https://github.com/hmcts/finrem-case-orchestration-service
     }
   }
   FPLA = product 'FPLA' {
+    #service-team
     fpla_case_service = service 'fpla-case-service' {
       description 'CCD callback service for FPLA cases'
       link https://github.com/hmcts/fpl-ccd-configuration
@@ -241,6 +252,7 @@ model {
     }
   }
   IA = product 'IA' {
+    #service-team
     ia_case_api = service 'ia-case-api' {
       link https://github.com/hmcts/ia-case-api
     }
@@ -252,6 +264,7 @@ model {
     }
   }
   IDAM = product 'IDAM' {
+    #service-team
     idam_api = service 'idam-api' {
       #ambient
       description 'Authentication APIs'
@@ -269,6 +282,7 @@ model {
     }
   }
   LAU = product 'LAU' {
+    #platform
     lau_case_backend = service 'lau-case-backend' {
       description 'LAU Case Search and Actions Backend'
       link https://github.com/hmcts/lau-case-backend
@@ -287,6 +301,7 @@ model {
     }
   }
   NFDIV = product 'NFDIV' {
+    #service-team
     nfdiv_case_api = service 'nfdiv-case-api' {
       description 'Business logic for the No Fault Divorce system'
       link https://github.com/hmcts/nfdiv-case-api
@@ -297,6 +312,7 @@ model {
     }
   }
   PCQ = product 'PCQ' {
+    #platform
     pcq_backend = service 'pcq-backend' {
       description 'PCQ Backend'
       link https://github.com/hmcts/pcq-backend
@@ -315,6 +331,7 @@ model {
     }
   }
   PCS = product 'PCS' {
+    #service-team
     pcs_api = service 'pcs-api' {
       description 'Backend Application of Possession Claims Service'
       link https://github.com/hmcts/pcs-api
@@ -359,6 +376,7 @@ model {
     }
   }
   RD = product 'RD' {
+    #platform
     rd_caseworker_ref_api = service 'rd-caseworker-ref-api' {
       description 'Provides APIs for managing Staff reference data'
       link https://github.com/hmcts/rd-caseworker-ref-api
@@ -389,6 +407,7 @@ model {
     }
   }
   RPA = product 'RPA' {
+    #service-team
     ref_pup = service 'ref-pup' {
       link https://github.com/hmcts/ref-professional-user-profile
     }
@@ -400,6 +419,7 @@ model {
     }
   }
   RPE = product 'RPE' {
+    #platform
     cmc_pdf_service = service 'cmc-pdf-service' {
       link https://github.com/hmcts/cmc-pdf-service
     }
@@ -435,6 +455,7 @@ model {
     }
   }
   SSCS = product 'SSCS' {
+    #service-team
     sscs_case_loader = service 'sscs-case-loader' {
       link https://github.com/hmcts/sscs-case-loader
     }
@@ -458,6 +479,7 @@ model {
     }
   }
   ST = product 'ST' {
+    #service-team
     sptribs_case_api = service 'sptribs-case-api' {
       description 'Business logic for management of Special Tribunals cases'
       link https://github.com/hmcts/sptribs-case-api
@@ -479,6 +501,7 @@ model {
     }
   }
   XUI = product 'XUI' {
+    #service-team
     xui_webapp = frontend 'xui-webapp' {
       link https://github.com/hmcts/rpx-xui-webapp
     }

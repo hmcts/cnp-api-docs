@@ -79,3 +79,25 @@ test('hand-written views do not use unscoped actor wildcards', () => {
     .filter((l) => /^(citizen|caseworker) -> \*/.test(l));
   assert.deepEqual(offending, []);
 });
+
+// The landscape briefly shipped with `exclude * -> *`, which left 23 boxes and no
+// edges — a diagram with no information in it.
+test('the landscape includes product-to-product edges', () => {
+  const views = readFileSync(VIEWS_GENERATED, 'utf8');
+  const landscape = views.slice(views.indexOf('view landscape'), views.indexOf('}', views.indexOf('autoLayout')));
+
+  assert.match(landscape, /element\.kind = product -> element\.kind = product/);
+  assert.ok(!landscape.includes('* -> *'), 'edges must not be excluded wholesale');
+
+  // Ambient auth stays out; it is what made the edges unreadable.
+  assert.match(landscape, /element\.tag = #ambient/);
+});
+
+test('products are tiered by edge direction', () => {
+  const dsl = readFileSync(GENERATED, 'utf8');
+  // CCD is consumed far more than it consumes, so it must be platform.
+  const ccd = dsl.slice(dsl.indexOf("CCD = product 'CCD'"), dsl.indexOf('}', dsl.indexOf("CCD = product 'CCD'")));
+  assert.match(ccd, /#platform/);
+
+  assert.ok(dsl.includes('#service-team'), 'expected some service-team products');
+});

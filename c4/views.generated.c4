@@ -5,13 +5,23 @@ views {
 
   view landscape {
     title 'CNP landscape'
-    description 'Every product. Open one to see its services and the traffic in and out of it — the product-to-product edges are omitted here because 29 products with 95 edges between them is not readable on one canvas.'
+    description 'Traffic between products. Authentication and identity are excluded. Click a product to open its own view.'
     include
-      element.kind = product
+      element.kind = product,
+      element.kind = product -> element.kind = product
     exclude
       element.tag = #ambient,
-      * -> *
-    autoLayout TopBottom 40 40
+      HMI_Gateway,
+      CaTH,
+      SNL,
+      WA,
+      DARTS,
+      PRE
+    autoLayout TopBottom 60 40
+
+    style element.tag = #platform {
+      color green
+    }
   }
 
   view am_overview of AM {
