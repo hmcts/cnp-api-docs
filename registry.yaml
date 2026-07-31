@@ -190,7 +190,6 @@ services:
     claimedSpecFiles:
       - idam-api.json
     ambient: true
-    ambientFanIn: 42
     dependsOn:
       - lau-idam-backend
   idam-web-admin:
@@ -203,7 +202,6 @@ services:
     claimedSpecFiles:
       - idam-web-admin.json
     ambient: true
-    ambientFanIn: 0
   idam-web-public:
     name: IDAM Web
     product: IDAM
@@ -214,7 +212,6 @@ services:
     claimedSpecFiles:
       - idam-web-public.json
     ambient: true
-    ambientFanIn: 28
   bar-web:
     name: Bar Web
     product: BAR, Fee & Pay
@@ -563,7 +560,6 @@ services:
     claimedSpecFiles:
       - service-auth-provider-app.json
     ambient: true
-    ambientFanIn: 76
   rpe-feature-toggle-api:
     name: RPE Feature Toggle
     product: RPE

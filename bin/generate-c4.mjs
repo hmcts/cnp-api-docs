@@ -1,10 +1,6 @@
 #!/usr/bin/env node
 // Generates the LikeC4 model from model.json into c4/generated.c4.
 //
-// Replaces docs/c4/generate.js, which emitted Structurizr DSL for rendering by a
-// Docker image. That pipeline wrote PNGs as root, which then blocked git rebase,
-// and re-rendered the landscape non-deterministically.
-//
 // Hand-written views live in c4/views.c4 and are not touched.
 
 import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
