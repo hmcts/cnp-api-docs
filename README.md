@@ -19,9 +19,11 @@ Publishing a spec is all that is needed to appear — see
 | `site/` | Astro site, built from `model.json`. |
 | `bin/` | Build and validation scripts, plus the legacy publish scripts. |
 
-`docs/` also still holds the previous site — `index.html`, `network.js`,
-`microservices.json` and `lld/*.html`. GitHub Pages serves that today; it is
-replaced when the Pages source moves to GitHub Actions, and removed after.
+`docs/` holds only two things now: the published specs, and the six C4 images that
+other repos' READMEs hotlink from `master` (`bin/export-readme-pngs.mjs` keeps
+those current). Everything else there — the vis.js graph, the Swagger UI bundles,
+`microservices.json`, the generated LLD pages — was the previous site and has been
+removed.
 
 ## Getting started
 
