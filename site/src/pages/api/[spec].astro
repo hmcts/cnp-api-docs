@@ -75,10 +75,29 @@ const title = spec.title ?? serviceId;
     </>
   )}
 
-  <style>
+  <style is:global>
     .crumb { color: var(--muted); font-size: 0.9rem; margin-bottom: 8px; }
     .raw { font-size: 0.9rem; }
-    /* Scalar ships its own layout; give it the full width of the page. */
-    .viewer { margin: 24px -20px 0; }
+    .viewer { margin: 8px -20px 0; }
+
+    /* swagger-ui renders its own title, spec URL and description block, all of
+       which this page already shows above it. */
+    .viewer .swagger-ui .info,
+    .viewer .swagger-ui .information-container { display: none; }
+
+    /* Only one server is ever declared, and it is the publisher's localhost, so
+       the picker is misleading rather than useful. */
+    .viewer .swagger-ui .scheme-container { display: none; }
+
+    /* try-it is disabled, so the parameter inputs do nothing. Show the parameter
+       table without the dead form controls. */
+    .viewer .swagger-ui .parameters-col_description input[type='text'],
+    .viewer .swagger-ui .parameters-col_description input[type='file'],
+    .viewer .swagger-ui .parameters-col_description select,
+    .viewer .swagger-ui .parameters-col_description textarea,
+    .viewer .swagger-ui .execute-wrapper,
+    .viewer .swagger-ui .btn-group { display: none; }
+
+    .viewer .swagger-ui { font-family: inherit; }
   </style>
 </Base>

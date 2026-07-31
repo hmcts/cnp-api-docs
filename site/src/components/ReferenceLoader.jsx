@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import { ApiReferenceReact } from '@scalar/api-reference-react';
-import '@scalar/api-reference-react/style.css';
+import SwaggerUI from 'swagger-ui-react';
+import 'swagger-ui-react/swagger-ui.css';
 
 // Reads ?url= at runtime, because a static build cannot know it. Used by the
 // swagger.html shim for specs that are not hosted here.
@@ -31,5 +31,5 @@ export default function ReferenceLoader() {
     );
   }
 
-  return <ApiReferenceReact configuration={{ url }} />;
+  return <SwaggerUI url={url} tryItOutEnabled={false} supportedSubmitMethods={[]} docExpansion="list" deepLinking />;
 }
