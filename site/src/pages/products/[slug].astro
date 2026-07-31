@@ -68,6 +68,7 @@ const actorViews = ACTOR_VIEWS[slugFor(name)] ?? [];
       <tr>
         <th scope="col">Service</th>
         <th scope="col">API</th>
+        <th scope="col">Repo</th>
         <th scope="col" class="num">Paths</th>
         <th scope="col">Last published</th>
       </tr>
@@ -91,6 +92,13 @@ const actorViews = ACTOR_VIEWS[slugFor(name)] ?? [];
                 </a>
               ) : (
                 <span class="muted">none</span>
+              )}
+            </td>
+            <td>
+              {s.repository ? (
+                <a href={s.repository}>{s.repository.replace('https://github.com/hmcts/', '')}</a>
+              ) : (
+                <span class="muted">—</span>
               )}
             </td>
             <td class="num">{s.specs.reduce((n, x) => n + x.pathCount, 0) || ''}</td>
