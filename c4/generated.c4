@@ -5,7 +5,7 @@ specification {
   element actor {
     style { shape person }
   }
-  element group
+  element product
   element service
   element frontend {
     style { shape browser }
@@ -22,7 +22,7 @@ model {
     description 'An HMCTS case worker'
   }
 
-  AM = group 'AM' {
+  AM = product 'AM' {
     description 'View our Access Management Dashboard page for more details about the AM services'
     am_judicial_booking_service = service 'am-judicial-booking-service' {
       description 'API will help to create bookings for fee paid judges and would provided APIs to Fetch and create booking.'
@@ -37,7 +37,7 @@ model {
       link https://github.com/hmcts/am-role-assignment-service
     }
   }
-  BAR__Fee___Pay = group 'BAR, Fee & Pay' {
+  BAR__Fee___Pay = product 'BAR, Fee & Pay' {
     bar_api = service 'bar-api' {
       link https://github.com/hmcts/bar-apps
     }
@@ -54,7 +54,7 @@ model {
       link https://github.com/hmcts/ccpay-payment-app
     }
   }
-  BSP = group 'BSP' {
+  BSP = product 'BSP' {
     bsp_blob_router = service 'bsp-blob-router' {
       link https://github.com/hmcts/blob-router-service
     }
@@ -74,7 +74,7 @@ model {
       link https://github.com/hmcts/send-letter-service
     }
   }
-  CCD = group 'CCD' {
+  CCD = product 'CCD' {
     aac_manage_case_assignment = service 'aac-manage-case-assignment' {
       link https://github.com/hmcts/aac-manage-case-assignment
     }
@@ -113,7 +113,7 @@ model {
       link https://github.com/hmcts/ts-translation-service
     }
   }
-  CMC = group 'CMC' {
+  CMC = product 'CMC' {
     cmc_citizen_frontend = frontend 'cmc-citizen-frontend' {
       link https://github.com/hmcts/cmc-citizen-frontend
     }
@@ -124,7 +124,7 @@ model {
       link https://github.com/hmcts/cmc-legal-rep-frontend
     }
   }
-  CaTH = group 'CaTH' {
+  CaTH = product 'CaTH' {
     cath_api = service 'cath-api' {
       description 'Publishes hearing lists into CaTH and serves court reference data and published artefacts'
       link https://github.com/hmcts/cath-service
@@ -150,7 +150,7 @@ model {
       link https://github.com/hmcts/pip-publication-services
     }
   }
-  DARTS = group 'DARTS' {
+  DARTS = product 'DARTS' {
     darts_api = service 'darts-api' {
       description 'Backend for DARTS modernisation project'
       link https://github.com/hmcts/darts-api
@@ -160,7 +160,7 @@ model {
       link https://github.com/hmcts/darts-portal
     }
   }
-  DIV = group 'DIV' {
+  DIV = product 'DIV' {
     div_bfe = frontend 'div-bfe' {
       link https://github.com/hmcts/div-respondent-frontend
     }
@@ -186,7 +186,7 @@ model {
       link https://github.com/hmcts/div-validation-service
     }
   }
-  ET = group 'ET' {
+  ET = product 'ET' {
     et_ccd_callbacks = service 'et-ccd-callbacks' {
       description 'CCD callback service for Employment Tribunals, handling business logic for both England/Wales and Scotland jurisdictions'
       link https://github.com/hmcts/et-ccd-callbacks
@@ -200,7 +200,7 @@ model {
       link https://github.com/hmcts/et-syr-frontend
     }
   }
-  Evidence = group 'Evidence' {
+  Evidence = product 'Evidence' {
     dm_show = frontend 'dm-show' {
       link https://github.com/hmcts/document-management-node-demo
     }
@@ -223,24 +223,24 @@ model {
       link https://github.com/hmcts/rpa-em-stitching-api
     }
   }
-  FINREM = group 'FINREM' {
+  FINREM = product 'FINREM' {
     finrem_cos = service 'finrem-cos' {
       link https://github.com/hmcts/finrem-case-orchestration-service
     }
   }
-  FPLA = group 'FPLA' {
+  FPLA = product 'FPLA' {
     fpla_case_service = service 'fpla-case-service' {
       description 'CCD callback service for FPLA cases'
       link https://github.com/hmcts/fpl-ccd-configuration
     }
   }
-  HMI_Gateway = group 'HMI Gateway' {
+  HMI_Gateway = product 'HMI Gateway' {
     hmi_gateway_api = service 'hmi-gateway-api' {
       description 'Future Hearings Gateway'
       link https://github.com/hmcts/hmi-apim-infrastructures
     }
   }
-  IA = group 'IA' {
+  IA = product 'IA' {
     ia_case_api = service 'ia-case-api' {
       link https://github.com/hmcts/ia-case-api
     }
@@ -251,7 +251,7 @@ model {
       link https://github.com/hmcts/ia-case-notifications-api
     }
   }
-  IDAM = group 'IDAM' {
+  IDAM = product 'IDAM' {
     idam_api = service 'idam-api' {
       #ambient
       description 'Authentication APIs'
@@ -268,7 +268,7 @@ model {
       link https://github.com/hmcts/idam-web-public
     }
   }
-  LAU = group 'LAU' {
+  LAU = product 'LAU' {
     lau_case_backend = service 'lau-case-backend' {
       description 'LAU Case Search and Actions Backend'
       link https://github.com/hmcts/lau-case-backend
@@ -286,7 +286,7 @@ model {
       link https://github.com/hmcts/lau-idam-backend
     }
   }
-  NFDIV = group 'NFDIV' {
+  NFDIV = product 'NFDIV' {
     nfdiv_case_api = service 'nfdiv-case-api' {
       description 'Business logic for the No Fault Divorce system'
       link https://github.com/hmcts/nfdiv-case-api
@@ -296,7 +296,7 @@ model {
       link https://github.com/hmcts/nfdiv-frontend
     }
   }
-  PCQ = group 'PCQ' {
+  PCQ = product 'PCQ' {
     pcq_backend = service 'pcq-backend' {
       description 'PCQ Backend'
       link https://github.com/hmcts/pcq-backend
@@ -314,7 +314,7 @@ model {
       link https://github.com/hmcts/pcq-loader
     }
   }
-  PCS = group 'PCS' {
+  PCS = product 'PCS' {
     pcs_api = service 'pcs-api' {
       description 'Backend Application of Possession Claims Service'
       link https://github.com/hmcts/pcs-api
@@ -324,7 +324,7 @@ model {
       link https://github.com/hmcts/pcs-frontend
     }
   }
-  PRE = group 'PRE' {
+  PRE = product 'PRE' {
     pre_api = service 'pre-api' {
       description 'Backend for Pre-Recorded Evidence project'
       link https://github.com/hmcts/pre-api
@@ -334,7 +334,7 @@ model {
       link https://github.com/hmcts/pre-portal
     }
   }
-  Probate = group 'Probate' {
+  Probate = product 'Probate' {
     description 'Overview of the Probate components and how they interact with other CFT components. View our confluence page for fore details about the Probate services and the how-to page for guides to common tasks '
     probate_back_office = service 'probate-back-office' {
       link https://github.com/hmcts/probate-sol-ccd-services
@@ -358,7 +358,7 @@ model {
       link https://github.com/hmcts/probate-submit-service
     }
   }
-  RD = group 'RD' {
+  RD = product 'RD' {
     rd_caseworker_ref_api = service 'rd-caseworker-ref-api' {
       description 'Provides APIs for managing Staff reference data'
       link https://github.com/hmcts/rd-caseworker-ref-api
@@ -388,7 +388,7 @@ model {
       link https://github.com/hmcts/rd-user-profile-api
     }
   }
-  RPA = group 'RPA' {
+  RPA = product 'RPA' {
     ref_pup = service 'ref-pup' {
       link https://github.com/hmcts/ref-professional-user-profile
     }
@@ -399,7 +399,7 @@ model {
       link https://github.com/hmcts/rpa-in-court-presentation-web
     }
   }
-  RPE = group 'RPE' {
+  RPE = product 'RPE' {
     cmc_pdf_service = service 'cmc-pdf-service' {
       link https://github.com/hmcts/cmc-pdf-service
     }
@@ -417,7 +417,7 @@ model {
       link https://github.com/hmcts/service-auth-provider-app
     }
   }
-  SNL = group 'SNL' {
+  SNL = product 'SNL' {
     snl_api = service 'snl-api' {
       link https://github.com/hmcts/snl-api
     }
@@ -434,7 +434,7 @@ model {
       link https://github.com/hmcts/snl-rules
     }
   }
-  SSCS = group 'SSCS' {
+  SSCS = product 'SSCS' {
     sscs_case_loader = service 'sscs-case-loader' {
       link https://github.com/hmcts/sscs-case-loader
     }
@@ -457,7 +457,7 @@ model {
       link https://github.com/hmcts/sscs-track-your-appeal-notifications
     }
   }
-  ST = group 'ST' {
+  ST = product 'ST' {
     sptribs_case_api = service 'sptribs-case-api' {
       description 'Business logic for management of Special Tribunals cases'
       link https://github.com/hmcts/sptribs-case-api
@@ -467,7 +467,7 @@ model {
       link https://github.com/hmcts/sptribs-frontend
     }
   }
-  WA = group 'WA' {
+  WA = product 'WA' {
     wa_task_management_api = service 'wa-task-management-api' {
       #broken
       description 'API that helps you manage and perform operations on tasks'
@@ -478,7 +478,7 @@ model {
       link https://github.com/hmcts/wa-workflow-api
     }
   }
-  XUI = group 'XUI' {
+  XUI = product 'XUI' {
     xui_webapp = frontend 'xui-webapp' {
       link https://github.com/hmcts/rpx-xui-webapp
     }

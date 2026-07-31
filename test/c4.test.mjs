@@ -32,19 +32,19 @@ test('the generated C4 sources are up to date with the model', () => {
   assert.equal(readFileSync(VIEWS_GENERATED, 'utf8'), viewsBefore, 'c4/views.generated.c4 is stale');
 });
 
-test('every grouped service appears in the C4 model', () => {
+test('every assigned service appears in the C4 model', () => {
   const model = build();
   const dsl = readFileSync(GENERATED, 'utf8');
-  const grouped = Object.values(model.services).filter((s) => s.group);
+  const assigned = Object.values(model.services).filter((s) => s.product);
 
-  const missing = grouped.filter((s) => !dsl.includes(`'${s.id}'`));
+  const missing = assigned.filter((s) => !dsl.includes(`'${s.id}'`));
   assert.deepEqual(missing.map((s) => s.id), [], 'these services would be invisible in diagrams');
 });
 
 test('ambient infrastructure is tagged so views can exclude it', () => {
   const model = build();
   const dsl = readFileSync(GENERATED, 'utf8');
-  const ambient = Object.values(model.services).filter((s) => s.ambient && s.group);
+  const ambient = Object.values(model.services).filter((s) => s.ambient && s.product);
   assert.ok(ambient.length > 0);
 
   // Each ambient element must carry #ambient, otherwise `exclude element.tag =
@@ -63,14 +63,14 @@ test('actor and callback edges are present in the C4 model', () => {
 });
 
 test('descriptions carry no HTML into the diagrams', () => {
-  // Group blurbs were written for an HTML page; the renderer shows them verbatim.
+  // Product blurbs were written for an HTML page; the renderer shows them verbatim.
   const dsl = readFileSync(GENERATED, 'utf8');
   const htmlish = dsl.split('\n').filter((l) => /description '.*<[a-z/]/.test(l));
   assert.deepEqual(htmlish, []);
 });
 
 test('hand-written views do not use unscoped actor wildcards', () => {
-  // `citizen -> *` pulls every other group's frontend into a group view, which is
+  // `citizen -> *` pulls every other product's frontend into a product view, which is
   // how the PCS citizen journey ended up showing DARTS, NFDIV and Probate.
   const views = readFileSync(VIEWS_HAND, 'utf8');
   const offending = views

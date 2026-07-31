@@ -7,7 +7,7 @@
 // visible if someone hand-edited a registry entry, which is why 126 of 187
 // published specs were invisible.
 //
-// registry.yaml decorates entries (group, dependency edges, prose). A spec with
+// registry.yaml decorates entries (product, dependency edges, prose). A spec with
 // no registry entry still gets a page; a registry entry with no spec is reported
 // as a dangling reference rather than silently dropped.
 
@@ -163,7 +163,7 @@ function build({ now = Date.now() } = {}) {
       (specStem ? catalog[specStem.split('.')[0]] : undefined);
 
     service.name = reg?.name ?? null;
-    service.group = reg?.group ?? null;
+    service.product = reg?.product ?? null;
     service.type = reg?.type ?? cat?.type ?? null;
     service.description = reg?.description ?? null;
     service.repository = reg?.repository ?? (cat ? `https://github.com/hmcts/${id}` : null);
@@ -205,16 +205,16 @@ function build({ now = Date.now() } = {}) {
         warnings.push({
           kind: 'claimed-spec-missing',
           id,
-          group: reg.group,
+          product: reg.product,
           expected: reg.claimedSpecFiles,
         });
       }
-      // Carry it into the model regardless, so the group pages stay complete.
+      // Carry it into the model regardless, so the product pages stay complete.
       services[id] = {
         id,
         specs: [],
         name: reg.name ?? null,
-        group: reg.group ?? null,
+        product: reg.product ?? null,
         type: reg.type ?? null,
         description: reg.description ?? null,
         repository: reg.repository ?? null,
@@ -274,10 +274,10 @@ function build({ now = Date.now() } = {}) {
     }
   }
 
-  const groups = {};
-  for (const [name, g] of Object.entries(registry.groups ?? {})) {
-    const members = Object.values(services).filter((s) => s.group === name);
-    groups[name] = {
+  const products = {};
+  for (const [name, g] of Object.entries(registry.products ?? {})) {
+    const members = Object.values(services).filter((s) => s.product === name);
+    products[name] = {
       name,
       colour: g.colour,
       info: g.info ?? null,
@@ -291,13 +291,13 @@ function build({ now = Date.now() } = {}) {
     counts: {
       specFiles: files.length,
       services: Object.keys(services).length,
-      groups: Object.keys(groups).length,
+      products: Object.keys(products).length,
       brokenSpecs: Object.values(services).reduce((n, s) => n + s.brokenSpecs, 0),
-      ungrouped: Object.values(services).filter((s) => !s.group).length,
+      unassigned: Object.values(services).filter((s) => !s.product).length,
       withOwner: Object.values(services).filter((s) => s.owner).length,
       federatedEdges: Object.values(services).filter((s) => s.edgeSource === 'catalog-info').length,
     },
-    groups,
+    products,
     services,
     actors,
     callbacks,
@@ -312,8 +312,8 @@ if (import.meta.url === `file://${process.argv[1]}`) {
   const c = model.counts;
   console.log(`${OUT} written`);
   console.log(`  spec files:  ${c.specFiles}`);
-  console.log(`  services:    ${c.services} (${c.ungrouped} not yet in registry.yaml)`);
-  console.log(`  groups:      ${c.groups}`);
+  console.log(`  services:    ${c.services} (${c.unassigned} not yet in registry.yaml)`);
+  console.log(`  products:    ${c.products}`);
   console.log(`  with owner:  ${c.withOwner}`);
   console.log(`  broken:      ${c.brokenSpecs}`);
 

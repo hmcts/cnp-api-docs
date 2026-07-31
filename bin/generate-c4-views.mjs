@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// Generates c4/views.generated.c4: the landscape plus one overview per group.
+// Generates c4/views.generated.c4: the landscape plus one overview per product.
 //
 // Ports the 28 docs/c4/*/workspace.dsl files. Each was ~30 lines of
 // `include *` / `exclude idam` / `exclude rpe` / `exclude relationship==bsp->*` /
@@ -23,7 +23,7 @@ const slugOf = (s) => s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$
 const quote = (s) => (s ?? '').replace(/\\/g, '\\\\').replace(/'/g, "\\'").replace(/\s+/g, ' ').trim();
 
 const model = JSON.parse(readFileSync('model/model.json', 'utf8'));
-const groups = Object.values(model.groups)
+const products = Object.values(model.products)
   .filter((g) => g.serviceCount > 0)
   .sort((a, b) => a.name.localeCompare(b.name));
 
@@ -35,16 +35,16 @@ lines.push('views {');
 lines.push('');
 
 // Landscape. The old systemLandscape put all 117 services on one canvas; even at
-// group level a flat view of 29 nodes and 95 edges is still unreadable, so this
-// shows only the groups a reader can navigate from and leaves the edges to the
-// per-group views, where they carry labels and fit on screen.
+// product level a flat view of 29 nodes and 95 edges is still unreadable, so this
+// shows only the products a reader can navigate from and leaves the edges to the
+// per-product views, where they carry labels and fit on screen.
 lines.push('  view landscape {');
 lines.push("    title 'CNP landscape'");
 lines.push(
-  "    description 'Every product group. Open a group to see its services and the traffic in and out of it — the group-to-group edges are omitted here because 29 groups with 95 edges between them is not readable on one canvas.'",
+  "    description 'Every product. Open one to see its services and the traffic in and out of it — the product-to-product edges are omitted here because 29 products with 95 edges between them is not readable on one canvas.'",
 );
 lines.push('    include');
-lines.push('      element.kind = group');
+lines.push('      element.kind = product');
 lines.push('    exclude');
 lines.push('      element.tag = #ambient,');
 lines.push('      * -> *');
@@ -52,7 +52,7 @@ lines.push('    autoLayout TopBottom 40 40');
 lines.push('  }');
 lines.push('');
 
-for (const g of groups) {
+for (const g of products) {
   const slug = slugOf(g.name);
   if (HAND_WRITTEN.has(slug)) continue;
 
@@ -76,7 +76,7 @@ lines.push('');
 
 writeFileSync(OUT, lines.join('\n'));
 
-const generated = groups.filter((g) => !HAND_WRITTEN.has(slugOf(g.name))).length;
+const generated = products.filter((g) => !HAND_WRITTEN.has(slugOf(g.name))).length;
 console.log(`${OUT} written`);
 console.log(`  landscape:      1`);
-console.log(`  group overviews: ${generated} generated, ${HAND_WRITTEN.size} hand-written`);
+console.log(`  product overviews: ${generated} generated, ${HAND_WRITTEN.size} hand-written`);

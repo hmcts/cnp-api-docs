@@ -34,43 +34,58 @@ function copyTree(from, to) {
 
 // The old site served one page per group at lld/<group>.html, linked from the
 // vis.js graph legend. Those are real URLs that may be bookmarked or linked from
-// Confluence, and the group pages now carry the same content, so redirect rather
-// than 404. Written here rather than as an Astro route because Astro emits
-// `lld/ccd.html/index.html` for a page named `ccd.html`.
+// Confluence, and the product pages now carry the same content, so redirect rather
+// than 404. Written here rather than as Astro routes: Astro emits
+// `lld/ccd.html/index.html` for a page named `ccd.html`, which does not answer the
+// legacy URL.
 //
-// The old slug came from `formatName`, which differs from the site's slug for
-// "HMI Gateway", "BAR, Fee & Pay" and "Video Hearing", so derive both.
-function writeLldRedirects(out) {
-  const model = JSON.parse(readFileSync('model/model.json', 'utf8'));
-  const formatName = (s) =>
-    s.toLowerCase().replaceAll(' ', '_').replaceAll('-', '_').replaceAll('&', '').replaceAll(',', '');
-  const slugOf = (s) => s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
-
-  const dir = join(out, 'lld');
-  mkdirSync(dir, { recursive: true });
-
-  let written = 0;
-  for (const name of Object.keys(model.groups)) {
-    const target = `/cnp-api-docs/groups/${slugOf(name)}/`;
-    const html = `<!doctype html>
+// Also covers /groups/<slug>/, the path these pages used before the product rename.
+function redirectPage(title, target) {
+  return `<!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta http-equiv="refresh" content="0; url=${target}">
 <link rel="canonical" href="${target}">
 <meta name="robots" content="noindex">
-<title>${name} — moved</title>
+<title>${title} — moved</title>
 </head>
 <body>
-<p>The ${name} low level design has moved to <a href="${target}">${target}</a>.</p>
+<p>This page has moved to <a href="${target}">${target}</a>.</p>
 <script>window.location.replace(${JSON.stringify(target)});</script>
 </body>
 </html>
 `;
-    writeFileSync(join(dir, `${formatName(name)}.html`), html);
-    written++;
+}
+
+function writeLegacyRedirects(out) {
+  const model = JSON.parse(readFileSync('model/model.json', 'utf8'));
+  // The LLD slug came from `formatName` in docs/generate-llds.js, which differs
+  // from the site's slug for "HMI Gateway", "BAR, Fee & Pay" and "Video Hearing".
+  const formatName = (s) =>
+    s.toLowerCase().replaceAll(' ', '_').replaceAll('-', '_').replaceAll('&', '').replaceAll(',', '');
+  const slugOf = (s) => s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+
+  const lldDir = join(out, 'lld');
+  mkdirSync(lldDir, { recursive: true });
+
+  let written = 0;
+  for (const name of Object.keys(model.products)) {
+    const target = `/cnp-api-docs/products/${slugOf(name)}/`;
+    writeFileSync(join(lldDir, `${formatName(name)}.html`), redirectPage(name, target));
+
+    // /groups/<slug>/ -> /products/<slug>/
+    const groupDir = join(out, 'groups', slugOf(name));
+    mkdirSync(groupDir, { recursive: true });
+    writeFileSync(join(groupDir, 'index.html'), redirectPage(name, target));
+    written += 2;
   }
-  return written;
+
+  const groupsIndex = join(out, 'groups');
+  mkdirSync(groupsIndex, { recursive: true });
+  writeFileSync(join(groupsIndex, 'index.html'), redirectPage('Products', '/cnp-api-docs/products/'));
+
+  return written + 1;
 }
 
 function main(argv) {
@@ -111,7 +126,7 @@ function main(argv) {
   // assembles without it.
   if (existsSync(C4_DIR)) copyTree(C4_DIR, join(out, 'architecture', 'explore'));
 
-  writeLldRedirects(out);
+  writeLegacyRedirects(out);
 
   if (mismatches.length > 0) {
     console.error('SPEC BYTES CHANGED DURING COPY — refusing to deploy:');

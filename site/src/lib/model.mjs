@@ -65,7 +65,7 @@ export function slugFor(id) {
   return id.toLowerCase().replace(/[^a-z0-9._-]+/g, '-');
 }
 
-export const groups = Object.values(model.groups).sort((a, b) => a.name.localeCompare(b.name));
+export const products = Object.values(model.products).sort((a, b) => a.name.localeCompare(b.name));
 
 export function specsOf(service) {
   return [...service.specs].sort((a, b) => (a.variant ?? '').localeCompare(b.variant ?? ''));
@@ -80,7 +80,7 @@ export function displayName(service) {
   return service.name ?? service.id;
 }
 
-// The spec a group listing should link to: the richest valid one.
+// The spec a product listing should link to: the richest valid one.
 export function primarySpec(service) {
   return [...service.specs]
     .filter((s) => s.valid)

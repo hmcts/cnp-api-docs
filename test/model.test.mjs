@@ -210,7 +210,7 @@ test('the model has the expected top-level shape', () => {
     'callbacks',
     'counts',
     'generated',
-    'groups',
+    'products',
     'services',
     'warnings',
   ]);

@@ -105,18 +105,18 @@ const pct = (n, d) => (d === 0 ? 0 : Math.round((100 * n) / d));
   </ul>
   <p>
     Specs with no registry entry still appear in the catalogue — publishing is enough to be
-    listed. They simply have no group or curated description yet.
+    listed. They simply have no product or curated description yet.
   </p>
 
   <h3>Registry entries pointing at a spec that does not exist</h3>
   <p class="muted">These were broken links in the old portal. Either the spec was never published, or it was published under a different name.</p>
   <table>
-    <thead><tr><th scope="col">Registry id</th><th scope="col">Group</th><th scope="col">Expected file</th></tr></thead>
+    <thead><tr><th scope="col">Registry id</th><th scope="col">Product</th><th scope="col">Expected file</th></tr></thead>
     <tbody>
       {missing.map((w) => (
         <tr>
           <td>{w.id}</td>
-          <td>{w.group ?? <span class="muted">—</span>}</td>
+          <td>{w.product ?? <span class="muted">—</span>}</td>
           <td><code>{w.expected.join(', ')}</code></td>
         </tr>
       ))}

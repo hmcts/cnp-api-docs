@@ -5,9 +5,9 @@ views {
 
   view landscape {
     title 'CNP landscape'
-    description 'Every product group. Open a group to see its services and the traffic in and out of it — the group-to-group edges are omitted here because 29 groups with 95 edges between them is not readable on one canvas.'
+    description 'Every product. Open one to see its services and the traffic in and out of it — the product-to-product edges are omitted here because 29 products with 95 edges between them is not readable on one canvas.'
     include
-      element.kind = group
+      element.kind = product
     exclude
       element.tag = #ambient,
       * -> *

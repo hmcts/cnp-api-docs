@@ -22,11 +22,11 @@ const staleCount = services.filter((s) => {
     <li><span class="n">{counts.specFiles}</span><span class="k">published specs</span></li>
     <li><span class="n">{freshCount}</span><span class="k">updated in 90 days</span></li>
     <li><span class="n">{staleCount}</span><span class="k">not published in 2 years</span></li>
-    <li><span class="n">{counts.groups}</span><span class="k">groups</span></li>
+    <li><span class="n">{counts.products}</span><span class="k">products</span></li>
   </ul>
 
   <label class="search">
-    <span>Search by name, group or title</span>
+    <span>Search by name, product or title</span>
     <input
       type="search"
       id="q"
@@ -41,7 +41,7 @@ const staleCount = services.filter((s) => {
     <thead>
       <tr>
         <th scope="col">Service</th>
-        <th scope="col">Group</th>
+        <th scope="col">Product</th>
         <th scope="col" class="num">Paths</th>
         <th scope="col">Last published</th>
       </tr>
@@ -54,13 +54,13 @@ const staleCount = services.filter((s) => {
           .sort((a, b) => b.lastPublished.localeCompare(a.lastPublished))[0];
         const broken = s.brokenSpecs > 0;
         return (
-          <tr data-hay={`${s.id} ${s.group ?? ''} ${s.specs.map((x) => x.title ?? '').join(' ')}`.toLowerCase()}>
+          <tr data-hay={`${s.id} ${s.product ?? ''} ${s.specs.map((x) => x.title ?? '').join(' ')}`.toLowerCase()}>
             <td>
               <a href={`${base}/service/${slugFor(s.id)}/`}>{s.id}</a>
               {s.specs.length > 1 && <span class="muted"> ({s.specs.length} specs)</span>}
               {broken && <> <span class="tag broken">broken</span></>}
             </td>
-            <td>{s.group ? <a href={`${base}/groups/${slugFor(s.group)}/`}>{s.group}</a> : <span class="muted">unassigned</span>}</td>
+            <td>{s.product ? <a href={`${base}/products/${slugFor(s.product)}/`}>{s.product}</a> : <span class="muted">unassigned</span>}</td>
             <td class="num">{pathCountOf(s) || ''}</td>
             <td>
               {newest?.lastPublished ?? <span class="muted">unknown</span>}

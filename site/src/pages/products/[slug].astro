@@ -1,18 +1,18 @@
 ---
 import Base from '../../layouts/Base.astro';
-import { groups, model, slugFor, freshnessOf, rankedServices, displayName, primarySpec } from '../../lib/model.mjs';
+import { products, model, slugFor, freshnessOf, rankedServices, displayName, primarySpec } from '../../lib/model.mjs';
 
 export function getStaticPaths() {
-  return groups.map((g) => ({ params: { slug: slugFor(g.name) }, props: { name: g.name } }));
+  return products.map((p) => ({ params: { slug: slugFor(p.name) }, props: { name: p.name } }));
 }
 
 const { name } = Astro.props;
 const base = import.meta.env.BASE_URL;
-const group = model.groups[name];
+const product = model.products[name];
 
-const members = rankedServices(group.services.map((id) => model.services[id]).filter(Boolean));
+const members = rankedServices(product.services.map((id) => model.services[id]).filter(Boolean));
 
-// Cross-group traffic, which is what a group-level view is actually for.
+// Cross-product traffic, which is what a product-level view is actually for.
 const outbound = new Map();
 const inbound = new Map();
 const memberIds = new Set(members.map((m) => m.id));
@@ -21,30 +21,30 @@ for (const m of members) {
   for (const dep of m.dependsOn) {
     const target = model.services[dep.id];
     if (!target || target.ambient || memberIds.has(dep.id)) continue;
-    const g = target.group ?? 'unassigned';
-    if (g !== name) outbound.set(g, (outbound.get(g) ?? 0) + 1);
+    const p = target.product ?? 'unassigned';
+    if (p !== name) outbound.set(p, (outbound.get(p) ?? 0) + 1);
   }
   for (const cid of m.consumedBy ?? []) {
     const source = model.services[cid];
     if (!source || memberIds.has(cid)) continue;
-    const g = source.group ?? 'unassigned';
-    if (g !== name) inbound.set(g, (inbound.get(g) ?? 0) + 1);
+    const p = source.product ?? 'unassigned';
+    if (p !== name) inbound.set(p, (inbound.get(p) ?? 0) + 1);
   }
 }
 
 const sortDesc = (map) => [...map.entries()].sort((a, b) => b[1] - a[1]);
 
-// The LikeC4 app names views <group>_overview, plus citizen/caseworker variants
-// for the four groups that have hand-written actor detail.
+// The LikeC4 app names views <product>_overview, plus citizen/caseworker variants
+// for the four products that have hand-written actor detail.
 const viewId = `${slugFor(name).replace(/-/g, '_')}_overview`;
 const ACTOR_VIEWS = { probate: ['citizen', 'caseworker'], pcs: ['citizen', 'caseworker'], nfdiv: ['citizen', 'caseworker'], darts: ['citizen'] };
 const actorViews = ACTOR_VIEWS[slugFor(name)] ?? [];
 ---
 
-<Base title={name} description={`Services in the ${name} group.`}>
-  <p class="crumb"><a href={`${base}/`}>Catalogue</a> › <a href={`${base}/groups/`}>Groups</a></p>
+<Base title={name} description={`Services in the ${name} product.`}>
+  <p class="crumb"><a href={`${base}/`}>Catalogue</a> › <a href={`${base}/products/`}>Products</a></p>
   <h1>{name}</h1>
-  {group.info && <p class="lede" set:html={group.info} />}
+  {product.info && <p class="lede" set:html={product.info} />}
 
   <figure class="diagram">
     {/* LikeC4 ships a web component alongside the standalone app, so the diagram
@@ -104,19 +104,19 @@ const actorViews = ACTOR_VIEWS[slugFor(name)] ?? [];
     </tbody>
   </table>
 
-  <h2>Traffic across group boundaries</h2>
+  <h2>Traffic across product boundaries</h2>
   <p class="muted">
-    Dependencies between this group and others, excluding authentication and identity.
+    Dependencies between this product and others, excluding authentication and identity.
     Counted per service-to-service edge.
   </p>
   <div class="hops">
     <section>
-      <h3>Groups that call {name}</h3>
+      <h3>Products that call {name}</h3>
       {inbound.size === 0 ? <p class="muted">None recorded.</p> : (
         <ul class="plain">
-          {sortDesc(inbound).map(([g, n]) => (
+          {sortDesc(inbound).map(([p, n]) => (
             <li>
-              {model.groups[g] ? <a href={`${base}/groups/${slugFor(g)}/`}>{g}</a> : g}
+              {model.products[p] ? <a href={`${base}/products/${slugFor(p)}/`}>{p}</a> : p}
               <span class="muted"> — {n} edge{n === 1 ? '' : 's'}</span>
             </li>
           ))}
@@ -124,12 +124,12 @@ const actorViews = ACTOR_VIEWS[slugFor(name)] ?? [];
       )}
     </section>
     <section>
-      <h3>Groups {name} calls</h3>
+      <h3>Products {name} calls</h3>
       {outbound.size === 0 ? <p class="muted">None recorded.</p> : (
         <ul class="plain">
-          {sortDesc(outbound).map(([g, n]) => (
+          {sortDesc(outbound).map(([p, n]) => (
             <li>
-              {model.groups[g] ? <a href={`${base}/groups/${slugFor(g)}/`}>{g}</a> : g}
+              {model.products[p] ? <a href={`${base}/products/${slugFor(p)}/`}>{p}</a> : p}
               <span class="muted"> — {n} edge{n === 1 ? '' : 's'}</span>
             </li>
           ))}

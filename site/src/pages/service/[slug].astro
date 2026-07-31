@@ -23,13 +23,13 @@ const consumers = (service.consumedBy ?? []).map((cid) => model.services[cid]).f
 ---
 
 <Base title={id} description={service.description ?? `APIs published by ${id}`}>
-  <p class="crumb"><a href={`${base}/`}>Catalogue</a> {service.group && <>› <a href={`${base}/groups/${slugFor(service.group)}/`}>{service.group}</a></>}</p>
+  <p class="crumb"><a href={`${base}/`}>Catalogue</a> {service.product && <>› <a href={`${base}/products/${slugFor(service.product)}/`}>{service.product}</a></>}</p>
 
   <h1>{id}</h1>
   {service.description && <p class="lede">{service.description}</p>}
 
   <dl class="meta">
-    {service.group && <><dt>Group</dt><dd><a href={`${base}/groups/${slugFor(service.group)}/`}>{service.group}</a></dd></>}
+    {service.product && <><dt>Product</dt><dd><a href={`${base}/products/${slugFor(service.product)}/`}>{service.product}</a></dd></>}
     {service.owner && <><dt>Owner</dt><dd>{service.owner}</dd></>}
     {service.lifecycle && <><dt>Lifecycle</dt><dd>{service.lifecycle}</dd></>}
     {service.repository && <><dt>Repository</dt><dd><a href={service.repository}>{service.repository.replace('https://github.com/', '')}</a></dd></>}
@@ -93,7 +93,7 @@ const consumers = (service.consumedBy ?? []).map((cid) => model.services[cid]).f
       ) : (
         <ul class="plain">
           {consumers.map((c) => (
-            <li><a href={`${base}/service/${slugFor(c.id)}/`}>{c.id}</a> {c.group && <span class="muted">{c.group}</span>}</li>
+            <li><a href={`${base}/service/${slugFor(c.id)}/`}>{c.id}</a> {c.product && <span class="muted">{c.product}</span>}</li>
           ))}
         </ul>
       )}
