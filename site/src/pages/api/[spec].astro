@@ -28,7 +28,7 @@ const title = spec.title ?? serviceId;
 
 <Base title={title} description={spec.description ?? `OpenAPI specification for ${serviceId}`}>
   <p class="crumb">
-    <a href={`${base}/`}>Catalogue</a> ›
+    <a href={`${base}/`}>Specs</a> ›
     <a href={`${base}/service/${slugFor(serviceId)}/`}>{serviceId}</a>
     {spec.variant && <> › {spec.variant}</>}
   </p>

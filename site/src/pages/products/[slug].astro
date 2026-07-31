@@ -41,7 +41,7 @@ const actorViews = ACTOR_VIEWS[slugFor(name)] ?? [];
 ---
 
 <Base title={name} description={`Services in the ${name} product.`}>
-  <p class="crumb"><a href={`${base}/`}>Catalogue</a> › <a href={`${base}/products/`}>Products</a></p>
+  <p class="crumb"><a href={`${base}/`}>Specs</a> › <a href={`${base}/products/`}>Products</a></p>
   <h1>{name}</h1>
   {product.info && <p class="lede" set:html={product.info} />}
 

@@ -21,7 +21,7 @@ const consumers = (service.consumedBy ?? []).map((cid) => model.services[cid]).f
 ---
 
 <Base title={id} description={service.description ?? `APIs published by ${id}`}>
-  <p class="crumb"><a href={`${base}/`}>Catalogue</a> {service.product && <>› <a href={`${base}/products/${slugFor(service.product)}/`}>{service.product}</a></>}</p>
+  <p class="crumb"><a href={`${base}/`}>Specs</a> {service.product && <>› <a href={`${base}/products/${slugFor(service.product)}/`}>{service.product}</a></>}</p>
 
   <h1>{id}</h1>
   {service.description && <p class="lede">{service.description}</p>}

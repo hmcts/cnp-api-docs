@@ -13,10 +13,10 @@ const staleCount = services.filter((s) => {
 ---
 
 <Base
-  title="Catalogue"
+  title="Specs"
   description="Every OpenAPI spec published by an HMCTS CFT service."
 >
-  <h1>CNP API catalogue</h1>
+  <h1>Specs</h1>
 
   <ul class="stats">
     <li><span class="n">{counts.specFiles}</span><span class="k">published specs</span></li>
@@ -35,7 +35,6 @@ const staleCount = services.filter((s) => {
       spellcheck="false"
     />
   </label>
-  <p class="muted" id="count" aria-live="polite">{listed.length} services</p>
 
   <table id="tbl">
     <thead>
@@ -73,7 +72,7 @@ const staleCount = services.filter((s) => {
   </table>
 
   <style>
-    .search { display: block; margin: 24px 0 4px; }
+    .search { display: block; margin: 24px 0 8px; }
     .search span { display: block; font-weight: 700; margin-bottom: 6px; }
     .search input {
       font: inherit;
@@ -84,6 +83,14 @@ const staleCount = services.filter((s) => {
     }
     .search input:focus { outline: 3px solid var(--focus); outline-offset: 0; }
     tr[hidden] { display: none; }
+
+    /* Service takes the slack; the rest are sized to their content so the header
+       rule does not run past the last column. */
+    #tbl { table-layout: fixed; }
+    #tbl th:nth-child(1) { width: auto; }
+    #tbl th:nth-child(2) { width: 9em; }
+    #tbl th:nth-child(3) { width: 5em; }
+    #tbl th:nth-child(4) { width: 13em; }
   </style>
 
   <script>
@@ -91,17 +98,12 @@ const staleCount = services.filter((s) => {
     // extra payload and works on the first paint.
     const q = document.getElementById('q');
     const rows = Array.from(document.querySelectorAll('#tbl tbody tr'));
-    const count = document.getElementById('count');
 
     function apply() {
       const needle = q.value.trim().toLowerCase();
-      let shown = 0;
       for (const row of rows) {
-        const match = !needle || row.dataset.hay.includes(needle);
-        row.hidden = !match;
-        if (match) shown++;
+        row.hidden = Boolean(needle) && !row.dataset.hay.includes(needle);
       }
-      count.textContent = `${shown} service${shown === 1 ? '' : 's'}`;
     }
 
     q.addEventListener('input', apply);

@@ -25,7 +25,7 @@ export default function ReferenceLoader() {
       <div className="panel">
         <p>
           No specification URL was given. Add <code>?url=</code> followed by the address of an
-          OpenAPI document, or browse the catalogue.
+          OpenAPI document, or browse the specs.
         </p>
       </div>
     );
