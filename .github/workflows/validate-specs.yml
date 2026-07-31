@@ -52,6 +52,11 @@ jobs:
       - name: Install dependencies
         run: yarn install --immutable
 
+      # model/model.json is derived and gitignored, and the C4 tests compare the
+      # generated sources against it.
+      - name: Build the model
+        run: yarn build-model
+
       # Includes the consumer contract, which guards the spec filenames that XUI
       # fetches at runtime, that the CCD/HMC F-125 tests assert on, and that
       # terraform reads at apply time.
