@@ -6,9 +6,8 @@
   "description": "Static developer portal for the CFT API catalogue",
   "license": "MIT",
   "scripts": {
-    "model": "yarn workspace cnp-api-docs build-model",
-    "dev": "yarn model && astro dev",
-    "build": "yarn model && astro build",
+    "build": "astro build",
+    "dev-server": "astro dev",
     "preview": "astro preview"
   },
   "dependencies": {
