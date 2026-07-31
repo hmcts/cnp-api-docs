@@ -76,21 +76,24 @@ npm start
 Every spec in `docs/specs/` is validated on each push to master.
 
 ```bash
-npm run validate-specs     # classify every spec
-npm test                   # unit tests, plus the consumer contract
+yarn validate-specs    # classify every spec
+yarn test              # unit tests, plus the consumer contract
 ```
 
-Publishers push straight to master and the publishing bot bypasses branch
-protection, so validation cannot block a bad spec landing. Instead, if a spec
-that previously parsed is replaced by one that does not,
-`.github/workflows/validate-specs.yml` restores the previous version and files an
-issue. A spec that was already broken, or that arrives broken on its first
-publish, is reported but never rewritten.
+Publishers push straight to master, so validation cannot block a bad spec
+landing. `yarn validate-specs` classifies every spec and is reported on each push.
 
-`test/consumer-contract.test.mjs` pins the spec filenames that are fetched from
-outside this repo — by XUI at runtime, by the CCD and HMC F-125 acceptance tests,
-and by terraform when registering APIs into Azure API Management. Do not rename
-or delete those files.
+**A broken spec is not repaired or chased here.** It belongs to the team that
+published it, and only they can fix it: the usual cause is their pipeline writing
+an empty file when it cannot reach the running application. Restoring the previous
+file centrally would put back a spec describing an older version of the API and
+leave that pipeline just as broken. Broken specs simply show up in the health
+report until their owner republishes.
+
+`test/consumer-contract.test.mjs` is the exception, and the one thing enforced:
+it pins the spec filenames fetched from outside this repo — by XUI at runtime, by
+the CCD and HMC F-125 acceptance tests, and by terraform when registering APIs
+into Azure API Management. Do not rename or delete those files.
 
 ## Publish Swagger docs
 
