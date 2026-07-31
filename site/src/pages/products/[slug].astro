@@ -1,0 +1,157 @@
+---
+import Base from '../../layouts/Base.astro';
+import { products, model, slugFor, freshnessOf, rankedServices, displayName, primarySpec } from '../../lib/model.mjs';
+
+export function getStaticPaths() {
+  return products.map((p) => ({ params: { slug: slugFor(p.name) }, props: { name: p.name } }));
+}
+
+const { name } = Astro.props;
+const base = import.meta.env.BASE_URL;
+const product = model.products[name];
+
+const members = rankedServices(product.services.map((id) => model.services[id]).filter(Boolean));
+
+const outbound = new Map();
+const inbound = new Map();
+const memberIds = new Set(members.map((m) => m.id));
+
+for (const m of members) {
+  for (const dep of m.dependsOn) {
+    const target = model.services[dep.id];
+    if (!target || target.ambient || memberIds.has(dep.id)) continue;
+    const p = target.product ?? 'unassigned';
+    if (p !== name) outbound.set(p, (outbound.get(p) ?? 0) + 1);
+  }
+  for (const cid of m.consumedBy ?? []) {
+    const source = model.services[cid];
+    if (!source || memberIds.has(cid)) continue;
+    const p = source.product ?? 'unassigned';
+    if (p !== name) inbound.set(p, (inbound.get(p) ?? 0) + 1);
+  }
+}
+
+const sortDesc = (map) => [...map.entries()].sort((a, b) => b[1] - a[1]);
+
+// The LikeC4 app names views <product>_overview, plus citizen/caseworker variants
+// for the four products that have hand-written actor detail.
+const viewId = `${slugFor(name).replace(/-/g, '_')}_overview`;
+const ACTOR_VIEWS = { probate: ['citizen', 'caseworker'], pcs: ['citizen', 'caseworker'], nfdiv: ['citizen', 'caseworker'], darts: ['citizen'] };
+const actorViews = ACTOR_VIEWS[slugFor(name)] ?? [];
+---
+
+<Base title={`${name} LLD`} description={`Low level design for the ${name} product.`}>
+  <p class="crumb"><a href={`${base}/`}>Specs</a> › <a href={`${base}/products/`}>Products</a></p>
+  <h1>{name} LLD</h1>
+  {product.info && <p class="lede" set:html={product.info} />}
+
+  <figure class="diagram">
+    <script is:inline src={`${base}/architecture/explore/likec4-views.js`}></script>
+    <likec4-view view-id={viewId} browser="false"></likec4-view>
+    <figcaption>
+      <a href={`${base}/architecture/explore/view/${viewId}/`}>Open the diagram full screen</a>
+      {actorViews.map((v) => (
+        <>
+          {' · '}
+          <a href={`${base}/architecture/explore/view/${slugFor(name).replace(/-/g, '_')}_${v}/`}>{v} journey</a>
+        </>
+      ))}
+    </figcaption>
+  </figure>
+
+  <h2>Services <span class="muted">({members.length})</span></h2>
+  <table>
+    <thead>
+      <tr>
+        <th scope="col">Service</th>
+        <th scope="col">API</th>
+        <th scope="col">Repo</th>
+        <th scope="col" class="num">Paths</th>
+        <th scope="col">Last published</th>
+      </tr>
+    </thead>
+    <tbody>
+      {members.map((s) => {
+        const newest = s.specs
+          .filter((x) => x.lastPublished)
+          .sort((a, b) => b.lastPublished.localeCompare(a.lastPublished))[0];
+        const spec = primarySpec(s);
+        return (
+          <tr>
+            <td>
+              <a href={`${base}/service/${slugFor(s.id)}/`}>{displayName(s)}</a>
+              {displayName(s) !== s.id && <><br /><code class="muted">{s.id}</code></>}
+            </td>
+            <td>
+              {spec ? (
+                <a href={`${base}/api/${spec.file.replace(/\.json$/, '')}/`}>
+                  {s.specs.length > 1 ? `${s.specs.length} specs` : 'Reference'}
+                </a>
+              ) : (
+                <span class="muted">none</span>
+              )}
+            </td>
+            <td>
+              {s.repository ? (
+                <a href={s.repository}>{s.repository.replace('https://github.com/hmcts/', '')}</a>
+              ) : (
+                <span class="muted">—</span>
+              )}
+            </td>
+            <td class="num">{s.specs.reduce((n, x) => n + x.pathCount, 0) || ''}</td>
+            <td>
+              {newest?.lastPublished ?? <span class="muted">—</span>}
+              {' '}<span class={`tag ${freshnessOf(s)}`}>{freshnessOf(s)}</span>
+            </td>
+          </tr>
+        );
+      })}
+    </tbody>
+  </table>
+
+  <h2>Traffic across product boundaries</h2>
+  <div class="hops">
+    <section>
+      <h3>Products that call {name}</h3>
+      {inbound.size === 0 ? <p class="muted">None recorded.</p> : (
+        <ul class="plain">
+          {sortDesc(inbound).map(([p, n]) => (
+            <li>
+              {model.products[p] ? <a href={`${base}/products/${slugFor(p)}/`}>{p}</a> : p}
+              <span class="muted"> — {n} edge{n === 1 ? '' : 's'}</span>
+            </li>
+          ))}
+        </ul>
+      )}
+    </section>
+    <section>
+      <h3>Products {name} calls</h3>
+      {outbound.size === 0 ? <p class="muted">None recorded.</p> : (
+        <ul class="plain">
+          {sortDesc(outbound).map(([p, n]) => (
+            <li>
+              {model.products[p] ? <a href={`${base}/products/${slugFor(p)}/`}>{p}</a> : p}
+              <span class="muted"> — {n} edge{n === 1 ? '' : 's'}</span>
+            </li>
+          ))}
+        </ul>
+      )}
+    </section>
+  </div>
+
+  <style>
+    .crumb { color: var(--muted); font-size: 0.9rem; margin-bottom: 8px; }
+    .diagram { margin: 24px 0 8px; }
+    .diagram likec4-view {
+      display: block;
+      height: 460px;
+      border: 1px solid var(--line);
+    }
+    .diagram figcaption { font-size: 0.9rem; margin-top: 8px; }
+    td code { font-size: 0.8rem; }
+    .hops { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+    .plain { list-style: none; padding: 0; margin: 0; }
+    .plain li { padding: 4px 0; border-bottom: 1px solid var(--line); }
+    @media (max-width: 640px) { .hops { grid-template-columns: 1fr; gap: 16px; } }
+  </style>
+</Base>

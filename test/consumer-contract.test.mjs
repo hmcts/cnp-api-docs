@@ -60,6 +60,25 @@ for (const [consumer, file] of ALL) {
   });
 }
 
+// The source tree passing is not enough: the deployable artifact is what consumers
+// would fetch, and the copy into it is where a spec could be lost or mangled.
+const ARTIFACT = 'build/dist/specs';
+const assembled = existsSync(ARTIFACT);
+
+for (const [consumer, file] of ALL) {
+  test(`${consumer}: ${file} is in the built artifact`, { skip: !assembled && 'run `yarn assemble` first' }, () => {
+    const path = `${ARTIFACT}/${file}`;
+    assert.ok(existsSync(path), `${path} is missing from the artifact`);
+    const doc = JSON.parse(readFileSync(path, 'utf8'));
+    assert.ok(doc.openapi ?? doc.swagger, `${path} declares no openapi/swagger version`);
+  });
+}
+
+test('the swagger.html shim is in the artifact', { skip: !assembled && 'run `yarn assemble` first' }, () => {
+  // The most linked page in the estate; README badges and Confluence point at it.
+  assert.ok(existsSync('build/dist/swagger.html'));
+});
+
 // Only meaningful after a deploy; skipped locally.
 const hosted = process.env.CHECK_HOSTED === '1';
 

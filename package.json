@@ -2,6 +2,10 @@
   "name": "cnp-api-docs",
   "version": "2.0.0",
   "description": "Swagger docs for all CNP APIs",
+  "private": true,
+  "workspaces": [
+    "site"
+  ],
   "directories": {
     "doc": "docs"
   },
@@ -10,11 +14,24 @@
     "url": "git+https://github.com/hmcts/cnp-api-docs.git"
   },
   "scripts": {
-    "start": "http-server -p 8080 docs/",
+    "dev": "yarn build && yarn serve-site",
+    "build": "yarn build-site && yarn build-c4 && yarn assemble",
     "test": "jasmine JASMINE_CONFIG_PATH=package.json && node --test test/*.test.mjs",
+    "build-site": "yarn build-model && yarn workspace cnp-api-docs-site build",
+    "build-c4": "yarn generate-c4 && likec4 build --no-use-dot -o build/c4 --base /cnp-api-docs/architecture/explore/ --title \"CNP API Docs\" c4",
+    "generate-c4": "node bin/generate-c4.mjs && node bin/generate-c4-views.mjs",
+    "validate-c4": "likec4 validate c4",
+    "build-model": "node bin/normalise-specs.mjs && node model/build.mjs",
+    "normalise-specs": "node bin/normalise-specs.mjs",
     "validate-specs": "node bin/validate-specs.mjs",
-    "update-swagger": "cp node_modules/swagger-ui-dist/swagger-ui* docs/",
-    "update-vis": "cp node_modules/vis/dist/vis-network* docs/ && cp -r node_modules/vis/dist/img docs/"
+    "assemble": "node bin/assemble-site.mjs",
+    "serve-site": "node bin/serve-site.mjs",
+    "dev-site": "yarn build-model && yarn workspace cnp-api-docs-site dev-server",
+    "export-readme-pngs": "node bin/export-readme-pngs.mjs",
+    "refresh-catalog-cache": "node bin/refresh-catalog-cache.mjs",
+    "legacy:serve": "http-server -p 8080 docs/",
+    "legacy:update-swagger": "cp node_modules/swagger-ui-dist/swagger-ui* docs/",
+    "legacy:update-vis": "cp node_modules/vis/dist/vis-network* docs/ && cp -r node_modules/vis/dist/img docs/"
   },
   "author": "",
   "license": "MIT",
@@ -27,10 +44,13 @@
     "jasmine": "^4.3.0",
     "moment": "~2.29.4",
     "swagger-ui-dist": "^5.18.2",
-    "vis": "^4.21.0"
+    "swagger2openapi": "^7.0.8",
+    "vis": "^4.21.0",
+    "yaml": "^2.9.0"
   },
   "devDependencies": {
-    "http-server": "^14.1.1"
+    "http-server": "^14.1.1",
+    "likec4": "^1.59.2"
   },
   "scarfSettings": {
     "enabled": false

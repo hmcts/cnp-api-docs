@@ -1,0 +1,144 @@
+---
+import Base from '../../layouts/Base.astro';
+import { model, services, freshnessOf, slugFor, specsOf } from '../../lib/model.mjs';
+
+export function getStaticPaths() {
+  return services.map((s) => ({ params: { slug: slugFor(s.id) }, props: { id: s.id } }));
+}
+
+const { id } = Astro.props;
+const base = import.meta.env.BASE_URL;
+const service = model.services[id];
+
+const fresh = freshnessOf(service);
+const specs = specsOf(service);
+
+// Ambient dependencies are shown as chips rather than edges.
+const deps = service.dependsOn.map((d) => ({ ...d, service: model.services[d.id] }));
+const ambientDeps = deps.filter((d) => d.service?.ambient);
+const realDeps = deps.filter((d) => !d.service?.ambient);
+const consumers = (service.consumedBy ?? []).map((cid) => model.services[cid]).filter(Boolean);
+---
+
+<Base title={id} description={service.description ?? `APIs published by ${id}`}>
+  <p class="crumb"><a href={`${base}/`}>Specs</a> {service.product && <>› <a href={`${base}/products/${slugFor(service.product)}/`}>{service.product}</a></>}</p>
+
+  <h1>{id}</h1>
+  {service.description && <p class="lede">{service.description}</p>}
+
+  <dl class="meta">
+    {service.product && <><dt>Product</dt><dd><a href={`${base}/products/${slugFor(service.product)}/`}>{service.product}</a></dd></>}
+    {service.owner && <><dt>Owner</dt><dd>{service.owner}</dd></>}
+    {service.lifecycle && <><dt>Lifecycle</dt><dd>{service.lifecycle}</dd></>}
+    {service.repository && <><dt>Repository</dt><dd><a href={service.repository}>{service.repository.replace('https://github.com/', '')}</a></dd></>}
+    <dt>Freshness</dt>
+    <dd><span class={`tag ${fresh}`}>{fresh}</span></dd>
+  </dl>
+
+  {service.specless && (
+    <div class="panel">
+      <p>
+        No OpenAPI spec published.
+      </p>
+    </div>
+  )}
+
+  {specs.length > 0 && (
+    <>
+      <h2>{specs.length === 1 ? 'API specification' : 'API specifications'}</h2>
+      <table>
+        <thead>
+          <tr>
+            <th scope="col">Spec</th>
+            <th scope="col">Version</th>
+            <th scope="col" class="num">Paths</th>
+            <th scope="col">Published</th>
+            <th scope="col">Raw</th>
+          </tr>
+        </thead>
+        <tbody>
+          {specs.map((s) => (
+            <tr>
+              <td>
+                {s.valid ? (
+                  <a href={`${base}/api/${s.file.replace(/\.json$/, '')}/`}>{s.variant ?? s.file}</a>
+                ) : (
+                  <>{s.variant ?? s.file} <span class="tag broken">broken</span></>
+                )}
+              </td>
+              <td>{s.specVersion ?? <span class="muted">—</span>}</td>
+              <td class="num">{s.pathCount || ''}</td>
+              <td>{s.lastPublished ?? <span class="muted">unknown</span>} <span class={`tag ${s.freshness}`}>{s.freshness}</span></td>
+              <td><a href={s.url}>JSON</a></td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </>
+  )}
+
+  <h2>Dependencies</h2>
+  {realDeps.length === 0 && ambientDeps.length === 0 && (
+    <p class="muted">None recorded.</p>
+  )}
+
+  <div class="hops">
+    <section>
+      <h3>Consumed by <span class="muted">({consumers.length})</span></h3>
+      {consumers.length === 0 ? (
+        <p class="muted">Nothing recorded.</p>
+      ) : (
+        <ul class="plain">
+          {consumers.map((c) => (
+            <li><a href={`${base}/service/${slugFor(c.id)}/`}>{c.id}</a> {c.product && <span class="muted">{c.product}</span>}</li>
+          ))}
+        </ul>
+      )}
+    </section>
+
+    <section>
+      <h3>Depends on <span class="muted">({realDeps.length})</span></h3>
+      {realDeps.length === 0 ? (
+        <p class="muted">Nothing recorded.</p>
+      ) : (
+        <ul class="plain">
+          {realDeps.map((d) => (
+            <li>
+              {d.service ? (
+                <a href={`${base}/service/${slugFor(d.id)}/`}>{d.id}</a>
+              ) : (
+                <span>{d.id}</span>
+              )}
+              {!d.hard && <span class="muted"> (soft)</span>}
+            </li>
+          ))}
+        </ul>
+      )}
+    </section>
+  </div>
+
+  {ambientDeps.length > 0 && (
+    <div class="panel">
+      <h3 style="margin-top:0">Platform dependencies</h3>
+      <div class="chips">
+        {ambientDeps.map((d) => (
+          <a class="chip" href={`${base}/service/${slugFor(d.id)}/`}>{d.id}</a>
+        ))}
+      </div>
+    </div>
+  )}
+
+  <style>
+    .crumb { color: var(--muted); font-size: 0.9rem; margin-bottom: 8px; }
+    .meta { display: grid; grid-template-columns: max-content 1fr; gap: 4px 20px; margin: 20px 0 32px; }
+    .meta dt { font-weight: 700; }
+    .meta dd { margin: 0; }
+    .hops { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; margin-bottom: 32px; }
+    .plain { list-style: none; padding: 0; margin: 0; }
+    .plain li { padding: 4px 0; border-bottom: 1px solid var(--line); }
+    .plain .muted { font-size: 0.85rem; }
+    a.chip { text-decoration: none; }
+    a.chip:hover { text-decoration: underline; }
+    @media (max-width: 640px) { .hops { grid-template-columns: 1fr; gap: 16px; } }
+  </style>
+</Base>

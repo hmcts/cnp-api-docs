@@ -1,84 +1,87 @@
-# Cloud Native Platform API Documentation
+# CNP API Docs
 
-## Intro
+The central OpenAPI registry for CFT. Every service publishes its spec here from
+its own pipeline, and the site renders them at
+<https://hmcts.github.io/cnp-api-docs/>: a searchable list of specs, a low level
+design page per product, C4 architecture views, and a registry health report.
 
-Documentation is presented in two ways:
+Publishing a spec is all that is needed to appear — see
+[Publish Swagger docs](#publish-swagger-docs).
 
-- [Network graph](#network)
-- [Swagger UI](#swagger-ui)
+## How it fits together
 
-### Network
+| Path | What it is |
+|---|---|
+| `docs/specs/*.json` | Published specs. Written by other repos' pipelines; the only thing in this repo other teams write to. |
+| `registry.yaml` | The facts that cannot be derived from a spec: product membership, dependency edges, curated names, prose. Hand-maintained. |
+| `model/build.mjs` | Joins the two, plus Backstage ownership, into `model/model.json`. |
+| `c4/` | LikeC4 sources. `generated.c4` is derived from the model; `views.c4` is hand-written. |
+| `site/` | Astro site, built from `model.json`. |
+| `bin/` | Build and validation scripts, plus the legacy publish scripts. |
 
-In order to populate one of the API in the network graph we need to enter the following snippet inside the [microservices.json](docs/microservices.json):
+`docs/` also still holds the previous site — `index.html`, `network.js`,
+`microservices.json` and `lld/*.html`. GitHub Pages serves that today; it is
+replaced when the Pages source moves to GitHub Actions, and removed after.
 
-```json
-{
-    "id": "ccd-user-profile",
-    "name": "User Profile",
-    "group": "CCD",
-    "description": null,
-    "repository": null,
-    "spec": null,
-    "urls": [],
-    "dependencies": [
-        {
-            "id": "idam",
-            "hard": true,
-            "apis": []
-        },
-        {
-            "id": "idam-s2s",
-            "hard": true,
-            "apis": []
-        }
-    ],
-    "apis": [],
-    "version": null
-}
-```
+## Getting started
 
-In case you are introducing a new network group, please provide relevant information about it in the `groups` field (follow specification linked below and implementation linked above).
-
-Full specification can be viewed in [json schema](microservices-schema.json).
-
-### Swagger UI
-
-In case the `spec` field is present, API bubble represented in the graph will allow to click through to the API documentation. If `urls` array is present spec will not be used, but urls defined with `name` and `url` will be used instead.
-
-[How to publish swagger docs](#publish-swagger-docs) for your spring boot template application
-
-## Tools
-
-There are very simple npm scripts to update the `swagger-ui` and `vis.js` currently used to show docs
+This repo uses Yarn 4 (Berry) with `node-modules` as the linker, and is a single
+Yarn workspace with the site in `site/`. The Yarn binary is committed to
+`.yarn/releases/`, so installs do not depend on a Corepack download.
 
 ```bash
-npm run update-swagger
-npm run update-vis
+corepack enable   # once per machine
+yarn install
 ```
 
-Repository is using swagger bundle so instead of downloading individual `swagger-ui` packages it gets the `swagger-ui-dist` for the whole thing and then just graps everything from `dist` upon npm script execution.
+## Running the portal locally
+
+```bash
+yarn dev
+```
+
+Builds the model, the site and the architecture diagrams, assembles the artifact
+and serves it at <http://localhost:8080/cnp-api-docs/>. This is byte-for-byte what
+gets deployed. Set `PORT` to use a different port.
+
+The individual steps, if you need one on its own:
+
+```bash
+yarn build         # everything, without serving
+yarn build-site    # model, then the Astro pages
+yarn build-c4      # architecture diagrams
+yarn assemble      # copies docs/specs verbatim, verifying every byte
+yarn serve-site    # serve build/dist
+```
+
+`yarn assemble` refuses to produce a deployable tree if any spec's bytes change
+during the copy — those URLs are fetched at runtime by other services. The site is
+served under `/cnp-api-docs/` to match GitHub Pages; visiting `/` redirects there.
+
+For live reload while working on the pages:
+
+```bash
+yarn dev-site
+```
+
+That runs Astro's dev server, which does not copy `docs/specs`, so the API
+reference pages will not render — use `yarn dev` for those.
 
 ## Testing
 
 ```bash
-npm test
+yarn test              # unit tests plus the consumer contract
+yarn validate-specs    # classify every spec in docs/specs/
 ```
 
-## Localhost viewing
+The hosted checks in the consumer contract are skipped by default. To verify the
+live URLs that other services depend on:
 
 ```bash
-npm install
-npm start
+CHECK_HOSTED=1 node --test test/consumer-contract.test.mjs
 ```
 
 ## Registry health
-
-Every spec in `docs/specs/` is validated on each push to master.
-
-```bash
-yarn validate-specs    # classify every spec
-yarn test              # unit tests, plus the consumer contract
-```
 
 Publishers push straight to master, so validation cannot block a bad spec
 landing. `yarn validate-specs` classifies every spec and is reported on each push.

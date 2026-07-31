@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Redirecting — CFT API catalogue</title>
+  <meta name="robots" content="noindex">
+  <style>
+    body { font-family: arial, sans-serif; margin: 0; padding: 48px 20px; color: #0b0c0c; }
+    .wrap { max-width: 40em; margin: 0 auto; }
+    a { color: #1d70b8; }
+    code { font-family: ui-monospace, Menlo, monospace; font-size: 0.9em; word-break: break-all; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Redirecting…</h1>
+    <p id="msg">Taking you to the new API reference.</p>
+    <p id="fallback" hidden>
+      If nothing happens, go to the <a href="./">API catalogue</a>.
+    </p>
+  </div>
+
+  <!--
+    Compatibility shim. This page used to be Swagger UI; the URL is kept forever
+    because `swagger.html?url=…` is linked from service READMEs, Confluence, API
+    Docs badges and the old generated LLD pages, and those cannot all be found
+    and changed.
+
+    Two query shapes existed:
+      ?url=<absolute spec url>                     single spec
+      ?apis=[{"name":…,"url":…},…]                 multi-version (ccd-data-store-api)
+
+    A spec hosted here maps to its canonical page; anything else is handed to the
+    generic reference viewer so third-party specs keep working. Note the repo was
+    renamed from reform-api-docs, and READMEs still use that hostname.
+  -->
+  <script>
+    (function () {
+      var params = new URLSearchParams(location.search);
+      var base = location.pathname.replace(/\/swagger\.html$/, '');
+
+      // Any spec served by this site, under either the current or the pre-rename
+      // repo name, or as a site-relative path.
+      var HOSTED = /^(?:https?:\/\/hmcts\.github\.io\/(?:cnp|reform)-api-docs\/specs\/|(?:\.\/)?specs\/)([^/?#]+\.json)$/;
+
+      function specName(url) {
+        if (!url) return null;
+        var m = HOSTED.exec(url.trim());
+        return m ? m[1] : null;
+      }
+
+      function go(target) {
+        location.replace(target);
+      }
+
+      var url = params.get('url');
+      var apis = params.get('apis');
+
+      // Multi-version links carry a JSON array; send the reader to the first
+      // spec's page, which lists its siblings.
+      if (apis && !url) {
+        try {
+          var parsed = JSON.parse(apis);
+          if (Array.isArray(parsed) && parsed.length > 0 && parsed[0] && parsed[0].url) {
+            url = parsed[0].url;
+          }
+        } catch (e) {
+          /* fall through to the catalogue */
+        }
+      }
+
+      var name = specName(url);
+      if (name) {
+        go(base + '/api/' + name.replace(/\.json$/, '') + '/');
+        return;
+      }
+
+      if (url) {
+        // Not ours — render it in the generic viewer rather than 404.
+        go(base + '/reference/?url=' + encodeURIComponent(url));
+        return;
+      }
+
+      // No usable parameters: the catalogue is the honest destination.
+      document.getElementById('msg').textContent =
+        'This page has moved. Browse the API catalogue to find a specification.';
+      document.getElementById('fallback').hidden = false;
+    })();
+  </script>
+</body>
+</html>
