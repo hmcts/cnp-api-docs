@@ -30,7 +30,8 @@
     "start": "http-server -p 8080 docs/",
     "update-swagger": "cp node_modules/swagger-ui-dist/swagger-ui* docs/",
     "update-vis": "cp node_modules/vis/dist/vis-network* docs/ && cp -r node_modules/vis/dist/img docs/",
-    "dev-site": "yarn build-model && yarn workspace cnp-api-docs-site dev-server"
+    "dev-site": "yarn build-model && yarn workspace cnp-api-docs-site dev-server",
+    "export-readme-pngs": "node bin/export-readme-pngs.mjs"
   },
   "author": "",
   "license": "MIT",

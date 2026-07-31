@@ -1,0 +1,69 @@
+name: Update README diagrams
+
+# Eight repos hotlink these PNGs from master, so they have to keep being
+# regenerated when the model changes:
+#
+#   nfdiv-case-api, nfdiv-frontend, probate-back-office, probate-frontend,
+#   probate-business-service, probate-caveats-frontend,
+#   probate-orchestrator-service, probate-submit-service
+#
+# Opens a pull request rather than pushing: master requires one, and the Actions
+# token cannot bypass that.
+
+on:
+  push:
+    branches: [master]
+    paths:
+      - 'c4/**'
+      - 'registry.yaml'
+      - 'model/**'
+      - 'bin/generate-c4*.mjs'
+      - 'bin/export-readme-pngs.mjs'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: update-readme-pngs
+  cancel-in-progress: true
+
+jobs:
+  export:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: yarn
+
+      - run: corepack enable
+      - run: yarn install --immutable
+
+      - name: Install the browser LikeC4 renders with
+        run: yarn dlx playwright@1.60.0 install --with-deps chromium-headless-shell
+
+      - name: Render
+        run: |
+          yarn build-model
+          yarn generate-c4
+          node bin/export-readme-pngs.mjs
+
+      - uses: peter-evans/create-pull-request@v7
+        with:
+          commit-message: Update README architecture diagrams
+          title: Update README architecture diagrams
+          body: |
+            Regenerated the C4 diagrams that other repos embed in their READMEs.
+
+            These paths are hotlinked from `master` by nfdiv-case-api,
+            probate-back-office and six other repos, so the filenames are fixed
+            even though LikeC4 rather than Structurizr renders them now.
+          branch: chore/update-readme-pngs
+          delete-branch: true
+          add-paths: docs/c4/**/images/*.png
