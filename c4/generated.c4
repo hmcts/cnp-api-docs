@@ -71,6 +71,9 @@ model {
     bsp_bulk_scan_processor = service 'bsp-bulk-scan-processor' {
       link https://github.com/hmcts/bulk-scan-processor
     }
+    bsp_cron_trigger = service 'bsp-cron-trigger' {
+      link https://github.com/hmcts/bsp-cron-trigger
+    }
     bsp_reform_scan_notification_service = service 'bsp-reform-scan-notification-service' {
       link https://github.com/hmcts/reform-scan-notification-service
     }
@@ -156,14 +159,34 @@ model {
       link https://github.com/hmcts/pip-publication-services
     }
   }
+  Civil = product 'Civil' {
+    civil_orchestrator_service = service 'civil-orchestrator-service' {
+      link https://github.com/hmcts/civil-orchestrator-service
+    }
+    civil_rtl_export = service 'civil-rtl-export' {
+      link https://github.com/hmcts/civil-rtl-export
+    }
+    civil_sdt_gateway = service 'civil-sdt-gateway' {
+      link https://github.com/hmcts/civil-sdt-gateway
+    }
+    civil_service = service 'civil-service' {
+      link https://github.com/hmcts/civil-service
+    }
+  }
   DARTS = product 'DARTS' {
     darts_api = service 'darts-api' {
       description 'Backend for DARTS modernisation project'
       link https://github.com/hmcts/darts-api
     }
+    darts_gateway = service 'darts-gateway' {
+      link https://github.com/hmcts/darts-gateway
+    }
     darts_portal = frontend 'darts-portal' {
       description 'Frontend for DARTS modernisation project'
       link https://github.com/hmcts/darts-portal
+    }
+    darts_stub_services = service 'darts-stub-services' {
+      link https://github.com/hmcts/darts-stub-services
     }
   }
   DIV = product 'DIV' {
@@ -195,9 +218,18 @@ model {
   }
   ET = product 'ET' {
     #service-team
+    et_acas_api = service 'et-acas-api' {
+      link https://github.com/hmcts/et-acas-api
+    }
+    et_acas_api_nonprod = service 'et-acas-api-nonprod' {
+      link https://github.com/hmcts/et-acas-api-nonprod
+    }
     et_ccd_callbacks = service 'et-ccd-callbacks' {
       description 'CCD callback service for Employment Tribunals, handling business logic for both England/Wales and Scotland jurisdictions'
       link https://github.com/hmcts/et-ccd-callbacks
+    }
+    et_hearings_api = service 'et-hearings-api' {
+      link https://github.com/hmcts/et-hearings-api
     }
     et_sya_frontend = frontend 'et-sya-frontend' {
       description 'Citizen-facing frontend for Employment Tribunal claimants to submit and manage their claims'
@@ -218,18 +250,28 @@ model {
     }
     docmosis_tornado_api = service 'docmosis-tornado-api' {
       description 'Documentation can be found here https://www.docmosis.com/download/tornado2.7/Tornado-Web-Services-Guide2.7.pdf'
+      link https://github.com/hmcts/docmosis-tornado-api
     }
     em_anno = service 'em-anno' {
       link https://github.com/hmcts/rpa-em-annotation-api
     }
+    em_ccd_orchestrator = service 'em-ccd-orchestrator' {
+      link https://github.com/hmcts/em-ccd-orchestrator
+    }
+    em_hrs_api = service 'em-hrs-api' {
+      link https://github.com/hmcts/em-hrs-api
+    }
+    em_icp = service 'em-icp' {
+      link https://github.com/hmcts/em-icp
+    }
+    em_native_pdf_annotator_app = service 'em-native-pdf-annotator-app' {
+      link https://github.com/hmcts/em-native-pdf-annotator-app
+    }
+    em_stitching_api = service 'em-stitching-api' {
+      link https://github.com/hmcts/em-stitching-api
+    }
     rpa_dg_docassembly_api = service 'rpa-dg-docassembly-api' {
       link https://github.com/hmcts/rpa-dg-docassembly-api
-    }
-    rpa_em_ccd_orchestrator = service 'rpa-em-ccd-orchestrator' {
-      link https://github.com/hmcts/rpa-em-ccd-orchestrator
-    }
-    rpa_em_stitching_api = service 'rpa-em-stitching-api' {
-      link https://github.com/hmcts/rpa-em-stitching-api
     }
   }
   FINREM = product 'FINREM' {
@@ -237,12 +279,37 @@ model {
     finrem_cos = service 'finrem-cos' {
       link https://github.com/hmcts/finrem-case-orchestration-service
     }
+    finrem_draft_store_service = service 'finrem-draft-store-service' {
+      link https://github.com/hmcts/finrem-draft-store-service
+    }
   }
   FPLA = product 'FPLA' {
     #service-team
     fpla_case_service = service 'fpla-case-service' {
       description 'CCD callback service for FPLA cases'
       link https://github.com/hmcts/fpl-ccd-configuration
+    }
+  }
+  FaCT = product 'FaCT' {
+    fact_api = service 'fact-api' {
+      link https://github.com/hmcts/fact-api
+    }
+    fact_cron_trigger = service 'fact-cron-trigger' {
+      link https://github.com/hmcts/fact-cron-trigger
+    }
+    fact_data_api = service 'fact-data-api' {
+      link https://github.com/hmcts/fact-data-api
+    }
+  }
+  HMC = product 'HMC' {
+    hmc_cft_hearing_service = service 'hmc-cft-hearing-service' {
+      link https://github.com/hmcts/hmc-cft-hearing-service
+    }
+    hmc_hmi_inbound_adapter = service 'hmc-hmi-inbound-adapter' {
+      link https://github.com/hmcts/hmc-hmi-inbound-adapter
+    }
+    hmc_hmi_outbound_adapter = service 'hmc-hmi-outbound-adapter' {
+      link https://github.com/hmcts/hmc-hmi-outbound-adapter
     }
   }
   HMI_Gateway = product 'HMI Gateway' {
@@ -253,6 +320,9 @@ model {
   }
   IA = product 'IA' {
     #service-team
+    ia_case_access_api = service 'ia-case-access-api' {
+      link https://github.com/hmcts/ia-case-access-api
+    }
     ia_case_api = service 'ia-case-api' {
       link https://github.com/hmcts/ia-case-api
     }
@@ -261,6 +331,15 @@ model {
     }
     ia_case_notifications_api = service 'ia-case-notifications-api' {
       link https://github.com/hmcts/ia-case-notifications-api
+    }
+    ia_case_payments_api = service 'ia-case-payments-api' {
+      link https://github.com/hmcts/ia-case-payments-api
+    }
+    ia_home_office_integration_api = service 'ia-home-office-integration-api' {
+      link https://github.com/hmcts/ia-home-office-integration-api
+    }
+    ia_timed_event_service = service 'ia-timed-event-service' {
+      link https://github.com/hmcts/ia-timed-event-service
     }
   }
   IDAM = product 'IDAM' {
@@ -311,6 +390,44 @@ model {
       link https://github.com/hmcts/nfdiv-frontend
     }
   }
+  Opal = product 'Opal' {
+    opal_account_enquiry = service 'opal-account-enquiry' {
+      link https://github.com/hmcts/opal-account-enquiry
+    }
+    opal_auth_service = service 'opal-auth-service' {
+      link https://github.com/hmcts/opal-auth-service
+    }
+    opal_common_lib = service 'opal-common-lib' {
+      link https://github.com/hmcts/opal-common-lib
+    }
+    opal_external_api = service 'opal-external-api' {
+      link https://github.com/hmcts/opal-external-api
+    }
+    opal_file_handler = service 'opal-file-handler' {
+      link https://github.com/hmcts/opal-file-handler
+    }
+    opal_fines_service = service 'opal-fines-service' {
+      link https://github.com/hmcts/opal-fines-service
+    }
+    opal_legacy_db_stub = service 'opal-legacy-db-stub' {
+      link https://github.com/hmcts/opal-legacy-db-stub
+    }
+    opal_log_audit_service = service 'opal-log-audit-service' {
+      link https://github.com/hmcts/opal-log-audit-service
+    }
+    opal_logging_service = service 'opal-logging-service' {
+      link https://github.com/hmcts/opal-logging-service
+    }
+    opal_maintenance_service = service 'opal-maintenance-service' {
+      link https://github.com/hmcts/opal-maintenance-service
+    }
+    opal_print_service = service 'opal-print-service' {
+      link https://github.com/hmcts/opal-print-service
+    }
+    opal_user_service = service 'opal-user-service' {
+      link https://github.com/hmcts/opal-user-service
+    }
+  }
   PCQ = product 'PCQ' {
     #platform
     pcq_backend = service 'pcq-backend' {
@@ -336,15 +453,27 @@ model {
       description 'Backend Application of Possession Claims Service'
       link https://github.com/hmcts/pcs-api
     }
+    pcs_backend_api = service 'pcs-backend-api' {
+      link https://github.com/hmcts/pcs-backend-api
+    }
     pcs_frontend = frontend 'pcs-frontend' {
       description 'Citizen-facing web app for the Possession Claims Service'
       link https://github.com/hmcts/pcs-frontend
     }
   }
   PRE = product 'PRE' {
+    pre_ams = service 'pre-ams' {
+      link https://github.com/hmcts/pre-ams
+    }
     pre_api = service 'pre-api' {
       description 'Backend for Pre-Recorded Evidence project'
       link https://github.com/hmcts/pre-api
+    }
+    pre_api_b2c = service 'pre-api-b2c' {
+      link https://github.com/hmcts/pre-api-b2c
+    }
+    pre_api_core = service 'pre-api-core' {
+      link https://github.com/hmcts/pre-api-core
     }
     pre_portal = frontend 'pre-portal' {
       description 'Frontend for Pre-Recorded Evidence project'
@@ -437,9 +566,38 @@ model {
       link https://github.com/hmcts/service-auth-provider-app
     }
   }
+  Rota = product 'Rota' {
+    rota_admin_frontend = service 'rota-admin-frontend' {
+      link https://github.com/hmcts/rota-admin-frontend
+    }
+    rota_application_database = service 'rota-application-database' {
+      link https://github.com/hmcts/rota-application-database
+    }
+    rota_magistrate_frontend = service 'rota-magistrate-frontend' {
+      link https://github.com/hmcts/rota-magistrate-frontend
+    }
+    rota_optimiser = service 'rota-optimiser' {
+      link https://github.com/hmcts/rota-optimiser
+    }
+    rota_optimiser_database = service 'rota-optimiser-database' {
+      link https://github.com/hmcts/rota-optimiser-database
+    }
+    rota_proxy = service 'rota-proxy' {
+      link https://github.com/hmcts/rota-proxy
+    }
+    rota_resource = service 'rota-resource' {
+      link https://github.com/hmcts/rota-resource
+    }
+    rota_worker = service 'rota-worker' {
+      link https://github.com/hmcts/rota-worker
+    }
+  }
   SNL = product 'SNL' {
     snl_api = service 'snl-api' {
       link https://github.com/hmcts/snl-api
+    }
+    snl_backend = service 'snl-backend' {
+      link https://github.com/hmcts/snl-backend
     }
     snl_events = service 'snl-events' {
       link https://github.com/hmcts/snl-events
@@ -461,6 +619,10 @@ model {
     }
     sscs_cor_frontend = frontend 'sscs-cor-frontend' {
       link https://github.com/hmcts/sscs-cor-frontend
+    }
+    sscs_cron_trigger = service 'sscs-cron-trigger' {
+      #broken
+      link https://github.com/hmcts/sscs-cron-trigger
     }
     sscs_evidence_share = service 'sscs-evidence-share' {
       link https://github.com/hmcts/sscs-evidence-share
@@ -490,10 +652,20 @@ model {
     }
   }
   WA = product 'WA' {
+    wa_case_event_handler = service 'wa-case-event-handler' {
+      link https://github.com/hmcts/wa-case-event-handler
+    }
+    wa_standalone_task_bpmn = service 'wa-standalone-task-bpmn' {
+      link https://github.com/hmcts/wa-standalone-task-bpmn
+    }
     wa_task_management_api = service 'wa-task-management-api' {
       #broken
       description 'API that helps you manage and perform operations on tasks'
       link https://github.com/hmcts/wa-task-management-api
+    }
+    wa_task_monitor = service 'wa-task-monitor' {
+      #broken
+      link https://github.com/hmcts/wa-task-monitor
     }
     wa_workflow_api = service 'wa-workflow-api' {
       description 'API to kick off work allocation work flow'
@@ -648,12 +820,6 @@ model {
   ref_pup -> rpe_service_auth_provider 'uses'
   ref_pup -> idam_web_public 'uses'
   bsp_reform_scan_notification_service -> rpe_service_auth_provider 'uses'
-  rpa_em_ccd_orchestrator -> rpa_em_stitching_api 'uses'
-  rpa_em_ccd_orchestrator -> idam_api 'uses'
-  rpa_em_ccd_orchestrator -> rpe_service_auth_provider 'uses'
-  rpa_em_stitching_api -> idam_api 'uses'
-  rpa_em_stitching_api -> rpe_service_auth_provider 'uses'
-  rpa_em_stitching_api -> dm_store 'uses'
   bsp_send_letter_service -> rpe_service_auth_provider 'uses'
   snl_events -> snl_rules 'uses'
   sptribs_case_api -> ccd_data_store_api 'uses'
@@ -827,7 +993,7 @@ model {
   et_ccd_callbacks -> dm_store 'uses'
   et_ccd_callbacks -> ccd_case_document_am_api 'uses'
   et_ccd_callbacks -> aac_manage_case_assignment 'uses'
-  et_ccd_callbacks -> rpa_em_ccd_orchestrator 'uses'
+  et_ccd_callbacks -> em_ccd_orchestrator 'uses'
   et_ccd_callbacks -> docmosis_tornado_api 'uses'
   et_ccd_callbacks -> rd_professional_api 'uses (soft)'
   et_sya_frontend -> et_ccd_callbacks 'uses'

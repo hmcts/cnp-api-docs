@@ -44,19 +44,34 @@ test('every LLD page has a product page', { skip }, () => {
   }
 });
 
+// Services the old LLD listed under a pre-rename id. The live equivalent is on the
+// product page under its current name; the old spec file is still served and still
+// appears in the specs list, so nothing is unreachable.
+const SUPERSEDED = {
+  'rpa-em-stitching-api': 'em-stitching-api',
+  'rpa-em-ccd-orchestrator': 'em-ccd-orchestrator',
+};
+
 test('no service, repo link, spec link or diagram was dropped', { skip }, () => {
   const lost = [];
+  const superseded = (s) => Object.keys(SUPERSEDED).some((old) => s.includes(old));
 
   for (const { html: old, title } of lldPages()) {
     const page = `${OUT}/${slugOf(title)}/index.html`;
     if (!existsSync(page)) continue;
     const now = readFileSync(page, 'utf8');
 
+    // The replacement must be present, or this exemption is hiding a real loss.
+    for (const [was, is] of Object.entries(SUPERSEDED)) {
+      if (old.includes(was) && !now.includes(is)) lost.push(`${title}: ${was} superseded by ${is}, which is absent`);
+    }
+
     // The old page linked each service name to its GitHub repo. That link was
     // briefly missing from the product table — only the service page had it.
     const repos = new Set(matches(old, /href="(https:\/\/github\.com\/hmcts\/[^"]+)"/g));
     repos.delete('https://github.com/hmcts/cnp-api-docs/');
     for (const repo of repos) {
+      if (superseded(repo)) continue;
       if (!now.includes(repo.replace(/\/$/, ''))) lost.push(`${title}: repo ${repo}`);
     }
 
@@ -68,6 +83,7 @@ test('no service, repo link, spec link or diagram was dropped', { skip }, () => 
 
     // Anything the old page linked through to Swagger.
     for (const spec of new Set(matches(old, /swagger\.html\?url=[^"]*\/specs\/([^"]+)\.json/g))) {
+      if (superseded(spec)) continue;
       if (!now.includes(spec)) lost.push(`${title}: spec ${spec}.json`);
     }
 

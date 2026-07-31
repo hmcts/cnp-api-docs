@@ -16,7 +16,12 @@ views {
       SNL,
       WA,
       DARTS,
-      PRE
+      PRE,
+      FaCT,
+      Opal,
+      Rota,
+      Civil,
+      HMC
     autoLayout TopBottom 60 40
 
     style element.tag = #platform {
@@ -79,6 +84,17 @@ views {
     autoLayout LeftRight
   }
 
+  view civil_overview of Civil {
+    title 'Civil overview'
+    description 'Services in Civil and their immediate neighbours. Authentication and identity are omitted.'
+    include
+      *,
+      -> * ->
+    exclude
+      element.tag = #ambient
+    autoLayout LeftRight
+  }
+
   view cmc_overview of CMC {
     title 'CMC overview'
     description 'Services in CMC and their immediate neighbours. Authentication and identity are omitted.'
@@ -123,6 +139,17 @@ views {
     autoLayout LeftRight
   }
 
+  view fact_overview of FaCT {
+    title 'FaCT overview'
+    description 'Services in FaCT and their immediate neighbours. Authentication and identity are omitted.'
+    include
+      *,
+      -> * ->
+    exclude
+      element.tag = #ambient
+    autoLayout LeftRight
+  }
+
   view finrem_overview of FINREM {
     title 'FINREM overview'
     description 'Services in FINREM and their immediate neighbours. Authentication and identity are omitted.'
@@ -137,6 +164,17 @@ views {
   view fpla_overview of FPLA {
     title 'FPLA overview'
     description 'Services in FPLA and their immediate neighbours. Authentication and identity are omitted.'
+    include
+      *,
+      -> * ->
+    exclude
+      element.tag = #ambient
+    autoLayout LeftRight
+  }
+
+  view hmc_overview of HMC {
+    title 'HMC overview'
+    description 'Services in HMC and their immediate neighbours. Authentication and identity are omitted.'
     include
       *,
       -> * ->
@@ -189,6 +227,17 @@ views {
     autoLayout LeftRight
   }
 
+  view opal_overview of Opal {
+    title 'Opal overview'
+    description 'Services in Opal and their immediate neighbours. Authentication and identity are omitted.'
+    include
+      *,
+      -> * ->
+    exclude
+      element.tag = #ambient
+    autoLayout LeftRight
+  }
+
   view pcq_overview of PCQ {
     title 'PCQ overview'
     description 'Services in PCQ and their immediate neighbours. Authentication and identity are omitted.'
@@ -214,6 +263,17 @@ views {
   view rd_overview of RD {
     title 'RD overview'
     description 'Services in RD and their immediate neighbours. Authentication and identity are omitted.'
+    include
+      *,
+      -> * ->
+    exclude
+      element.tag = #ambient
+    autoLayout LeftRight
+  }
+
+  view rota_overview of Rota {
+    title 'Rota overview'
+    description 'Services in Rota and their immediate neighbours. Authentication and identity are omitted.'
     include
       *,
       -> * ->

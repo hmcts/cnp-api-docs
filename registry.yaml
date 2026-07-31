@@ -86,8 +86,16 @@ products:
     colour: "#20B2AA"
   ET:
     colour: "#EC0A0A"
-# Ported from the hand-written docs/c4/*/workspace.dsl files, which were the only
-# record of who uses these services and of CCD's callbacks into them.
+  FaCT:
+    colour: "#0b7285"
+  Opal:
+    colour: "#5f3dc4"
+  Rota:
+    colour: "#a61e4d"
+  Civil:
+    colour: "#1864ab"
+  HMC:
+    colour: "#e8590c"
 actors:
   citizen:
     name: Citizen
@@ -105,14 +113,11 @@ actors:
     uses:
       - xui-webapp
       - idam-web-public
-# CCD calls back into a service team's own API during an event. The direction is
-# the opposite of the dependency edge, so it cannot be inferred from dependsOn.
 callbacks:
   ccd-data-store-api:
     - nfdiv-case-api
     - pcs-api
     - probate-back-office
-
 services:
   hmi-gateway-api:
     name: HMI API
@@ -1079,30 +1084,6 @@ services:
       - rpe-service-auth-provider
       - cmc-pdf-service
       - idam-api
-  rpa-em-stitching-api:
-    name: Stitching API
-    product: Evidence
-    type: api
-    repository: https://github.com/hmcts/rpa-em-stitching-api
-    expectsSpec: true
-    claimedSpecFiles:
-      - rpa-em-stitching-api.json
-    dependsOn:
-      - idam-api
-      - rpe-service-auth-provider
-      - dm-store
-  rpa-em-ccd-orchestrator:
-    name: CCD Bundle Orchestrator
-    product: Evidence
-    type: api
-    repository: https://github.com/hmcts/rpa-em-ccd-orchestrator
-    expectsSpec: true
-    claimedSpecFiles:
-      - rpa-em-ccd-orchestrator.json
-    dependsOn:
-      - rpa-em-stitching-api
-      - idam-api
-      - rpe-service-auth-provider
   rpa-dg-docassembly-api:
     name: DG Document Assembly API
     product: Evidence
@@ -1121,6 +1102,7 @@ services:
     type: api
     description: Documentation can be found here
       https://www.docmosis.com/download/tornado2.7/Tornado-Web-Services-Guide2.7.pdf
+    repository: https://github.com/hmcts/docmosis-tornado-api
   fpla-case-service:
     name: FPLA Case Service
     product: FPLA
@@ -1431,7 +1413,7 @@ services:
       - dm-store
       - ccd-case-document-am-api
       - aac-manage-case-assignment
-      - rpa-em-ccd-orchestrator
+      - em-ccd-orchestrator
       - docmosis-tornado-api
       - id: rd-professional-api
         hard: false
@@ -1495,3 +1477,223 @@ services:
       - pcs-api
       - idam-api
       - rpe-service-auth-provider
+  fact-api:
+    name: FaCT API
+    product: FaCT
+    repository: https://github.com/hmcts/fact-api
+  fact-data-api:
+    name: FaCT Data API
+    product: FaCT
+    repository: https://github.com/hmcts/fact-data-api
+  fact-cron-trigger:
+    name: FaCT Cron Trigger
+    product: FaCT
+    repository: https://github.com/hmcts/fact-cron-trigger
+  opal-account-enquiry:
+    name: Opal Account Enquiry
+    product: Opal
+    repository: https://github.com/hmcts/opal-account-enquiry
+  opal-auth-service:
+    name: Opal Auth Service
+    product: Opal
+    repository: https://github.com/hmcts/opal-auth-service
+  opal-common-lib:
+    name: Opal Common Lib
+    product: Opal
+    repository: https://github.com/hmcts/opal-common-lib
+  opal-external-api:
+    name: Opal External API
+    product: Opal
+    repository: https://github.com/hmcts/opal-external-api
+  opal-file-handler:
+    name: Opal File Handler
+    product: Opal
+    repository: https://github.com/hmcts/opal-file-handler
+  opal-fines-service:
+    name: Opal Fines Service
+    product: Opal
+    repository: https://github.com/hmcts/opal-fines-service
+  opal-legacy-db-stub:
+    name: Opal Legacy DB Stub
+    product: Opal
+    repository: https://github.com/hmcts/opal-legacy-db-stub
+  opal-log-audit-service:
+    name: Opal Log Audit Service
+    product: Opal
+    repository: https://github.com/hmcts/opal-log-audit-service
+  opal-logging-service:
+    name: Opal Logging Service
+    product: Opal
+    repository: https://github.com/hmcts/opal-logging-service
+  opal-maintenance-service:
+    name: Opal Maintenance Service
+    product: Opal
+    repository: https://github.com/hmcts/opal-maintenance-service
+  opal-print-service:
+    name: Opal Print Service
+    product: Opal
+    repository: https://github.com/hmcts/opal-print-service
+  opal-user-service:
+    name: Opal User Service
+    product: Opal
+    repository: https://github.com/hmcts/opal-user-service
+  rota-admin-frontend:
+    name: Rota Admin Frontend
+    product: Rota
+    repository: https://github.com/hmcts/rota-admin-frontend
+  rota-application-database:
+    name: Rota Application Database
+    product: Rota
+    repository: https://github.com/hmcts/rota-application-database
+  rota-magistrate-frontend:
+    name: Rota Magistrate Frontend
+    product: Rota
+    repository: https://github.com/hmcts/rota-magistrate-frontend
+  rota-optimiser:
+    name: Rota Optimiser
+    product: Rota
+    repository: https://github.com/hmcts/rota-optimiser
+  rota-optimiser-database:
+    name: Rota Optimiser Database
+    product: Rota
+    repository: https://github.com/hmcts/rota-optimiser-database
+  rota-proxy:
+    name: Rota Proxy
+    product: Rota
+    repository: https://github.com/hmcts/rota-proxy
+  rota-resource:
+    name: Rota Resource
+    product: Rota
+    repository: https://github.com/hmcts/rota-resource
+  rota-worker:
+    name: Rota Worker
+    product: Rota
+    repository: https://github.com/hmcts/rota-worker
+  civil-service:
+    name: Civil Service
+    product: Civil
+    repository: https://github.com/hmcts/civil-service
+  civil-orchestrator-service:
+    name: Civil Orchestrator Service
+    product: Civil
+    repository: https://github.com/hmcts/civil-orchestrator-service
+  civil-rtl-export:
+    name: Civil RTL Export
+    product: Civil
+    repository: https://github.com/hmcts/civil-rtl-export
+  civil-sdt-gateway:
+    name: Civil SDT Gateway
+    product: Civil
+    repository: https://github.com/hmcts/civil-sdt-gateway
+  hmc-cft-hearing-service:
+    name: HMC CFT Hearing Service
+    product: HMC
+    repository: https://github.com/hmcts/hmc-cft-hearing-service
+  hmc-hmi-inbound-adapter:
+    name: HMC HMI Inbound Adapter
+    product: HMC
+    repository: https://github.com/hmcts/hmc-hmi-inbound-adapter
+  hmc-hmi-outbound-adapter:
+    name: HMC HMI Outbound Adapter
+    product: HMC
+    repository: https://github.com/hmcts/hmc-hmi-outbound-adapter
+  em-ccd-orchestrator:
+    name: CCD Bundle Orchestrator
+    product: Evidence
+    repository: https://github.com/hmcts/em-ccd-orchestrator
+  em-stitching-api:
+    name: Stitching API
+    product: Evidence
+    repository: https://github.com/hmcts/em-stitching-api
+  em-hrs-api:
+    name: EM HRS API
+    product: Evidence
+    repository: https://github.com/hmcts/em-hrs-api
+  em-icp:
+    name: EM ICP
+    product: Evidence
+    repository: https://github.com/hmcts/em-icp
+  em-native-pdf-annotator-app:
+    name: EM Native PDF Annotator App
+    product: Evidence
+    repository: https://github.com/hmcts/em-native-pdf-annotator-app
+  pre-ams:
+    name: PRE AMS
+    product: PRE
+    repository: https://github.com/hmcts/pre-ams
+  pre-api-core:
+    name: PRE API Core
+    product: PRE
+    repository: https://github.com/hmcts/pre-api-core
+  pre-api-b2c:
+    name: PRE API B2C
+    product: PRE
+    repository: https://github.com/hmcts/pre-api-b2c
+  ia-case-access-api:
+    name: IA Case Access API
+    product: IA
+    repository: https://github.com/hmcts/ia-case-access-api
+  ia-case-payments-api:
+    name: IA Case Payments API
+    product: IA
+    repository: https://github.com/hmcts/ia-case-payments-api
+  ia-home-office-integration-api:
+    name: IA Home Office Integration API
+    product: IA
+    repository: https://github.com/hmcts/ia-home-office-integration-api
+  ia-timed-event-service:
+    name: IA Timed Event Service
+    product: IA
+    repository: https://github.com/hmcts/ia-timed-event-service
+  et-acas-api:
+    name: ET ACAS API
+    product: ET
+    repository: https://github.com/hmcts/et-acas-api
+  et-acas-api-nonprod:
+    name: ET ACAS API Nonprod
+    product: ET
+    repository: https://github.com/hmcts/et-acas-api-nonprod
+  et-hearings-api:
+    name: ET Hearings API
+    product: ET
+    repository: https://github.com/hmcts/et-hearings-api
+  wa-case-event-handler:
+    name: WA Case Event Handler
+    product: WA
+    repository: https://github.com/hmcts/wa-case-event-handler
+  wa-task-monitor:
+    name: WA Task Monitor
+    product: WA
+    repository: https://github.com/hmcts/wa-task-monitor
+  wa-standalone-task-bpmn:
+    name: WA Standalone Task BPMN
+    product: WA
+    repository: https://github.com/hmcts/wa-standalone-task-bpmn
+  darts-gateway:
+    name: DARTS Gateway
+    product: DARTS
+    repository: https://github.com/hmcts/darts-gateway
+  darts-stub-services:
+    name: DARTS Stub Services
+    product: DARTS
+    repository: https://github.com/hmcts/darts-stub-services
+  snl-backend:
+    name: SNL Backend
+    product: SNL
+    repository: https://github.com/hmcts/snl-backend
+  sscs-cron-trigger:
+    name: SSCS Cron Trigger
+    product: SSCS
+    repository: https://github.com/hmcts/sscs-cron-trigger
+  bsp-cron-trigger:
+    name: BSP Cron Trigger
+    product: BSP
+    repository: https://github.com/hmcts/bsp-cron-trigger
+  finrem-draft-store-service:
+    name: FINREM Draft Store Service
+    product: FINREM
+    repository: https://github.com/hmcts/finrem-draft-store-service
+  pcs-backend-api:
+    name: PCS Backend API
+    product: PCS
+    repository: https://github.com/hmcts/pcs-backend-api
