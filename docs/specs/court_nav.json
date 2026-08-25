@@ -71,6 +71,69 @@
           }
         }
       }
+    },
+    "/{caseId}/document": {
+      "post": {
+        "description": "Upload a document to a case in CCD",
+        "operationId": "uploadDocument",
+        "summary": "Upload a document to a case in CCD",
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "parameters": [
+          {
+            "name": "caseId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "ID of the case"
+          },
+          {
+            "name": "file",
+            "in": "formData",
+            "required": true,
+            "type": "file",
+            "description": "Document file to upload"
+          },
+          {
+            "name": "typeOfDocument",
+            "in": "formData",
+            "required": true,
+            "type": "string",
+            "description": "Type of document being uploaded"
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Document uploaded successfully",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                }
+              }
+            },
+            "examples": {
+              "application/json": {
+                "message": "Document has been uploaded successfully: sample.pdf"
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
     }
   }
 }
