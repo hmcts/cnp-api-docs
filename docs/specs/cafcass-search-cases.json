@@ -1107,7 +1107,8 @@
                     },
                     "phoneNumber": {
                       "type": "string",
-                      "example": null
+                      "example": null,
+                      "description": "Note that this is not currently captured in the citizen application"
                     },
                     "otherGender": {
                       "type": "string",
@@ -1117,9 +1118,28 @@
                       "type": "string",
                       "example": "No"
                     },
+                    "email": {
+                      "type": "string",
+                      "example": "otherperson1@example.net",
+                      "description": "Note that this is not currently captured in the citizen application"
+                    },
                     "canYouProvidePhoneNumber": {
                       "type": "string",
                       "example": "No"
+                    },
+                    "isAddressConfidential": {
+                      "type": "string",
+                      "example": "No"
+                    },
+                    "isEmailAddressConfidential": {
+                      "type": "string",
+                      "example": "No",
+                      "description": "Note that this is not currently captured in the citizen application"
+                    },
+                    "isPhoneNumberConfidential": {
+                      "type": "string",
+                      "example": "No",
+                      "description": "Note that this is not currently captured in the citizen application"
                     }
                   }
                 }
