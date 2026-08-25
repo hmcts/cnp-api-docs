@@ -74,9 +74,9 @@
     },
     "/{caseId}/document": {
       "post": {
-        "description": "Upload a document to a case in CCD",
+        "description": "Upload a document to a CourtNav created case in CCD",
         "operationId": "uploadDocument",
-        "summary": "Upload a document to a case in CCD",
+        "summary": "Upload a document to a CourtNav created case in CCD",
         "consumes": [
           "multipart/form-data"
         ],
@@ -93,14 +93,23 @@
             "in": "formData",
             "required": true,
             "type": "file",
-            "description": "Document file to upload"
+            "description": "Document file to upload, must be of type pdf/jpeg/jpg/doc/docx/bpm/png/tiff/txt/tif"
           },
           {
             "name": "typeOfDocument",
             "in": "formData",
             "required": true,
             "type": "string",
+            "enum": ["WITNESS_STATEMENT", "EXHIBITS_EVIDENCE", "EXHIBITS_COVERSHEET", "C8_DOCUMENT"],
             "description": "Type of document being uploaded"
+          },
+          {
+            "name": "documentId",
+            "in": "formData",
+            "required": false,
+            "type": "string",
+            "format": "uuid",
+            "description": "Optional UUID parameter to ensure document uniqueness. If not provided, the document will be processed as a unique copy."
           }
         ],
         "produces": [
