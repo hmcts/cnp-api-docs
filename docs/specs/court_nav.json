@@ -93,7 +93,7 @@
             "in": "formData",
             "required": true,
             "type": "file",
-            "description": "Document file to upload, must be of type pdf/jpeg/jpg/doc/docx/bpm/png/tiff/txt/tif"
+            "description": "Document file to upload, must be of type pdf/jpeg/jpg/doc/docx/bmp/png/tiff/txt/tif"
           },
           {
             "name": "typeOfDocument",
