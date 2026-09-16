@@ -1,0 +1,132 @@
+---
+import Base from '../layouts/Base.astro';
+import { products, model, slugFor } from '../lib/model.mjs';
+
+const base = import.meta.env.BASE_URL;
+
+const ACTOR_VIEWS = {
+  probate: ['citizen', 'caseworker'],
+  pcs: ['citizen', 'caseworker'],
+  nfdiv: ['citizen', 'caseworker'],
+  darts: ['citizen'],
+};
+
+const ambient = Object.values(model.services).filter((s) => s.ambient);
+const ambientIds = new Set(ambient.map((s) => s.id));
+
+// Cross-product edges, ignoring ambient auth. Direction decides the tier: a
+// product consumed more than it consumes is shared platform.
+const inbound = {};
+const outbound = {};
+for (const s of Object.values(model.services)) {
+  if (!s.product) continue;
+  for (const dep of s.dependsOn) {
+    if (ambientIds.has(dep.id)) continue;
+    const target = model.services[dep.id];
+    if (!target?.product || target.product === s.product) continue;
+    inbound[target.product] = (inbound[target.product] ?? 0) + 1;
+    outbound[s.product] = (outbound[s.product] ?? 0) + 1;
+  }
+}
+
+const rows = products
+  .filter((p) => p.serviceCount > 0)
+  .map((p) => {
+    const slug = slugFor(p.name);
+    const i = inbound[p.name] ?? 0;
+    const o = outbound[p.name] ?? 0;
+    return {
+      ...p,
+      slug,
+      inbound: i,
+      outbound: o,
+      tier: !i && !o ? 'standalone' : i > o ? 'platform' : 'service team',
+      viewId: `${slug.replace(/-/g, '_')}_overview`,
+      actors: ACTOR_VIEWS[slug] ?? [],
+    };
+  });
+
+const tiers = [
+  ['Shared platform', 'platform', 'Consumed by other products.'],
+  ['Service teams', 'service team', 'Call into shared platform.'],
+  ['Standalone', 'standalone', 'No recorded cross-product traffic.'],
+];
+---
+
+<Base title="Architecture" description="C4 views of the CFT estate.">
+  <h1>Architecture</h1>
+
+  <figure class="diagram">
+    <script is:inline src={`${base}/architecture/explore/likec4-views.js`}></script>
+    <likec4-view view-id="landscape" browser="false"></likec4-view>
+    <figcaption>
+      <a href={`${base}/architecture/explore/view/landscape/`}>Open full screen</a>
+      — boxes are clickable in the <a href={`${base}/architecture/explore/`}>explorer</a>.
+    </figcaption>
+  </figure>
+
+  <div class="panel">
+    <p>
+      Views exclude
+      {ambient.map((s, i) => (
+        <>
+          {i > 0 ? ', ' : ' '}
+          <a href={`${base}/service/${slugFor(s.id)}/`}>{s.id}</a>
+        </>
+      ))}. Each service page lists its own platform dependencies.
+    </p>
+  </div>
+
+  {tiers.map(([heading, tier, blurb]) => {
+    const members = rows.filter((p) => p.tier === tier);
+    if (members.length === 0) return null;
+    return (
+      <>
+        <h2>{heading} <span class="muted">({members.length})</span></h2>
+        <p class="muted">{blurb}</p>
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">Product</th>
+              <th scope="col" class="num">Services</th>
+              <th scope="col" class="num">Called by</th>
+              <th scope="col" class="num">Calls out</th>
+              <th scope="col">Views</th>
+            </tr>
+          </thead>
+          <tbody>
+            {members
+              .sort((a, b) => b.inbound - a.inbound || b.outbound - a.outbound || a.name.localeCompare(b.name))
+              .map((p) => (
+                <tr>
+                  <td><a href={`${base}/products/${p.slug}/`}>{p.name}</a></td>
+                  <td class="num">{p.serviceCount}</td>
+                  <td class="num">{p.inbound || ''}</td>
+                  <td class="num">{p.outbound || ''}</td>
+                  <td>
+                    <a href={`${base}/architecture/explore/view/${p.viewId}/`}>diagram</a>
+                    {p.actors.map((v) => (
+                      <>
+                        {' · '}
+                        <a href={`${base}/architecture/explore/view/${p.slug.replace(/-/g, '_')}_${v}/`}>{v}</a>
+                      </>
+                    ))}
+                  </td>
+                </tr>
+              ))}
+          </tbody>
+        </table>
+      </>
+    );
+  })}
+
+  <style>
+    .diagram { margin: 24px 0 32px; }
+    .diagram likec4-view {
+      display: block;
+      height: 520px;
+      border: 1px solid var(--line);
+    }
+    .diagram figcaption { font-size: 0.9rem; margin-top: 8px; }
+  </style>
+</Base>

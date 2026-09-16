@@ -1,0 +1,80 @@
+name: Refresh catalog cache
+
+# Ownership data lives in ~130 other repos' catalog-info.yaml files. Fetching it
+# during a site build would need a token and network access on every run, so it
+# is cached here and refreshed on a schedule via a PR. Site builds stay hermetic.
+
+on:
+  schedule:
+    - cron: '17 3 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: yarn
+
+      - run: corepack enable
+      - run: yarn install --immutable
+
+      # Code search needs a token that can read across the org. GITHUB_TOKEN is
+      # scoped to this repo and returns nothing, which would silently empty the
+      # cache, so the job fails loudly instead of committing a regression.
+      - name: Collect every repo's catalog-info.yaml
+        env:
+          GH_TOKEN: ${{ secrets.ORG_READ_TOKEN || secrets.SWAGGER_PUBLISHER_API_TOKEN }}
+        run: |
+          set -euo pipefail
+          if [ -z "${GH_TOKEN:-}" ]; then
+            echo "::error::no org-wide read token available; cannot search for catalog-info.yaml"
+            exit 1
+          fi
+
+          mkdir -p /tmp/catalog
+          gh api --paginate -X GET search/code \
+            -f q='filename:catalog-info.yaml org:hmcts' \
+            --jq '.items[] | "\(.repository.name)\t\(.path)"' > /tmp/hits.tsv
+
+          while IFS=$'\t' read -r repo path; do
+            [ -z "$repo" ] && continue
+            mkdir -p "/tmp/catalog/$repo"
+            gh api "repos/hmcts/$repo/contents/$path" --jq '.content' \
+              | base64 -d > "/tmp/catalog/$repo/catalog-info.yaml" || true
+          done < /tmp/hits.tsv
+
+          found=$(find /tmp/catalog -name catalog-info.yaml | wc -l)
+          echo "collected $found catalog files"
+          # The committed cache holds 126. A large drop means the search failed
+          # rather than that the org shrank.
+          if [ "$found" -lt 100 ]; then
+            echo "::error::only $found catalog files found; refusing to overwrite the cache"
+            exit 1
+          fi
+
+      - name: Rebuild the cache
+        run: yarn refresh-catalog-cache --from-dir /tmp/catalog
+
+      - name: Open a PR if the cache changed
+        uses: peter-evans/create-pull-request@v7
+        with:
+          commit-message: Refresh Backstage catalog cache
+          title: Refresh Backstage catalog cache
+          body: |
+            Automated refresh of `model/catalog-cache.json` from every
+            `catalog-info.yaml` in the hmcts org.
+
+            Ownership and lifecycle data feeds the portal's service pages. Merging
+            this keeps owner attribution current; the site builds fine without it.
+          branch: chore/refresh-catalog-cache
+          delete-branch: true
+          add-paths: model/catalog-cache.json

@@ -1,0 +1,24 @@
+{
+  "name": "cnp-api-docs-site",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Static developer portal for the CFT API catalogue",
+  "license": "MIT",
+  "scripts": {
+    "build": "astro build",
+    "dev-server": "astro dev",
+    "preview": "astro preview"
+  },
+  "dependencies": {
+    "@astrojs/react": "^6.0.2",
+    "astro": "^7.1.6",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8",
+    "swagger-ui-react": "^5.32.11"
+  },
+  "devDependencies": {
+    "@types/react": "^19.2.17",
+    "@types/react-dom": "^19.2.3"
+  }
+}

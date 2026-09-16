@@ -1,0 +1,147 @@
+// Hand-written views, ported from docs/c4/{probate,pcs,nfdiv,darts}/workspace.dsl.
+//
+// These four are the only groups whose Structurizr files carried live
+// actor-specific views; every other group's citizen/caseworker views were
+// commented-out boilerplate, so they are generated instead (see
+// bin/generate-c4-views.mjs).
+//
+// `exclude idam` plus `exclude rpe` in the originals becomes one
+// `exclude element.tag = #ambient`. Actor edges are named individually rather
+// than using `citizen -> *`, which pulls every other group's frontend into the
+// view.
+
+views {
+
+  view probate_overview of Probate {
+    title 'Probate overview'
+    description 'Probate services and their immediate neighbours, including the caseworker route through Expert UI.'
+    include
+      *,
+      -> * ->,
+      caseworker -> XUI.xui_webapp
+    exclude
+      element.tag = #ambient
+    autoLayout LeftRight
+  }
+
+  view probate_citizen of Probate {
+    title 'Probate — citizen journey'
+    description 'What a member of the public touches when applying for probate.'
+    include
+      *,
+      citizen -> Probate.probate_frontend,
+      citizen -> Probate.probate_caveats_frontend
+    exclude
+      element.tag = #ambient
+    autoLayout LeftRight
+  }
+
+  view probate_caseworker of Probate {
+    title 'Probate — caseworker journey'
+    description 'What a case worker touches, via Expert UI.'
+    include
+      *,
+      caseworker -> XUI.xui_webapp,
+      XUI.xui_webapp -> *
+    exclude
+      element.tag = #ambient,
+      Probate.probate_frontend,
+      Probate.probate_caveats_frontend
+    autoLayout LeftRight
+  }
+
+  view pcs_overview of PCS {
+    title 'PCS overview'
+    description 'Possession Claims services and their immediate neighbours.'
+    include
+      *,
+      -> * ->,
+      caseworker -> XUI.xui_webapp
+    exclude
+      element.tag = #ambient
+    autoLayout LeftRight
+  }
+
+  view pcs_citizen of PCS {
+    title 'PCS — citizen journey'
+    description 'What a claimant or defendant touches in a possession claim.'
+    include
+      *,
+      citizen -> PCS.pcs_frontend
+    exclude
+      element.tag = #ambient
+    autoLayout LeftRight
+  }
+
+  view pcs_caseworker of PCS {
+    title 'PCS — caseworker journey'
+    description 'What a case worker touches, via Expert UI.'
+    include
+      *,
+      caseworker -> XUI.xui_webapp,
+      XUI.xui_webapp -> *
+    exclude
+      element.tag = #ambient,
+      PCS.pcs_frontend
+    autoLayout LeftRight
+  }
+
+  view nfdiv_overview of NFDIV {
+    title 'NFDIV overview'
+    description 'No-Fault Divorce services and their immediate neighbours.'
+    include
+      *,
+      -> * ->,
+      caseworker -> XUI.xui_webapp
+    exclude
+      element.tag = #ambient
+    autoLayout LeftRight
+  }
+
+  view nfdiv_citizen of NFDIV {
+    title 'NFDIV — citizen journey'
+    description 'What an applicant touches when applying for a divorce.'
+    include
+      *,
+      citizen -> NFDIV.nfdiv_frontend
+    exclude
+      element.tag = #ambient
+    autoLayout LeftRight
+  }
+
+  view nfdiv_caseworker of NFDIV {
+    title 'NFDIV — caseworker journey'
+    description 'What a case worker touches, via Expert UI.'
+    include
+      *,
+      caseworker -> XUI.xui_webapp,
+      XUI.xui_webapp -> *
+    exclude
+      element.tag = #ambient,
+      NFDIV.nfdiv_frontend
+    autoLayout LeftRight
+  }
+
+  view darts_overview of DARTS {
+    title 'DARTS overview'
+    description 'Digital Audio Recording and Transcription services and their immediate neighbours.'
+    include
+      *,
+      -> * ->
+    exclude
+      element.tag = #ambient
+    autoLayout LeftRight
+  }
+
+  view darts_citizen of DARTS {
+    title 'DARTS — citizen journey'
+    description 'What an external user touches in the DARTS portal.'
+    include
+      *,
+      citizen -> DARTS.darts_portal
+    exclude
+      element.tag = #ambient
+    autoLayout LeftRight
+  }
+
+}

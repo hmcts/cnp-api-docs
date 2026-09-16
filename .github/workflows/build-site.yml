@@ -1,0 +1,138 @@
+name: Build site
+
+# Pull requests build and verify only. Pushes to master also deploy, which takes
+# effect once the Pages source is set to "GitHub Actions" — until then the deploy
+# step is a no-op against the legacy branch source.
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: build-site-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          # Freshness comes from commit history, so a shallow clone would report
+          # every spec as never published.
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: yarn
+
+      - run: corepack enable
+      - run: yarn install --immutable
+
+      - name: Build the site
+        run: yarn build-site
+
+      - name: Validate and build the architecture diagrams
+        run: |
+          yarn validate-c4
+          yarn build-c4
+
+      - name: Assemble, verifying spec bytes are unchanged
+        run: yarn assemble
+
+      # After assembling: the consumer contract and legacy redirect assertions
+      # check the built output, and skip themselves without it.
+      - name: Test
+        run: yarn test
+
+      - name: Re-verify every spec against the source tree
+        run: |
+          fail=0
+          for f in docs/specs/*.json; do
+            name=$(basename "$f")
+            [ "$name" = ".json" ] && continue
+            if ! cmp -s "$f" "build/dist/specs/$name"; then
+              echo "::error::$name differs between docs/specs and the built site"
+              fail=1
+            fi
+          done
+          # ! -name '.json' on both sides: publishers recreate a bare ".json" when
+          # they cannot resolve a repo slug, and it is never a real spec.
+          count=$(find build/dist/specs -maxdepth 1 -name '*.json' ! -name '.json' | wc -l)
+          expected=$(find docs/specs -maxdepth 1 -name '*.json' ! -name '.json' | wc -l)
+          if [ "$count" != "$expected" ]; then
+            echo "::error::built site has $count specs, source tree has $expected"
+            fail=1
+          fi
+          echo "verified $count specs byte-identical"
+          exit $fail
+
+      - name: Report registry health
+        run: yarn validate-specs || true
+
+      - name: Summarise
+        run: |
+          {
+            echo "### Site artifact"
+            echo
+            echo "- pages: $(find build/dist -name '*.html' | wc -l)"
+            echo "- specs served verbatim: $(find build/dist/specs -maxdepth 1 -name '*.json' ! -name '.json' | wc -l)"
+            echo "- normalised for rendering: $(find build/dist/specs/_normalised -name '*.json' | wc -l)"
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: build/dist
+
+  deploy:
+    needs: build
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - id: deploy
+        uses: actions/deploy-pages@v4
+
+      # These URLs are fetched at runtime by rpx-xui-webapp, asserted on by the
+      # CCD and HMC F-125 tests, and read by terraform at apply time. Checked
+      # against the live site after deploying, not just in the artifact.
+      - name: Smoke-test the deployed site
+        run: |
+          base='${{ steps.deploy.outputs.page_url }}'
+          base="${base%/}"
+          fail=0
+
+          check() {
+            code=$(curl -fsS -o /dev/null -w '%{http_code}' --retry 5 --retry-delay 4 --retry-all-errors "$1" || echo 000)
+            [ "$code" = "200" ] || { echo "::error::$code $1"; fail=1; }
+          }
+
+          for name in \
+            am-role-assignment-service am-judicial-booking-service future-hearings-hmi-api \
+            rd-location-ref-api rd-judicial-api rd-caseworker-ref-api \
+            ccd-data-store-api.v1_internal ccd-data-store-api.v1_external \
+            ccd-data-store-api.v2_internal ccd-data-store-api.v2_external \
+            ccd-user-profile-api hmc-hmi-inbound-adapter \
+            ccpay-payment-app.recon-payments-v0.3 ccpay-payment-app.refunds-status-v1 \
+            et-acas-api et-acas-api-nonprod
+          do
+            check "$base/specs/$name.json"
+          done
+
+          # The legacy entry points other repos and Confluence link to.
+          check "$base/swagger.html"
+          check "$base/lld/ccd.html"
+          check "$base/"
+          check "$base/products/ccd/"
+
+          exit $fail

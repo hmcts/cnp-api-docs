@@ -51,7 +51,7 @@
             "type": "string",
             "name": "reference",
             "description": "reference",
-            "required": true,
+            "required": true
           },
           {
             "in": "body",
@@ -65,7 +65,7 @@
         ],
         "responses": {
           "204": {
-            "description": "Refund status updated successfully.",
+            "description": "Refund status updated successfully."
           },
           "400": {
             "description": "Bad request. Refund status should be ACCEPTED or REJECTED/Refund rejection reason is missing"

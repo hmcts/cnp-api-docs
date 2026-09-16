@@ -1,0 +1,95 @@
+---
+import Base from '../../layouts/Base.astro';
+import SpecViewer from '../../components/SpecViewer.jsx';
+import { model, services, slugFor } from '../../lib/model.mjs';
+
+export function getStaticPaths() {
+  const paths = [];
+  for (const s of services) {
+    for (const spec of s.specs) {
+      paths.push({
+        params: { spec: spec.file.replace(/\.json$/, '') },
+        props: { serviceId: s.id, file: spec.file },
+      });
+    }
+  }
+  return paths;
+}
+
+const { serviceId, file } = Astro.props;
+const base = import.meta.env.BASE_URL;
+const service = model.services[serviceId];
+const spec = service.specs.find((s) => s.file === file);
+
+// Rendered from the normalised copy so the viewer only ever sees OpenAPI 3.x.
+const normalisedUrl = `${base}/specs/_normalised/${file}`;
+const title = spec.title ?? serviceId;
+---
+
+<Base title={title} description={spec.description ?? `OpenAPI specification for ${serviceId}`}>
+  <p class="crumb">
+    <a href={`${base}/`}>Specs</a> ›
+    <a href={`${base}/service/${slugFor(serviceId)}/`}>{serviceId}</a>
+    {spec.variant && <> › {spec.variant}</>}
+  </p>
+
+  <h1>{title}</h1>
+  <p class="lede">
+    {spec.pathCount} path{spec.pathCount === 1 ? '' : 's'} ·
+    OpenAPI {spec.specVersion} ·
+    published {spec.lastPublished ?? 'unknown'}
+    <span class={`tag ${spec.freshness}`}>{spec.freshness}</span>
+  </p>
+
+  {spec.freshness === 'abandoned' && (
+    <div class="panel warn">
+      <p><strong>Not republished in over two years.</strong> It may not match the deployed service.</p>
+    </div>
+  )}
+
+  {!spec.valid ? (
+    <div class="panel warn">
+      <p>
+        <strong>This spec cannot be displayed.</strong> The published file is
+        {spec.problem === 'empty' ? ' empty' : ` not valid JSON (${spec.problem})`}.
+      </p>
+      <p>Raw file: <a href={spec.url}>{spec.file}</a>.</p>
+    </div>
+  ) : (
+    <>
+      <p class="raw">
+        Raw specification: <a href={spec.url}>{spec.file}</a>
+        <span class="muted"> — use this URL in code.</span>
+      </p>
+      <div class="viewer">
+        <SpecViewer url={normalisedUrl} client:only="react" />
+      </div>
+    </>
+  )}
+
+  <style is:global>
+    .crumb { color: var(--muted); font-size: 0.9rem; margin-bottom: 8px; }
+    .raw { font-size: 0.9rem; }
+    .viewer { margin: 8px -20px 0; }
+
+    /* swagger-ui renders its own title, spec URL and description block, all of
+       which this page already shows above it. */
+    .viewer .swagger-ui .info,
+    .viewer .swagger-ui .information-container { display: none; }
+
+    /* Only one server is ever declared, and it is the publisher's localhost, so
+       the picker is misleading rather than useful. */
+    .viewer .swagger-ui .scheme-container { display: none; }
+
+    /* try-it is disabled, so the parameter inputs do nothing. Show the parameter
+       table without the dead form controls. */
+    .viewer .swagger-ui .parameters-col_description input[type='text'],
+    .viewer .swagger-ui .parameters-col_description input[type='file'],
+    .viewer .swagger-ui .parameters-col_description select,
+    .viewer .swagger-ui .parameters-col_description textarea,
+    .viewer .swagger-ui .execute-wrapper,
+    .viewer .swagger-ui .btn-group { display: none; }
+
+    .viewer .swagger-ui { font-family: inherit; }
+  </style>
+</Base>

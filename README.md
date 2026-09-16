@@ -1,128 +1,159 @@
-[![Build Status](https://travis-ci.org/hmcts/cnp-api-docs.svg?branch=master)](https://travis-ci.org/hmcts/cnp-api-docs)
+# CNP API Docs
 
-# Cloud Native Platform API Documentation
+The central OpenAPI registry for CFT. Every service publishes its spec here from
+its own pipeline, and the site renders them at
+<https://hmcts.github.io/cnp-api-docs/>: a searchable list of specs, a low level
+design page per product, C4 architecture views, and a registry health report.
 
-## Intro
+Publishing a spec is all that is needed to appear — see
+[Publish Swagger docs](#publish-swagger-docs).
 
-Documentation is presented in two ways:
+## How it fits together
 
-- [Network graph](#network)
-- [Swagger UI](#swagger-ui)
+| Path | What it is |
+|---|---|
+| `docs/specs/*.json` | Published specs. Written by other repos' pipelines; the only thing in this repo other teams write to. |
+| `registry.yaml` | The facts that cannot be derived from a spec: product membership, dependency edges, curated names, prose. Hand-maintained. |
+| `model/build.mjs` | Joins the two, plus Backstage ownership, into `model/model.json`. |
+| `c4/` | LikeC4 sources. `generated.c4` is derived from the model; `views.c4` is hand-written. |
+| `site/` | Astro site, built from `model.json`. |
+| `bin/` | Build and validation scripts, plus the legacy publish scripts. |
 
-### Network
+`docs/` holds only two things now: the published specs, and the six C4 images that
+other repos' READMEs hotlink from `master` (`bin/export-readme-pngs.mjs` keeps
+those current). Everything else there — the vis.js graph, the Swagger UI bundles,
+`microservices.json`, the generated LLD pages — was the previous site and has been
+removed.
 
-In order to populate one of the API in the network graph we need to enter the following snippet inside the [microservices.json](docs/microservices.json):
+## Getting started
 
-```json
-{
-    "id": "ccd-user-profile",
-    "name": "User Profile",
-    "group": "CCD",
-    "description": null,
-    "repository": null,
-    "spec": null,
-    "urls": [],
-    "dependencies": [
-        {
-            "id": "idam",
-            "hard": true,
-            "apis": []
-        },
-        {
-            "id": "idam-s2s",
-            "hard": true,
-            "apis": []
-        }
-    ],
-    "apis": [],
-    "version": null
-}
-```
-
-In case you are introducing a new network group, please provide relevant information about it in the `groups` field (follow specification linked below and implementation linked above).
-
-Full specification can be viewed in [json schema](microservices-schema.json).
-
-### Swagger UI
-
-In case the `spec` field is present, API bubble represented in the graph will allow to click through to the API documentation. If `urls` array is present spec will not be used, but urls defined with `name` and `url` will be used instead.
-
-[How to publish swagger docs](#publish-swagger-docs) for your spring boot template application
-
-## Tools
-
-There are very simple npm scripts to update the `swagger-ui` and `vis.js` currently used to show docs
+This repo uses Yarn 4 (Berry) with `node-modules` as the linker, and is a single
+Yarn workspace with the site in `site/`. The Yarn binary is committed to
+`.yarn/releases/`, so installs do not depend on a Corepack download.
 
 ```bash
-npm run update-swagger
-npm run update-vis
+corepack enable   # once per machine
+yarn install
 ```
 
-Repository is using swagger bundle so instead of downloading individual `swagger-ui` packages it gets the `swagger-ui-dist` for the whole thing and then just graps everything from `dist` upon npm script execution.
+## Running the portal locally
+
+```bash
+yarn dev
+```
+
+Builds the model, the site and the architecture diagrams, assembles the artifact
+and serves it at <http://localhost:8080/cnp-api-docs/>. This is byte-for-byte what
+gets deployed. Set `PORT` to use a different port.
+
+The individual steps, if you need one on its own:
+
+```bash
+yarn build         # everything, without serving
+yarn build-site    # model, then the Astro pages
+yarn build-c4      # architecture diagrams
+yarn assemble      # copies docs/specs verbatim, verifying every byte
+yarn serve-site    # serve build/dist
+```
+
+`yarn assemble` refuses to produce a deployable tree if any spec's bytes change
+during the copy — those URLs are fetched at runtime by other services. The site is
+served under `/cnp-api-docs/` to match GitHub Pages; visiting `/` redirects there.
+
+For live reload while working on the pages:
+
+```bash
+yarn dev-site
+```
+
+That runs Astro's dev server, which does not copy `docs/specs`, so the API
+reference pages will not render — use `yarn dev` for those.
 
 ## Testing
 
 ```bash
-npm test
+yarn test              # unit tests plus the consumer contract
+yarn validate-specs    # classify every spec in docs/specs/
 ```
 
-## Localhost viewing
+The hosted checks in the consumer contract are skipped by default. To verify the
+live URLs that other services depend on:
 
 ```bash
-npm install
-npm start
+CHECK_HOSTED=1 node --test test/consumer-contract.test.mjs
 ```
 
-or with docker-compose
+## Registry health
 
-```bash
-docker-compose up --build
-```
+Publishers push straight to master, so validation cannot block a bad spec
+landing. `yarn validate-specs` classifies every spec and is reported on each push.
+
+**A broken spec is not repaired or chased here.** It belongs to the team that
+published it, and only they can fix it: the usual cause is their pipeline writing
+an empty file when it cannot reach the running application. Restoring the previous
+file centrally would put back a spec describing an older version of the API and
+leave that pipeline just as broken. Broken specs simply show up in the health
+report until their owner republishes.
+
+`test/consumer-contract.test.mjs` is the exception, and the one thing enforced:
+it pins the spec filenames fetched from outside this repo — by XUI at runtime, by
+the CCD and HMC F-125 acceptance tests, and by terraform when registering APIs
+into Azure API Management. Do not rename or delete those files.
 
 ## Publish Swagger docs
 
-Include extra lines in your travis configuration file
+Use the reusable workflow. It runs a test in your repo that writes the spec to a
+temporary file, then publishes it here:
 
 ```yaml
-# in case swagger specs generated by integration tests:
-before_install:
-  - curl https://raw.githubusercontent.com/hmcts/cnp-api-docs/master/bin/publish-swagger-docs-dockerless.sh > publish-swagger-docs.sh
+# .github/workflows/publish-openapi.yml
+name: Publish OpenAPI spec
+on:
+  push:
+    branches: [master]
 
-# in case swagger specs retrieved from application within docker container
-before_install:
-  - curl https://raw.githubusercontent.com/hmcts/cnp-api-docs/master/bin/publish-swagger-docs.sh > publish-swagger-docs.sh
-
-after_success:
-  - test "$TRAVIS_BRANCH" = "master" && test "$TRAVIS_PULL_REQUEST" = "false" && sh ./publish-swagger-docs.sh
+jobs:
+  publish-openapi:
+    uses: hmcts/workflow-publish-openapi-spec/.github/workflows/publish-openapi.yml@v1
+    secrets:
+      SWAGGER_PUBLISHER_API_TOKEN: ${{ secrets.SWAGGER_PUBLISHER_API_TOKEN }}
+    with:
+      test_to_run: 'uk.gov.hmcts.reform.<your>.openapi.OpenAPIPublisherTest'
+      java_version: 21
 ```
+
+The spec is published to `docs/specs/<repo-name>.json` and served at
+`https://hmcts.github.io/cnp-api-docs/specs/<repo-name>.json`.
+
+### Legacy shell scripts
+
+The scripts in `bin/` predate the reusable workflow and are still `curl`-piped by
+a handful of `Jenkinsfile_CNP` builds, so they remain supported. Do not use them
+for new services. They require `GH_TOKEN`, and a repository slug from
+`TRAVIS_REPO_SLUG`, `GITHUB_REPOSITORY` or (for the docker variant) `GIT_URL` —
+without one they exit non-zero rather than writing the spec to a bare
+`docs/specs/.json`. They also refuse to publish an empty spec, which is what used
+to silently overwrite good specs with 1-byte files.
 
 ### Custom Swagger groups
 
-In a project, Swagger documentation can be split into independent groups (e.g. `group1`, `group2`,...).
-
-The approach described above for publishing Swagger docs is based on the default group and is not compatible with custom groups.
-
-As a remediation, a separate script can be used:
-
-```yaml
-before_install:
-  - curl https://raw.githubusercontent.com/hmcts/cnp-api-docs/master/bin/publish-swagger-group-docs.sh > publish-swagger-docs.sh
-```
-
-This script requires group to be explicitly passed as arguments:
+A project can split its Swagger documentation into independent groups (for
+example `v1_internal` and `v2_external`). The reusable workflow publishes the
+default group only, so services with custom groups run a group-aware script and
+pass each group as an argument:
 
 ```yaml
-after_success:
-  - test "$TRAVIS_BRANCH" = "master" && test "$TRAVIS_PULL_REQUEST" = "false" && sh ./publish-swagger-docs.sh <group...>
+- run: |
+    curl https://raw.githubusercontent.com/hmcts/cnp-api-docs/master/bin/publish-swagger-docs-group-dockerless.sh > publish-swagger-docs.sh
+    sh ./publish-swagger-docs.sh v1_internal v1_external v2_internal v2_external
+  env:
+    GH_TOKEN: ${{ secrets.SWAGGER_PUBLISHER_API_TOKEN }}
 ```
 
-For example, given a Swagger configuration with groups `group1` and `group2`:
+Each group is published as `docs/specs/<repo>.<group>.json`. A group whose spec
+comes back empty is skipped rather than published, so one failing group no longer
+overwrites a good spec with a 1-byte file.
 
-```yaml
-after_success:
-  - test "$TRAVIS_BRANCH" = "master" && test "$TRAVIS_PULL_REQUEST" = "false" && sh ./publish-swagger-docs.sh group1 group2
-```
-
-A distinct doc file will be published for each group with a name following the pattern `docs/specs/<repo>.<group>.json`.
-
-Script assumes you have configured `docker-compose.yml` and `.env` files as per example in [Spring Boot Template](https://github.com/hmcts/spring-boot-template) repository
+Use `publish-swagger-group-docs.sh` instead if the spec has to be scraped from
+the running application; it expects `docker-compose.yml` and `.env` files as per
+the [Spring Boot Template](https://github.com/hmcts/spring-boot-template).
