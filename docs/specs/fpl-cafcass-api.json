@@ -471,7 +471,8 @@
                 "Past harm"
               ]
             },
-            "description": "For new cases created after Feb 26, instead of marking \"future\" or \"past\" to each of the risk, our portal will only mark if there's any risk of physical harm, emotional harm, sexual harm or neglect. However, to minimise impact to the API, If physical harm is marked in the new cases, the API will mark both \"Future\" and \"Past\" to this field."
+            "description": "For new cases created after Feb 26, instead of marking \"future\" or \"past\" to each of the risk, our portal will only mark if there's any risk of physical harm, emotional harm, sexual harm or neglect.",
+            "deprecated": true
           },
           "emotionalHarmOccurrences": {
             "type": "array",
@@ -482,7 +483,8 @@
                 "Past harm"
               ]
             },
-            "description": "For new cases created after Feb 26, instead of marking \"future\" or \"past\" to each of the risk, our portal will only mark if there's any risk of physical harm, emotional harm, sexual harm or neglect. However, to minimise impact to the API, If emotional harem is marked in the new cases, the API will mark both \"Future\" and \"Past\" to this field."
+            "description": "For new cases created after Feb 26, instead of marking \"future\" or \"past\" to each of the risk, our portal will only mark if there's any risk of physical harm, emotional harm, sexual harm or neglect.",
+            "deprecated": true
           },
           "sexualAbuseOccurrences": {
             "type": "array",
@@ -493,7 +495,8 @@
                 "Past harm"
               ]
             },
-            "description": "For new cases created after Feb 26, instead of marking \"future\" or \"past\" to each of the risk, our portal will only mark if there's any risk of physical harm, emotional harm, sexual harm or neglect. However, to minimise impact to the API, If sexual harm is marked in the new cases, the API will mark both \"Future\" and \"Past\" to this field."
+            "description": "For new cases created after Feb 26, instead of marking \"future\" or \"past\" to each of the risk, our portal will only mark if there's any risk of physical harm, emotional harm, sexual harm or neglect.",
+            "deprecated": true
           },
           "neglectOccurrences": {
             "type": "array",
@@ -504,7 +507,37 @@
                 "Past harm"
               ]
             },
-            "description": "For new cases created after Feb 26, instead of marking \"future\" or \"past\" to each of the risk, our portal will only mark if there's any risk of physical harm, emotional harm, sexual harm or neglect. However, to minimise impact to the API, If neglect is marked in the new cases, the API will mark both \"Future\" and \"Past\" to this field."
+            "description": "For new cases created after Feb 26, instead of marking \"future\" or \"past\" to each of the risk, our portal will only mark if there's any risk of physical harm, emotional harm, sexual harm or neglect.",
+            "deprecated": true
+          },
+          "whatKindOfRiskAndHarmToChildren": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "PHYSICAL_HARM",
+                "EMOTIONAL_HARM",
+                "SEXUAL_ABUSE",
+                "NEGLECT"
+              ]
+            },
+            "description": "Optional field, new cases after Feb 26 only"
+          },
+          "factorsAffectingParenting": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "ALCOHOL_DRUG_ABUSE",
+                "DOMESTIC_ABUSE",
+                "ANYTHING_ELSE"
+              ]
+            },
+            "description": "Optional field, new cases after Feb 26 only"
+          },
+          "anythingElseAffectingParenting": {
+            "type": "string",
+            "description": "Filled in when anythingElseAffectingParenting == ANYTHING_ELSE"
           }
         }
       },
@@ -766,7 +799,8 @@
             "example": "TestFile.pdf"
           },
           "removed": {
-            "type": "boolean"
+            "type": "boolean",
+            "description": "Technically, Cafcass user don't have privilege to access any removed document. Therefore, removed document will simply disapear from the document list. We keep this flag, just in case there is any removed document accessible by Cafcass in the future"
           },
           "documentCategory": {
             "type": "string",
@@ -810,7 +844,31 @@
               "documentsSentToParties",
               "advocateMeetingMinutes",
               "witnessTemplates",
-              "archivedDocuments"
+              "archivedDocuments",
+              "adultPsychiatricReportOnParents",
+              "neuroSurgeon",
+              "professionalHairStrand",
+              "pediatricRadiologist",
+              "psychiatricChildOnly",
+              "haematologist",
+              "psychologicalReportOnParentAndChild",
+              "psychologicalReportOnChildOnlyClinical",
+              "professionalOther",
+              "familyCentreAssessmentsResidential",
+              "independentSocialWorker",
+              "multiDisciplinaryAssessment",
+              "professionalDNATesting",
+              "psychologicalReportOnChildOnlyEducational",
+              "ophthalmologist",
+              "otherMedicalReport",
+              "professionalDrugAlcohol",
+              "familyCentreAssessmentsNonResidential",
+              "psychologicalReportOnParentFunctioning",
+              "pediatric",
+              "psychiatricChildParentAndCarers",
+              "psychologicalReportOnParentFullCognitive",
+              "toxicologyReportStatement",
+              "refusalOrder"
             ]
           },
           "documentId": {
@@ -1046,7 +1104,7 @@
           "id": {
             "type": "string",
             "example": "aeaa6abd-5964-4835-ab40-056267ccdda7",
-            "description": "UUID"
+            "description": "UUID. FPL internal id only"
           },
           "type": {
             "type": "string",
@@ -1628,27 +1686,33 @@
             "$ref": "#/components/schemas/risks"
           },
           "factorsParenting": {
+            "deprecated": true,
+            "description": "Factors affecting parenting section is deprecated and being replaced by risks section in latest C110a changes",
             "type": "object",
             "properties": {
               "alcoholDrugAbuse": {
-                "type": "boolean"
+                "type": "boolean",
+                "deprecated": true
               },
               "alcoholDrugAbuseReason": {
                 "type": "string",
-                "description": "(Deprecated)"
+                "deprecated": true
               },
               "domesticViolence": {
-                "type": "boolean"
+                "type": "boolean",
+                "deprecated": true
               },
               "domesticViolenceReason": {
                 "type": "string",
-                "description": "(Deprecated)"
+                "deprecated": true
               },
               "anythingElse": {
-                "type": "boolean"
+                "type": "boolean",
+                "deprecated": true
               },
               "anythingElseReason": {
-                "type": "string"
+                "type": "string",
+                "deprecated": true
               }
             }
           },
