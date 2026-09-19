@@ -307,20 +307,30 @@
             "description": "Free text entry if gender is chosen as 'OTHER'"
           },
           "addressKnown": {
-            "type": "boolean",
+            "type": "string",
+            "enum": [
+              "YES",
+              "NO",
+              "LIVE_IN_REFUGE"
+            ],
             "description": "Is the current address known?"
           },
           "addressUnknownReason": {
             "type": "string",
             "enum": [
+              "Whereabouts unknown",
               "No fixed abode",
               "Person deceased"
             ],
             "description": "If the current address is not known, the reason why"
           },
+          "addressUnknownDetails": {
+            "type": "string",
+            "description": "Details when Whereabouts unknown is selected"
+          },
           "address": {
             "$ref": "#/components/schemas/address",
-            "description": "Address of the respondent if address is known"
+            "description": "Address of the respondent if address is known and non-confidential."
           },
           "dateOfBirth": {
             "type": "string",
@@ -329,7 +339,8 @@
           },
           "telephoneNumber": {
             "type": "string",
-            "example": "01234567890"
+            "example": "01234567890",
+            "description": "Optional. Won't fill in if confidential."
           },
           "litigationIssues": {
             "type": "string",
@@ -346,11 +357,21 @@
           },
           "contactDetailsHidden": {
             "type": "boolean",
-            "description": "Do you need contact details hidden from other parties?"
+            "description": "Do you need contact details hidden from other parties? If true, the address or any contact details are confidential.",
+            "deprecated": true
           },
           "contactDetailsHiddenReason": {
             "type": "string",
-            "description": "Filled in if contactDetailsHidden == true"
+            "description": "Filled in if contactDetailsHidden == true",
+            "deprecated": true
+          },
+          "hideAddress": {
+            "type": "boolean",
+            "description": "If true, the address of this respondent is confidential, and will not be included in this response"
+          },
+          "hideTelephone": {
+            "type": "boolean",
+            "description": "If true, the telephone number of this respondent is confidential, and will not be included in this response"
           },
           "relationshipToChild": {
             "type": "string",
@@ -402,12 +423,12 @@
           "started": {
             "type": "string",
             "example": "2022-05-24",
-            "description": "Free text"
+            "description": "Free text. Most recent cases are in date format YYYY-MM-DD. Older cases could be free text."
           },
           "ended": {
             "type": "string",
             "example": "2022-05-24",
-            "description": "Free text"
+            "description": "Free text. Most recent cases are in date format YYYY-MM-DD. Older cases could be free text."
           },
           "ordersMade": {
             "type": "string",
@@ -449,7 +470,9 @@
                 "Future risk of harm",
                 "Past harm"
               ]
-            }
+            },
+            "description": "For new cases created after Feb 26, instead of marking \"future\" or \"past\" to each of the risk, our portal will only mark if there's any risk of physical harm, emotional harm, sexual harm or neglect.",
+            "deprecated": true
           },
           "emotionalHarmOccurrences": {
             "type": "array",
@@ -459,7 +482,9 @@
                 "Future risk of harm",
                 "Past harm"
               ]
-            }
+            },
+            "description": "For new cases created after Feb 26, instead of marking \"future\" or \"past\" to each of the risk, our portal will only mark if there's any risk of physical harm, emotional harm, sexual harm or neglect.",
+            "deprecated": true
           },
           "sexualAbuseOccurrences": {
             "type": "array",
@@ -469,7 +494,9 @@
                 "Future risk of harm",
                 "Past harm"
               ]
-            }
+            },
+            "description": "For new cases created after Feb 26, instead of marking \"future\" or \"past\" to each of the risk, our portal will only mark if there's any risk of physical harm, emotional harm, sexual harm or neglect.",
+            "deprecated": true
           },
           "neglectOccurrences": {
             "type": "array",
@@ -479,7 +506,38 @@
                 "Future risk of harm",
                 "Past harm"
               ]
-            }
+            },
+            "description": "For new cases created after Feb 26, instead of marking \"future\" or \"past\" to each of the risk, our portal will only mark if there's any risk of physical harm, emotional harm, sexual harm or neglect.",
+            "deprecated": true
+          },
+          "whatKindOfRiskAndHarmToChildren": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "PHYSICAL_HARM",
+                "EMOTIONAL_HARM",
+                "SEXUAL_ABUSE",
+                "NEGLECT"
+              ]
+            },
+            "description": "Optional field, new cases after Feb 26 only"
+          },
+          "factorsAffectingParenting": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "ALCOHOL_DRUG_ABUSE",
+                "DOMESTIC_ABUSE",
+                "ANYTHING_ELSE"
+              ]
+            },
+            "description": "Optional field, new cases after Feb 26 only"
+          },
+          "anythingElseAffectingParenting": {
+            "type": "string",
+            "description": "Filled in when anythingElseAffectingParenting == ANYTHING_ELSE"
           }
         }
       },
@@ -488,43 +546,65 @@
         "properties": {
           "possibleCarer": {
             "type": "boolean",
-            "description": "Are there any suitable carers outside of the UK?"
+            "description": "Are there any suitable carers outside of the UK?",
+            "deprecated": true
           },
           "possibleCarerReason": {
             "type": "string",
-            "description": "Filled in if possibleCarer = true"
+            "description": "Filled in if possibleCarer = true",
+            "deprecated": true
           },
           "significantEvents": {
             "type": "boolean",
-            "description": "Are you aware of any significant events that have happened outside the UK?"
+            "description": "Are you aware of any significant events that have happened outside the UK?",
+            "deprecated": true
           },
           "significantEventsReason": {
             "type": "string",
-            "description": "Filled in if significantEvents = true"
+            "description": "Filled in if significantEvents = true",
+            "deprecated": true
           },
           "issues": {
             "type": "boolean",
-            "description": "Are you aware of any issues with the jurisdiction of this case - for example under the Brussels 2 regulation?"
+            "description": "Are you aware of any issues with the jurisdiction of this case - for example under the Brussels 2 regulation?",
+            "deprecated": true
           },
           "issuesReason": {
             "type": "string",
-            "description": "Filled in if issues = true"
+            "description": "Filled in if issues = true",
+            "deprecated": true
           },
           "proceedings": {
             "type": "boolean",
-            "description": "Are you aware of any proceedings outside the UK?"
+            "description": "Are you aware of any proceedings outside the UK?",
+            "deprecated": true
           },
           "proceedingsReason": {
             "type": "string",
-            "description": "Filled in if proceedings = true"
+            "description": "Filled in if proceedings = true",
+            "deprecated": true
           },
           "internationalAuthorityInvolvement": {
             "type": "boolean",
-            "description": "Has, or should, a government or central authority in another country been involved in this case?"
+            "description": "Has, or should, a government or central authority in another country been involved in this case?",
+            "deprecated": true
           },
           "internationalAuthorityInvolvementDetails": {
             "type": "string",
-            "description": "Filled in if internationalAuthorityInvolvement = true"
+            "description": "Filled in if internationalAuthorityInvolvement = true",
+            "deprecated": true
+          },
+          "whichCountriesInvolved": {
+            "type": "string",
+            "description": "Free text field. Countries involved in this case"
+          },
+          "outsideHagueConvention": {
+            "type": "boolean",
+            "description": "Are any of these countries outside of the Hague Convention?"
+          },
+          "importantDetails": {
+            "type": "string",
+            "description": "Provide all important details (Including any carers, events, proceedings or authorities outside the UK, or issues with jurisdiction.)"
           }
         }
       },
@@ -534,7 +614,16 @@
           "name": {
             "type": "string",
             "example": "Joe Bloggs",
-            "description": "Full name"
+            "description": "Full name",
+            "deprecated": true
+          },
+          "firstName": {
+            "type": "string",
+            "example": "Joe"
+          },
+          "lastName": {
+            "type": "string",
+            "example": "Bloggs"
           },
           "dateOfBirth": {
             "type": "string",
@@ -542,34 +631,52 @@
             "example": "2020-01-01"
           },
           "gender": {
-            "$ref": "#/components/schemas/gender"
+            "$ref": "#/components/schemas/gender",
+            "deprecated": true
           },
           "genderIdentification": {
             "type": "string",
-            "description": "Free text entry if gender is chosen as 'OTHER'"
+            "description": "Free text entry if gender is chosen as 'OTHER'",
+            "deprecated": true
           },
           "birthPlace": {
             "type": "string",
-            "description": "free text field"
+            "description": "free text field",
+            "deprecated": true
+          },
+          "childInformation": {
+            "type": "string",
+            "description": "free text field. This person's relationship to the child or children in the case"
           },
           "addressKnown": {
-            "type": "boolean",
+            "type": "string",
+            "enum": [
+              "YES",
+              "NO",
+              "LIVE_IN_REFUGE"
+            ],
             "description": "Is the current address known?"
           },
           "addressUnknownReason": {
             "type": "string",
             "enum": [
+              "Whereabouts unknown",
               "No fixed abode",
               "Person deceased"
             ],
             "description": "If the current address is not known, the reason why"
+          },
+          "addressUnknownDetails": {
+            "type": "string",
+            "description": "Details when Whereabouts unknown is selected"
           },
           "address": {
             "$ref": "#/components/schemas/address",
             "description": "Filled in if addressKnown == true"
           },
           "telephone": {
-            "type": "string"
+            "type": "string",
+            "description": "Optional. Won't fill in if confidential."
           },
           "litigationIssues": {
             "type": "string",
@@ -586,11 +693,21 @@
           },
           "detailsHidden": {
             "type": "boolean",
-            "description": "Do you need contact details hidden from other parties?"
+            "description": "Do you need contact details hidden from other parties? If true, the address or any contact details are confidential",
+            "deprecated": true
           },
           "detailsHiddenReason": {
             "type": "string",
-            "description": "Filled in if detailsHidden == true"
+            "description": "Filled in if detailsHidden == true",
+            "deprecated": true
+          },
+          "hideAddress": {
+            "type": "boolean",
+            "description": "If true, the address of this other is confidential, and will not be included in this response"
+          },
+          "hideTelephone": {
+            "type": "boolean",
+            "description": "If true, the telephone number of this other is confidential, and will not be included in this response"
           }
         }
       },
@@ -652,9 +769,19 @@
             "type": "string",
             "example": "01234567890"
           },
-          "fullName": {
+          "name": {
             "type": "string",
-            "example": "Joe Bloggs"
+            "example": "Joe Bloggs",
+            "description": "For new cases created after 13 Mar, name is shown as two separated field on the portal, firstName and lastName",
+            "deprecated": true
+          },
+          "firstName": {
+            "type": "string",
+            "example": "Joe"
+          },
+          "lastName": {
+            "type": "string",
+            "example": "Bloggs"
           },
           "mainContact": {
             "type": "boolean"
@@ -672,7 +799,8 @@
             "example": "TestFile.pdf"
           },
           "removed": {
-            "type": "boolean"
+            "type": "boolean",
+            "description": "Technically, Cafcass user don't have privilege to access any removed document. Therefore, removed document will simply disapear from the document list. We keep this flag, just in case there is any removed document accessible by Cafcass in the future"
           },
           "documentCategory": {
             "type": "string",
@@ -716,7 +844,31 @@
               "documentsSentToParties",
               "advocateMeetingMinutes",
               "witnessTemplates",
-              "archivedDocuments"
+              "archivedDocuments",
+              "adultPsychiatricReportOnParents",
+              "neuroSurgeon",
+              "professionalHairStrand",
+              "pediatricRadiologist",
+              "psychiatricChildOnly",
+              "haematologist",
+              "psychologicalReportOnParentAndChild",
+              "psychologicalReportOnChildOnlyClinical",
+              "professionalOther",
+              "familyCentreAssessmentsResidential",
+              "independentSocialWorker",
+              "multiDisciplinaryAssessment",
+              "professionalDNATesting",
+              "psychologicalReportOnChildOnlyEducational",
+              "ophthalmologist",
+              "otherMedicalReport",
+              "professionalDrugAlcohol",
+              "familyCentreAssessmentsNonResidential",
+              "psychologicalReportOnParentFunctioning",
+              "pediatric",
+              "psychiatricChildParentAndCarers",
+              "psychologicalReportOnParentFullCognitive",
+              "toxicologyReportStatement",
+              "refusalOrder"
             ]
           },
           "documentId": {
@@ -754,6 +906,10 @@
           "address": {
             "$ref": "#/components/schemas/address"
           },
+          "legalTeamManager": {
+            "type": "string",
+            "example": "John Smith"
+          },
           "colleagues": {
             "type": "array",
             "items": {
@@ -762,6 +918,18 @@
           },
           "designated": {
             "type": "boolean"
+          },
+          "representingDetails": {
+            "type": "object",
+            "properties": {
+              "firstName": {
+                "type": "string"
+              },
+              "lastName": {
+                "type": "string"
+              }
+            },
+            "description": "Details of the person representing when citizenIsApplicant is true"
           }
         }
       },
@@ -793,6 +961,8 @@
             "enum": [
               "Living with respondents",
               "Living with other family or friends",
+              "Living in a refuge",
+              "Under the care of local authority",
               "Removed by Police, powers ending soon",
               "Voluntarily in section 20 care order",
               "In hospital and soon to be discharged",
@@ -801,16 +971,34 @@
           },
           "livingSituationDetails": {
             "type": "string",
-            "description": "Details of living situation if livingSituation equals other."
+            "description": "(Optional) Details of living situation. e.g. who they are living with or any other details if provided"
           },
           "address": {
             "$ref": "#/components/schemas/address"
           },
+          "livingWithDetails": {
+            "type": "string",
+            "description": "Who are they living with? Only applicable if livingSituation is 'Living with other family or friends'"
+          },
           "careAndContactPlan": {
             "type": "string"
           },
+          "isAddressConfidential": {
+            "type": "boolean",
+            "description": "If true, the address of this child is confidential."
+          },
+          "socialWorkerDetailsHidden": {
+            "type": "boolean",
+            "description": "If true, the social worker details of this child are confidential."
+          },
+          "socialWorkerDetailsHiddenReason": {
+            "type": "string",
+            "description": "Filled in if socialWorkerDetailsHidden == true"
+          },
           "detailsHidden": {
-            "type": "boolean"
+            "type": "boolean",
+            "description": "If true, the address or social worker details of this child are confidential.",
+            "deprecated": true
           },
           "socialWorkerName": {
             "type": "string",
@@ -819,6 +1007,10 @@
           "socialWorkerTelephoneNumber": {
             "type": "string",
             "example": "11111222333"
+          },
+          "socialWorkerEmail": {
+            "type": "string",
+            "example": "social.worker@example.com"
           },
           "additionalNeeds": {
             "type": "boolean"
@@ -834,11 +1026,13 @@
               "NO",
               "DONT_KNOW"
             ],
-            "description": "Do you believe this person will have problems with litigation capacity?"
+            "description": "Do you believe this person will have problems with litigation capacity?",
+            "deprecated": true
           },
           "litigationIssuesDetails": {
             "type": "string",
-            "description": "Filled in if litigationIssues == YES (Give details, including assessment outcomes and referrals to health services)"
+            "description": "Filled in if litigationIssues == YES (Give details, including assessment outcomes and referrals to health services)",
+            "deprecated": true
           },
           "solicitor": {
             "$ref": "#/components/schemas/solicitor",
@@ -851,7 +1045,8 @@
               "No",
               "Don't know"
             ],
-            "description": "Optional field to capture if the father has parental responsibility"
+            "description": "Optional field to capture if the father has parental responsibility",
+            "deprecated": true
           }
         }
       },
@@ -909,7 +1104,7 @@
           "id": {
             "type": "string",
             "example": "aeaa6abd-5964-4835-ab40-056267ccdda7",
-            "description": "UUID"
+            "description": "UUID. FPL internal id only"
           },
           "type": {
             "type": "string",
@@ -1491,25 +1686,33 @@
             "$ref": "#/components/schemas/risks"
           },
           "factorsParenting": {
+            "deprecated": true,
+            "description": "Factors affecting parenting section is deprecated and being replaced by risks section in latest C110a changes",
             "type": "object",
             "properties": {
               "alcoholDrugAbuse": {
-                "type": "boolean"
+                "type": "boolean",
+                "deprecated": true
               },
               "alcoholDrugAbuseReason": {
-                "type": "string"
+                "type": "string",
+                "deprecated": true
               },
               "domesticViolence": {
-                "type": "boolean"
+                "type": "boolean",
+                "deprecated": true
               },
               "domesticViolenceReason": {
-                "type": "string"
+                "type": "string",
+                "deprecated": true
               },
               "anythingElse": {
-                "type": "boolean"
+                "type": "boolean",
+                "deprecated": true
               },
               "anythingElseReason": {
-                "type": "string"
+                "type": "string",
+                "deprecated": true
               }
             }
           },
