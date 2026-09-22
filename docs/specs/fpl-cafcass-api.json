@@ -867,8 +867,7 @@
               "pediatric",
               "psychiatricChildParentAndCarers",
               "psychologicalReportOnParentFullCognitive",
-              "toxicologyReportStatement",
-              "refusalOrder"
+              "toxicologyReportStatement"
             ]
           },
           "documentId": {
