@@ -10,12 +10,40 @@
   },
   "servers": [
     {
-      "url": "https://cath-{release}-api.staging.platform.hmcts.net",
-      "description": "Staging. One deployment per release; `release` is the Helm release name.",
+      "url": "https://cath-api.{environment}.platform.hmcts.net",
+      "description": "Stable per-environment hostname, owned by Flux (`cnp-flux-config/apps/cath`). This is the hostname upstream source systems should use, because it does not change between deployments.",
       "variables": {
-        "release": {
-          "default": "cath-service",
-          "description": "Helm release name, e.g. `cath-service` or `pr-1234`."
+        "environment": {
+          "default": "aat",
+          "enum": [
+            "aat",
+            "demo",
+            "perftest"
+          ]
+        }
+      }
+    },
+    {
+      "url": "https://cath-cath-service-{environment}-api.{environment}.platform.hmcts.net",
+      "description": "Release-scoped hostname, deployed by this repo's pipeline alongside the Flux release. Derived from `${TEAM_NAME}-{{ .Release.Name }}-api`, where the release is `cath-service-{environment}` - see `helm/cath-service/values.template.yaml`.",
+      "variables": {
+        "environment": {
+          "default": "aat",
+          "enum": [
+            "aat",
+            "demo",
+            "perftest"
+          ]
+        }
+      }
+    },
+    {
+      "url": "https://cath-service-pr-{pullRequest}-api.preview.platform.hmcts.net",
+      "description": "PR preview. One deployment per pull request. Preview omits the team-name prefix - see `helm/cath-service/values.preview.template.yaml`.",
+      "variables": {
+        "pullRequest": {
+          "default": "1234",
+          "description": "Pull request number."
         }
       }
     },
