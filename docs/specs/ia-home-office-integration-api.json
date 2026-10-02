@@ -27,10 +27,10 @@
         "operationId": "updateHomeOfficeStatutoryTimeframeStatus",
         "parameters": [
           {
-            "name": "ServiceAuthorization",
+            "name": "Authorization",
             "in": "header",
             "required": true,
-            "description": "Service-to-service bearer token",
+            "description": "Home office Microsoft Entra bearer token",
             "schema": {
               "type": "string",
               "example": "Bearer eyJhbGciOi..."
