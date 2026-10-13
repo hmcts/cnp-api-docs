@@ -3,7 +3,7 @@
   "info": {
     "title": "CaTH API",
     "version": "1.0.1",
-    "description": "Court and Tribunal Hearings (CaTH) JSON API.\n\nThe primary consumer-facing operation is `POST /publication` (also served at\n`POST /v1/publication`), used by upstream source systems (SNL, Common Platform,\nCP_CATH, PDDA) to publish hearing lists into CaTH. It implements the CaTH Inbound\nPublication API contract: all metadata travels in `x-*` request headers and the body\ncarries only the payload. All other operations are read-only.\n\nUpstream source systems should call `POST /v1/publication` through the CFT API\nManagement gateway (`https://cft-api-mgmt.{environment}.platform.hmcts.net/cath`).\nThe gateway validates the caller's bearer token and the `api.publisher.user` app role,\nthen calls `cath-api` with its own token, so callers never reach `cath-api` directly.\nOnly `POST /v1/publication` is exposed through the gateway.\n\nThis document is maintained by hand. It is not generated from the router, so if you\nchange a route or a request/response shape in `apps/api` or `libs/public-pages`,\nupdate this file in the same change.\n\nNot documented here, deliberately:\n  - `/users` and `/users/{id}` — placeholder routes returning example data.\n  - `/test-support/**` — test-only routes, enabled by `ENABLE_TEST_SUPPORT`.\n",
+    "description": "Court and Tribunal Hearings (CaTH) JSON API.\n\nThe primary consumer-facing operation is `POST /publication` (also served at\n`POST /v1/publication`), used by upstream source systems (SNL, Common Platform,\nCP_CATH, PDDA) to publish hearing lists into CaTH. It implements the CaTH Inbound\nPublication API contract: all metadata travels in `x-*` request headers and the body\ncarries only the payload. All other operations are read-only.\n\nUpstream source systems should call `POST /publication` through the CFT API\nManagement gateway (`https://cft-api-mgmt.{environment}.platform.hmcts.net/cath`).\nThe gateway validates the caller's bearer token and the `api.publisher.user` app role,\nthen calls `cath-api` with its own token, so callers never reach `cath-api` directly.\nOnly `POST /publication` and `GET /` (a welcome check, which also needs a token) are\nexposed through the gateway.\n\nThis document is maintained by hand. It is not generated from the router, so if you\nchange a route or a request/response shape in `apps/api` or `libs/public-pages`,\nupdate this file in the same change.\n\nNot documented here, deliberately:\n  - `/users` and `/users/{id}` — placeholder routes returning example data.\n  - `/test-support/**` — test-only routes, enabled by `ENABLE_TEST_SUPPORT`.\n",
     "license": {
       "name": "MIT"
     }
@@ -25,7 +25,7 @@
     },
     {
       "url": "https://cft-api-mgmt.{environment}.platform.hmcts.net/cath",
-      "description": "CFT API Management gateway. Validates the bearer token and app role, then calls cath-api with its own token. Preferred entry point for upstream source systems. Exposes `POST /v1/publication` only.",
+      "description": "CFT API Management gateway. Validates the bearer token and app role, then calls cath-api with its own token. Preferred entry point for upstream source systems. Exposes `POST /publication` and `GET /` only.",
       "variables": {
         "environment": {
           "default": "aat",
