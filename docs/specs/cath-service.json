@@ -3,7 +3,7 @@
   "info": {
     "title": "CaTH API",
     "version": "1.0.1",
-    "description": "Court and Tribunal Hearings (CaTH) JSON API.\n\nThe primary consumer-facing operation is `POST /publication` (also served at\n`POST /v1/publication`), used by upstream source systems (SNL, Common Platform,\nCP_CATH, PDDA) to publish hearing lists into CaTH. It implements the CaTH Inbound\nPublication API contract: all metadata travels in `x-*` request headers and the body\ncarries only the payload. All other operations are read-only.\n\nUpstream source systems should call `POST /publication` through the CFT API\nManagement gateway (`https://cft-api-mgmt.{environment}.platform.hmcts.net/cath`).\nThe gateway validates the caller's bearer token and the `api.publisher.user` app role,\nthen calls `cath-api` with its own token, so callers never reach `cath-api` directly.\nOnly `POST /publication` and `GET /` (a welcome check, which also needs a token) are\nexposed through the gateway.\n\nThis document is maintained by hand. It is not generated from the router, so if you\nchange a route or a request/response shape in `apps/api` or `libs/public-pages`,\nupdate this file in the same change.\n\nThe publisher-facing document that APIM imports\n(`infrastructure/resources/swagger/api-swagger.json`) is generated from this file, its\n`x-publisher` block and the list type reference data. After changing either operation\nexposed through APIM, its components, or `x-publisher`, run `yarn openapi:publisher`\nand commit the regenerated file. A test fails if you forget.\n\nNot documented here, deliberately:\n  - `/users` and `/users/{id}` — placeholder routes returning example data.\n  - `/test-support/**` — test-only routes, enabled by `ENABLE_TEST_SUPPORT`.\n",
+    "description": "Court and Tribunal Hearings (CaTH) JSON API.\n\nThe primary consumer-facing operation is `POST /publication` (also served at\n`POST /v1/publication`), used by upstream source systems (SNL, Common Platform,\nCP_CATH, PDDA) to publish hearing lists into CaTH. It implements the CaTH Inbound\nPublication API contract: all metadata travels in `x-*` request headers and the body\ncarries only the payload. All other operations are read-only.\n\nUpstream source systems should call `POST /publication` through the CFT API\nManagement gateway (`https://cft-api-mgmt.{environment}.platform.hmcts.net/cath`, or\n`https://cft-api-mgmt.platform.hmcts.net/cath` in production). The gateway validates\nthe caller's bearer token and the `api.publisher.user` app role, then calls `cath-api`\nwith its own token, so callers never reach `cath-api` directly.\nOnly `POST /publication` and `GET /` (a welcome check, which also needs a token) are\nexposed through the gateway.\n\nThis document is maintained by hand. It is not generated from the router, so if you\nchange a route or a request/response shape in `apps/api` or `libs/public-pages`,\nupdate this file in the same change.\n\nThe publisher-facing document that APIM imports\n(`infrastructure/resources/swagger/api-swagger.json`) is generated from this file, its\n`x-publisher` block and the list type reference data. After changing either operation\nexposed through APIM, its components, or `x-publisher`, run `yarn openapi:publisher`\nand commit the regenerated file. A test fails if you forget.\n\nNot documented here, deliberately:\n  - `/users` and `/users/{id}` — placeholder routes returning example data.\n  - `/test-support/**` — test-only routes, enabled by `ENABLE_TEST_SUPPORT`.\n",
     "license": {
       "name": "MIT"
     }
@@ -36,6 +36,10 @@
           ]
         }
       }
+    },
+    {
+      "url": "https://cft-api-mgmt.platform.hmcts.net/cath",
+      "description": "Production CFT API Management gateway. Prod hostnames carry no environment label. Exposes `POST /publication` and `GET /` only."
     },
     {
       "url": "https://cath-cath-service-{environment}-api.{environment}.platform.hmcts.net",
@@ -1248,6 +1252,10 @@
             ]
           }
         }
+      },
+      {
+        "url": "https://cft-api-mgmt.platform.hmcts.net/cath",
+        "description": "Production CFT API Management gateway. Validates the bearer token and app role, then calls CaTH with its own token. This is the only entry point for publishing source systems in production."
       }
     ],
     "securitySchemes": {
