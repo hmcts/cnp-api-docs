@@ -1,0 +1,963 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "dtsse-doc-render",
+    "version": "1.0.0",
+    "summary": "Docmosis-compatible template merge and conversion service.",
+    "description": "Renders a Word (.docx) template with JSON data and converts the result to PDF, DOCX, DOC, ODT, HTML or TXT.\nIt implements the Docmosis Tornado REST operations that services use (`render` and `convert`), under both the\n`/rs` and the `/api` prefix, so an existing Docmosis client only changes its base URL.\n\nTemplates are always sent with the request, either inline (`templateBase64`, `templateFile`) or as `includes`.\nNaming a stored template is not supported, and nothing is stored between requests. There is no authentication:\nan `accessKey` is accepted and ignored.\n\nErrors use the Docmosis shape: `{\"succeeded\": false, \"shortMsg\": \"...\", \"longMsg\": \"...\"}`.\n\nThe `/rs/*` and `/api/*` paths are the same operations. Each `/api/*` operation has the `Api` suffix on its\n`operationId`, and shares its request and response definitions with the `/rs/*` one.\n",
+    "license": {
+      "name": "MIT",
+      "identifier": "MIT"
+    },
+    "contact": {
+      "name": "DTS Software Engineering",
+      "url": "https://github.com/hmcts/dtsse-doc-render"
+    }
+  },
+  "servers": [
+    {
+      "url": "https://doc-render.aat.platform.hmcts.net",
+      "description": "AAT, reachable from the HMCTS network only."
+    }
+  ],
+  "security": [],
+  "tags": [
+    {
+      "name": "Rendering",
+      "description": "Merge a template with data, and convert documents."
+    },
+    {
+      "name": "Docmosis compatibility",
+      "description": "Docmosis operations that exist so a Docmosis client works unchanged."
+    },
+    {
+      "name": "Operations",
+      "description": "Health checks and this document."
+    }
+  ],
+  "paths": {
+    "/health": {
+      "get": {
+        "operationId": "health",
+        "tags": [
+          "Operations"
+        ],
+        "summary": "Liveness, for the platform health check",
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/Up"
+          },
+          "405": {
+            "$ref": "#/components/responses/MethodNotAllowed"
+          }
+        }
+      }
+    },
+    "/health/liveness": {
+      "get": {
+        "operationId": "liveness",
+        "tags": [
+          "Operations"
+        ],
+        "summary": "Liveness",
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/Up"
+          },
+          "405": {
+            "$ref": "#/components/responses/MethodNotAllowed"
+          }
+        }
+      }
+    },
+    "/health/readiness": {
+      "get": {
+        "operationId": "readiness",
+        "tags": [
+          "Operations"
+        ],
+        "summary": "Readiness, which is whether LibreOffice can convert",
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/Up"
+          },
+          "405": {
+            "$ref": "#/components/responses/MethodNotAllowed"
+          },
+          "503": {
+            "description": "The converter is not ready.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Health"
+                },
+                "example": {
+                  "status": "DOWN"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/openapi.yaml": {
+      "get": {
+        "operationId": "openapi",
+        "tags": [
+          "Operations"
+        ],
+        "summary": "This document",
+        "responses": {
+          "200": {
+            "description": "The OpenAPI document.",
+            "content": {
+              "application/yaml": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "405": {
+            "$ref": "#/components/responses/MethodNotAllowed"
+          }
+        }
+      }
+    },
+    "/rs/status": {
+      "$ref": "#/components/pathItems/Status"
+    },
+    "/api/status": {
+      "$ref": "#/components/pathItems/StatusApi"
+    },
+    "/rs/ping": {
+      "$ref": "#/components/pathItems/Ping"
+    },
+    "/api/ping": {
+      "$ref": "#/components/pathItems/PingApi"
+    },
+    "/rs/render": {
+      "$ref": "#/components/pathItems/Render"
+    },
+    "/api/render": {
+      "$ref": "#/components/pathItems/RenderApi"
+    },
+    "/rs/convert": {
+      "$ref": "#/components/pathItems/Convert"
+    },
+    "/api/convert": {
+      "$ref": "#/components/pathItems/ConvertApi"
+    },
+    "/rs/getTemplateStructure": {
+      "$ref": "#/components/pathItems/GetTemplateStructure"
+    },
+    "/api/getTemplateStructure": {
+      "$ref": "#/components/pathItems/GetTemplateStructureApi"
+    },
+    "/rs/getSampleData": {
+      "$ref": "#/components/pathItems/GetSampleData"
+    },
+    "/api/getSampleData": {
+      "$ref": "#/components/pathItems/GetSampleDataApi"
+    }
+  },
+  "components": {
+    "pathItems": {
+      "Status": {
+        "get": {
+          "operationId": "status",
+          "tags": [
+            "Docmosis compatibility"
+          ],
+          "summary": "Whether the service can render",
+          "description": "Answers GET only. `ready` is false while LibreOffice cannot convert.",
+          "responses": {
+            "200": {
+              "description": "The service and its converter.",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Status"
+                  }
+                }
+              }
+            },
+            "405": {
+              "$ref": "#/components/responses/MethodNotAllowed"
+            }
+          }
+        }
+      },
+      "Ping": {
+        "get": {
+          "operationId": "ping",
+          "tags": [
+            "Docmosis compatibility"
+          ],
+          "summary": "Responds with the text `pong`",
+          "description": "Answers GET only.",
+          "responses": {
+            "200": {
+              "description": "pong",
+              "content": {
+                "text/plain": {
+                  "schema": {
+                    "type": "string",
+                    "const": "pong"
+                  }
+                }
+              }
+            },
+            "405": {
+              "$ref": "#/components/responses/MethodNotAllowed"
+            }
+          }
+        }
+      },
+      "Render": {
+        "post": {
+          "operationId": "render",
+          "tags": [
+            "Rendering"
+          ],
+          "summary": "Merge a template with data and return the document",
+          "description": "The template travels with the request. Send JSON (`templateBase64`), a multipart form (`templateFile`),\nor a form-urlencoded body with the same fields as the JSON one.\n\nA template that does not merge cleanly is a 400, unless `devMode` is true, which returns the document\nwith the merge problems written into it.\n\n`outputFormat` wins over the extension of `outputName`. Without `outputFormat`, `outputName` must end in a\nknown extension, and defaults to `output.pdf`.\n",
+          "requestBody": {
+            "$ref": "#/components/requestBodies/Render"
+          },
+          "responses": {
+            "200": {
+              "$ref": "#/components/responses/Rendered"
+            },
+            "400": {
+              "$ref": "#/components/responses/BadRequest"
+            },
+            "405": {
+              "$ref": "#/components/responses/MethodNotAllowed"
+            },
+            "413": {
+              "$ref": "#/components/responses/TooLarge"
+            },
+            "500": {
+              "$ref": "#/components/responses/ServerError"
+            },
+            "503": {
+              "$ref": "#/components/responses/Busy"
+            }
+          }
+        }
+      },
+      "Convert": {
+        "post": {
+          "operationId": "convert",
+          "tags": [
+            "Rendering"
+          ],
+          "summary": "Convert an uploaded document to PDF",
+          "description": "Accepts the document types LibreOffice can open from the uploaded file's extension (docx, doc, odt, rtf,\nxlsx, pptx and the like). A type it does not accept, or a file whose content does not match its extension, is refused with a 400.\n",
+          "requestBody": {
+            "$ref": "#/components/requestBodies/Convert"
+          },
+          "responses": {
+            "200": {
+              "$ref": "#/components/responses/Converted"
+            },
+            "400": {
+              "$ref": "#/components/responses/BadRequest"
+            },
+            "405": {
+              "$ref": "#/components/responses/MethodNotAllowed"
+            },
+            "413": {
+              "$ref": "#/components/responses/TooLarge"
+            },
+            "500": {
+              "$ref": "#/components/responses/ServerError"
+            },
+            "503": {
+              "$ref": "#/components/responses/Busy"
+            }
+          }
+        }
+      },
+      "GetTemplateStructure": {
+        "get": {
+          "operationId": "getTemplateStructure",
+          "tags": [
+            "Docmosis compatibility"
+          ],
+          "summary": "Not implemented",
+          "responses": {
+            "501": {
+              "$ref": "#/components/responses/NotImplemented"
+            },
+            "405": {
+              "$ref": "#/components/responses/MethodNotAllowed"
+            }
+          }
+        },
+        "post": {
+          "operationId": "getTemplateStructurePost",
+          "tags": [
+            "Docmosis compatibility"
+          ],
+          "summary": "Not implemented",
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "responses": {
+            "501": {
+              "$ref": "#/components/responses/NotImplemented"
+            },
+            "405": {
+              "$ref": "#/components/responses/MethodNotAllowed"
+            }
+          }
+        }
+      },
+      "GetSampleData": {
+        "get": {
+          "operationId": "getSampleData",
+          "tags": [
+            "Docmosis compatibility"
+          ],
+          "summary": "Not implemented",
+          "responses": {
+            "501": {
+              "$ref": "#/components/responses/NotImplemented"
+            },
+            "405": {
+              "$ref": "#/components/responses/MethodNotAllowed"
+            }
+          }
+        },
+        "post": {
+          "operationId": "getSampleDataPost",
+          "tags": [
+            "Docmosis compatibility"
+          ],
+          "summary": "Not implemented",
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "responses": {
+            "501": {
+              "$ref": "#/components/responses/NotImplemented"
+            },
+            "405": {
+              "$ref": "#/components/responses/MethodNotAllowed"
+            }
+          }
+        }
+      },
+      "StatusApi": {
+        "get": {
+          "operationId": "statusApi",
+          "tags": [
+            "Docmosis compatibility"
+          ],
+          "summary": "Whether the service can render",
+          "description": "Answers GET only. `ready` is false while LibreOffice cannot convert.",
+          "responses": {
+            "200": {
+              "description": "The service and its converter.",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Status"
+                  }
+                }
+              }
+            },
+            "405": {
+              "$ref": "#/components/responses/MethodNotAllowed"
+            }
+          }
+        }
+      },
+      "PingApi": {
+        "get": {
+          "operationId": "pingApi",
+          "tags": [
+            "Docmosis compatibility"
+          ],
+          "summary": "Responds with the text `pong`",
+          "description": "Answers GET only.",
+          "responses": {
+            "200": {
+              "description": "pong",
+              "content": {
+                "text/plain": {
+                  "schema": {
+                    "type": "string",
+                    "const": "pong"
+                  }
+                }
+              }
+            },
+            "405": {
+              "$ref": "#/components/responses/MethodNotAllowed"
+            }
+          }
+        }
+      },
+      "RenderApi": {
+        "post": {
+          "operationId": "renderApi",
+          "tags": [
+            "Rendering"
+          ],
+          "summary": "Merge a template with data and return the document",
+          "description": "The template travels with the request. Send JSON (`templateBase64`), a multipart form (`templateFile`),\nor a form-urlencoded body with the same fields as the JSON one.\n\nA template that does not merge cleanly is a 400, unless `devMode` is true, which returns the document\nwith the merge problems written into it.\n\n`outputFormat` wins over the extension of `outputName`. Without `outputFormat`, `outputName` must end in a\nknown extension, and defaults to `output.pdf`.\n",
+          "requestBody": {
+            "$ref": "#/components/requestBodies/Render"
+          },
+          "responses": {
+            "200": {
+              "$ref": "#/components/responses/Rendered"
+            },
+            "400": {
+              "$ref": "#/components/responses/BadRequest"
+            },
+            "405": {
+              "$ref": "#/components/responses/MethodNotAllowed"
+            },
+            "413": {
+              "$ref": "#/components/responses/TooLarge"
+            },
+            "500": {
+              "$ref": "#/components/responses/ServerError"
+            },
+            "503": {
+              "$ref": "#/components/responses/Busy"
+            }
+          }
+        }
+      },
+      "ConvertApi": {
+        "post": {
+          "operationId": "convertApi",
+          "tags": [
+            "Rendering"
+          ],
+          "summary": "Convert an uploaded document to PDF",
+          "description": "Accepts the document types LibreOffice can open from the uploaded file's extension (docx, doc, odt, rtf,\nxlsx, pptx and the like). A type it does not accept, or a file whose content does not match its extension, is refused with a 400.\n",
+          "requestBody": {
+            "$ref": "#/components/requestBodies/Convert"
+          },
+          "responses": {
+            "200": {
+              "$ref": "#/components/responses/Converted"
+            },
+            "400": {
+              "$ref": "#/components/responses/BadRequest"
+            },
+            "405": {
+              "$ref": "#/components/responses/MethodNotAllowed"
+            },
+            "413": {
+              "$ref": "#/components/responses/TooLarge"
+            },
+            "500": {
+              "$ref": "#/components/responses/ServerError"
+            },
+            "503": {
+              "$ref": "#/components/responses/Busy"
+            }
+          }
+        }
+      },
+      "GetTemplateStructureApi": {
+        "get": {
+          "operationId": "getTemplateStructureApi",
+          "tags": [
+            "Docmosis compatibility"
+          ],
+          "summary": "Not implemented",
+          "responses": {
+            "501": {
+              "$ref": "#/components/responses/NotImplemented"
+            },
+            "405": {
+              "$ref": "#/components/responses/MethodNotAllowed"
+            }
+          }
+        },
+        "post": {
+          "operationId": "getTemplateStructurePostApi",
+          "tags": [
+            "Docmosis compatibility"
+          ],
+          "summary": "Not implemented",
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "responses": {
+            "501": {
+              "$ref": "#/components/responses/NotImplemented"
+            },
+            "405": {
+              "$ref": "#/components/responses/MethodNotAllowed"
+            }
+          }
+        }
+      },
+      "GetSampleDataApi": {
+        "get": {
+          "operationId": "getSampleDataApi",
+          "tags": [
+            "Docmosis compatibility"
+          ],
+          "summary": "Not implemented",
+          "responses": {
+            "501": {
+              "$ref": "#/components/responses/NotImplemented"
+            },
+            "405": {
+              "$ref": "#/components/responses/MethodNotAllowed"
+            }
+          }
+        },
+        "post": {
+          "operationId": "getSampleDataPostApi",
+          "tags": [
+            "Docmosis compatibility"
+          ],
+          "summary": "Not implemented",
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "responses": {
+            "501": {
+              "$ref": "#/components/responses/NotImplemented"
+            },
+            "405": {
+              "$ref": "#/components/responses/MethodNotAllowed"
+            }
+          }
+        }
+      }
+    },
+    "schemas": {
+      "OutputFormat": {
+        "type": "string",
+        "enum": [
+          "pdf",
+          "docx",
+          "doc",
+          "odt",
+          "html",
+          "txt"
+        ]
+      },
+      "Health": {
+        "type": "object",
+        "required": [
+          "status"
+        ],
+        "properties": {
+          "status": {
+            "type": "string",
+            "enum": [
+              "UP",
+              "DOWN"
+            ]
+          }
+        }
+      },
+      "Status": {
+        "type": "object",
+        "required": [
+          "ready",
+          "service",
+          "engine"
+        ],
+        "properties": {
+          "ready": {
+            "type": "boolean"
+          },
+          "service": {
+            "type": "string",
+            "const": "dtsse-doc-render"
+          },
+          "engine": {
+            "type": "string",
+            "const": "libreoffice"
+          }
+        }
+      },
+      "Error": {
+        "type": "object",
+        "description": "The Docmosis error shape.",
+        "required": [
+          "succeeded",
+          "shortMsg",
+          "longMsg"
+        ],
+        "properties": {
+          "succeeded": {
+            "type": "boolean",
+            "const": false
+          },
+          "shortMsg": {
+            "type": "string"
+          },
+          "longMsg": {
+            "type": "string"
+          }
+        }
+      },
+      "RenderRequest": {
+        "type": "object",
+        "required": [
+          "templateBase64"
+        ],
+        "properties": {
+          "templateBase64": {
+            "type": "string",
+            "description": "The .docx template, base64 encoded. A `data:` URL prefix, whitespace and the URL-safe alphabet are accepted."
+          },
+          "templateName": {
+            "type": "string",
+            "description": "Used only to name the template in error messages."
+          },
+          "includes": {
+            "type": "object",
+            "description": "Templates that `ref:` and `refLookup:` tags may name, from the name the tag uses to the .docx, base64 encoded. At most 100.",
+            "additionalProperties": {
+              "type": "string"
+            }
+          },
+          "outputName": {
+            "type": "string",
+            "default": "output.pdf",
+            "description": "The name of the returned attachment."
+          },
+          "outputFormat": {
+            "$ref": "#/components/schemas/OutputFormat"
+          },
+          "devMode": {
+            "type": "boolean",
+            "default": false,
+            "description": "Return the document with merge problems written into it, instead of failing with a 400."
+          },
+          "data": {
+            "description": "The merge data. A string is parsed as JSON.",
+            "oneOf": [
+              {
+                "type": "object"
+              },
+              {
+                "type": "array"
+              },
+              {
+                "type": "string"
+              }
+            ]
+          },
+          "accessKey": {
+            "type": "string",
+            "description": "Accepted so that Docmosis clients need no change, and ignored."
+          }
+        }
+      },
+      "RenderForm": {
+        "type": "object",
+        "required": [
+          "templateFile"
+        ],
+        "properties": {
+          "templateFile": {
+            "type": "string",
+            "format": "binary",
+            "description": "The .docx template."
+          },
+          "include": {
+            "type": "array",
+            "description": "Templates that `ref:` and `refLookup:` tags may name. Each part's filename is the name the tag uses. At most 100.",
+            "items": {
+              "type": "string",
+              "format": "binary"
+            }
+          },
+          "data": {
+            "type": "string",
+            "description": "The merge data as JSON, either a form field or a file part."
+          },
+          "outputName": {
+            "type": "string",
+            "default": "output.pdf"
+          },
+          "outputFormat": {
+            "$ref": "#/components/schemas/OutputFormat"
+          },
+          "devMode": {
+            "type": "boolean",
+            "default": false
+          }
+        }
+      },
+      "ConvertForm": {
+        "type": "object",
+        "required": [
+          "file"
+        ],
+        "properties": {
+          "file": {
+            "type": "string",
+            "format": "binary",
+            "description": "The document to convert. Its filename extension says what it is."
+          },
+          "outputName": {
+            "type": "string",
+            "default": "output.pdf"
+          }
+        }
+      }
+    },
+    "requestBodies": {
+      "Render": {
+        "required": true,
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/RenderRequest"
+            }
+          },
+          "multipart/form-data": {
+            "schema": {
+              "$ref": "#/components/schemas/RenderForm"
+            },
+            "encoding": {
+              "templateFile": {
+                "contentType": "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+              },
+              "include": {
+                "contentType": "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+              },
+              "data": {
+                "contentType": "application/json"
+              }
+            }
+          }
+        }
+      },
+      "Convert": {
+        "required": true,
+        "content": {
+          "multipart/form-data": {
+            "schema": {
+              "$ref": "#/components/schemas/ConvertForm"
+            }
+          }
+        }
+      }
+    },
+    "responses": {
+      "Rendered": {
+        "description": "The rendered document.",
+        "headers": {
+          "Content-Disposition": {
+            "description": "An attachment named from `outputName`, with an RFC 5987 UTF-8 filename.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        },
+        "content": {
+          "application/pdf": {
+            "schema": {
+              "type": "string",
+              "format": "binary"
+            }
+          },
+          "application/vnd.openxmlformats-officedocument.wordprocessingml.document": {
+            "schema": {
+              "type": "string",
+              "format": "binary"
+            }
+          },
+          "application/msword": {
+            "schema": {
+              "type": "string",
+              "format": "binary"
+            }
+          },
+          "application/vnd.oasis.opendocument.text": {
+            "schema": {
+              "type": "string",
+              "format": "binary"
+            }
+          },
+          "text/html": {
+            "schema": {
+              "type": "string"
+            }
+          },
+          "text/plain": {
+            "schema": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "Converted": {
+        "description": "The PDF.",
+        "headers": {
+          "Content-Disposition": {
+            "description": "An attachment named from `outputName`.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        },
+        "content": {
+          "application/pdf": {
+            "schema": {
+              "type": "string",
+              "format": "binary"
+            }
+          }
+        }
+      },
+      "Up": {
+        "description": "Up.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Health"
+            },
+            "example": {
+              "status": "UP"
+            }
+          }
+        }
+      },
+      "BadRequest": {
+        "description": "The request, the template or its data is invalid, or the merge failed.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            },
+            "example": {
+              "succeeded": false,
+              "shortMsg": "Invalid template",
+              "longMsg": "the inline template is not a .docx"
+            }
+          }
+        }
+      },
+      "NotFound": {
+        "description": "No such endpoint.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            }
+          }
+        }
+      },
+      "MethodNotAllowed": {
+        "description": "The path does not answer this method. The `Allow` header lists the ones it does.",
+        "headers": {
+          "Allow": {
+            "description": "The methods the path answers.",
+            "schema": {
+              "type": "string"
+            },
+            "example": "POST"
+          }
+        },
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            }
+          }
+        }
+      },
+      "TooLarge": {
+        "description": "The request body is over the 50 MiB limit. The connection is closed after the response.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            }
+          }
+        }
+      },
+      "ServerError": {
+        "description": "The conversion failed, or timed out, or the service failed unexpectedly.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            }
+          }
+        }
+      },
+      "NotImplemented": {
+        "description": "A Docmosis operation this service does not implement.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            },
+            "example": {
+              "succeeded": false,
+              "shortMsg": "not supported by dtsse-doc-render",
+              "longMsg": "This Docmosis operation is not implemented by dtsse-doc-render"
+            }
+          }
+        }
+      },
+      "Busy": {
+        "description": "The conversion queue is full or a slot did not free up in time. Retry after the delay.",
+        "headers": {
+          "Retry-After": {
+            "description": "Seconds to wait before retrying.",
+            "schema": {
+              "type": "integer"
+            },
+            "example": 5
+          }
+        },
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            }
+          }
+        }
+      }
+    }
+  }
+}
