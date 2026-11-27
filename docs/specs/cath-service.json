@@ -114,6 +114,11 @@
                       "type": "string",
                       "example": "1.0.0"
                     },
+                    "gitCommit": {
+                      "type": "string",
+                      "description": "The commit the running image was built from, or `unknown`.",
+                      "example": "20615f838c2b8a0f1d6e4c3b5a7d9e1f2a4b6c8d"
+                    },
                     "endpoints": {
                       "type": "object",
                       "properties": {
